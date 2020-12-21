@@ -1,6 +1,6 @@
 variables:
   - name: projPath
-    value: '/library_samples/Python/'
+    value: '/src/'
 
 jobs:
   - job: PublishLibrary

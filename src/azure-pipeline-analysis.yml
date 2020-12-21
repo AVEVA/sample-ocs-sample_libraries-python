@@ -5,7 +5,7 @@ trigger:
       - master
   paths:
     include:
-      - '/library_samples/Python'
+      - '/src/'
 
 pr:
   branches:
@@ -13,7 +13,7 @@ pr:
       - master
   paths:
     include:
-      - '/library_samples/Python'
+      - '/src/'
 
 schedules:
   - cron: '0 0 * * 0'
@@ -23,15 +23,22 @@ schedules:
         - master
     always: true
 
+resources:
+  repositories:
+  - repository: templates
+    type: github
+    name: osisoft/OSI-Samples
+    endpoint: osisoft/OSI-Samples
+
 variables:
-  - template: '/miscellaneous/build_templates/variables.yml'
+  - template: '/miscellaneous/build_templates/variables.yml@templates'
   - name: projPath
-    value: '/library_samples/Python'
+    value: '/src/'
   - name: analysisProject
     value: Lib_Python
 
 jobs:
-  - template: '/miscellaneous/build_templates/analysis.yml'
+  - template: '/miscellaneous/build_templates/analysis.yml@templates'
     parameters:
       language: python
       lib: true

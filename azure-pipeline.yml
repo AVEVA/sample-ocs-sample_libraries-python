@@ -1,6 +1,6 @@
 variables:
   - name: projPath
-    value: '/src/'
+    value: '/'
 
 jobs:
   - job: PublishLibrary

@@ -1,5 +1,9 @@
 # Version History
 
+## 0.1.16_preview / 2021-01-26
+
+- Updated versions and readme.  0.1.15 skipped due to pipeline issues
+
 ## 0.1.14_preview / 2021-01-25
 
 - Updated dependencies

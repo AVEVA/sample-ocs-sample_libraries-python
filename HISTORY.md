@@ -1,5 +1,9 @@
 # Version History
 
+## 0.1.14_preview / 2021-01-25
+
+- Updated dependencies
+
 ## 0.1.13_preview / 2020-10-20
 
 - Added patchMetadata method to edit stream metadata

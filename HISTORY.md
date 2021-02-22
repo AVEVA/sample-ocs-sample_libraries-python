@@ -2,7 +2,7 @@
 
 ## 0.1.17_preview / 2021-02-24
 
-- Updated ocsclients to expose the baseclient
+- Updated ocsclients and edsclients to expose the baseclient
 
 ## 0.1.16_preview / 2021-01-26
 

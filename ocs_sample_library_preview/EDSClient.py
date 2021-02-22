@@ -64,3 +64,10 @@ class EDSClient:
         :return: A client for interacting with Streams
         """
         return self.__Streams
+
+    @property
+    def baseClient(self):
+        """
+        :return: A client for interacting with the baseclient directly
+        """
+        return self.__baseClient

@@ -1,19 +1,9 @@
-variables:
-  - name: projPath
-    value: '/'
-
 jobs:
   - job: PublishLibrary
     pool:
-      vmImage: ubuntu-latest
+      name: 00-OSIManaged-Containers
+      demands: Agent.OS -equals Linux
     steps:
-      - task: UsePythonVersion@0
-        inputs:
-          versionSpec: '3.x'
-          addToPath: true
-          architecture: 'x64'
-        displayName: 'Specify Python version'
-
       - bash: |
           echo Install tools
           pip install wheel
@@ -23,5 +13,4 @@ jobs:
           echo Upload library
           python -m twine upload dist/* -u $(username) -p $(password)
           echo Complete
-        workingDirectory: $(Build.SourcesDirectory)$(projPath)/
         displayName: 'Publish library'

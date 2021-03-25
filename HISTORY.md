@@ -1,12 +1,17 @@
 # Version History
 
+## 0.1.18_preview / 2021-03-24
+
+- Updated pipeline to use internal agent pool
+- Updated pipeline to reference main branch
+
 ## 0.1.17_preview / 2021-02-24
 
 - Updated ocsclients and edsclients to expose the baseclient
 
 ## 0.1.16_preview / 2021-01-26
 
-- Updated versions and readme.  0.1.15 skipped due to pipeline issues
+- Updated versions and readme. 0.1.15 skipped due to pipeline issues
 
 ## 0.1.14_preview / 2021-01-25
 

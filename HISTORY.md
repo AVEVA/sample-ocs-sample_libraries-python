@@ -1,5 +1,9 @@
 # Version History
 
+## 0.1.19_preview / 2021-04-08
+
+- Added OCS Assets models and API endpoints
+
 ## 0.1.18_preview / 2021-03-24
 
 - Updated pipeline to use internal agent pool

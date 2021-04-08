@@ -1,7 +1,8 @@
+from .Assets import Assets
 from .BaseClient import BaseClient
 from .DataViews import DataViews
-from .Types import Types
 from .Streams import Streams
+from .Types import Types
 
 
 class OCSClient:
@@ -23,9 +24,10 @@ class OCSClient:
         """
         self.__baseClient = BaseClient(apiversion, tenant, url, clientId,
                                        clientSecret, acceptVerbosity)
+        self.__Assets = Assets(self.__baseClient)
         self.__DataViews = DataViews(self.__baseClient)
-        self.__Types = Types(self.__baseClient)
         self.__Streams = Streams(self.__baseClient)
+        self.__Types = Types(self.__baseClient)
 
     @property
     def uri(self):
@@ -64,6 +66,13 @@ class OCSClient:
         self.__baseClient.RequestTimeout = timeout
 
     @property
+    def Assets(self):
+        """
+        :return: A client for interacting with Assets
+        """
+        return self.__Assets
+
+    @property
     def DataViews(self):
         """
         :return: A client for interacting with Data Views
@@ -71,18 +80,18 @@ class OCSClient:
         return self.__DataViews
 
     @property
-    def Types(self):
-        """
-        :return: A client for interacting with Types
-        """
-        return self.__Types
-
-    @property
     def Streams(self):
         """
         :return: A client for interacting with Streams
         """
         return self.__Streams
+
+    @property
+    def Types(self):
+        """
+        :return: A client for interacting with Types
+        """
+        return self.__Types
 
     @property
     def baseClient(self):

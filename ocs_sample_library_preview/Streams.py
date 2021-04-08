@@ -1,4 +1,5 @@
 import json
+from typing import List
 
 from .BaseClient import BaseClient
 from .SDS.SdsStream import SdsStream
@@ -261,7 +262,7 @@ class Streams(object):
             response, "Failed to get all SdsStreams.")
 
         content = json.loads(response.content)
-        results: [SdsStream] = []
+        results: List[SdsStream] = []
         for item in content:
             results.append(SdsStream.fromJson(item))
         response.close()

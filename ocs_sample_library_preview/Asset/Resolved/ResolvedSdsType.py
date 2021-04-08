@@ -36,7 +36,7 @@ class ResolvedSdsType(object):
             return result
 
         if 'SdsTypeCode' in content:
-            result.SdsTypeCode = SdsTypeCode[content['SdsTypeCode']]
+            result.SdsTypeCode = SdsTypeCode(content['SdsTypeCode'])
 
         if 'Properties' in content:
             properties = content['Properties']

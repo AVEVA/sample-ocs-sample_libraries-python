@@ -5,9 +5,6 @@ from .Status.StatusMapping import StatusMapping
 from .MetadataItem import MetadataItem
 from .TypeReference import TypeReference
 
-# Alias class to avoid conflict with StatusMapping property
-StatusMappingType = StatusMapping
-
 
 class AssetType(object):
     """OCS Asset Type definition"""
@@ -15,7 +12,7 @@ class AssetType(object):
     def __init__(self, id: str = None, name: str = None, description: str = None,
                  metadata: MetadataItem = None,
                  type_references: List[TypeReference] = None,
-                 status_mapping: StatusMappingType = None):
+                 status: StatusMapping = None):
         """
         :param id: required
         :param name: not required
@@ -29,7 +26,7 @@ class AssetType(object):
         self.Description = description
         self.Metadata = metadata
         self.TypeReferences = type_references
-        self.StatusMapping = status_mapping
+        self.Status = status
 
     @property
     def Id(self) -> str:
@@ -83,7 +80,7 @@ class AssetType(object):
         self.__description = value
 
     @property
-    def Metadata(self) -> MetadataItem:
+    def Metadata(self) -> List[MetadataItem]:
         """
         array of MetadataItem    not required
         :return:
@@ -91,7 +88,7 @@ class AssetType(object):
         return self.__metadata
 
     @Metadata.setter
-    def Metadata(self, value: MetadataItem):
+    def Metadata(self, value: List[MetadataItem]):
         """
         array of MetadataItem    not required
         :param value:
@@ -117,21 +114,21 @@ class AssetType(object):
         self.__type_references = value
 
     @property
-    def StatusMapping(self) -> StatusMappingType:
+    def Status(self) -> StatusMapping:
         """
         StatusMapping    not required
         :return:
         """
-        return self.__status_mapping
+        return self.__status
 
-    @StatusMapping.setter
-    def StatusMapping(self, value: StatusMappingType):
+    @Status.setter
+    def Status(self, value: StatusMapping):
         """
         StatusMapping    not required
         :param value:
         :return:
         """
-        self.__status_mapping = value
+        self.__status = value
 
     def to_json(self):
         return json.dumps(self.to_dictionary())
@@ -151,7 +148,7 @@ class AssetType(object):
             if self.Metadata is not None:
                 result['Metadata'] = []
                 for value in self.Metadata:
-                    result['Metadata'].append(value.toDictionary())
+                    result['Metadata'].append(value.to_dictionary())
 
         if hasattr(self, 'TypeReferences'):
             if self.TypeReferences is not None:
@@ -159,9 +156,9 @@ class AssetType(object):
                 for value in self.TypeReferences:
                     result['TypeReferences'].append(value.to_dictionary())
 
-        if hasattr(self, 'StatusMapping'):
-            if self.StatusMapping is not None:
-                result['StatusMapping'] = self.StatusMapping.to_dictionary()
+        if hasattr(self, 'Status'):
+            if self.Status is not None:
+                result['Status'] = self.Status.to_dictionary()
 
         return result
 
@@ -196,6 +193,5 @@ class AssetType(object):
                     result.TypeReferences.append(
                         TypeReference.from_json(value))
 
-        if 'StatusMapping' in content:
-            result.StatusMapping = StatusMappingType.from_json(
-                content['StatusMapping'])
+        if 'Status' in content:
+            result.Status = StatusMapping.from_json(content['Status'])

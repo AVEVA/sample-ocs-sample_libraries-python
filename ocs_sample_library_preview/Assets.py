@@ -500,7 +500,7 @@ class Assets(object):
         :return:
         """
         self.__base_path = self.__base_client.uri_API + '/Tenants/' + \
-            self.__base_client.tenant + '/Namespace/{namespace_id}'
+            self.__base_client.tenant + '/Namespaces/{namespace_id}'
         self.__assets_path = self.__base_path + '/Assets'
         self.__asset_types_path = self.__base_path + '/AssetTypes'
         self.__bulk_path = self.__base_path + '/Bulk/Assets'

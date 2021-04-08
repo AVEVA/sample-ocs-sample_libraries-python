@@ -101,10 +101,12 @@ class ResolvedProperty(object):
             result.Order = content['Order']
 
         if 'InterpolationMode' in content:
-            result.InterpolationMode = SdsInterpolationMode[content['InterpolationMode']]
+            result.InterpolationMode = SdsInterpolationMode(
+                content['InterpolationMode'])
 
         if 'ExtrapolationMode' in content:
-            result.ExtrapolationMode = SdsExtrapolationMode[content['ExtrapolationMode']]
+            result.ExtrapolationMode = SdsExtrapolationMode(
+                content['ExtrapolationMode'])
 
         if 'SdsType' in content:
             result.SdsType = ResolvedSdsType.from_json(

@@ -63,7 +63,7 @@ class StatusData(object):
             result.AssetId = content['AssetId']
 
         if 'Status' in content:
-            result.Status = StatusEnum[content['Status']]
+            result.Status = StatusEnum(content['Status'])
 
         if 'Value' in content:
             result.Value = content['Value']

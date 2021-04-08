@@ -73,7 +73,7 @@ class ValueStatusMapping(object):
 
     def to_dictionary(self):
         # required properties
-        result = {'Value': self.Value, 'Status': self.Status}
+        result = {'Value': self.Value, 'Status': self.Status.value}
 
         # optional properties
         if hasattr(self, 'DisplayName'):
@@ -92,7 +92,7 @@ class ValueStatusMapping(object):
             result.Value = content['Value']
 
         if 'Status' in content:
-            result.Status = StatusEnum[content['Status']]
+            result.Status = StatusEnum(content['Status'])
 
         if 'DisplayName' in content:
             result.DisplayName = content['DisplayName']

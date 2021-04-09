@@ -1,3 +1,6 @@
+import json
+
+
 class UnresolvedStream(object):
     def __init__(self, name: str = None, reason: str = None):
         self.Name = name
@@ -19,6 +22,12 @@ class UnresolvedStream(object):
     def Reason(self, value: str):
         self.__reason = value
 
+    def to_json(self):
+        return json.dumps(self.to_dictionary())
+
+    def to_dictionary(self):
+        return {'Name': self.Name, 'Reason': self.Reason}
+
     @staticmethod
     def from_json(content):
         result = UnresolvedStream()
@@ -31,3 +40,5 @@ class UnresolvedStream(object):
 
         if 'Reason' in content:
             result.Reason = content['Reason']
+
+        return result

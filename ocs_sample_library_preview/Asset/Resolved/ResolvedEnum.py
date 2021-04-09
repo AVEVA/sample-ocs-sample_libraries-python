@@ -1,3 +1,4 @@
+import json
 from typing import Any
 
 
@@ -22,6 +23,12 @@ class ResolvedEnum(object):
     def Value(self, value: Any):
         self.__value = value
 
+    def to_json(self):
+        return json.dumps(self.to_dictionary())
+
+    def to_dictionary(self):
+        return {'Id': self.Id, 'Value': self.Value}
+
     @staticmethod
     def from_json(content):
         result = ResolvedEnum()
@@ -34,3 +41,5 @@ class ResolvedEnum(object):
 
         if 'Value' in content:
             result.Value = content['Value']
+
+        return result

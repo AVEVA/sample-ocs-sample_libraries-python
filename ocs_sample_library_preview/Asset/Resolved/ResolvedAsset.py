@@ -1,3 +1,4 @@
+import json
 from typing import List
 
 from ..MetadataItem import MetadataItem
@@ -93,6 +94,28 @@ class ResolvedAsset(object):
     def Status(self, value: ResolvedStatus):
         self.__status = value
 
+    def to_json(self):
+        return json.dumps(self.to_dictionary())
+
+    def to_dictionary(self):
+        result = {'Id': self.Id, 'Name': self.Name, 'Description': self.Description,
+                  'AssetTypeId': self.AssetTypeId, 'AssetTypeName': self.AssetTypeName,
+                  'Metadata': [], 'Streams': [], 'Status': self.Status.to_dictionary()}
+
+        if self.Metadata is not None:
+            for value in self.Metadata:
+                result['Metadata'].append(value.to_dictionary())
+
+        if self.Streams is not None:
+            for value in self.Streams:
+                result['Streams'].append(value.to_dictionary())
+
+        if self.UnresolvedStreams is not None:
+            for value in self.UnresolvedStreams:
+                result['UnresolvedStreams'].append(value.to_dictionary())
+
+        return result
+
     @staticmethod
     def from_json(content):
         result = ResolvedAsset()
@@ -142,3 +165,5 @@ class ResolvedAsset(object):
         if 'Status' in content:
             result.Status = ResolvedStatus.from_json(
                 content['Status'])
+
+        return result

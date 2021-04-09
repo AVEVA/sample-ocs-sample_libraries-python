@@ -1,3 +1,4 @@
+import json
 from typing import Any
 
 from .StatusEnum import StatusEnum
@@ -52,6 +53,13 @@ class StatusData(object):
     def DataRetrievalTime(self, value: str):
         self.__data_retrieval_time = value
 
+    def to_json(self):
+        return json.dumps(self.to_dictionary())
+
+    def to_dictionary(self):
+        return {'AssetId': self.AssetId, 'Status': self.Status.value, 'Value': self.Value,
+                'DisplayName': self.DisplayName, 'DataRetrievalTime': self.DataRetrievalTime}
+
     @staticmethod
     def from_json(content):
         result = StatusData()
@@ -73,3 +81,5 @@ class StatusData(object):
 
         if 'DataRetrievalTime' in content:
             result.DataRetrievalTime = content['DataRetrievalTime']
+
+        return result

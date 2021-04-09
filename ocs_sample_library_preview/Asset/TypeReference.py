@@ -120,3 +120,5 @@ class TypeReference(object):
 
         if 'TypeId' in content:
             result.TypeId = content['TypeId']
+
+        return result

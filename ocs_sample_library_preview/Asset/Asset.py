@@ -226,3 +226,5 @@ class Asset(object):
         if 'StatusMapping' in content:
             result.StatusMapping = StatusMappingType.from_json(
                 content['StatusMapping'])
+
+        return result

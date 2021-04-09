@@ -1,3 +1,6 @@
+import json
+
+
 class ResolvedStatus(object):
     def __init__(self, name: str = None, stream_name: str = None, stream_property_id: str = None):
         self.Name = name
@@ -28,6 +31,13 @@ class ResolvedStatus(object):
     def StreamPropertyId(self, value: str):
         self.__stream_property_id = value
 
+    def to_json(self):
+        return json.dumps(self.to_dictionary())
+
+    def to_dictionary(self):
+        return {'Name': self.Name, 'StreamName': self.StreamName,
+                'StreamPropertyId': self.StreamPropertyId}
+
     @staticmethod
     def from_json(content):
         result = ResolvedStatus()
@@ -43,3 +53,5 @@ class ResolvedStatus(object):
 
         if 'StreamPropertyId' in content:
             result.StreamPropertyId = content['StreamPropertyId']
+
+        return result

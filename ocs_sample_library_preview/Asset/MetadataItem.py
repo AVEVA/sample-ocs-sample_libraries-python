@@ -15,7 +15,7 @@ class MetadataItem(object):
         :param id: required
         :param name: required
         :param description: not required
-        :param sds_type_code: required
+        :param sds_type_code: not required
         :param uom: not required
         :param value: not required
         """
@@ -80,7 +80,7 @@ class MetadataItem(object):
     @property
     def SdsTypeCode(self) -> SdsTypeCodeType:
         """
-        SdsTypeCode required
+        SdsTypeCode    not required
         :return:
         """
         return self.__sds_type_code
@@ -88,7 +88,7 @@ class MetadataItem(object):
     @SdsTypeCode.setter
     def SdsTypeCode(self, value: SdsTypeCodeType):
         """
-        SdsTypeCode    required
+        SdsTypeCode    not required
         :param value:
         :return:
         """
@@ -133,12 +133,15 @@ class MetadataItem(object):
 
     def to_dictionary(self):
         # required properties
-        result = {'Id': self.Id, 'Name': self.Name,
-                  'SdsTypeCode': self.SdsTypeCode.value}
+        result = {'Id': self.Id, 'Name': self.Name}
 
         # optional properties
         if hasattr(self, 'Description'):
             result['Description'] = self.Description
+
+        if hasattr(self, 'SdsTypeCode'):
+            if self.SdsTypeCode is not None:
+                result['SdsTypeCode'] = self.SdsTypeCode.value
 
         if hasattr(self, 'Uom'):
             result['Uom'] = self.Uom
@@ -165,10 +168,12 @@ class MetadataItem(object):
             result.Description = content['Description']
 
         if 'SdsTypeCode' in content:
-            result.SdsTypeCode = SdsTypeCode(content['SdsTypeCode'])
+            result.SdsTypeCode = SdsTypeCode[content['SdsTypeCode']]
 
         if 'Uom' in content:
             result.Uom = content['Uom']
 
         if 'Value' in content:
             result.Value = content['Value']
+
+        return result

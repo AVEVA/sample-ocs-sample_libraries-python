@@ -1,3 +1,5 @@
+import json
+
 from ...SDS import SdsInterpolationMode, SdsExtrapolationMode
 from .ResolvedSource import ResolvedSource
 from .ResolvedSdsType import ResolvedSdsType
@@ -81,6 +83,15 @@ class ResolvedProperty(object):
     def Source(self, value: ResolvedSource):
         self.__source = value
 
+    def to_json(self):
+        return json.dumps(self.to_dictionary())
+
+    def to_dictionary(self):
+        return {'Id': self.Id, 'IsKey': self.IsKey, 'Uom': self.Uom, 'Order': self.Order,
+                'InterpolationMode': self.InterpolationMode,
+                'ExtrapolationMode': self.ExtrapolationMode,
+                'SdsType': self.SdsType.to_dictionary(), 'Source': self.Source.to_dictionary()}
+
     @staticmethod
     def from_json(content):
         result = ResolvedProperty()
@@ -115,3 +126,5 @@ class ResolvedProperty(object):
         if 'Source' in content:
             result.Source = ResolvedSource.from_json(
                 content['Source'])
+
+        return result

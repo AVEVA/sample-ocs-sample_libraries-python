@@ -117,3 +117,5 @@ class StreamReference(object):
 
         if 'StreamId' in content:
             result.StreamId = content['StreamId']
+
+        return result

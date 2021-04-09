@@ -1,3 +1,4 @@
+import json
 from typing import Any, List
 
 from .DataErrors import DataErrors
@@ -24,6 +25,17 @@ class DataResults(object):
     def Errors(self, value: DataErrors):
         self.__errors = value
 
+    def to_json(self):
+        return json.dumps(self.to_dictionary())
+
+    def to_dictionary(self):
+        result = {'Results': self.Results}
+
+        if self.Errors is not None:
+            result['Errors'] = self.Errors.to_dictionary()
+
+        return result
+
     @staticmethod
     def from_json(content):
         result = DataResults()
@@ -32,7 +44,13 @@ class DataResults(object):
             return result
 
         if 'Results' in content:
-            result.Results = content['Results']
+            results = content['Results']
+            if results is not None and len(results) > 0:
+                result.Results = {}
+                for key in results:
+                    result.Results[key] = results[key]
 
         if 'Errors' in content:
             result.Errors = DataErrors.from_json(content['Errors'])
+
+        return result

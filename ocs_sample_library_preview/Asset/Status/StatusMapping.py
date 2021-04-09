@@ -102,3 +102,5 @@ class StatusMapping(object):
                 for value in value_status_mappings:
                     result.ValueStatusMappings.append(
                         ValueStatusMapping.from_json(value))
+
+        return result

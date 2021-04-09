@@ -1,3 +1,6 @@
+import json
+
+
 class ResolvedSource(object):
     def __init__(self, stream_id: str = None, property_id: str = None):
         self.StreamId = stream_id
@@ -19,6 +22,12 @@ class ResolvedSource(object):
     def PropertyId(self, value: str):
         self.__property_id = value
 
+    def to_json(self):
+        return json.dumps(self.to_dictionary())
+
+    def to_dictionary(self):
+        return {'StreamId': self.StreamId, 'PropertyId': self.PropertyId}
+
     @staticmethod
     def from_json(content):
         result = ResolvedSource()
@@ -31,3 +40,5 @@ class ResolvedSource(object):
 
         if 'PropertyId' in content:
             result.PropertyId = content['PropertyId']
+
+        return result

@@ -1,3 +1,4 @@
+import json
 from typing import Any
 
 
@@ -41,6 +42,13 @@ class DataErrors(object):
     def ChildErrors(self, value: dict[str, Any]):
         self.__child_errors = value
 
+    def to_json(self):
+        return json.dumps(self.to_dictionary())
+
+    def to_dictionary(self):
+        return {'OperationId': self.OperationId, 'Error': self.Error, 'Reason': self.Reason,
+                'ChildErrors': self.ChildErrors}
+
     @staticmethod
     def from_json(content):
         result = DataErrors()
@@ -58,4 +66,10 @@ class DataErrors(object):
             result.Reason = content['Reason']
 
         if 'ChildErrors' in content:
-            result.ChildErrors = content['ChildErrors']
+            child_errors = content['ChildErrors']
+            if child_errors is not None and len(child_errors) > 0:
+                result.ChildErrors = {}
+                for key in child_errors:
+                    result.ChildErrors[key] = child_errors[key]
+
+        return result

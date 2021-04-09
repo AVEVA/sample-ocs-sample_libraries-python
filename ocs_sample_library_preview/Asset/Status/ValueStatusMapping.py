@@ -96,3 +96,5 @@ class ValueStatusMapping(object):
 
         if 'DisplayName' in content:
             result.DisplayName = content['DisplayName']
+
+        return result

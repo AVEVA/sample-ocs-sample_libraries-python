@@ -24,7 +24,7 @@ class StatusMapping(object):
         required
         :return:
         """
-        return self.__stream_reference_id
+        return self._stream_reference_id
 
     @StreamReferenceId.setter
     def StreamReferenceId(self, value: str):
@@ -33,7 +33,7 @@ class StatusMapping(object):
         :param value:
         :return:
         """
-        self.__stream_reference_id = value
+        self._stream_reference_id = value
 
     @property
     def StreamPropertyId(self) -> str:
@@ -41,7 +41,7 @@ class StatusMapping(object):
         required
         :return:
         """
-        return self.__stream_property_id
+        return self._stream_property_id
 
     @StreamPropertyId.setter
     def StreamPropertyId(self, value: str):
@@ -50,40 +50,40 @@ class StatusMapping(object):
         :param value:
         :return:
         """
-        self.__stream_property_id = value
+        self._stream_property_id = value
 
     @property
     def ValueStatusMappings(self) -> List[ValueStatusMapping]:
         """
-        array of ValueStatusMapping    required
+        list of ValueStatusMapping    required
         :return:
         """
-        return self.__value_status_mappings
+        return self._value_status_mappings
 
     @ValueStatusMappings.setter
     def ValueStatusMappings(self, value: List[ValueStatusMapping]):
         """
-        array of ValueStatusMapping    required
+        list of ValueStatusMapping    required
         :param value:
         :return:
         """
-        self.__value_status_mappings = value
+        self._value_status_mappings = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         # required properties
         result = {'StreamReferenceId': self.StreamReferenceId,
                   'StreamPropertyId': self.StreamPropertyId, 'ValueStatusMappings': []}
 
         for value in self.ValueStatusMappings:
-            result['ValueStatusMappings'].append(value.to_dictionary())
+            result['ValueStatusMappings'].append(value.toDictionary())
 
         return result
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = StatusMapping()
 
         if not content:
@@ -101,6 +101,6 @@ class StatusMapping(object):
                 result.ValueStatusMappings = []
                 for value in value_status_mappings:
                     result.ValueStatusMappings.append(
-                        ValueStatusMapping.from_json(value))
+                        ValueStatusMapping.fromJson(value))
 
         return result

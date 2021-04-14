@@ -10,5 +10,5 @@ class FieldSource(Enum):
     Name = 2
     PropertyId = 3
     PropertyName = 4
-    Tags = 5
-    Metadata = 6
+    Metadata = 5
+    Tags = 6

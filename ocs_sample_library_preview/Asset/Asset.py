@@ -1,5 +1,4 @@
 import json
-from typing import List
 
 from .Status.StatusMapping import StatusMapping
 from .MetadataItem import MetadataItem
@@ -13,8 +12,8 @@ class Asset(object):
     """OCS Asset definition"""
 
     def __init__(self, id: str = None, name: str = None, description: str = None,
-                 asset_type_id: str = None, metadata: List[MetadataItem] = None,
-                 stream_references: List[StreamReference] = None,
+                 asset_type_id: str = None, metadata: list[MetadataItem] = None,
+                 stream_references: list[StreamReference] = None,
                  status_mapping: StatusMappingType = None):
         """
         :param id: required
@@ -39,7 +38,7 @@ class Asset(object):
         required
         :return:
         """
-        return self.__id
+        return self._id
 
     @Id.setter
     def Id(self, value: str):
@@ -48,7 +47,7 @@ class Asset(object):
         :param value:
         :return:
         """
-        self.__id = value
+        self._id = value
 
     @property
     def Name(self) -> str:
@@ -56,7 +55,7 @@ class Asset(object):
         not required
         :return:
         """
-        return self.__name
+        return self._name
 
     @Name.setter
     def Name(self, value: str):
@@ -65,7 +64,7 @@ class Asset(object):
         :param value:
         :return:
         """
-        self.__name = value
+        self._name = value
 
     @property
     def Description(self) -> str:
@@ -73,7 +72,7 @@ class Asset(object):
         not required
         :return:
         """
-        return self.__description
+        return self._description
 
     @Description.setter
     def Description(self, value: str):
@@ -82,7 +81,7 @@ class Asset(object):
         :param value:
         :return:
         """
-        self.__description = value
+        self._description = value
 
     @property
     def AssetTypeId(self) -> str:
@@ -90,7 +89,7 @@ class Asset(object):
         not required
         :return:
         """
-        return self.__asset_type_id
+        return self._asset_type_id
 
     @AssetTypeId.setter
     def AssetTypeId(self, value: str):
@@ -99,41 +98,41 @@ class Asset(object):
         :param value:
         :return:
         """
-        self.__asset_type_id = value
+        self._asset_type_id = value
 
     @property
-    def Metadata(self) -> List[MetadataItem]:
+    def Metadata(self) -> list[MetadataItem]:
         """
         list of MetadataItem    not required
         :return:
         """
-        return self.__metadata
+        return self._metadata
 
     @Metadata.setter
-    def Metadata(self, value: List[MetadataItem]):
+    def Metadata(self, value: list[MetadataItem]):
         """
         list of MetadataItem    not required
         :param value:
         :return:
         """
-        self.__metadata = value
+        self._metadata = value
 
     @property
-    def StreamReferences(self) -> List[StreamReference]:
+    def StreamReferences(self) -> list[StreamReference]:
         """
         list of StreamReference    not required
         :return:
         """
-        return self.__stream_references
+        return self._stream_references
 
     @StreamReferences.setter
-    def StreamReferences(self, value: List[StreamReference]):
+    def StreamReferences(self, value: list[StreamReference]):
         """
         list of StreamReference    not required
         :param value:
         :return:
         """
-        self.__stream_references = value
+        self._stream_references = value
 
     @property
     def StatusMapping(self) -> StatusMappingType:
@@ -141,7 +140,7 @@ class Asset(object):
         StatusMapping    not required
         :return:
         """
-        return self.__status_mapping
+        return self._status_mapping
 
     @StatusMapping.setter
     def StatusMapping(self, value: StatusMappingType):
@@ -150,46 +149,43 @@ class Asset(object):
         :param value:
         :return:
         """
-        self.__status_mapping = value
+        self._status_mapping = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         # required properties
         result = {'Id': self.Id}
 
         # optional properties
-        if hasattr(self, 'Name'):
+        if self.Name is not None:
             result['Name'] = self.Name
 
-        if hasattr(self, 'Description'):
+        if self.Description is not None:
             result['Description'] = self.Description
 
-        if hasattr(self, 'AssetTypeId'):
+        if self.AssetTypeId is not None:
             result['AssetTypeId'] = self.AssetTypeId
 
-        if hasattr(self, 'Metadata'):
-            if self.Metadata is not None:
-                result['Metadata'] = []
-                for value in self.Metadata:
-                    result['Metadata'].append(value.to_dictionary())
+        if self.Metadata is not None:
+            result['Metadata'] = []
+            for value in self.Metadata:
+                result['Metadata'].append(value.toDictionary())
 
-        if hasattr(self, 'StreamReferences'):
-            if self.StreamReferences is not None:
-                result['StreamReferences'] = []
-                for value in self.StreamReferences:
-                    result['StreamReferences'].append(
-                        value.to_dictionary())
+        if self.StreamReferences is not None:
+            result['StreamReferences'] = []
+            for value in self.StreamReferences:
+                result['StreamReferences'].append(
+                    value.toDictionary())
 
-        if hasattr(self, 'StatusMapping'):
-            if self.StatusMapping is not None:
-                result['StatusMapping'] = self.StatusMapping.to_dictionary()
+        if self.StatusMapping is not None:
+            result['StatusMapping'] = self.StatusMapping.toDictionary()
 
         return result
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = Asset()
 
         if not content:
@@ -213,7 +209,7 @@ class Asset(object):
                 result.Metadata = []
                 for value in metadata:
                     result.Metadata.append(
-                        MetadataItem.from_json(value))
+                        MetadataItem.fromJson(value))
 
         if 'StreamReferences' in content:
             streamReferences = content['StreamReferences']
@@ -221,10 +217,10 @@ class Asset(object):
                 result.StreamReferences = []
                 for value in streamReferences:
                     result.StreamReferences.append(
-                        StreamReference.from_json(value))
+                        StreamReference.fromJson(value))
 
         if 'StatusMapping' in content:
-            result.StatusMapping = StatusMappingType.from_json(
+            result.StatusMapping = StatusMappingType.fromJson(
                 content['StatusMapping'])
 
         return result

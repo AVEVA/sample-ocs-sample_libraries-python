@@ -1,367 +1,355 @@
 import json
+from ocs_sample_library_preview.Asset import Data
+
 from ..SDS.SdsTypeCode import SdsTypeCode
-from .Query import Query
-from .FieldSet import FieldSet
 from .Field import Field
-from .DataViewShapes import DataViewShapes
+from .FieldSet import FieldSet
+from .DataViewShape import DataViewShape
+from .Query import Query
 
 
 class DataView(object):
-    """
-    Data View definition
-    """
+    """OCS Data View definition"""
 
-    def __init__(
-        self,
-        id=None,
-        name=None,
-        description=None,
-        queries=None,
-        indexField=None,
-        dataFieldSets=None,
-        groupingFields=None,
-        indexTypeCode=None,
-        defaultStartIndex=None,
-        defaultEndIndex=None,
-        defaultInterval=None,
-        shape=None
-    ):
+    def __init__(self, id: str = None, name: str = None, description: str = None,
+                 index_field: Field = None, queries: list[Query] = None,
+                 data_field_sets: list[FieldSet] = None, grouping_fields: list[Field] = None,
+                 default_start_index: str = None, default_end_index: str = None,
+                 default_interval: str = None, index_type_code: SdsTypeCode = None,
+                 shape: DataViewShape = None):
         """
         :param id: required
         :param name: not required
-        :param description:  not required
+        :param description: not required
+        :param index_field: not required
+        :param queries: not required
+        :param data_field_sets: not required
+        :param grouping_fields: not required
+        :param default_start_index: not required
+        :param default_end_index: not required
+        :param default_interval: not required
+        :param index_type_code: not required
+        :param shape: not required
         """
-        self.__id = id
-        self.__name = name
-        self.__description = description
-        if queries:
-            self.__queries = queries
-        else:
-            self.__queries = []
-        self.__indexField = indexField
-        if dataFieldSets:
-            self.__dataFieldSets = dataFieldSets
-        else:
-            self.__dataFieldSets = []
-        if groupingFields:
-            self.__groupingFields = groupingFields
-        else:
-            self.__groupingFields = []
-        if indexTypeCode:
-            self.__indexTypeCode = indexTypeCode
-        else:
-            self.indexTypeCode = SdsTypeCode.DateTime
-        self.__defaultStartIndex = defaultStartIndex
-        self.__defaultEndIndex = defaultEndIndex
-        self.__defaultInterval = defaultInterval
-        if shape:
-            self.__shape = shape
-        else:
-            self.shape = DataViewShapes.Standard
+        self._id = id
+        self._name = name
+        self._description = description
+        self._index_field = index_field
+        self._queries = queries
+        self._data_field_sets = data_field_sets
+        self._grouping_fields = grouping_fields
+        self._default_start_index = default_start_index
+        self._default_end_index = default_end_index
+        self._default_interval = default_interval
+        self._index_type_code = index_type_code
+        self._shape = shape
 
     @property
-    def Id(self):
+    def Id(self) -> str:
         """
-        Get the id  required
+        required
         :return:
         """
-        return self.__id
+        return self._id
 
     @Id.setter
-    def Id(self, id):
+    def Id(self, value: str):
         """
-        Set the id  required
-        :param id:
+        required
+        :param value:
         :return:
         """
-        self.__id = id
+        self._id = value
 
     @property
-    def Name(self):
+    def Name(self) -> str:
         """
-        Name can be duplicated in a namespace   not required
+        not required
         :return:
         """
-        return self.__name
+        return self._name
 
     @Name.setter
-    def Name(self, name):
+    def Name(self, value: str):
         """
-        Name can be duplicated in a namespace   not required
-        :param name:
+        not required
+        :param value:
         :return:
         """
-        self.__name = name
+        self._name = value
 
     @property
-    def Description(self):
+    def Description(self) -> str:
         """
-        Add an easy to understand description not required
+        not required
         :return:
         """
-        return self.__description
+        return self._description
 
     @Description.setter
-    def Description(self, description):
+    def Description(self, value: str):
         """
-        Add an easy to understand description not required
-        :param description:
+        not required
+        :param value:
         :return:
         """
-        self.__description = description
+        self._description = value
 
     @property
-    def Queries(self):
+    def IndexField(self) -> Field:
         """
-        Query string  required
+        Field    not required
         :return:
         """
-        return self.__queries
-
-    @Queries.setter
-    def Queries(self, queries):
-        """
-        Array of queries  required
-        :param queries:
-        :return:
-        """
-        self.__queries = queries
-
-    @property
-    def IndexField (self):
-        """
-        IndexField field  required
-        :return:
-        """
-        return self.__indexField
+        return self._index_field
 
     @IndexField.setter
-    def IndexField(self, indexField):
+    def IndexField(self, value: Field):
         """
-        Field indexField  required
-        :param indexField:
+        Field    not required
+        :param value:
         :return:
         """
-        self.__indexField = indexField
+        self._index_field = value
 
     @property
-    def DataFieldSets(self):
+    def Queries(self) -> list[Query]:
         """
+        list of Query    not required
         :return:
         """
-        return self.__dataFieldSets
+        return self._queries
+
+    @Queries.setter
+    def Queries(self, value: list[Query]):
+        """
+        list of Query    not required
+        :param value:
+        :return:
+        """
+        self._queries = value
+
+    @property
+    def DataFieldSets(self) -> list[FieldSet]:
+        """
+        list of FieldSet    not required
+        :return:
+        """
+        return self._data_field_sets
 
     @DataFieldSets.setter
-    def DataFieldSets(self, dataFieldSets):
+    def DataFieldSets(self, value: list[FieldSet]):
         """
-        :param dataFieldSets:
+        list of FieldSet    not required
+        :param value:
         :return:
         """
-        self.__dataFieldSets = dataFieldSets
+        self._data_field_sets = value
 
     @property
-    def GroupingFields(self):
+    def GroupingFields(self) -> list[Field]:
         """
+        list of Field    not required
         :return:
         """
-        return self.__groupingFields
+        return self._grouping_fields
 
     @GroupingFields.setter
-    def GroupingFields(self, groupingFields):
+    def GroupingFields(self, value: list[Field]):
         """
-        Array of fields   not required
-        :param groupingFields:
+        list of Field    not required
+        :param value:
         :return:
         """
-        self.__groupingFields = groupingFields
+        self._grouping_fields = value
 
     @property
-    def IndexTypeCode(self):
+    def DefaultStartIndex(self) -> str:
         """
+        not required
         :return:
         """
-        return self.__indexTypeCode
-
-    @IndexTypeCode.setter
-    def IndexTypeCode(self, indexTypeCode):
-        """
-        Currently limited to "DateTime" string  required
-        :param indexTypeCode:
-        :return:
-        """
-        self.__indexTypeCode = indexTypeCode
-
-    @property
-    def DefaultStartIndex(self):
-        """
-        DefaultStartIndex   not required
-        :return:
-        """
-        return self.__defaultStartIndex
+        return self._default_start_index
 
     @DefaultStartIndex.setter
-    def DefaultStartIndex(self, defaultStartIndex):
-        """DefaultStartIndex
-        DefaultStartIndex string  not required
-        :param defaultStartIndex:
+    def DefaultStartIndex(self, value: str):
+        """
+        not required
+        :param value:
         :return:
         """
-        self.__defaultStartIndex = defaultStartIndex
+        self._default_start_index = value
 
     @property
-    def DefaultEndIndex(self):
+    def DefaultEndIndex(self) -> str:
         """
-        DefaultEndIndex string  not required
+        not required
         :return:
         """
-        return self.__defaultEndIndex
+        return self._default_end_index
 
     @DefaultEndIndex.setter
-    def DefaultEndIndex(self, defaultEndIndex):
-        """DefaultEndIndex
-        DefaultEndIndex  string not required
-        :param defaultEndIndex:
+    def DefaultEndIndex(self, value: str):
+        """
+        not required
+        :param value:
         :return:
         """
-        self.__defaultEndIndex = defaultEndIndex
+        self._default_end_index = value
 
     @property
-    def DefaultInterval(self):
+    def DefaultInterval(self) -> str:
         """
-        DefaultInterval string not required
+        not required
         :return:
         """
-        return self.__defaultInterval
+        return self._default_interval
 
     @DefaultInterval.setter
-    def DefaultInterval(self, defaultInterval):
-        """DefaultStartIndex
-        DefaultInterval string not required
-        :param defaultInterval:
+    def DefaultInterval(self, value: str):
+        """
+        not required
+        :param value:
         :return:
         """
-        self.__defaultInterval = defaultInterval
+        self._default_interval = value
 
     @property
-    def Shape(self):
+    def IndexTypeCode(self) -> SdsTypeCode:
         """
-        Shape string  not required
+        not required
         :return:
         """
-        return self.__shape
+        return self._index_type_code
+
+    @IndexTypeCode.setter
+    def IndexTypeCode(self, value: SdsTypeCode):
+        """
+        not required
+        :param value:
+        :return:
+        """
+        self._index_type_code = value
+
+    @property
+    def Shape(self) -> DataViewShape:
+        """
+        not required
+        :return:
+        """
+        return self._shape
 
     @Shape.setter
-    def Shape(self, shape):
+    def Shape(self, value: DataViewShape):
         """
-        Shape string  not required
-        :param shape:
+        not required
+        :param value:
         :return:
         """
-        self.__shape = shape
+        self._shape = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())
 
     def toDictionary(self):
         # required properties
-        dictionary = {"Id": self.Id}
+        result = {'Id': self.Id}
 
         # optional properties
-        if hasattr(self, "Name"):
-            dictionary["Name"] = self.Name
+        if self.Name is not None:
+            result['Name'] = self.Name
 
-        if hasattr(self, "Description"):
-            dictionary["Description"] = self.Description
+        if self.Description is not None:
+            result['Description'] = self.Description
 
-        if hasattr(self, "Queries"):
-            dictionary["Queries"] = []
+        if self.IndexField is not None:
+            result['IndexField'] = self.IndexField.toDictionary()
+
+        if self.Queries is not None:
+            result['Queries'] = []
             for value in self.Queries:
-                dictionary["Queries"].append(value.toDictionary())
+                result['Queries'].append(value.toDictionary())
 
-        if hasattr(self, "DataFieldSets"):
-            dictionary["DataFieldSets"] = []
+        if self.DataFieldSets is not None:
+            result['DataFieldSets'] = []
             for value in self.DataFieldSets:
-                dictionary["DataFieldSets"].append(value.toDictionary())
+                result['DataFieldSets'].append(value.toDictionary())
 
-        if hasattr(self, "GroupingFields"):
-            dictionary["GroupingFields"] = []
+        if self.GroupingFields is not None:
+            result['GroupingFields'] = []
             for value in self.GroupingFields:
-                dictionary["GroupingFields"].append(value.toDictionary())
+                result['GroupingFields'].append(value.toDictionary())
 
-        if hasattr(self, "IndexTypeCode"):
-            dictionary["IndexTypeCode"] = self.IndexTypeCode.name
+        if self.DefaultStartIndex is not None:
+            result['DefaultStartIndex'] = self.DefaultStartIndex
 
-        if hasattr(self, "DefaultStartIndex"):
-            dictionary["DefaultStartIndex"] = self.DefaultStartIndex
+        if self.DefaultEndIndex is not None:
+            result['DefaultEndIndex'] = self.DefaultEndIndex
 
-        if hasattr(self, "DefaultEndIndex"):
-            dictionary["DefaultEndIndex"] = self.DefaultEndIndex
+        if self.DefaultInterval is not None:
+            result['DefaultInterval'] = self.DefaultInterval
 
-        if hasattr(self, "DefaultInterval"):
-            dictionary["DefaultInterval"] = self.DefaultInterval
+        if self.IndexTypeCode is not None:
+            result['IndexTypeCode'] = self.IndexTypeCode.name
 
-        if hasattr(self, "Shape"):
-            dictionary["Shape"] = self.Shape.name
+        if self.Shape is not None:
+            result['Shape'] = self.Shape.name
 
-        return dictionary
-
-    @staticmethod
-    def fromJson(jsonObj):
-        return DataView.fromDictionary(jsonObj)
+        return result
 
     @staticmethod
-    def fromDictionary(content):
-        dataView = DataView()
+    def fromJson(content: dict[str, str]):
+        result = DataView()
 
         if not content:
-            return dataView
+            return result
 
-        if "Id" in content:
-            dataView.Id = content["Id"]
+        if 'Id' in content:
+            result.Id = content['Id']
 
-        if "Name" in content:
-            dataView.Name = content["Name"]
+        if 'Name' in content:
+            result.Name = content['Name']
 
-        if "Description" in content:
-            dataView.Description = content["Description"]
+        if 'Description' in content:
+            result.Description = content['Description']
 
-        if "Queries" in content:
-            Queries = content["Queries"]
-            if Queries is not None and len(Queries) > 0:
-                dataView.Queries = []
-                for value in Queries:
-                    dataView.Queries.append(
-                        Query.fromDictionary(value))
+        if 'IndexField' in content:
+            result.IndexField = Field.fromJson(content['IndexField'])
 
-        if "DataFieldSets" in content:
-            DataFieldSets = content["DataFieldSets"]
-            if DataFieldSets is not None and len(DataFieldSets) > 0:
-                dataView.DataFieldSets = []
-                for value in DataFieldSets:
-                    dataView.DataFieldSets.append(
-                        FieldSet.fromDictionary(value))
+        if 'Queries' in content:
+            queries = content['Queries']
+            if queries is not None and len(queries) > 0:
+                result.Queries = []
+                for value in queries:
+                    result.Queries.append(Query.fromJson(value))
 
-        if "GroupingFields" in content:
-            GroupingFields = content["GroupingFields"]
-            if GroupingFields is not None and len(GroupingFields) > 0:
-                dataView.GroupingFields = []
-                for value in GroupingFields:
-                    dataView.GroupingFields.append(
-                        Field.fromDictionary(value))
+        if 'DataFieldSets' in content:
+            data_field_sets = content['DataFieldSets']
+            if data_field_sets is not None and len(data_field_sets) > 0:
+                result.DataFieldSets = []
+                for value in data_field_sets:
+                    result.DataFieldSets.append(FieldSet.fromJson(value))
 
-        if "IndexTypeCode" in content:
-            dataView.IndexTypeCode = SdsTypeCode[content['IndexTypeCode']]
+        if 'GroupingFields' in content:
+            grouping_fields = content['GroupingFields']
+            if grouping_fields is not None and len(grouping_fields) > 0:
+                result.GroupingFields = []
+                for value in grouping_fields:
+                    result.GroupingFields.append(Field.fromJson(value))
 
-        if "DefaultStartIndex" in content:
-            dataView.DefaultStartIndex = content["DefaultStartIndex"]
+        if 'DefaultStartIndex' in content:
+            result.DefaultStartIndex = content['DefaultStartIndex']
 
-        if "DefaultEndIndex" in content:
-            dataView.DefaultEndIndex = content["DefaultEndIndex"]
+        if 'DefaultEndIndex' in content:
+            result.DefaultEndIndex = content['DefaultEndIndex']
 
-        if "DefaultInterval" in content:
-            dataView.DefaultInterval = content["DefaultInterval"]
+        if 'DefaultInterval' in content:
+            result.DefaultInterval = content['DefaultInterval']
 
-        if "Shape" in content:
-            dataView.Shape = DataViewShapes[content['Shape']]
+        if 'IndexTypeCode' in content:
+            result.IndexTypeCode = SdsTypeCode[content['IndexTypeCode']]
 
-        return dataView
+        if 'Shape' in content:
+            result.Shape = DataViewShape[content['Shape']]
+
+        return result

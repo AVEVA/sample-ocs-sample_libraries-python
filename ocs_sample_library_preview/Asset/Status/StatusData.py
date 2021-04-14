@@ -15,53 +15,53 @@ class StatusData(object):
 
     @property
     def AssetId(self) -> str:
-        return self.__asset_id
+        return self._asset_id
 
     @AssetId.setter
     def AssetId(self, value: str):
-        self.__asset_id = value
+        self._asset_id = value
 
     @property
     def Status(self) -> StatusEnum:
-        return self.__status
+        return self._status
 
     @Status.setter
     def Status(self, value: StatusEnum):
-        self.__status = value
+        self._status = value
 
     @property
     def Value(self) -> Any:
-        return self.__value
+        return self._value
 
     @Value.setter
     def Value(self, value: Any):
-        self.__value = value
+        self._value = value
 
     @property
     def DisplayName(self) -> str:
-        return self.__display_name
+        return self._display_name
 
     @DisplayName.setter
     def DisplayName(self, value: str):
-        self.__display_name = value
+        self._display_name = value
 
     @property
     def DataRetrievalTime(self) -> str:
-        return self.__data_retrieval_time
+        return self._data_retrieval_time
 
     @DataRetrievalTime.setter
     def DataRetrievalTime(self, value: str):
-        self.__data_retrieval_time = value
+        self._data_retrieval_time = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         return {'AssetId': self.AssetId, 'Status': self.Status.value, 'Value': self.Value,
                 'DisplayName': self.DisplayName, 'DataRetrievalTime': self.DataRetrievalTime}
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = StatusData()
 
         if not content:

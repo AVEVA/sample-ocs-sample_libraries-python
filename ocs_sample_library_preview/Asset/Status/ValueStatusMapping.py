@@ -23,7 +23,7 @@ class ValueStatusMapping(object):
         required
         :return:
         """
-        return self.__value
+        return self._value
 
     @Value.setter
     def Value(self, value: Any):
@@ -32,7 +32,7 @@ class ValueStatusMapping(object):
         :param value:
         :return:
         """
-        self.__value = value
+        self._value = value
 
     @property
     def Status(self) -> StatusEnum:
@@ -40,7 +40,7 @@ class ValueStatusMapping(object):
         StatusEnum    required
         :return:
         """
-        return self.__status
+        return self._status
 
     @Status.setter
     def Status(self, value: StatusEnum):
@@ -49,7 +49,7 @@ class ValueStatusMapping(object):
         :param value:
         :return:
         """
-        self.__status = value
+        self._status = value
 
     @property
     def DisplayName(self) -> str:
@@ -57,7 +57,7 @@ class ValueStatusMapping(object):
         not required
         :return:
         """
-        return self.__display_name
+        return self._display_name
 
     @DisplayName.setter
     def DisplayName(self, value: str):
@@ -66,23 +66,23 @@ class ValueStatusMapping(object):
         :param value:
         :return:
         """
-        self.__display_name = value
+        self._display_name = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         # required properties
         result = {'Value': self.Value, 'Status': self.Status.value}
 
         # optional properties
-        if hasattr(self, 'DisplayName'):
+        if self.DisplayName is not None:
             result['DisplayName'] = self.DisplayName
 
         return result
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = ValueStatusMapping()
 
         if not content:

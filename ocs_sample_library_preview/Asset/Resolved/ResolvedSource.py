@@ -8,28 +8,28 @@ class ResolvedSource(object):
 
     @property
     def StreamId(self) -> str:
-        return self.__stream_id
+        return self._stream_id
 
     @StreamId.setter
     def StreamId(self, value: str):
-        self.__stream_id = value
+        self._stream_id = value
 
     @property
     def PropertyId(self) -> str:
-        return self.__property_id
+        return self._property_id
 
     @PropertyId.setter
     def PropertyId(self, value: str):
-        self.__property_id = value
+        self._property_id = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         return {'StreamId': self.StreamId, 'PropertyId': self.PropertyId}
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = ResolvedSource()
 
         if not content:

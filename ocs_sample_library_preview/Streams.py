@@ -534,7 +534,7 @@ class Streams(object):
 
         if value_class is None:
             return content
-        return value_class.fromJson(content)
+        return value_class.fromJson(content: dict[str, str])
 
     def getFirstValue(self, namespace_id, stream_id, value_class=None):
         """
@@ -567,7 +567,7 @@ class Streams(object):
         response.close()
         if value_class is None:
             return content
-        return value_class.fromJson(content)
+        return value_class.fromJson(content: dict[str, str])
 
     def getLastValue(self, namespace_id, stream_id, value_class=None):
         """
@@ -600,7 +600,7 @@ class Streams(object):
         response.close()
         if value_class is None:
             return content
-        return value_class.fromJson(content)
+        return value_class.fromJson(content: dict[str, str])
 
     def getWindowValues(self, namespace_id, stream_id, value_class, start, end,
                         filter=""):

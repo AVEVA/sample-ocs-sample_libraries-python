@@ -187,15 +187,16 @@ def main(test=False):
 
         # Step 2
         print()
-        print ("Step 2: Create types, streams, and data")
+        print("Step 2: Create types, streams, and data")
         if needData:
             createData(ocsClient)
 
         # Step 3
         print()
         print("Step 3: Create a data view")
-        dataView = DataView(id=sampleDataViewId,name=sampleDataViewName,description=sampleDataViewDescription)
-        dataViews = ocsClient.DataViews.postDataView(namespaceId, dataView)
+        dataView = DataView(id=sampleDataViewId, name=sampleDataViewName,
+                            description=sampleDataViewDescription)
+        dataView = ocsClient.DataViews.postDataView(namespaceId, dataView)
 
         # Step 4
         print()
@@ -244,8 +245,8 @@ def main(test=False):
 
         print("Retrieving data from the data view:")
         dataViewDataPreview1 = ocsClient.DataViews.getDataInterpolated(
-            namespace_id=namespaceId, dataView_id=sampleDataViewId, startIndex=startTime,
-            endIndex=endTime, interval=interval)
+            namespace_id=namespaceId, data_view_id=sampleDataViewId, start_index=startTime,
+            end_index=endTime, interval=interval)
         print(str(dataViewDataPreview1))
         print(len(dataViewDataPreview1))
         assert len(dataViewDataPreview1) > 0, "Error getting back data"
@@ -254,15 +255,15 @@ def main(test=False):
         print()
         print("Step 9: Group the data view")
         grouping = Field(source=fieldSourceForGrouping,
-                        label="{DistinguisherValue} {FirstKey}")
+                         label="{DistinguisherValue} {FirstKey}")
         dv.GroupingFields.append(grouping)
         # No DataView returned, success is 204
         ocsClient.DataViews.putDataView(namespaceId, dv)
 
         print("Retrieving data from the data view:")
         dataViewDataPreview1 = ocsClient.DataViews.getDataInterpolated(
-            namespace_id=namespaceId, dataView_id=sampleDataViewId, startIndex=startTime,
-            endIndex=endTime, interval=interval)
+            namespace_id=namespaceId, data_view_id=sampleDataViewId, start_index=startTime,
+            end_index=endTime, interval=interval)
         print(str(dataViewDataPreview1))
         assert len(dataViewDataPreview1) > 0, "Error getting back data"
 
@@ -277,8 +278,8 @@ def main(test=False):
 
         print("Retrieving data from the data view:")
         dataViewDataPreview1 = ocsClient.DataViews.getDataInterpolated(
-            namespace_id=namespaceId, dataView_id=sampleDataViewId, startIndex=startTime,
-            endIndex=endTime, interval=interval)
+            namespace_id=namespaceId, data_view_id=sampleDataViewId, start_index=startTime,
+            end_index=endTime, interval=interval)
         print(str(dataViewDataPreview1))
         assert len(dataViewDataPreview1) > 0, "Error getting back data"
 
@@ -298,8 +299,8 @@ def main(test=False):
 
         print("Retrieving data from the data view:")
         dataViewDataPreview1 = ocsClient.DataViews.getDataInterpolated(
-            namespace_id=namespaceId, dataView_id=sampleDataViewId, startIndex=startTime,
-            endIndex=endTime, interval=interval)
+            namespace_id=namespaceId, data_view_id=sampleDataViewId, start_index=startTime,
+            end_index=endTime, interval=interval)
         print(str(dataViewDataPreview1))
         assert len(dataViewDataPreview1) > 0, "Error getting back data"
 

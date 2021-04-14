@@ -9,37 +9,37 @@ class ResolvedStatus(object):
 
     @property
     def Name(self) -> str:
-        return self.__name
+        return self._name
 
     @Name.setter
     def Name(self, value: str):
-        self.__name = value
+        self._name = value
 
     @property
     def StreamName(self) -> str:
-        return self.__stream_name
+        return self._stream_name
 
     @StreamName.setter
     def StreamName(self, value: str):
-        self.__stream_name = value
+        self._stream_name = value
 
     @property
     def StreamPropertyId(self) -> str:
-        return self.__stream_property_id
+        return self._stream_property_id
 
     @StreamPropertyId.setter
     def StreamPropertyId(self, value: str):
-        self.__stream_property_id = value
+        self._stream_property_id = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         return {'Name': self.Name, 'StreamName': self.StreamName,
                 'StreamPropertyId': self.StreamPropertyId}
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = ResolvedStatus()
 
         if not content:

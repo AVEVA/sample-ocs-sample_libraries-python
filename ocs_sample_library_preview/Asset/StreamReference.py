@@ -23,7 +23,7 @@ class StreamReference(object):
         required
         :return:
         """
-        return self.__id
+        return self._id
 
     @Id.setter
     def Id(self, value: str):
@@ -32,7 +32,7 @@ class StreamReference(object):
         :param value:
         :return:
         """
-        self.__id = value
+        self._id = value
 
     @property
     def Name(self) -> str:
@@ -40,7 +40,7 @@ class StreamReference(object):
         required
         :return:
         """
-        return self.__name
+        return self._name
 
     @Name.setter
     def Name(self, value: str):
@@ -49,7 +49,7 @@ class StreamReference(object):
         :param value:
         :return:
         """
-        self.__name = value
+        self._name = value
 
     @property
     def Description(self) -> str:
@@ -57,7 +57,7 @@ class StreamReference(object):
         not required
         :return:
         """
-        return self.__description
+        return self._description
 
     @Description.setter
     def Description(self, value: str):
@@ -66,7 +66,7 @@ class StreamReference(object):
         :param value:
         :return:
         """
-        self.__description = value
+        self._description = value
 
     @property
     def StreamId(self) -> str:
@@ -74,7 +74,7 @@ class StreamReference(object):
         required
         :return:
         """
-        return self.__stream_id
+        return self._stream_id
 
     @StreamId.setter
     def StreamId(self, value: str):
@@ -83,24 +83,24 @@ class StreamReference(object):
         :param value:
         :return:
         """
-        self.__stream_id = value
+        self._stream_id = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         # required properties
         result = {'Id': self.Id, 'Name': self.Name,
                   'StreamId': self.StreamId}
 
         # optional properties
-        if hasattr(self, 'Description'):
+        if self.Description is not None:
             result['Description'] = self.Description
 
         return result
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = StreamReference()
 
         if not content:

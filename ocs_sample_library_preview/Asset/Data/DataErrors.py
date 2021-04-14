@@ -12,45 +12,45 @@ class DataErrors(object):
 
     @property
     def OperationId(self) -> str:
-        return self.__operation_id
+        return self._operation_id
 
     @OperationId.setter
     def OperationId(self, value: str):
-        self.__operation_id = value
+        self._operation_id = value
 
     @property
     def Error(self) -> str:
-        return self.__error
+        return self._error
 
     @Error.setter
     def Error(self, value: str):
-        self.__error = value
+        self._error = value
 
     @property
     def Reason(self) -> str:
-        return self.__reason
+        return self._reason
 
     @Reason.setter
     def Reason(self, value: str):
-        self.__reason = value
+        self._reason = value
 
     @property
     def ChildErrors(self) -> dict[str, Any]:
-        return self.__child_errors
+        return self._child_errors
 
     @ChildErrors.setter
     def ChildErrors(self, value: dict[str, Any]):
-        self.__child_errors = value
+        self._child_errors = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         return {'OperationId': self.OperationId, 'Error': self.Error, 'Reason': self.Reason,
                 'ChildErrors': self.ChildErrors}
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = DataErrors()
 
         if not content:

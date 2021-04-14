@@ -23,14 +23,14 @@ class ResolvedEnum(object):
     def Value(self, value: Any):
         self.__value = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         return {'Id': self.Id, 'Value': self.Value}
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = ResolvedEnum()
 
         if not content:

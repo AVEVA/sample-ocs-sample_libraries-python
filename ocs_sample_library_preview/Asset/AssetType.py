@@ -1,5 +1,4 @@
 import json
-from typing import List
 
 from .Status.StatusMapping import StatusMapping
 from .MetadataItem import MetadataItem
@@ -11,7 +10,7 @@ class AssetType(object):
 
     def __init__(self, id: str = None, name: str = None, description: str = None,
                  metadata: MetadataItem = None,
-                 type_references: List[TypeReference] = None,
+                 type_references: list[TypeReference] = None,
                  status: StatusMapping = None):
         """
         :param id: required
@@ -34,7 +33,7 @@ class AssetType(object):
         required
         :return:
         """
-        return self.__id
+        return self._id
 
     @Id.setter
     def Id(self, value: str):
@@ -43,7 +42,7 @@ class AssetType(object):
         :param value:
         :return:
         """
-        self.__id = value
+        self._id = value
 
     @property
     def Name(self) -> str:
@@ -51,7 +50,7 @@ class AssetType(object):
         not required
         :return:
         """
-        return self.__name
+        return self._name
 
     @Name.setter
     def Name(self, value: str):
@@ -60,7 +59,7 @@ class AssetType(object):
         :param value:
         :return:
         """
-        self.__name = value
+        self._name = value
 
     @property
     def Description(self) -> str:
@@ -68,7 +67,7 @@ class AssetType(object):
         not required
         :return:
         """
-        return self.__description
+        return self._description
 
     @Description.setter
     def Description(self, value: str):
@@ -77,41 +76,41 @@ class AssetType(object):
         :param value:
         :return:
         """
-        self.__description = value
+        self._description = value
 
     @property
-    def Metadata(self) -> List[MetadataItem]:
+    def Metadata(self) -> list[MetadataItem]:
         """
-        array of MetadataItem    not required
+        list of MetadataItem    not required
         :return:
         """
-        return self.__metadata
+        return self._metadata
 
     @Metadata.setter
-    def Metadata(self, value: List[MetadataItem]):
+    def Metadata(self, value: list[MetadataItem]):
         """
-        array of MetadataItem    not required
+        list of MetadataItem    not required
         :param value:
         :return:
         """
-        self.__metadata = value
+        self._metadata = value
 
     @property
-    def TypeReferences(self) -> List[TypeReference]:
+    def TypeReferences(self) -> list[TypeReference]:
         """
-        array of TypeReference    not required
+        list of TypeReference    not required
         :return:
         """
-        return self.__type_references
+        return self._type_references
 
     @TypeReferences.setter
-    def TypeReferences(self, value: List[TypeReference]):
+    def TypeReferences(self, value: list[TypeReference]):
         """
-        array of TypeReference    not required
+        list of TypeReference    not required
         :param value:
         :return:
         """
-        self.__type_references = value
+        self._type_references = value
 
     @property
     def Status(self) -> StatusMapping:
@@ -119,7 +118,7 @@ class AssetType(object):
         StatusMapping    not required
         :return:
         """
-        return self.__status
+        return self._status
 
     @Status.setter
     def Status(self, value: StatusMapping):
@@ -128,42 +127,39 @@ class AssetType(object):
         :param value:
         :return:
         """
-        self.__status = value
+        self._status = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         # required properties
         result = {'Id': self.Id}
 
         # optional properties
-        if hasattr(self, 'Name'):
+        if self.Name is not None:
             result['Name'] = self.Name
 
-        if hasattr(self, 'Description'):
+        if self.Description is not None:
             result['Description'] = self.Description
 
-        if hasattr(self, 'Metadata'):
-            if self.Metadata is not None:
-                result['Metadata'] = []
-                for value in self.Metadata:
-                    result['Metadata'].append(value.to_dictionary())
+        if self.Metadata is not None:
+            result['Metadata'] = []
+            for value in self.Metadata:
+                result['Metadata'].append(value.toDictionary())
 
-        if hasattr(self, 'TypeReferences'):
-            if self.TypeReferences is not None:
-                result['TypeReferences'] = []
-                for value in self.TypeReferences:
-                    result['TypeReferences'].append(value.to_dictionary())
+        if self.TypeReferences is not None:
+            result['TypeReferences'] = []
+            for value in self.TypeReferences:
+                result['TypeReferences'].append(value.toDictionary())
 
-        if hasattr(self, 'Status'):
-            if self.Status is not None:
-                result['Status'] = self.Status.to_dictionary()
+        if self.Status is not None:
+            result['Status'] = self.Status.toDictionary()
 
         return result
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = AssetType()
 
         if not content:
@@ -183,7 +179,7 @@ class AssetType(object):
             if metadata is not None and len(metadata) > 0:
                 result.Metadata = []
                 for value in metadata:
-                    result.Metadata.append(MetadataItem.from_json(value))
+                    result.Metadata.append(MetadataItem.fromJson(value))
 
         if 'TypeReferences' in content:
             type_references = content['TypeReferences']
@@ -191,9 +187,9 @@ class AssetType(object):
                 result.TypeReferences = []
                 for value in type_references:
                     result.TypeReferences.append(
-                        TypeReference.from_json(value))
+                        TypeReference.fromJson(value))
 
         if 'Status' in content:
-            result.Status = StatusMapping.from_json(content['Status'])
+            result.Status = StatusMapping.fromJson(content['Status'])
 
         return result

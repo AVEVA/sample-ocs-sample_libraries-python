@@ -21,79 +21,79 @@ class ResolvedProperty(object):
 
     @property
     def Id(self) -> str:
-        return self.__id
+        return self._id
 
     @Id.setter
     def Id(self, value: str):
-        self.__id = value
+        self._id = value
 
     @property
     def IsKey(self) -> bool:
-        return self.__is_key
+        return self._is_key
 
     @IsKey.setter
     def IsKey(self, value: bool):
-        self.__is_key = value
+        self._is_key = value
 
     @property
     def Uom(self) -> str:
-        return self.__uom
+        return self._uom
 
     @Uom.setter
     def Uom(self, value: str):
-        self.__uom = value
+        self._uom = value
 
     @property
     def Order(self) -> int:
-        return self.__order
+        return self._order
 
     @Order.setter
     def Order(self, value: int):
-        self.__order = value
+        self._order = value
 
     @property
     def InterpolationMode(self) -> SdsInterpolationMode:
-        return self.__interpolation_mode
+        return self._interpolation_mode
 
     @InterpolationMode.setter
     def InterpolationMode(self, value: SdsInterpolationMode):
-        self.__interpolation_mode = value
+        self._interpolation_mode = value
 
     @property
     def ExtrapolationMode(self) -> SdsExtrapolationMode:
-        return self.__extrapolation_mode
+        return self._extrapolation_mode
 
     @ExtrapolationMode.setter
     def ExtrapolationMode(self, value: SdsExtrapolationMode):
-        self.__extrapolation_mode = value
+        self._extrapolation_mode = value
 
     @property
     def SdsType(self) -> ResolvedSdsType:
-        return self.__sds_type
+        return self._sds_type
 
     @SdsType.setter
     def SdsType(self, value: ResolvedSdsType):
-        self.__sds_type = value
+        self._sds_type = value
 
     @property
     def Source(self) -> ResolvedSource:
-        return self.__source
+        return self._source
 
     @Source.setter
     def Source(self, value: ResolvedSource):
-        self.__source = value
+        self._source = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         return {'Id': self.Id, 'IsKey': self.IsKey, 'Uom': self.Uom, 'Order': self.Order,
                 'InterpolationMode': self.InterpolationMode,
                 'ExtrapolationMode': self.ExtrapolationMode,
-                'SdsType': self.SdsType.to_dictionary(), 'Source': self.Source.to_dictionary()}
+                'SdsType': self.SdsType.toDictionary(), 'Source': self.Source.toDictionary()}
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = ResolvedProperty()
 
         if not content:
@@ -120,11 +120,11 @@ class ResolvedProperty(object):
                 content['ExtrapolationMode'])
 
         if 'SdsType' in content:
-            result.SdsType = ResolvedSdsType.from_json(
+            result.SdsType = ResolvedSdsType.fromJson(
                 content['SdsType'])
 
         if 'Source' in content:
-            result.Source = ResolvedSource.from_json(
+            result.Source = ResolvedSource.fromJson(
                 content['Source'])
 
         return result

@@ -38,7 +38,7 @@ class Assets(object):
         self.__base_client.checkResponse(
             response, f'Failed to get asset, {asset_id}.')
 
-        result = Asset.from_json(response.json())
+        result = Asset.fromJson(response.json())
         return result
 
     def getAssets(self, namespace_id: str, query: str = '', skip: int = 0, count: int = 100,
@@ -61,7 +61,7 @@ class Assets(object):
 
         results = []
         for i in response.json():
-            results.append(Asset.from_json(i))
+            results.append(Asset.fromJson(i))
         return results
 
     def createAsset(self, namespace_id: str, asset: Asset) -> Asset:
@@ -76,11 +76,11 @@ class Assets(object):
             raise TypeError
 
         response = self.__base_client.request('post', self.__asset_path.format(
-            namespace_id=namespace_id, asset_id=asset.Id), data=asset.to_json())
+            namespace_id=namespace_id, asset_id=asset.Id), data=asset.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create asset, {asset.Id}.')
 
-        result = Asset.from_json(response.json())
+        result = Asset.fromJson(response.json())
         return result
 
     def createAssets(self, namespace_id: str, assets: List[Asset]) -> List[Asset]:
@@ -96,14 +96,14 @@ class Assets(object):
 
         dictionary = []
         for value in assets:
-            dictionary.append(value.to_dictionary())
+            dictionary.append(value.toDictionary())
         response = self.__base_client.request('post', self.__assets_path.format(
             namespace_id=namespace_id), data=json.dumps(dictionary))
         self.__base_client.checkResponse(response, f'Failed to create assets.')
 
         results = []
         for i in response.json():
-            results.append(Asset.from_json(i))
+            results.append(Asset.fromJson(i))
         return results
 
     def createOrUpdateAsset(self, namespace_id: str, asset: Asset) -> Asset:
@@ -118,11 +118,11 @@ class Assets(object):
             raise TypeError
 
         response = self.__base_client.request('put', self.__asset_path.format(
-            namespace_id=namespace_id, asset_id=asset.Id), data=asset.to_json())
+            namespace_id=namespace_id, asset_id=asset.Id), data=asset.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create or update asset, {asset.Id}.')
 
-        result = Asset.from_json(response.json())
+        result = Asset.fromJson(response.json())
         return result
 
     def deleteAsset(self, namespace_id: str, asset_id: str):
@@ -173,7 +173,7 @@ class Assets(object):
         self.__base_client.checkResponse(
             response, f'Failed to get asset type, {asset_type_id}.')
 
-        result = AssetType.from_json(response.json())
+        result = AssetType.fromJson(response.json())
         return result
 
     def getAssetTypes(self, namespace_id: str, skip: int = 0, count: int = 100) -> List[AssetType]:
@@ -195,7 +195,7 @@ class Assets(object):
 
         results = []
         for i in response.json():
-            results.append(AssetType.from_json(i))
+            results.append(AssetType.fromJson(i))
         return results
 
     def createAssetType(self, namespace_id: str, asset_type: AssetType) -> AssetType:
@@ -210,11 +210,11 @@ class Assets(object):
             raise TypeError
 
         response = self.__base_client.request('post', self.__asset_type_path.format(
-            namespace_id=namespace_id, asset_type_id=asset_type.Id), data=asset_type.to_json())
+            namespace_id=namespace_id, asset_type_id=asset_type.Id), data=asset_type.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create asset type, {asset_type.Id}.')
 
-        result = AssetType.from_json(response.json())
+        result = AssetType.fromJson(response.json())
         return result
 
     def createAssetTypes(self, namespace_id: str, asset_types: List[AssetType]) -> List[AssetType]:
@@ -230,7 +230,7 @@ class Assets(object):
 
         dictionary = []
         for value in asset_types:
-            dictionary.append(value.to_dictionary())
+            dictionary.append(value.toDictionary())
         response = self.__base_client.request('post', self.__asset_types_path.format(
             namespace_id=namespace_id), data=json.dumps(dictionary))
         self.__base_client.checkResponse(
@@ -238,7 +238,7 @@ class Assets(object):
 
         results = []
         for i in response.json():
-            results.append(AssetType.from_json(i))
+            results.append(AssetType.fromJson(i))
         return results
 
     def createOrUpdateAssetType(self, namespace_id: str, asset_type: AssetType) -> AssetType:
@@ -253,11 +253,11 @@ class Assets(object):
             raise TypeError
 
         response = self.__base_client.request('put', self.__asset_type_path.format(
-            namespace_id=namespace_id, asset_type_id=asset_type.Id), data=asset_type.to_json())
+            namespace_id=namespace_id, asset_type_id=asset_type.Id), data=asset_type.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create or update asset type, {asset_type.Id}.')
 
-        result = AssetType.from_json(response.json())
+        result = AssetType.fromJson(response.json())
         return result
 
     def deleteAssetType(self, namespace_id: str, asset_type_id: str):
@@ -292,7 +292,7 @@ class Assets(object):
         self.__base_client.checkResponse(
             response, f'Failed to get resolved asset, {asset_id}.')
 
-        result = ResolvedAsset.from_json(response.json())
+        result = ResolvedAsset.fromJson(response.json())
         return result
 
     def getResolvedAssets(self, namespace_id: str, asset_ids: List[str]) -> List[ResolvedAsset]:
@@ -313,7 +313,7 @@ class Assets(object):
 
         results = []
         for i in response.json():
-            results.append(ResolvedAsset.from_json(i))
+            results.append(ResolvedAsset.fromJson(i))
         return results
 
     def getAssetLastData(self, namespace_id: str, asset_id: str) -> DataResults:
@@ -332,7 +332,7 @@ class Assets(object):
         self.__base_client.checkResponse(
             response, f'Failed to get last data for resolved asset, {asset_id}.')
 
-        result = DataResults.from_json(response.json())
+        result = DataResults.fromJson(response.json())
         return result
 
     def getAssetSampledData(self, namespace_id: str, asset_id: str, start_index: str,
@@ -362,7 +362,7 @@ class Assets(object):
         self.__base_client.checkResponse(
             response, f'Failed to get sampled data for resolved asset, {asset_id}.')
 
-        result = DataResults.from_json(response.json())
+        result = DataResults.fromJson(response.json())
         return result
 
     def getAssetSummaryData(self, namespace_id: str, asset_id: str, start_index: str,
@@ -392,7 +392,7 @@ class Assets(object):
         self.__base_client.checkResponse(
             response, f'Failed to get summary data for resolved asset, {asset_id}.')
 
-        result = DataResults.from_json(response.json())
+        result = DataResults.fromJson(response.json())
         return result
 
     def getAssetWindowData(self, namespace_id: str, asset_id: str, start_index: str,
@@ -419,7 +419,7 @@ class Assets(object):
         self.__base_client.checkResponse(
             response, f'Failed to get window data for resolved asset, {asset_id}.')
 
-        result = DataResults.from_json(response.json())
+        result = DataResults.fromJson(response.json())
         return result
 
     def getAssetInterpolatedData(self, namespace_id: str, asset_id: str, start_index: str,
@@ -449,7 +449,7 @@ class Assets(object):
         self.__base_client.checkResponse(
             response, f'Failed to get interpolated data for resolved asset, {asset_id}.')
 
-        result = DataResults.from_json(response.json())
+        result = DataResults.fromJson(response.json())
         return result
 
     def getAssetStatus(self, namespace_id: str, asset_id: str) -> StatusData:
@@ -468,7 +468,7 @@ class Assets(object):
         self.__base_client.checkResponse(
             response, f'Failed to get asset status, {asset_id}.')
 
-        result = StatusData.from_json(response.json())
+        result = StatusData.fromJson(response.json())
         return result
 
     def getAssetStatuses(self, namespace_id: str, asset_ids: List[str]) -> List[StatusData]:
@@ -489,7 +489,7 @@ class Assets(object):
 
         results = []
         for i in response.json():
-            results.append(StatusData.from_json(i))
+            results.append(StatusData.fromJson(i))
         return results
 
     # private methods

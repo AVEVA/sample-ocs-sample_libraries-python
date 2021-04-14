@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class DataViewShapes(Enum):
+class DataViewShape(Enum):
     """
     enum 0-1  fully inclusive
     """

@@ -1,44 +1,43 @@
 import json
-from typing import List
 
 from .ResolvedProperty import ResolvedProperty
 
 
 class ResolvedStream(object):
-    def __init__(self, name: str = None, properties: List[ResolvedProperty] = None):
+    def __init__(self, name: str = None, properties: list[ResolvedProperty] = None):
         self.Name = name
         self.Properties = properties
 
     @property
     def Name(self) -> str:
-        return self.__name
+        return self._name
 
     @Name.setter
     def Name(self, value: str):
-        self.__name = value
+        self._name = value
 
     @property
-    def Properties(self) -> List[ResolvedProperty]:
-        return self.__properties
+    def Properties(self) -> list[ResolvedProperty]:
+        return self._properties
 
     @Properties.setter
-    def Properties(self, value: List[ResolvedProperty]):
-        self.__properties = value
+    def Properties(self, value: list[ResolvedProperty]):
+        self._properties = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         result = {'Name': self.Name, 'Properties': []}
 
         if self.Properties is not None:
             for value in self.Properties:
-                result['Properties'].append(value.to_dictionary())
+                result['Properties'].append(value.toDictionary())
 
         return result
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = ResolvedStream()
 
         if not content:
@@ -53,6 +52,6 @@ class ResolvedStream(object):
                 result.Properties = []
                 for value in properties:
                     result.Properties.append(
-                        ResolvedProperty.from_json(value))
+                        ResolvedProperty.fromJson(value))
 
         return result

@@ -3,8 +3,8 @@ import re
 
 from .BaseClient import BaseClient
 from .DataView.DataView import DataView
-from .DataView.DataItems import DataItems
-from .DataView.FieldSets import FieldSets
+from .DataView.ResolvedDataItems import ResolvedDataItems
+from .DataView.FieldSets import ResolvedFieldSets
 
 
 class DataViews(object):
@@ -14,23 +14,23 @@ class DataViews(object):
 
     def __init__(self, client: BaseClient):
         """
-        Initiliizes the Data View client
+        Initializes the Data View client
         :param client: This is the base client that is used to make the calls
         """
         self.__baseClient = client
         self.__setPathAndQueryTemplates()
         self.__urlLinks = re.compile(r'<(\S+)>; rel="(\S+)"')
 
-    def postDataView(self, namespace_id, dataView):
+    def postDataView(self, namespace_id: str, data_view: DataView):
         """Tells Sds Service to create a Data View based on local 'dataView'
             or get if existing Data View matches
         :param namespace_id: namespace to work against
-        :param DataView: Data View definition.  Data View object expected
+        :param data_view: Data View definition. Data View object expected
         :return: Retrieved Data View as Data View object
         """
         if namespace_id is None:
             raise TypeError
-        if dataView is None or not isinstance(dataView, DataView):
+        if data_view is None or not isinstance(data_view, DataView):
             raise TypeError
 
         response = self.__baseClient.request(
@@ -38,27 +38,27 @@ class DataViews(object):
             self.__dataViewPath.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
-                dataView_id=dataView.Id,
+                dataView_id=data_view.Id,
             ),
-            data=dataView.toJson()
+            data=data_view.toJson()
         )
 
         self.__baseClient.checkResponse(
-            response, f"Failed to create Data View, {dataView.Id}."
+            response, f"Failed to create Data View, {data_view.Id}."
         )
 
-        dataView = DataView.fromJson(response.json())
-        return dataView
+        data_view = DataView.fromJson(response.json())
+        return data_view
 
-    def putDataView(self, namespace_id, dataView):
+    def putDataView(self, namespace_id: str, data_view: DataView):
         """Tells Sds Service to update a Data View based on local 'dataView'
         :param namespace_id: namespace to work against
-        :param dataView: Data View definition. Data View object expected
+        :param data_view: Data View definition. Data View object expected
         :return: Retrieved Data View as Data View object
         """
         if namespace_id is None:
             raise TypeError
-        if dataView is None or not isinstance(dataView, DataView):
+        if data_view is None or not isinstance(data_view, DataView):
             raise TypeError
 
         response = self.__baseClient.request(
@@ -66,26 +66,26 @@ class DataViews(object):
             self.__dataViewPath.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
-                dataView_id=dataView.Id,
+                dataView_id=data_view.Id,
             ),
-            data=dataView.toJson()
+            data=data_view.toJson()
         )
 
         self.__baseClient.checkResponse(
-            response, f"Failed to update Data View, {dataView.Id}."
+            response, f"Failed to update Data View, {data_view.Id}."
         )
 
         return
 
-    def deleteDataView(self, namespace_id, dataView_id):
+    def deleteDataView(self, namespace_id: str, data_view_id: str):
         """
         Tells Sds Service to delete a Data View based on 'dataView_id'
         :param namespace_id: namespace to work against
-        :param dataView_id:  id of Data View to delete
+        :param data_view_id: id of Data View to delete
         """
         if namespace_id is None:
             raise TypeError
-        if dataView_id is None:
+        if data_view_id is None:
             raise TypeError
 
         response = self.__baseClient.request(
@@ -93,26 +93,26 @@ class DataViews(object):
             self.__dataViewPath.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
-                dataView_id=dataView_id,
+                dataView_id=data_view_id,
             )
         )
 
         self.__baseClient.checkResponse(
-            response, f"Failed to delete Data View, {dataView_id}."
+            response, f"Failed to delete Data View, {data_view_id}."
         )
 
         return
 
-    def getDataView(self, namespace_id, dataView_id):
+    def getDataView(self, namespace_id: str, data_view_id: str):
         """
         Retrieves the Data View specified by 'dataView_id' from Sds Service
         :param namespace_id: namespace to work against
-        :param dataView_id:  id of Data View to get
+        :param data_view_id: id of Data View to get
         :return: Retrieved Data View as Data View object
         """
         if namespace_id is None:
             raise TypeError
-        if dataView_id is None:
+        if data_view_id is None:
             raise TypeError
 
         response = self.__baseClient.request(
@@ -120,18 +120,18 @@ class DataViews(object):
             self.__dataViewPath.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
-                dataView_id=dataView_id,
+                dataView_id=data_view_id,
             )
         )
 
         self.__baseClient.checkResponse(
-            response, f"Failed to get Data View, {dataView_id}."
+            response, f"Failed to get Data View, {data_view_id}."
         )
 
         dataView = DataView.fromJson(response.json())
         return dataView
 
-    def getDataViews(self, namespace_id, skip=0, count=100):
+    def getDataViews(self, namespace_id: str, skip: int = 0, count: int = 100):
         """
         Retrieves all of the Data Views from Sds Service
         :param namespace_id: namespace to work against
@@ -159,14 +159,12 @@ class DataViews(object):
             results.append(DataView.fromJson(t))
         return results
 
-    def getResolvedDataItems(
-        self, namespace_id, dataView_id, query_id
-    ):
+    def getResolvedDataItems(self, namespace_id: str, data_view_id: str, query_id: str):
         """
         Retrieves all of the resolved data items from the specified Data View from
             Sds Service
         :param namespace_id: namespace to work against
-        :param dataView_id: Data View to work against
+        :param data_view_id: Data View to work against
         :param query_id: Query to see data items of
         :return:
         """
@@ -178,26 +176,24 @@ class DataViews(object):
             self.__dataViewResolvedDataItems.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
-                dataView_id=dataView_id,
+                dataView_id=data_view_id,
                 query_id=query_id,
             )
         )
 
         self.__baseClient.checkResponse(
-            response, f"Failed to get ResolvedDataitems for Data View, {dataView_id}."
+            response, f"Failed to get ResolvedDataitems for Data View, {data_view_id}."
         )
-        results = DataItems.fromJson(response.json())
+        results = ResolvedDataItems.fromJson(response.json())
 
         return results
 
-    def getResolvedIneligibleDataItems(
-        self, namespace_id, dataView_id, query_id
-    ):
+    def getResolvedIneligibleDataItems(self, namespace_id: str, data_view_id: str, query_id: str):
         """
         Retrieves all of the resolved ineligible data items from the specified Data View from
             Sds Service
         :param namespace_id: namespace to work against
-        :param dataView_id: Data View to work against
+        :param data_view_id: Data View to work against
         :param query_id: Query to see data items of
         :return:
         """
@@ -209,26 +205,24 @@ class DataViews(object):
             self.__dataViewResolvedIneligibleDataItems.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
-                dataView_id=dataView_id,
+                dataView_id=data_view_id,
                 query_id=query_id,
             )
         )
 
         self.__baseClient.checkResponse(
-            response, f"Failed to get ResolvedIneligibleDataitems for Data View, {dataView_id}."
+            response, f"Failed to get ResolvedIneligibleDataitems for Data View, {data_view_id}."
         )
-        results = DataItems.fromJson(response.json())
+        results = ResolvedDataItems.fromJson(response.json())
 
         return results
 
-    def getResolvedAvailableFieldSets(
-        self, namespace_id, dataView_id
-    ):
+    def getResolvedAvailableFieldSets(self, namespace_id: str, data_view_id: str):
         """
         Retrieves all of the available field sets from the specified Data View from
             Sds Service
         :param namespace_id: namespace to work against
-        :param dataView_id: Data View to work against
+        :param data_view_id: Data View to work against
         :return:
         """
         if namespace_id is None:
@@ -239,38 +233,30 @@ class DataViews(object):
             self.__dataViewResolvedAvailableFieldSets.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
-                dataView_id=dataView_id
+                dataView_id=data_view_id
             )
         )
 
         self.__baseClient.checkResponse(
-            response, f"Failed to get ResolvedAvailableFieldSetsfor Data View, {dataView_id}."
+            response, f"Failed to get ResolvedAvailableFieldSetsfor Data View, {data_view_id}."
         )
-        results = FieldSets.fromJson(response.json())
+        results = ResolvedFieldSets.fromJson(response.json())
 
         return results
 
-    def getDataInterpolated(
-        self,
-        namespace_id=None,
-        dataView_id=None,
-        count=None,
-        form=None,
-        startIndex=None,
-        endIndex=None,
-        interval=None,
-        value_class=None,
-        url=None
-    ):
+    def getDataInterpolated(self, namespace_id: str = None, data_view_id: str = None,
+                            count: int = None, form: str = None, start_index: str = None,
+                            end_index: str = None, interval: str = None, value_class=None,
+                            url: str = None):
         """
         Retrieves the interpolated data of the 'dataView_id' from Sds Service
         :param namespace_id: namespace to work against
-        :param dataView_id: Data View to work against
+        :param data_view_id: Data View to work against
         :param skip: number of values to skip
         :param count: number of values to return
         :param form: form definition
-        :param startIndex: start index
-        :param endIndex: end index
+        :param start_index: start index
+        :param end_index: end index
         :param interval: space between values
         :param value_class: Use this to auto format the data into the defined
             type.  The type is expected to have a fromJson method that takes a
@@ -281,14 +267,14 @@ class DataViews(object):
         if url is None:
             if namespace_id is None:
                 raise TypeError
-            if dataView_id is None:
+            if data_view_id is None:
                 raise TypeError
 
         params = {
             "count": count,
             "form": form,
-            "startIndex": startIndex,
-            "endIndex": endIndex,
+            "startIndex": start_index,
+            "endIndex": end_index,
             "interval": interval
         }
         response = {}
@@ -300,14 +286,14 @@ class DataViews(object):
                 self.__dataViewDataInterpolated.format(
                     tenant_id=self.__baseClient.tenant,
                     namespace_id=namespace_id,
-                    dataView_id=dataView_id,
+                    dataView_id=data_view_id,
                 ),
                 params=params
             )
 
         self.__baseClient.checkResponse(
             response,
-            f"Failed to get Data View data interpolated for Data View, {dataView_id}.",
+            f"Failed to get Data View data interpolated for Data View, {data_view_id}.",
         )
 
         # build dictionary of first/next page URL links, if any

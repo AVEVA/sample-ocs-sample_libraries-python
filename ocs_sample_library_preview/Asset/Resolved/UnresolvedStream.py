@@ -8,28 +8,28 @@ class UnresolvedStream(object):
 
     @property
     def Name(self) -> str:
-        return self.__name
+        return self._name
 
     @Name.setter
     def Name(self, value: str):
-        self.__name = value
+        self._name = value
 
     @property
     def Reason(self) -> str:
-        return self.__reason
+        return self._reason
 
     @Reason.setter
     def Reason(self, value: str):
-        self.__reason = value
+        self._reason = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         return {'Name': self.Name, 'Reason': self.Reason}
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = UnresolvedStream()
 
         if not content:

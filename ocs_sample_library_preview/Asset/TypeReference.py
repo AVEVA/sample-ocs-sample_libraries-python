@@ -23,7 +23,7 @@ class TypeReference(object):
         required
         :return:
         """
-        return self.__stream_reference_id
+        return self._stream_reference_id
 
     @StreamReferenceId.setter
     def StreamReferenceId(self, value: str):
@@ -32,7 +32,7 @@ class TypeReference(object):
         :param value:
         :return:
         """
-        self.__stream_reference_id = value
+        self._stream_reference_id = value
 
     @property
     def StreamReferenceName(self) -> str:
@@ -40,7 +40,7 @@ class TypeReference(object):
         required
         :return:
         """
-        return self.__stream_reference_name
+        return self._stream_reference_name
 
     @StreamReferenceName.setter
     def StreamReferenceName(self, value: str):
@@ -49,7 +49,7 @@ class TypeReference(object):
         :param value:
         :return:
         """
-        self.__stream_reference_name = value
+        self._stream_reference_name = value
 
     @property
     def Description(self) -> str:
@@ -57,7 +57,7 @@ class TypeReference(object):
         not required
         :return:
         """
-        return self.__description
+        return self._description
 
     @Description.setter
     def Description(self, value: str):
@@ -66,7 +66,7 @@ class TypeReference(object):
         :param value:
         :return:
         """
-        self.__description = value
+        self._description = value
 
     @property
     def TypeId(self) -> str:
@@ -74,7 +74,7 @@ class TypeReference(object):
         required
         :return:
         """
-        return self.__type_id
+        return self._type_id
 
     @TypeId.setter
     def TypeId(self, value: str):
@@ -83,12 +83,12 @@ class TypeReference(object):
         :param value:
         :return:
         """
-        self.__type_id = value
+        self._type_id = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         # required properties
         result = {
             'StreamReferenceId': self.StreamReferenceId,
@@ -97,13 +97,13 @@ class TypeReference(object):
         }
 
         # optional properties
-        if hasattr(self, 'Description'):
+        if self.Description is not None:
             result['Description'] = self.Description
 
         return result
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = TypeReference()
 
         if not content:

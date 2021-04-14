@@ -1,5 +1,4 @@
 import json
-from typing import List
 
 from ..MetadataItem import MetadataItem
 from .ResolvedStatus import ResolvedStatus
@@ -10,8 +9,8 @@ from .UnresolvedStream import UnresolvedStream
 class ResolvedAsset(object):
     def __init__(self, id: str = None, name: str = None, description: str = None,
                  asset_type_id: str = None, asset_type_name: str = None,
-                 metadata: List[MetadataItem] = None, streams: List[ResolvedStream] = None,
-                 unresolved_streams: List[UnresolvedStream] = None, status: ResolvedStatus = None):
+                 metadata: list[MetadataItem] = None, streams: list[ResolvedStream] = None,
+                 unresolved_streams: list[UnresolvedStream] = None, status: ResolvedStatus = None):
         self.Id = id
         self.Name = name
         self.Description = description
@@ -24,100 +23,100 @@ class ResolvedAsset(object):
 
     @property
     def Id(self) -> str:
-        return self.__id
+        return self._id
 
     @Id.setter
     def Id(self, value: str):
-        self.__id = value
+        self._id = value
 
     @property
     def Name(self) -> str:
-        return self.__name
+        return self._name
 
     @Name.setter
     def Name(self, value: str):
-        self.__name = value
+        self._name = value
 
     @property
     def Description(self) -> str:
-        return self.__description
+        return self._description
 
     @Description.setter
     def Description(self, value: str):
-        self.__description = value
+        self._description = value
 
     @property
     def AssetTypeId(self) -> str:
-        return self.__asset_type_id
+        return self._asset_type_id
 
     @AssetTypeId.setter
     def AssetTypeId(self, value: str):
-        self.__asset_type_id = value
+        self._asset_type_id = value
 
     @property
     def AssetTypeName(self) -> str:
-        return self.__asset_type_name
+        return self._asset_type_name
 
     @AssetTypeName.setter
     def AssetTypeName(self, value: str):
-        self.__asset_type_name = value
+        self._asset_type_name = value
 
     @property
-    def Metadata(self) -> List[MetadataItem]:
-        return self.__metadata
+    def Metadata(self) -> list[MetadataItem]:
+        return self._metadata
 
     @Metadata.setter
-    def Metadata(self, value: List[MetadataItem]):
-        self.__metadata = value
+    def Metadata(self, value: list[MetadataItem]):
+        self._metadata = value
 
     @property
-    def Streams(self) -> List[ResolvedStream]:
-        return self.__streams
+    def Streams(self) -> list[ResolvedStream]:
+        return self._streams
 
     @Streams.setter
-    def Streams(self, value: List[ResolvedStream]):
-        self.__streams = value
+    def Streams(self, value: list[ResolvedStream]):
+        self._streams = value
 
     @property
-    def UnresolvedStreams(self) -> List[UnresolvedStream]:
-        return self.__unresolved_streams
+    def UnresolvedStreams(self) -> list[UnresolvedStream]:
+        return self._unresolved_streams
 
     @UnresolvedStreams.setter
-    def UnresolvedStreams(self, value: List[UnresolvedStream]):
-        self.__unresolved_streams = value
+    def UnresolvedStreams(self, value: list[UnresolvedStream]):
+        self._unresolved_streams = value
 
     @property
     def Status(self) -> ResolvedStatus:
-        return self.__status
+        return self._status
 
     @Status.setter
     def Status(self, value: ResolvedStatus):
-        self.__status = value
+        self._status = value
 
-    def to_json(self):
-        return json.dumps(self.to_dictionary())
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
-    def to_dictionary(self):
+    def toDictionary(self):
         result = {'Id': self.Id, 'Name': self.Name, 'Description': self.Description,
                   'AssetTypeId': self.AssetTypeId, 'AssetTypeName': self.AssetTypeName,
-                  'Metadata': [], 'Streams': [], 'Status': self.Status.to_dictionary()}
+                  'Metadata': [], 'Streams': [], 'Status': self.Status.toDictionary()}
 
         if self.Metadata is not None:
             for value in self.Metadata:
-                result['Metadata'].append(value.to_dictionary())
+                result['Metadata'].append(value.toDictionary())
 
         if self.Streams is not None:
             for value in self.Streams:
-                result['Streams'].append(value.to_dictionary())
+                result['Streams'].append(value.toDictionary())
 
         if self.UnresolvedStreams is not None:
             for value in self.UnresolvedStreams:
-                result['UnresolvedStreams'].append(value.to_dictionary())
+                result['UnresolvedStreams'].append(value.toDictionary())
 
         return result
 
     @staticmethod
-    def from_json(content):
+    def fromJson(content: dict[str, str]):
         result = ResolvedAsset()
 
         if not content:
@@ -144,7 +143,7 @@ class ResolvedAsset(object):
                 result.Metadata = []
                 for value in metadata:
                     result.Metadata.append(
-                        MetadataItem.from_json(value))
+                        MetadataItem.fromJson(value))
 
         if 'Streams' in content:
             streams = content['Streams']
@@ -152,7 +151,7 @@ class ResolvedAsset(object):
                 result.Streams = []
                 for value in streams:
                     result.Streams.append(
-                        ResolvedStream.from_json(value))
+                        ResolvedStream.fromJson(value))
 
         if 'UnresolvedStreams' in content:
             unresolved_streams = content['UnresolvedStreams']
@@ -160,10 +159,10 @@ class ResolvedAsset(object):
                 result.UnresolvedStreams = []
                 for value in unresolved_streams:
                     result.UnresolvedStreams.append(
-                        UnresolvedStream.from_json(value))
+                        UnresolvedStream.fromJson(value))
 
         if 'Status' in content:
-            result.Status = ResolvedStatus.from_json(
+            result.Status = ResolvedStatus.fromJson(
                 content['Status'])
 
         return result

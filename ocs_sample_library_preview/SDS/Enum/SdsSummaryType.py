@@ -5,7 +5,7 @@ class SdsSummaryType(Enum):
     """
     enum 0-4096  not fully inclusive
     """
-    None_ = 0,
+    none = 0,
     Count = 1,
     Minimum = 2,
     Maximum = 4,

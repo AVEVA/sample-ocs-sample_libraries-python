@@ -37,7 +37,7 @@ class ValueStatusMapping(object):
     @property
     def Status(self) -> StatusEnum:
         """
-        StatusEnum    required
+        required
         :return:
         """
         return self._status
@@ -45,7 +45,7 @@ class ValueStatusMapping(object):
     @Status.setter
     def Status(self, value: StatusEnum):
         """
-        StatusEnum    required
+        required
         :param value:
         :return:
         """
@@ -73,7 +73,7 @@ class ValueStatusMapping(object):
 
     def toDictionary(self):
         # required properties
-        result = {'Value': self.Value, 'Status': self.Status.value}
+        result = {'Value': self.Value, 'Status': self.Status.name}
 
         # optional properties
         if self.DisplayName is not None:

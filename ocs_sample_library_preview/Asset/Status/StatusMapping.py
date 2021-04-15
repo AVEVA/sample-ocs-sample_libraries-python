@@ -55,7 +55,7 @@ class StatusMapping(object):
     @property
     def ValueStatusMappings(self) -> List[ValueStatusMapping]:
         """
-        list of ValueStatusMapping    required
+        required
         :return:
         """
         return self._value_status_mappings
@@ -63,7 +63,7 @@ class StatusMapping(object):
     @ValueStatusMappings.setter
     def ValueStatusMappings(self, value: List[ValueStatusMapping]):
         """
-        list of ValueStatusMapping    required
+        required
         :param value:
         :return:
         """
@@ -77,8 +77,9 @@ class StatusMapping(object):
         result = {'StreamReferenceId': self.StreamReferenceId,
                   'StreamPropertyId': self.StreamPropertyId, 'ValueStatusMappings': []}
 
-        for value in self.ValueStatusMappings:
-            result['ValueStatusMappings'].append(value.toDictionary())
+        if self.ValueStatusMappings is not None:
+            for value in self.ValueStatusMappings:
+                result['ValueStatusMappings'].append(value.toDictionary())
 
         return result
 

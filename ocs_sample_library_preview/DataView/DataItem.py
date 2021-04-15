@@ -1,7 +1,7 @@
 import json
 
+from .Enum.DataItemResourceType import DataItemResourceType
 from .DataItemField import DataItemField
-from .DataItemResourceType import DataItemResourceType
 from .MetadataValue import MetadataValue
 
 
@@ -13,15 +13,15 @@ class DataItem(object):
                  tags: list[str] = None, metadata: list[MetadataValue] = None,
                  data_item_fields: list[DataItemField] = None,
                  ineligible_data_item_fields: list[DataItemField] = None):
-        self._id = id
-        self._name = name
-        self._description = description
-        self._type_id = type_id
-        self._resource_type = resource_type
-        self._tags = tags
-        self._metadata = metadata
-        self._data_item_fields = data_item_fields
-        self._ineligible_data_item_fields = ineligible_data_item_fields
+        self.Id = id
+        self.Name = name
+        self.Description = description
+        self.TypeId = type_id
+        self.ResourceType = resource_type
+        self.Tags = tags
+        self.Metadata = metadata
+        self.DataItemFields = data_item_fields
+        self.IneligibleDataItemFields = ineligible_data_item_fields
 
     @property
     def Id(self) -> str:
@@ -100,7 +100,7 @@ class DataItem(object):
 
     def toDictionary(self):
         result = {'Id': self.Id, 'Name': self.Name, 'Description': self.Description,
-                  'TypeId': self.TypeId, 'ResourceType': self.ResourceType.value, 'Tags': [],
+                  'TypeId': self.TypeId, 'ResourceType': self.ResourceType.name, 'Tags': [],
                   'Metadata': [], 'DataItemFields': [], 'IneligibleDataItemFields': []}
 
         if self.Tags is not None:

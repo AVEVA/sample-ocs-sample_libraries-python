@@ -1,10 +1,9 @@
 import json
-from ocs_sample_library_preview.Asset import Data
 
-from ..SDS.SdsTypeCode import SdsTypeCode
+from ..SDS import SdsTypeCode
+from .Enum.DataViewShape import DataViewShape
 from .Field import Field
 from .FieldSet import FieldSet
-from .DataViewShape import DataViewShape
 from .Query import Query
 
 
@@ -31,18 +30,18 @@ class DataView(object):
         :param index_type_code: not required
         :param shape: not required
         """
-        self._id = id
-        self._name = name
-        self._description = description
-        self._index_field = index_field
-        self._queries = queries
-        self._data_field_sets = data_field_sets
-        self._grouping_fields = grouping_fields
-        self._default_start_index = default_start_index
-        self._default_end_index = default_end_index
-        self._default_interval = default_interval
-        self._index_type_code = index_type_code
-        self._shape = shape
+        self.Id = id
+        self.Name = name
+        self.Description = description
+        self.IndexField = index_field
+        self.Queries = queries
+        self.DataFieldSets = data_field_sets
+        self.GroupingFields = grouping_fields
+        self.DefaultStartIndex = default_start_index
+        self.DefaultEndIndex = default_end_index
+        self.DefaultInterval = default_interval
+        self.IndexTypeCode = index_type_code
+        self.Shape = shape
 
     @property
     def Id(self) -> str:
@@ -98,7 +97,7 @@ class DataView(object):
     @property
     def IndexField(self) -> Field:
         """
-        Field    not required
+        not required
         :return:
         """
         return self._index_field
@@ -106,7 +105,7 @@ class DataView(object):
     @IndexField.setter
     def IndexField(self, value: Field):
         """
-        Field    not required
+        not required
         :param value:
         :return:
         """
@@ -115,7 +114,7 @@ class DataView(object):
     @property
     def Queries(self) -> list[Query]:
         """
-        list of Query    not required
+        not required
         :return:
         """
         return self._queries
@@ -123,7 +122,7 @@ class DataView(object):
     @Queries.setter
     def Queries(self, value: list[Query]):
         """
-        list of Query    not required
+        not required
         :param value:
         :return:
         """
@@ -132,7 +131,7 @@ class DataView(object):
     @property
     def DataFieldSets(self) -> list[FieldSet]:
         """
-        list of FieldSet    not required
+        not required
         :return:
         """
         return self._data_field_sets
@@ -140,7 +139,7 @@ class DataView(object):
     @DataFieldSets.setter
     def DataFieldSets(self, value: list[FieldSet]):
         """
-        list of FieldSet    not required
+        not required
         :param value:
         :return:
         """
@@ -149,7 +148,7 @@ class DataView(object):
     @property
     def GroupingFields(self) -> list[Field]:
         """
-        list of Field    not required
+        not required
         :return:
         """
         return self._grouping_fields
@@ -157,7 +156,7 @@ class DataView(object):
     @GroupingFields.setter
     def GroupingFields(self, value: list[Field]):
         """
-        list of Field    not required
+        not required
         :param value:
         :return:
         """

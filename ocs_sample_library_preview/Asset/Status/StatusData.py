@@ -57,7 +57,7 @@ class StatusData(object):
         return json.dumps(self.toDictionary())
 
     def toDictionary(self):
-        return {'AssetId': self.AssetId, 'Status': self.Status.value, 'Value': self.Value,
+        return {'AssetId': self.AssetId, 'Status': self.Status.name, 'Value': self.Value,
                 'DisplayName': self.DisplayName, 'DataRetrievalTime': self.DataRetrievalTime}
 
     @staticmethod

@@ -1,6 +1,6 @@
 import json
 
-from ..SDS.SdsTypeCode import SdsTypeCode
+from ..SDS import SdsTypeCode
 
 
 class DataItemField(object):
@@ -8,12 +8,12 @@ class DataItemField(object):
 
     def __init__(self, id: str = None, name: str = None, type_code: SdsTypeCode = None,
                  uom: str = None, is_key: bool = None, stream_reference_name: str = None):
-        self._id = id
-        self._name = name
-        self._type_code = type_code
-        self._uom = uom
-        self._is_key = is_key
-        self._stream_reference_name = stream_reference_name
+        self.Id = id
+        self.Name = name
+        self.TypeCode = type_code
+        self.Uom = uom
+        self.IsKey = is_key
+        self.StreamReferenceName = stream_reference_name
 
     @property
     def Id(self) -> str:
@@ -67,7 +67,7 @@ class DataItemField(object):
         return json.dumps(self.toDictionary())
 
     def toDictionary(self):
-        return {'Id': self.Id, 'Name': self.Name, 'TypeCode': self.TypeCode.value, 'Uom': self.Uom,
+        return {'Id': self.Id, 'Name': self.Name, 'TypeCode': self.TypeCode.name, 'Uom': self.Uom,
                 'IsKey': self.IsKey, 'StreamReferenceName': self.StreamReferenceName}
 
     @staticmethod

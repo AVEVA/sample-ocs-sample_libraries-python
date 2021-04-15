@@ -1,6 +1,6 @@
 import json
 
-from .DataItemResourceType import DataItemResourceType
+from .Enum.DataItemResourceType import DataItemResourceType
 
 
 class Query(object):
@@ -12,9 +12,9 @@ class Query(object):
         :param kind: not required
         :param value: not required
         """
-        self._id = id
-        self._kind = kind
-        self._value = value
+        self.Id = id
+        self.Kind = kind
+        self.Value = value
 
     @property
     def Id(self) -> str:
@@ -76,7 +76,7 @@ class Query(object):
 
         # optional properties
         if self.Kind is not None:
-            result['Kind'] = self.Kind.value
+            result['Kind'] = self.Kind.name
 
         if self.Value is not None:
             result['Value'] = self.Value

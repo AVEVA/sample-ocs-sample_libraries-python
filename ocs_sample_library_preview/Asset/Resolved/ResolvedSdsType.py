@@ -1,23 +1,20 @@
 import json
 
-from ...SDS.SdsTypeCode import SdsTypeCode
+from ... import SDS
 from .ResolvedEnum import ResolvedEnum
-
-# Alias class to avoid conflict with SdsTypeCode property
-SdsTypeCodeType = SdsTypeCode
 
 
 class ResolvedSdsType(object):
-    def __init__(self, sds_type_code: SdsTypeCodeType = None, properties: list[ResolvedEnum] = None):
+    def __init__(self, sds_type_code: SDS.SdsTypeCode = None, properties: list[ResolvedEnum] = None):
         self.SdsTypeCode = sds_type_code
         self.Properties = properties
 
     @property
-    def SdsTypeCode(self) -> SdsTypeCodeType:
+    def SdsTypeCode(self) -> SDS.SdsTypeCode:
         return self._sds_type_code
 
     @SdsTypeCode.setter
-    def SdsTypeCode(self, value: SdsTypeCodeType):
+    def SdsTypeCode(self, value: SDS.SdsTypeCode):
         self._sds_type_code = value
 
     @property
@@ -32,7 +29,7 @@ class ResolvedSdsType(object):
         return json.dumps(self.toDictionary())
 
     def toDictionary(self):
-        result = {'SdsTypeCode': self.SdsTypeCode.value, 'Properties': []}
+        result = {'SdsTypeCode': self.SdsTypeCode.name, 'Properties': []}
 
         if self.Properties is not None:
             for value in self.Properties:
@@ -48,7 +45,7 @@ class ResolvedSdsType(object):
             return result
 
         if 'SdsTypeCode' in content:
-            result.SdsTypeCode = SdsTypeCode[content['SdsTypeCode']]
+            result.SdsTypeCode = SDS.SdsTypeCode[content['SdsTypeCode']]
 
         if 'Properties' in content:
             properties = content['Properties']

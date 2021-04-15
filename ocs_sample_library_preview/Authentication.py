@@ -2,11 +2,9 @@
 from .SdsError import SdsError
 
 import base64
-import configparser
 import hashlib
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import json
-import os
 import secrets
 import time
 from urllib.parse import urlparse, parse_qs

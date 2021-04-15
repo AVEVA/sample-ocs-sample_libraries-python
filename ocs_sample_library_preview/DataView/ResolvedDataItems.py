@@ -7,8 +7,8 @@ class ResolvedDataItems(object):
     """OCS Resolved Items definition"""
 
     def __init__(self, time_of_resolution: str = None, items: list[DataItem] = None):
-        self._time_of_resolution = time_of_resolution
-        self._items = items
+        self.TimeOfResolution = time_of_resolution
+        self.Items = items
 
     @property
     def TimeOfResolution(self) -> str:

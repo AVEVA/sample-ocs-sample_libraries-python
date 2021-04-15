@@ -1,33 +1,25 @@
 import json
 
-from ..SDS.SdsSummaryType import SdsSummaryType
-from ..SDS.SdsTypeCode import SdsTypeCode
-from .FieldKind import FieldKind
+from ..SDS import SdsSummaryType, SdsTypeCode
+from . import Enum
 from .DataMapping import DataMapping
-from .SummaryDirection import SummaryDirection
-
-
-# Alias class to avoid conflict with FieldKind property
-FieldKindType = FieldKind
-# Alias class to avoid conflict with SummaryDirection property
-SummaryDirectionType = SummaryDirection
 
 
 class FieldMapping(object):
     """OCS Field Mapping definition"""
 
-    def __init__(self, id: str = None, label: str = None, field_kind: FieldKindType = None,
+    def __init__(self, id: str = None, label: str = None, field_kind: Enum.FieldKind = None,
                  data_mappings: list[DataMapping] = None, type_code: SdsTypeCode = None,
                  uom: str = None, summary_type: SdsSummaryType = None,
-                 summary_direction: SummaryDirectionType = None):
-        self._id = id
-        self._label = label
-        self._field_kind = field_kind
-        self._data_mappings = data_mappings
-        self._type_code = type_code
-        self._uom = uom
-        self._summary_type = summary_type
-        self._summary_direction = summary_direction
+                 summary_direction: Enum.SummaryDirection = None):
+        self.Id = id
+        self.Label = label
+        self.FieldKind = field_kind
+        self.DataMappings = data_mappings
+        self.TypeCode = type_code
+        self.Uom = uom
+        self.SummaryType = summary_type
+        self.SummaryDirection = summary_direction
 
     @property
     def Id(self) -> str:
@@ -46,11 +38,11 @@ class FieldMapping(object):
         self._label = value
 
     @property
-    def FieldKind(self) -> FieldKindType:
+    def FieldKind(self) -> Enum.FieldKind:
         return self._field_kind
 
     @FieldKind.setter
-    def FieldKind(self, value: FieldKindType):
+    def FieldKind(self, value: Enum.FieldKind):
         self._field_kind = value
 
     @property
@@ -86,11 +78,11 @@ class FieldMapping(object):
         self._summary_type = value
 
     @property
-    def SummaryDirection(self) -> SummaryDirectionType:
+    def SummaryDirection(self) -> Enum.SummaryDirection:
         return self._summary_direction
 
     @SummaryDirection.setter
-    def SummaryDirection(self, value: SummaryDirectionType):
+    def SummaryDirection(self, value: Enum.SummaryDirection):
         self._summary_direction = value
 
     def toJson(self):
@@ -116,16 +108,16 @@ class FieldMapping(object):
                 result['DataMappings'].append(value.toDictionary())
 
         if self.TypeCode is not None:
-            result['TypeCode'] = self.TypeCode.value
+            result['TypeCode'] = self.TypeCode.name
 
         if self.Uom is not None:
             result['Uom'] = self.Uom
 
         if self.SummaryType is not None:
-            result['SummaryType'] = self.SummaryType.value
+            result['SummaryType'] = self.SummaryType.name
 
         if self.SummaryDirection is not None:
-            result['SummaryDirection'] = self.SummaryDirection.value
+            result['SummaryDirection'] = self.SummaryDirection.name
 
         return result
 
@@ -143,7 +135,7 @@ class FieldMapping(object):
             result.Label = content['Label']
 
         if 'FieldKind' in content:
-            result.FieldKind = FieldKind[content['FieldKind']]
+            result.FieldKind = Enum.FieldKind[content['FieldKind']]
 
         if 'DataMappings' in content:
             data_mappings = content['DataMappings']
@@ -162,6 +154,6 @@ class FieldMapping(object):
             result.SummaryType = SdsSummaryType[content['SummaryType']]
 
         if 'SummaryDirection' in content:
-            result.SummaryDirection = SummaryDirection[content['SummaryDirection']]
+            result.SummaryDirection = Enum.SummaryDirection[content['SummaryDirection']]
 
         return result

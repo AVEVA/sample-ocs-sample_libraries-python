@@ -1,4 +1,6 @@
 import json
+
+from .Enum import SdsExtrapolationMode, SdsInterpolationMode
 from .SdsStreamIndex import SdsStreamIndex
 from .SdsStreamPropertyOverride import SdsStreamPropertyOverride
 
@@ -6,245 +8,240 @@ from .SdsStreamPropertyOverride import SdsStreamPropertyOverride
 class SdsStream(object):
     """Sds stream definition"""
 
-    def __init__(self, id=None, name=None, description=None, typeId=None,
-                 propertyOverrides=None, indexes=None, interpolationMode=None,
-                 extrapolationMode=None):
+    def __init__(self, id: str = None, name: str = None, description: str = None,
+                 type_id: str = None, indexes: list[SdsStreamIndex] = None,
+                 interpolation_mode: SdsInterpolationMode = None,
+                 extrapolationMode: SdsExtrapolationMode = None,
+                 property_overrides: list[SdsStreamPropertyOverride] = None):
         """
-
         :param id: required
         :param name: not required
         :param description: not required
-        :param typeId: required
-        :param propertyOverrides:  array of  SdsStreamPropertyOverride
-                                   not required
+        :param type_id: required
         :param indexes: array of SdsStreamIndex   not required
-        :param interpolationMode: SdsInterpolationMode   default is null
+        :param interpolation_mode: SdsInterpolationMode   default is null
                                    not required
-        :param extrapolationMode: SdsExtrapolationMode default is null
+        :param extrapolation_mode: SdsExtrapolationMode default is null
                                   not required
+        :param property_overrides:  array of  SdsStreamPropertyOverride
+                                   not required
         """
         self.Id = id
         self.Name = name
         self.Description = description
-        self.TypeId = typeId
-        self.PropertyOverrides = propertyOverrides
+        self.TypeId = type_id
         self.Indexes = indexes
-        self.InterpolationMode = interpolationMode
+        self.InterpolationMode = interpolation_mode
         self.ExtrapolationMode = extrapolationMode
+        self.PropertyOverrides = property_overrides
 
     @property
-    def Id(self):
+    def Id(self) -> str:
         """
         required
         :return:
         """
-        return self.__id
+        return self._id
 
     @Id.setter
-    def Id(self, id):
+    def Id(self, value: str):
         """"
         required
-        :param id:
+        :param value:
         :return:
         """
-        self.__id = id
+        self._id = value
 
     @property
-    def Name(self):
+    def Name(self) -> str:
         """
         not required
         :return:
         """
-        return self.__name
+        return self._name
 
     @Name.setter
-    def Name(self, name):
+    def Name(self, value: str):
         """
         not required
-        :param name:
+        :param value:
         :return:
         """
-        self.__name = name
+        self._name = value
 
     @property
-    def Description(self):
+    def Description(self) -> str:
         """
         not required
         :return:
         """
-        return self.__description
+        return self._description
 
     @Description.setter
-    def Description(self, description):
+    def Description(self, value: str):
         """
         not required
-        :param description:
+        :param value:
         :return:
         """
-        self.__description = description
+        self._description = value
 
     @property
-    def TypeId(self):
+    def TypeId(self) -> str:
         """
         required
         :return:
         """
-        return self.__typeId
+        return self._type_id
 
     @TypeId.setter
-    def TypeId(self, typeId):
+    def TypeId(self, value: str):
         """
         required
-        :param typeId:
+        :param value:
         :return:
         """
-        self.__typeId = typeId
+        self._type_id = value
 
     @property
-    def PropertyOverrides(self):
+    def Indexes(self) -> list[SdsStreamIndex]:
         """
-        array of  SdsStreamPropertyOverride    not required
+        not required
         :return:
         """
-        return self.__propertyOverrides
-
-    @PropertyOverrides.setter
-    def PropertyOverrides(self, propertyOverrides):
-        """
-        array of  SdsStreamPropertyOverride    not required
-        :param propertyOverrides:
-        :return:
-        """
-        self.__propertyOverrides = propertyOverrides
-
-    @property
-    def Indexes(self):
-        """
-        array of SdsStreamIndex   not required
-        :return:
-        """
-        return self.__indexes
+        return self._indexes
 
     @Indexes.setter
-    def Indexes(self, indexes):
+    def Indexes(self, value: list[SdsStreamIndex]):
         """
-        array of SdsStreamIndex   not required
-        :param indexes:
+        not required
+        :param value:
         :return:
         """
-        self.__indexes = indexes
+        self._indexes = value
 
     @property
-    def InterpolationMode(self):
+    def InterpolationMode(self) -> SdsInterpolationMode:
         """
-        SdsInterpolationMode   default is null   not required
+        not required
         :return:
         """
-        return self.__interpolationMode
+        return self._interpolation_mode
 
     @InterpolationMode.setter
-    def InterpolationMode(self, interpolationMode):
+    def InterpolationMode(self, value: SdsInterpolationMode):
         """
-        SdsInterpolationMode    default is null   not required
-        :param interpolationMode:
+        not required
+        :param value:
         :return:
         """
-        self.__interpolationMode = interpolationMode
+        self._interpolation_mode = value
 
     @property
-    def ExtrapolationMode(self):
+    def ExtrapolationMode(self) -> SdsExtrapolationMode:
         """
-        SdsExtrapolationMode default is null   not required
+        not required
         :return:
         """
-        return self.__extrapolationMode
+        return self._extrapolation_mode
 
     @ExtrapolationMode.setter
-    def ExtrapolationMode(self, extrapolationMode):
+    def ExtrapolationMode(self, value: SdsExtrapolationMode):
         """
-        SdsExtrapolationMode default is null   not required
-        :param extrapolationMode:
+        not required
+        :param value:
         :return:
         """
-        self.__extrapolationMode = extrapolationMode
+        self._extrapolation_mode = value
+
+    @property
+    def PropertyOverrides(self) -> list[SdsStreamPropertyOverride]:
+        """
+        not required
+        :return:
+        """
+        return self._property_overrides
+
+    @PropertyOverrides.setter
+    def PropertyOverrides(self, value: list[SdsStreamPropertyOverride]):
+        """
+        not required
+        :param value:
+        :return:
+        """
+        self._property_overrides = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())
 
     def toDictionary(self):
         # required properties
-        dictionary = {'Id': self.Id, 'TypeId': self.TypeId}
+        result = {'Id': self.Id, 'TypeId': self.TypeId}
 
         # optional properties
-        if hasattr(self, 'Name'):
-            dictionary['Name'] = self.Name
+        if self.Name is not None:
+            result['Name'] = self.Name
 
-        if hasattr(self, 'Description'):
-            dictionary['Description'] = self.Description
+        if self.Description is not None:
+            result['Description'] = self.Description
 
-        if hasattr(self, 'InterpolationMode'):
-            dictionary['InterpolationMode'] = self.InterpolationMode
+        if self.Indexes is not None:
+            result['Indexes'] = []
+            for value in self.Indexes:
+                result['Indexes'].append(value.toDictionary())
 
-        if hasattr(self, 'ExtrapolationMode'):
-            dictionary['ExtrapolationMode'] = self.ExtrapolationMode
+        if self.InterpolationMode is not None:
+            result['InterpolationMode'] = self.InterpolationMode
 
-        if hasattr(self, 'PropertyOverrides'):
-            if self.PropertyOverrides is not None:
-                dictionary['PropertyOverrides'] = []
-                for value in self.PropertyOverrides:
-                    dictionary['PropertyOverrides'].append(
-                        value.toDictionary())
+        if self.ExtrapolationMode is not None:
+            result['ExtrapolationMode'] = self.ExtrapolationMode
 
-        if hasattr(self, 'Indexes'):
-            if self.Indexes is not None:
-                dictionary['Indexes'] = []
-                for value in self.Indexes:
-                    dictionary['Indexes'].append(value.toDictionary())
+        if self.PropertyOverrides is not None:
+            result['PropertyOverrides'] = []
+            for value in self.PropertyOverrides:
+                result['PropertyOverrides'].append(
+                    value.toDictionary())
 
-        return dictionary
+        return result
 
     @staticmethod
-    def fromJson(jsonObj):
-        return SdsStream.fromDictionary(jsonObj)
-
-    @staticmethod
-    def fromDictionary(content):
-        stream = SdsStream()
+    def fromJson(content: dict[str, str]):
+        result = SdsStream()
 
         if not content:
-            return stream
+            return result
 
         if 'Id' in content:
-            stream.Id = content['Id']
+            result.Id = content['Id']
 
         if 'Name' in content:
-            stream.Name = content['Name']
+            result.Name = content['Name']
 
         if 'Description' in content:
-            stream.Description = content['Description']
-
-        if 'InterpolationMode' in content:
-            stream.InterpolationMode = content['InterpolationMode']
-
-        if 'ExtrapolationMode' in content:
-            stream.ExtrapolationMode = content['ExtrapolationMode']
+            result.Description = content['Description']
 
         if 'TypeId' in content:
-            stream.TypeId = content['TypeId']
-
-        if 'PropertyOverrides' in content:
-            propertyOverrides = content['PropertyOverrides']
-            if propertyOverrides is not None and len(propertyOverrides) > 0:
-                stream.PropertyOverrides = []
-                for value in propertyOverrides:
-                    stream.PropertyOverrides.append(
-                        SdsStreamPropertyOverride.fromDictionary(value))
+            result.TypeId = content['TypeId']
 
         if 'Indexes' in content:
             indexes = content['Indexes']
             if indexes is not None and len(indexes) > 0:
-                stream.Indexes = []
+                result.Indexes = []
                 for value in indexes:
-                    stream.Indexes.append(SdsStreamIndex.fromDictionary(value))
+                    result.Indexes.append(SdsStreamIndex.fromJson(value))
 
-        return stream
+        if 'InterpolationMode' in content:
+            result.InterpolationMode = SdsInterpolationMode[content['InterpolationMode']]
+
+        if 'ExtrapolationMode' in content:
+            result.ExtrapolationMode = SdsExtrapolationMode[content['ExtrapolationMode']]
+
+        if 'PropertyOverrides' in content:
+            property_overrides = content['PropertyOverrides']
+            if property_overrides is not None and len(property_overrides) > 0:
+                result.PropertyOverrides = []
+                for value in property_overrides:
+                    result.PropertyOverrides.append(
+                        SdsStreamPropertyOverride.fromJson(value))
+
+        return result

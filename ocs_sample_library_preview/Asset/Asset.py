@@ -1,11 +1,8 @@
 import json
 
-from .Status.StatusMapping import StatusMapping
+from . import Status
 from .MetadataItem import MetadataItem
 from .StreamReference import StreamReference
-
-# Alias class to avoid conflict with StatusMapping property
-StatusMappingType = StatusMapping
 
 
 class Asset(object):
@@ -14,7 +11,7 @@ class Asset(object):
     def __init__(self, id: str = None, name: str = None, description: str = None,
                  asset_type_id: str = None, metadata: list[MetadataItem] = None,
                  stream_references: list[StreamReference] = None,
-                 status_mapping: StatusMappingType = None):
+                 status_mapping: Status.StatusMapping = None):
         """
         :param id: required
         :param name: not required
@@ -103,7 +100,7 @@ class Asset(object):
     @property
     def Metadata(self) -> list[MetadataItem]:
         """
-        list of MetadataItem    not required
+        not required
         :return:
         """
         return self._metadata
@@ -111,7 +108,7 @@ class Asset(object):
     @Metadata.setter
     def Metadata(self, value: list[MetadataItem]):
         """
-        list of MetadataItem    not required
+        not required
         :param value:
         :return:
         """
@@ -120,7 +117,7 @@ class Asset(object):
     @property
     def StreamReferences(self) -> list[StreamReference]:
         """
-        list of StreamReference    not required
+        not required
         :return:
         """
         return self._stream_references
@@ -128,24 +125,24 @@ class Asset(object):
     @StreamReferences.setter
     def StreamReferences(self, value: list[StreamReference]):
         """
-        list of StreamReference    not required
+        not required
         :param value:
         :return:
         """
         self._stream_references = value
 
     @property
-    def StatusMapping(self) -> StatusMappingType:
+    def StatusMapping(self) -> Status.StatusMapping:
         """
-        StatusMapping    not required
+        not required
         :return:
         """
         return self._status_mapping
 
     @StatusMapping.setter
-    def StatusMapping(self, value: StatusMappingType):
+    def StatusMapping(self, value: Status.StatusMapping):
         """
-        StatusMapping    not required
+        not required
         :param value:
         :return:
         """
@@ -220,7 +217,7 @@ class Asset(object):
                         StreamReference.fromJson(value))
 
         if 'StatusMapping' in content:
-            result.StatusMapping = StatusMappingType.fromJson(
+            result.StatusMapping = Status.StatusMapping.fromJson(
                 content['StatusMapping'])
 
         return result

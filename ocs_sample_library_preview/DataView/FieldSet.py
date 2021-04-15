@@ -13,9 +13,9 @@ class FieldSet(object):
         :param data_fields: not required
         :param identifying_field: not required
         """
-        self._query_id = query_id
-        self._data_fields = data_fields
-        self._identifying_field = identifying_field
+        self.QueryId = query_id
+        self.DataFields = data_fields
+        self.IdentifyingField = identifying_field
 
     @property
     def QueryId(self) -> str:

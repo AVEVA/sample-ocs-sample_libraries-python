@@ -1,11 +1,6 @@
 import json
 
-from .FieldSource import FieldSource
-from .SummaryDirection import SummaryDirection
-
-
-# Alias class to avoid conflict with SummaryDirection property
-SummaryDirectionType = SummaryDirection
+from .Enum.FieldSource import FieldSource
 
 
 class Field(object):
@@ -21,11 +16,11 @@ class Field(object):
         :param label: not required
         :param include_uom: not required
         """
-        self._source = source
-        self._keys = keys
-        self._stream_reference_names = stream_reference_names
-        self._label = label
-        self._include_uom = include_uom
+        self.Source = source
+        self.Keys = keys
+        self.StreamReferenceNames = stream_reference_names
+        self.Label = label
+        self.IncludeUom = include_uom
 
     @property
     def Source(self) -> FieldSource:

@@ -1,12 +1,7 @@
 import json
-from ocs_sample_library_preview.DataView.SummaryDirection import SummaryDirection
 
-from ..SDS.SdsTypeCode import SdsTypeCode
-from ..SDS.SdsSummaryType import SdsSummaryType
-from .SummaryDirection import SummaryDirection
-
-# Alias class to avoid conflict with SummaryDirection property
-SummaryDirectionType = SummaryDirection
+from ..SDS import SdsTypeCode, SdsSummaryType
+from . import Enum
 
 
 class DataMapping(object):
@@ -14,17 +9,18 @@ class DataMapping(object):
 
     def __init__(self, target_id: str = None, target_stream_reference_name: str = None,
                  target_field_key: str = None, type_code: SdsTypeCode = None, uom: str = None,
-                 summary_type: SdsSummaryType = None, summary_direction: SummaryDirectionType = None,
-                 field_set_index: int = None, field_index: int = None):
-        self._target_id = target_id
-        self._target_stream_reference_name = target_stream_reference_name
-        self._target_field_key = target_field_key
-        self._type_code = type_code
-        self._uom = uom
-        self._summary_type = summary_type
-        self._summary_direction = summary_direction
-        self._field_set_index = field_set_index
-        self._field_index = field_index
+                 summary_type: SdsSummaryType = None,
+                 summary_direction: Enum.SummaryDirection = None, field_set_index: int = None,
+                 field_index: int = None):
+        self.TargetId = target_id
+        self.TargetStreamReferenceName = target_stream_reference_name
+        self.TargetFieldKey = target_field_key
+        self.TypeCode = type_code
+        self.Uom = uom
+        self.SummaryType = summary_type
+        self.SummaryDirection = summary_direction
+        self.FieldSetIndex = field_set_index
+        self.FieldIndex = field_index
 
     @property
     def TargetId(self) -> str:
@@ -75,11 +71,11 @@ class DataMapping(object):
         self._summary_type = value
 
     @property
-    def SummaryDirection(self) -> SummaryDirectionType:
+    def SummaryDirection(self) -> Enum.SummaryDirection:
         return self._summary_direction
 
     @SummaryDirection.setter
-    def SummaryDirection(self, value: SummaryDirectionType):
+    def SummaryDirection(self, value: Enum.SummaryDirection):
         self._summary_direction = value
 
     @property
@@ -104,11 +100,11 @@ class DataMapping(object):
     def toDictionary(self):
         result = {'TargetId': self.TargetId,
                   'TargetStreamReferenceName': self.TargetStreamReferenceName,
-                  'TargetFieldKey': self.TargetFieldKey, 'TypeCode': self.TypeCode.value,
-                  'Uom': self.Uom, 'SummaryType': self.SummaryType.value}
+                  'TargetFieldKey': self.TargetFieldKey, 'TypeCode': self.TypeCode.name,
+                  'Uom': self.Uom, 'SummaryType': self.SummaryType.name}
 
         if self.SummaryDirection is not None:
-            result['SummaryDirection'] = self.SummaryDirection.value
+            result['SummaryDirection'] = self.SummaryDirection.name
 
         if self.FieldSetIndex is not None:
             result['FieldSetIndex'] = self.FieldSetIndex
@@ -144,7 +140,7 @@ class DataMapping(object):
             result.SummaryType = SdsSummaryType[content['SummaryType']]
 
         if 'SummaryDirection' in content:
-            result.SummaryDirection = SummaryDirectionType[content['SummaryDirection']]
+            result.SummaryDirection = Enum.SummaryDirection[content['SummaryDirection']]
 
         if 'FieldSetIndex' in content:
             result.FieldSetIndex = content['FieldSetIndex']

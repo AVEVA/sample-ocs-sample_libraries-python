@@ -1,6 +1,6 @@
 import json
 
-from ..MetadataItem import MetadataItem
+from .. import MetadataItem
 from .ResolvedStatus import ResolvedStatus
 from .ResolvedStream import ResolvedStream
 from .UnresolvedStream import UnresolvedStream

@@ -1,7 +1,7 @@
 import json
 from typing import Any
 
-from ..SDS.SdsTypeCode import SdsTypeCode
+from ..SDS import SdsTypeCode
 
 
 class MetadataValue(object):
@@ -9,11 +9,11 @@ class MetadataValue(object):
 
     def __init__(self, name: str = None, value: Any = None, description: str = None,
                  type_code: SdsTypeCode = None, uom: str = None):
-        self._name = name
-        self._value = value
-        self._description = description
-        self._type_code = type_code
-        self._uom = uom
+        self.Name = name
+        self.Value = value
+        self.Description = description
+        self.TypeCode = type_code
+        self.Uom = uom
 
     @property
     def Name(self) -> str:
@@ -60,7 +60,7 @@ class MetadataValue(object):
 
     def toDictionary(self):
         return {'Name': self.Name, 'Value': self.Value, 'Description': self.Description,
-                'TypeCode': self.TypeCode.value, 'Uom': self.Uom}
+                'TypeCode': self.TypeCode.name, 'Uom': self.Uom}
 
     @staticmethod
     def fromJson(content: dict[str, str]):

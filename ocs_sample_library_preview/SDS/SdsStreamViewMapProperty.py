@@ -1,10 +1,11 @@
 import json
 
-from .SdsStreamView import SdsStreamView
+from .. import SDS
+from .Enum import SdsStreamViewMode
 
 
-class SdsStreamViewProperty(object):
-    """Sds StreamView Property definition"""
+class SdsStreamViewMapProperty(object):
+    """Sds StreamViewMap Property definition"""
     @property
     def SourceId(self) -> str:
         """
@@ -40,21 +41,38 @@ class SdsStreamViewProperty(object):
         self._target_id = value
 
     @property
-    def SdsStreamView(self) -> SdsStreamView:
+    def Mode(self) -> SdsStreamViewMode:
         """
         not required
         :return:
         """
-        return self._sds_stream_view
+        return self._mode
 
-    @SdsStreamView.setter
-    def SdsStreamView(self, value: SdsStreamView):
+    @Mode.setter
+    def Mode(self, value: SdsStreamViewMode):
         """
         not required
         :param value:
         :return:
         """
-        self._sds_stream_view = value
+        self._mode = value
+
+    @property
+    def SdsStreamViewMap(self) -> SDS.SdsStreamViewMap:
+        """
+        not required
+        :return:
+        """
+        return self._sds_stream_view_map
+
+    @SdsStreamViewMap.setter
+    def SdsStreamViewMap(self, value: SDS.SdsStreamViewMap):
+        """
+        not required
+        :param value:
+        :return:
+        """
+        self._sds_stream_view_map = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())
@@ -63,14 +81,17 @@ class SdsStreamViewProperty(object):
         # required properties
         result = {'SourceId': self.SourceId, 'TargetId': self.TargetId}
 
-        if self.SdsStreamView is not None:
-            result['SdsStreamView'] = self.SdsStreamView.toDictionary()
+        if self.Mode is not None:
+            result['Mode'] = self.Mode.name
+
+        if self.SdsStreamViewMap is not None:
+            result['SdsStreamViewMap'] = self.SdsStreamViewMap.toDictionary()
 
         return result
 
     @staticmethod
     def fromJson(content: dict[str, str]):
-        result = SdsStreamViewProperty()
+        result = SdsStreamViewMapProperty()
 
         if not content:
             return result
@@ -81,8 +102,11 @@ class SdsStreamViewProperty(object):
         if 'TargetId' in content:
             result.TargetId = content['TargetId']
 
-        if 'SdsStreamView' in content:
-            result.SdsStreamView = SdsStreamView.fromJson(
-                content['SdsStreamView'])
+        if 'Mode' in content:
+            result.Mode = SdsStreamViewMode[content['Mode']]
+
+        if 'SdsStreamViewMap' in content:
+            result.SdsStreamViewMap = SDS.SdsStreamView.fromJson(
+                content['SdsStreamViewMap'])
 
         return result

@@ -1,92 +1,105 @@
 import json
 
+from .Enum import SdsInterpolationMode
+
 
 class SdsStreamPropertyOverride(object):
     """
     Sds Stream PropertyOverride definitions
     """
 
-    @property
-    def SdsTypePropertyId(self):
+    def __init__(self, sds_type_property_id: str = None, uom: str = None,
+                 interpolation_mode: SdsInterpolationMode = None):
         """
-        id   required
+        :param sds_type_property_id: required
+        :param uom: not required
+        :param interpolation_mode: not required
+        """
+        self.SdsTypePropertyId = sds_type_property_id
+        self.Uom = uom
+        self.InterpolationMode = interpolation_mode
+
+    @property
+    def SdsTypePropertyId(self) -> str:
+        """
+        required
         :return:
         """
-        return self.__sdsTypePropertyId
+        return self._sds_type_property_id
 
     @SdsTypePropertyId.setter
-    def SdsTypePropertyId(self, sdsTypePropertyId):
+    def SdsTypePropertyId(self, value: str):
         """
-        id   required
-        :param sdsTypePropertyId:
+        required
+        :param value:
         :return:
         """
-        self.__sdsTypePropertyId = sdsTypePropertyId
+        self._sds_type_property_id = value
 
     @property
-    def InterpolationMode(self):
+    def Uom(self) -> str:
         """
-        SdsInterpolationMode   not required
+        not required
         :return:
         """
-        return self.__interpolationMode
-
-    @InterpolationMode.setter
-    def InterpolationMode(self, interpolationMode):
-        """
-        SdsInterpolationMode   not required
-        :param interpolationMode:
-        :return:
-        """
-        self.__interpolationMode = interpolationMode
-
-    @property
-    def Uom(self):
-        """
-        Unit of Measure    not required
-        :return:
-        """
-        return self.__uom
+        return self._uom
 
     @Uom.setter
-    def Uom(self, uom):
+    def Uom(self, value: str):
         """
-        Unit of Measure    not required
-        :param uom:
+        not required
+        :param value:
         :return:
         """
-        self.__uom = uom
+        self._uom = value
+
+    @property
+    def InterpolationMode(self) -> SdsInterpolationMode:
+        """
+        not required
+        :return:
+        """
+        return self._interpolation_mode
+
+    @InterpolationMode.setter
+    def InterpolationMode(self, value: SdsInterpolationMode):
+        """
+        not required
+        :param value:
+        :return:
+        """
+        self._interpolation_mode = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())
 
     def toDictionary(self):
         # required properties
-        dictionary = {'SdsTypePropertyId': self.SdsTypePropertyId}
+        result = {'SdsTypePropertyId': self.SdsTypePropertyId}
 
         # optional properties
-        if hasattr(self, 'Uom'):
-            dictionary['Uom'] = self.Uom
+        if self.Uom is not None:
+            result['Uom'] = self.Uom
 
-        if hasattr(self, 'InterpolationMode'):
-            dictionary['InterpolationMode'] = self.InterpolationMode
+        if self.InterpolationMode is not None:
+            result['InterpolationMode'] = self.InterpolationMode
 
-        return dictionary
+        return result
 
     @staticmethod
-    def fromDictionary(content):
-        propertyOverride = SdsStreamPropertyOverride()
+    def fromJson(content: dict[str, str]):
+        result = SdsStreamPropertyOverride()
 
         if not content:
-            return propertyOverride
+            return result
 
         if 'SdsTypePropertyId' in content:
-            propertyOverride.SdsTypePropertyId = content['SdsTypePropertyId']
+            result.SdsTypePropertyId = content['SdsTypePropertyId']
 
         if 'Uom' in content:
-            propertyOverride.Uom = content['Uom']
+            result.Uom = content['Uom']
 
         if 'InterpolationMode' in content:
-            propertyOverride.InterpolationMode = content['InterpolationMode']
+            result.InterpolationMode = SdsInterpolationMode[content['InterpolationMode']]
 
-        return propertyOverride
+        return result

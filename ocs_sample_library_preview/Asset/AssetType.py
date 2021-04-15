@@ -1,6 +1,6 @@
 import json
 
-from .Status.StatusMapping import StatusMapping
+from .Status import StatusMapping
 from .MetadataItem import MetadataItem
 from .TypeReference import TypeReference
 
@@ -81,7 +81,7 @@ class AssetType(object):
     @property
     def Metadata(self) -> list[MetadataItem]:
         """
-        list of MetadataItem    not required
+        not required
         :return:
         """
         return self._metadata
@@ -89,7 +89,7 @@ class AssetType(object):
     @Metadata.setter
     def Metadata(self, value: list[MetadataItem]):
         """
-        list of MetadataItem    not required
+        not required
         :param value:
         :return:
         """
@@ -98,7 +98,7 @@ class AssetType(object):
     @property
     def TypeReferences(self) -> list[TypeReference]:
         """
-        list of TypeReference    not required
+        not required
         :return:
         """
         return self._type_references
@@ -106,7 +106,7 @@ class AssetType(object):
     @TypeReferences.setter
     def TypeReferences(self, value: list[TypeReference]):
         """
-        list of TypeReference    not required
+        not required
         :param value:
         :return:
         """
@@ -115,7 +115,7 @@ class AssetType(object):
     @property
     def Status(self) -> StatusMapping:
         """
-        StatusMapping    not required
+        not required
         :return:
         """
         return self._status
@@ -123,7 +123,7 @@ class AssetType(object):
     @Status.setter
     def Status(self, value: StatusMapping):
         """
-        StatusMapping    not required
+        not required
         :param value:
         :return:
         """

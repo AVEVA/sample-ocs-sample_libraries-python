@@ -1,16 +1,13 @@
 import json
 
-from ..SDS.SdsTypeCode import SdsTypeCode
-
-# Alias class to avoid conflict with SdsTypeCode property
-SdsTypeCodeType = SdsTypeCode
+from .. import SDS
 
 
 class MetadataItem(object):
     """OCS Asset Metadata Item definition"""
 
     def __init__(self, id: str = None, name: str = None, description: str = None,
-                 sds_type_code: SdsTypeCodeType = None, uom: str = None, value: str = None):
+                 sds_type_code: SDS.SdsTypeCode = None, uom: str = None, value: str = None):
         """
         :param id: required
         :param name: required
@@ -78,17 +75,17 @@ class MetadataItem(object):
         self._description = value
 
     @property
-    def SdsTypeCode(self) -> SdsTypeCodeType:
+    def SdsTypeCode(self) -> SDS.SdsTypeCode:
         """
-        SdsTypeCode    not required
+        not required
         :return:
         """
         return self._sds_type_code
 
     @SdsTypeCode.setter
-    def SdsTypeCode(self, value: SdsTypeCodeType):
+    def SdsTypeCode(self, value: SDS.SdsTypeCode):
         """
-        SdsTypeCode    not required
+        not required
         :param value:
         :return:
         """
@@ -140,7 +137,7 @@ class MetadataItem(object):
             result['Description'] = self.Description
 
         if self.SdsTypeCode is not None:
-            result['SdsTypeCode'] = self.SdsTypeCode.value
+            result['SdsTypeCode'] = self.SdsTypeCode.name
 
         if self.Uom is not None:
             result['Uom'] = self.Uom
@@ -167,7 +164,7 @@ class MetadataItem(object):
             result.Description = content['Description']
 
         if 'SdsTypeCode' in content:
-            result.SdsTypeCode = SdsTypeCode[content['SdsTypeCode']]
+            result.SdsTypeCode = SDS.SdsTypeCode[content['SdsTypeCode']]
 
         if 'Uom' in content:
             result.Uom = content['Uom']

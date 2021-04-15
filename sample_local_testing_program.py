@@ -59,29 +59,31 @@ def createData(ocsClient):
     import random
     global namespaceId, startTime, endTime
 
-    doubleType = SdsType(id="doubleType", sdsTypeCode=SdsTypeCode.Double)
-    dateTimeType = SdsType(id="dateTimeType", sdsTypeCode=SdsTypeCode.DateTime)
+    doubleType = SdsType(id="doubleType", sds_type_code=SdsTypeCode.Double)
+    dateTimeType = SdsType(
+        id="dateTimeType", sds_type_code=SdsTypeCode.DateTime)
 
-    pressureDoubleProperty = SdsTypeProperty(id="pressure", sdsType=doubleType)
+    pressureDoubleProperty = SdsTypeProperty(
+        id="pressure", sds_type=doubleType)
     temperatureDoubleProperty = SdsTypeProperty(id=fieldToConsolidateTo,
-                                                sdsType=doubleType)
+                                                sds_type=doubleType)
     ambientTemperatureDoubleProperty = SdsTypeProperty(id=fieldToConsolidate,
-                                                       sdsType=doubleType)
-    timeDateTimeProperty = SdsTypeProperty(id="time", sdsType=dateTimeType,
-                                           isKey=True)
+                                                       sds_type=doubleType)
+    timeDateTimeProperty = SdsTypeProperty(id="time", sds_type=dateTimeType,
+                                           is_key=True)
 
     sDSType1 = SdsType(
         id=sampleTypeId,
         description="This is a sample Sds type for storing Pressure type "
                     "events for Data Views",
-        sdsTypeCode=SdsTypeCode.Object,
+        sds_type_code=SdsTypeCode.Object,
         properties=[pressureDoubleProperty, temperatureDoubleProperty, timeDateTimeProperty])
 
     sDSType2 = SdsType(
         id=samplePressureId2,
         description="This is a new sample Sds type for storing Pressure type "
                     "events for Data Views",
-        sdsTypeCode=SdsTypeCode.Object,
+        sds_type_code=SdsTypeCode.Object,
         properties=[pressureDoubleProperty, ambientTemperatureDoubleProperty, timeDateTimeProperty])
 
     print('Creating SDS Type')
@@ -92,13 +94,13 @@ def createData(ocsClient):
         id=sampleStreamId,
         name=sampleStreamName,
         description="A Stream to store the sample Pressure events",
-        typeId=sampleTypeId)
+        type_id=sampleTypeId)
 
     stream2 = SdsStream(
         id=sampleStreamId2,
         name=sampleStreamName2,
         description="A Stream to store the sample Pressure events",
-        typeId=samplePressureId2)
+        type_id=samplePressureId2)
 
     print('Creating SDS Streams')
     ocsClient.Streams.createOrUpdateStream(namespaceId, stream1)

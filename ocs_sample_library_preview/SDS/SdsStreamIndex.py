@@ -18,7 +18,7 @@ class SdsStreamIndex(object):
         required
         :return:
         """
-        return self._sds_type_property_id
+        return self.__sds_type_property_id
 
     @SdsTypePropertyId.setter
     def SdsTypePropertyId(self, value: str):
@@ -27,7 +27,7 @@ class SdsStreamIndex(object):
         :param value:
         :return:
         """
-        self._sds_type_property_id = value
+        self.__sds_type_property_id = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

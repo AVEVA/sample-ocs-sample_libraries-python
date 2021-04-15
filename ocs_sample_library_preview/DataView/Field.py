@@ -28,7 +28,7 @@ class Field(object):
         not required
         :return:
         """
-        return self._source
+        return self.__source
 
     @Source.setter
     def Source(self, value: FieldSource):
@@ -37,7 +37,7 @@ class Field(object):
         :param value:
         :return:
         """
-        self._source = value
+        self.__source = value
 
     @property
     def Keys(self) -> list[str]:
@@ -45,7 +45,7 @@ class Field(object):
         not required
         :return:
         """
-        return self._keys
+        return self.__keys
 
     @Keys.setter
     def Keys(self, value: list[str]):
@@ -54,7 +54,7 @@ class Field(object):
         :param value:
         :return:
         """
-        self._keys = value
+        self.__keys = value
 
     @property
     def StreamReferenceNames(self) -> list[str]:
@@ -62,7 +62,7 @@ class Field(object):
         not required
         :return:
         """
-        return self._stream_reference_names
+        return self.__stream_reference_names
 
     @StreamReferenceNames.setter
     def StreamReferenceNames(self, value: list[str]):
@@ -71,7 +71,7 @@ class Field(object):
         :param value:
         :return:
         """
-        self._stream_reference_names = value
+        self.__stream_reference_names = value
 
     @property
     def Label(self) -> str:
@@ -79,7 +79,7 @@ class Field(object):
         not required
         :return:
         """
-        return self._label
+        return self.__label
 
     @Label.setter
     def Label(self, value: str):
@@ -88,7 +88,7 @@ class Field(object):
         :param value:
         :return:
         """
-        self._label = value
+        self.__label = value
 
     @property
     def IncludeUom(self) -> bool:
@@ -96,7 +96,7 @@ class Field(object):
         not required
         :return:
         """
-        return self._include_uom
+        return self.__include_uom
 
     @IncludeUom.setter
     def IncludeUom(self, value: bool):
@@ -105,7 +105,7 @@ class Field(object):
         :param value:
         :return:
         """
-        self._include_uom = value
+        self.__include_uom = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

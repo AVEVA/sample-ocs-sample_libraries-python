@@ -11,19 +11,19 @@ class ResolvedSdsType(object):
 
     @property
     def SdsTypeCode(self) -> SDS.SdsTypeCode:
-        return self._sds_type_code
+        return self.__sds_type_code
 
     @SdsTypeCode.setter
     def SdsTypeCode(self, value: SDS.SdsTypeCode):
-        self._sds_type_code = value
+        self.__sds_type_code = value
 
     @property
     def Properties(self) -> list[ResolvedEnum]:
-        return self._properties
+        return self.__properties
 
     @Properties.setter
     def Properties(self, value: list[ResolvedEnum]):
-        self._properties = value
+        self.__properties = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

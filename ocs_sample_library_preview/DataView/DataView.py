@@ -49,7 +49,7 @@ class DataView(object):
         required
         :return:
         """
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
@@ -58,7 +58,7 @@ class DataView(object):
         :param value:
         :return:
         """
-        self._id = value
+        self.__id = value
 
     @property
     def Name(self) -> str:
@@ -66,7 +66,7 @@ class DataView(object):
         not required
         :return:
         """
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
@@ -75,7 +75,7 @@ class DataView(object):
         :param value:
         :return:
         """
-        self._name = value
+        self.__name = value
 
     @property
     def Description(self) -> str:
@@ -83,7 +83,7 @@ class DataView(object):
         not required
         :return:
         """
-        return self._description
+        return self.__description
 
     @Description.setter
     def Description(self, value: str):
@@ -92,7 +92,7 @@ class DataView(object):
         :param value:
         :return:
         """
-        self._description = value
+        self.__description = value
 
     @property
     def IndexField(self) -> Field:
@@ -100,7 +100,7 @@ class DataView(object):
         not required
         :return:
         """
-        return self._index_field
+        return self.__index_field
 
     @IndexField.setter
     def IndexField(self, value: Field):
@@ -109,7 +109,7 @@ class DataView(object):
         :param value:
         :return:
         """
-        self._index_field = value
+        self.__index_field = value
 
     @property
     def Queries(self) -> list[Query]:
@@ -117,7 +117,7 @@ class DataView(object):
         not required
         :return:
         """
-        return self._queries
+        return self.__queries
 
     @Queries.setter
     def Queries(self, value: list[Query]):
@@ -126,7 +126,7 @@ class DataView(object):
         :param value:
         :return:
         """
-        self._queries = value
+        self.__queries = value
 
     @property
     def DataFieldSets(self) -> list[FieldSet]:
@@ -134,7 +134,7 @@ class DataView(object):
         not required
         :return:
         """
-        return self._data_field_sets
+        return self.__data_field_sets
 
     @DataFieldSets.setter
     def DataFieldSets(self, value: list[FieldSet]):
@@ -143,7 +143,7 @@ class DataView(object):
         :param value:
         :return:
         """
-        self._data_field_sets = value
+        self.__data_field_sets = value
 
     @property
     def GroupingFields(self) -> list[Field]:
@@ -151,7 +151,7 @@ class DataView(object):
         not required
         :return:
         """
-        return self._grouping_fields
+        return self.__grouping_fields
 
     @GroupingFields.setter
     def GroupingFields(self, value: list[Field]):
@@ -160,7 +160,7 @@ class DataView(object):
         :param value:
         :return:
         """
-        self._grouping_fields = value
+        self.__grouping_fields = value
 
     @property
     def DefaultStartIndex(self) -> str:
@@ -168,7 +168,7 @@ class DataView(object):
         not required
         :return:
         """
-        return self._default_start_index
+        return self.__default_start_index
 
     @DefaultStartIndex.setter
     def DefaultStartIndex(self, value: str):
@@ -177,7 +177,7 @@ class DataView(object):
         :param value:
         :return:
         """
-        self._default_start_index = value
+        self.__default_start_index = value
 
     @property
     def DefaultEndIndex(self) -> str:
@@ -185,7 +185,7 @@ class DataView(object):
         not required
         :return:
         """
-        return self._default_end_index
+        return self.__default_end_index
 
     @DefaultEndIndex.setter
     def DefaultEndIndex(self, value: str):
@@ -194,7 +194,7 @@ class DataView(object):
         :param value:
         :return:
         """
-        self._default_end_index = value
+        self.__default_end_index = value
 
     @property
     def DefaultInterval(self) -> str:
@@ -202,7 +202,7 @@ class DataView(object):
         not required
         :return:
         """
-        return self._default_interval
+        return self.__default_interval
 
     @DefaultInterval.setter
     def DefaultInterval(self, value: str):
@@ -211,7 +211,7 @@ class DataView(object):
         :param value:
         :return:
         """
-        self._default_interval = value
+        self.__default_interval = value
 
     @property
     def IndexTypeCode(self) -> SdsTypeCode:
@@ -219,7 +219,7 @@ class DataView(object):
         not required
         :return:
         """
-        return self._index_type_code
+        return self.__index_type_code
 
     @IndexTypeCode.setter
     def IndexTypeCode(self, value: SdsTypeCode):
@@ -228,7 +228,7 @@ class DataView(object):
         :param value:
         :return:
         """
-        self._index_type_code = value
+        self.__index_type_code = value
 
     @property
     def Shape(self) -> DataViewShape:
@@ -236,7 +236,7 @@ class DataView(object):
         not required
         :return:
         """
-        return self._shape
+        return self.__shape
 
     @Shape.setter
     def Shape(self, value: DataViewShape):
@@ -245,7 +245,7 @@ class DataView(object):
         :param value:
         :return:
         """
-        self._shape = value
+        self.__shape = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

@@ -8,19 +8,19 @@ class UnresolvedStream(object):
 
     @property
     def Name(self) -> str:
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
-        self._name = value
+        self.__name = value
 
     @property
     def Reason(self) -> str:
-        return self._reason
+        return self.__reason
 
     @Reason.setter
     def Reason(self, value: str):
-        self._reason = value
+        self.__reason = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

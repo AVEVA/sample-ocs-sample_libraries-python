@@ -25,75 +25,75 @@ class DataItem(object):
 
     @property
     def Id(self) -> str:
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
-        self._id = value
+        self.__id = value
 
     @property
     def Name(self) -> str:
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
-        self._name = value
+        self.__name = value
 
     @property
     def Description(self) -> str:
-        return self._description
+        return self.__description
 
     @Description.setter
     def Description(self, value: str):
-        self._description = value
+        self.__description = value
 
     @property
     def TypeId(self) -> str:
-        return self._type_id
+        return self.__type_id
 
     @TypeId.setter
     def TypeId(self, value: str):
-        self._type_id = value
+        self.__type_id = value
 
     @property
     def ResourceType(self) -> DataItemResourceType:
-        return self._resource_type
+        return self.__resource_type
 
     @ResourceType.setter
     def ResourceType(self, value: DataItemResourceType):
-        self._resource_type = value
+        self.__resource_type = value
 
     @property
     def Tags(self) -> list[str]:
-        return self._tags
+        return self.__tags
 
     @Tags.setter
     def Tags(self, value: list[str]):
-        self._tags = value
+        self.__tags = value
 
     @property
     def Metadata(self) -> list[MetadataValue]:
-        return self._metadata
+        return self.__metadata
 
     @Metadata.setter
     def Metadata(self, value: list[MetadataValue]):
-        self._metadata = value
+        self.__metadata = value
 
     @property
     def DataItemFields(self) -> list[DataItemField]:
-        return self._data_item_fields
+        return self.__data_item_fields
 
     @DataItemFields.setter
     def DataItemFields(self, value: list[DataItemField]):
-        self._data_item_fields = value
+        self.__data_item_fields = value
 
     @property
     def IneligibleDataItemFields(self) -> list[DataItemField]:
-        return self._ineligible_data_item_fields
+        return self.__ineligible_data_item_fields
 
     @IneligibleDataItemFields.setter
     def IneligibleDataItemFields(self, value: list[DataItemField]):
-        self._ineligible_data_item_fields = value
+        self.__ineligible_data_item_fields = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

@@ -22,7 +22,7 @@ class Query(object):
         required
         :return:
         """
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
@@ -31,7 +31,7 @@ class Query(object):
         :param value:
         :return:
         """
-        self._id = value
+        self.__id = value
 
     @property
     def Kind(self) -> DataItemResourceType:
@@ -39,7 +39,7 @@ class Query(object):
         not required
         :return:
         """
-        return self._kind
+        return self.__kind
 
     @Kind.setter
     def Kind(self, value: DataItemResourceType):
@@ -48,7 +48,7 @@ class Query(object):
         :param value:
         :return:
         """
-        self._kind = value
+        self.__kind = value
 
     @property
     def Value(self) -> str:
@@ -56,7 +56,7 @@ class Query(object):
         not required
         :return:
         """
-        return self._value
+        return self.__value
 
     @Value.setter
     def Value(self, value: str):
@@ -65,7 +65,7 @@ class Query(object):
         :param value:
         :return:
         """
-        self._value = value
+        self.__value = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

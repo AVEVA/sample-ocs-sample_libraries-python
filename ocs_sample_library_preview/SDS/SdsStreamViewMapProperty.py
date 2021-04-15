@@ -12,7 +12,7 @@ class SdsStreamViewMapProperty(object):
         required
         :return:
         """
-        return self._source_id
+        return self.__source_id
 
     @SourceId.setter
     def SourceId(self, value: str):
@@ -21,7 +21,7 @@ class SdsStreamViewMapProperty(object):
         :param value:
         :return:
         """
-        self._source_id = value
+        self.__source_id = value
 
     @property
     def TargetId(self) -> str:
@@ -29,7 +29,7 @@ class SdsStreamViewMapProperty(object):
         required
         :return:
         """
-        return self._target_id
+        return self.__target_id
 
     @TargetId.setter
     def TargetId(self, value: str):
@@ -38,7 +38,7 @@ class SdsStreamViewMapProperty(object):
         :param value:
         :return:
         """
-        self._target_id = value
+        self.__target_id = value
 
     @property
     def Mode(self) -> SdsStreamViewMode:
@@ -46,7 +46,7 @@ class SdsStreamViewMapProperty(object):
         not required
         :return:
         """
-        return self._mode
+        return self.__mode
 
     @Mode.setter
     def Mode(self, value: SdsStreamViewMode):
@@ -55,7 +55,7 @@ class SdsStreamViewMapProperty(object):
         :param value:
         :return:
         """
-        self._mode = value
+        self.__mode = value
 
     @property
     def SdsStreamViewMap(self) -> SDS.SdsStreamViewMap:
@@ -63,7 +63,7 @@ class SdsStreamViewMapProperty(object):
         not required
         :return:
         """
-        return self._sds_stream_view_map
+        return self.__sds_stream_view_map
 
     @SdsStreamViewMap.setter
     def SdsStreamViewMap(self, value: SDS.SdsStreamViewMap):
@@ -72,7 +72,7 @@ class SdsStreamViewMapProperty(object):
         :param value:
         :return:
         """
-        self._sds_stream_view_map = value
+        self.__sds_stream_view_map = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

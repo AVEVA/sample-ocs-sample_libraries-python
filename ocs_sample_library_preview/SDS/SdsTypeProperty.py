@@ -44,7 +44,7 @@ class SdsTypeProperty(object):
         required
         :return:
         """
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
@@ -53,7 +53,7 @@ class SdsTypeProperty(object):
         :param value:
         :return:
         """
-        self._id = value
+        self.__id = value
 
     @property
     def Name(self) -> str:
@@ -61,7 +61,7 @@ class SdsTypeProperty(object):
         not required
         :return:
         """
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
@@ -70,7 +70,7 @@ class SdsTypeProperty(object):
         :param value:
         :return:
         """
-        self._name = value
+        self.__name = value
 
     @property
     def Description(self) -> str:
@@ -78,7 +78,7 @@ class SdsTypeProperty(object):
         not required
         :return:
         """
-        return self._description
+        return self.__description
 
     @Description.setter
     def Description(self, value: str):
@@ -87,7 +87,7 @@ class SdsTypeProperty(object):
         :param value:
         :return:
         """
-        self._description = value
+        self.__description = value
 
     @property
     def Order(self) -> int:
@@ -95,7 +95,7 @@ class SdsTypeProperty(object):
         not required
         :return:
         """
-        return self._order
+        return self.__order
 
     @Order.setter
     def Order(self, value: int):
@@ -104,7 +104,7 @@ class SdsTypeProperty(object):
         :param value:
         :return:
         """
-        self._order = value
+        self.__order = value
 
     @property
     def IsKey(self) -> bool:
@@ -112,7 +112,7 @@ class SdsTypeProperty(object):
         required
         :return:
         """
-        return self._is_key
+        return self.__is_key
 
     @IsKey.setter
     def IsKey(self, value: bool):
@@ -121,7 +121,7 @@ class SdsTypeProperty(object):
         :param value:
         :return:
         """
-        self._is_key = value
+        self.__is_key = value
 
     @property
     def FixedSize(self) -> int:
@@ -129,7 +129,7 @@ class SdsTypeProperty(object):
         not required
         :return:
         """
-        return self._fixed_size
+        return self.__fixed_size
 
     @FixedSize.setter
     def FixedSize(self, value: int):
@@ -138,7 +138,7 @@ class SdsTypeProperty(object):
         :param value:
         :return:
         """
-        self._fixed_size = value
+        self.__fixed_size = value
 
     @property
     def SdsType(self) -> SDS.SdsType:
@@ -146,7 +146,7 @@ class SdsTypeProperty(object):
         required
         :return:
         """
-        return self._sds_type
+        return self.__sds_type
 
     @SdsType.setter
     def SdsType(self, value: SDS.SdsType):
@@ -155,7 +155,7 @@ class SdsTypeProperty(object):
         :param value:
         :return:
         """
-        self._sds_type = value
+        self.__sds_type = value
 
     @property
     def Value(self) -> Any:
@@ -163,7 +163,7 @@ class SdsTypeProperty(object):
         not required
         :return:
         """
-        return self._value
+        return self.__value
 
     @Value.setter
     def Value(self, value: Any):
@@ -172,7 +172,7 @@ class SdsTypeProperty(object):
         :param value:
         :return:
         """
-        self._value = value
+        self.__value = value
 
     @property
     def Uom(self) -> str:
@@ -180,7 +180,7 @@ class SdsTypeProperty(object):
         not required
         :return:
         """
-        return self._uom
+        return self.__uom
 
     @Uom.setter
     def Uom(self, value: str):
@@ -189,7 +189,7 @@ class SdsTypeProperty(object):
         :param value:
         :return:
         """
-        self._uom = value
+        self.__uom = value
 
     @property
     def InterpolationMode(self) -> SdsInterpolationMode:
@@ -197,7 +197,7 @@ class SdsTypeProperty(object):
         not required
         :return:
         """
-        return self._interpolation_mode
+        return self.__interpolation_mode
 
     @InterpolationMode.setter
     def InterpolationMode(self, value: SdsInterpolationMode):
@@ -206,7 +206,7 @@ class SdsTypeProperty(object):
         :param value:
         :return:
         """
-        self._interpolation_mode = value
+        self.__interpolation_mode = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

@@ -21,67 +21,67 @@ class ResolvedProperty(object):
 
     @property
     def Id(self) -> str:
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
-        self._id = value
+        self.__id = value
 
     @property
     def IsKey(self) -> bool:
-        return self._is_key
+        return self.__is_key
 
     @IsKey.setter
     def IsKey(self, value: bool):
-        self._is_key = value
+        self.__is_key = value
 
     @property
     def Uom(self) -> str:
-        return self._uom
+        return self.__uom
 
     @Uom.setter
     def Uom(self, value: str):
-        self._uom = value
+        self.__uom = value
 
     @property
     def Order(self) -> int:
-        return self._order
+        return self.__order
 
     @Order.setter
     def Order(self, value: int):
-        self._order = value
+        self.__order = value
 
     @property
     def InterpolationMode(self) -> SdsInterpolationMode:
-        return self._interpolation_mode
+        return self.__interpolation_mode
 
     @InterpolationMode.setter
     def InterpolationMode(self, value: SdsInterpolationMode):
-        self._interpolation_mode = value
+        self.__interpolation_mode = value
 
     @property
     def ExtrapolationMode(self) -> SdsExtrapolationMode:
-        return self._extrapolation_mode
+        return self.__extrapolation_mode
 
     @ExtrapolationMode.setter
     def ExtrapolationMode(self, value: SdsExtrapolationMode):
-        self._extrapolation_mode = value
+        self.__extrapolation_mode = value
 
     @property
     def SdsType(self) -> ResolvedSdsType:
-        return self._sds_type
+        return self.__sds_type
 
     @SdsType.setter
     def SdsType(self, value: ResolvedSdsType):
-        self._sds_type = value
+        self.__sds_type = value
 
     @property
     def Source(self) -> ResolvedSource:
-        return self._source
+        return self.__source
 
     @Source.setter
     def Source(self, value: ResolvedSource):
-        self._source = value
+        self.__source = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

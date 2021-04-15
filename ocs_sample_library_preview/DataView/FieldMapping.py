@@ -23,67 +23,67 @@ class FieldMapping(object):
 
     @property
     def Id(self) -> str:
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
-        self._id = value
+        self.__id = value
 
     @property
     def Label(self) -> str:
-        return self._label
+        return self.__label
 
     @Label.setter
     def Label(self, value: str):
-        self._label = value
+        self.__label = value
 
     @property
     def FieldKind(self) -> Enum.FieldKind:
-        return self._field_kind
+        return self.__field_kind
 
     @FieldKind.setter
     def FieldKind(self, value: Enum.FieldKind):
-        self._field_kind = value
+        self.__field_kind = value
 
     @property
     def DataMappings(self) -> list[DataMapping]:
-        return self._data_mappings
+        return self.__data_mappings
 
     @DataMappings.setter
     def DataMappings(self, value: list[DataMapping]):
-        self._data_mappings = value
+        self.__data_mappings = value
 
     @property
     def TypeCode(self) -> SdsTypeCode:
-        return self._type_code
+        return self.__type_code
 
     @TypeCode.setter
     def TypeCode(self, value: SdsTypeCode):
-        self._type_code = value
+        self.__type_code = value
 
     @property
     def Uom(self) -> str:
-        return self._uom
+        return self.__uom
 
     @Uom.setter
     def Uom(self, value: str):
-        self._uom = value
+        self.__uom = value
 
     @property
     def SummaryType(self) -> SdsSummaryType:
-        return self._summary_type
+        return self.__summary_type
 
     @SummaryType.setter
     def SummaryType(self, value: SdsSummaryType):
-        self._summary_type = value
+        self.__summary_type = value
 
     @property
     def SummaryDirection(self) -> Enum.SummaryDirection:
-        return self._summary_direction
+        return self.__summary_direction
 
     @SummaryDirection.setter
     def SummaryDirection(self, value: Enum.SummaryDirection):
-        self._summary_direction = value
+        self.__summary_direction = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

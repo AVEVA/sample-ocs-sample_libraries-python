@@ -12,19 +12,19 @@ class ResolvedFieldSets(object):
 
     @property
     def TimeOfResolution(self) -> str:
-        return self._time_of_resolution
+        return self.__time_of_resolution
 
     @TimeOfResolution.setter
     def TimeOfResolution(self, value: str):
-        self._time_of_resolution = value
+        self.__time_of_resolution = value
 
     @property
     def Items(self) -> list[FieldSet]:
-        return self._items
+        return self.__items
 
     @Items.setter
     def Items(self, value: list[FieldSet]):
-        self._items = value
+        self.__items = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

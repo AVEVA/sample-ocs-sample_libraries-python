@@ -24,75 +24,75 @@ class DataMapping(object):
 
     @property
     def TargetId(self) -> str:
-        return self._target_id
+        return self.__target_id
 
     @TargetId.setter
     def TargetId(self, value: str):
-        self._target_id = value
+        self.__target_id = value
 
     @property
     def TargetStreamReferenceName(self) -> str:
-        return self._target_stream_reference_name
+        return self.__target_stream_reference_name
 
     @TargetStreamReferenceName.setter
     def TargetStreamReferenceName(self, value: str):
-        self._target_stream_reference_name = value
+        self.__target_stream_reference_name = value
 
     @property
     def TargetFieldKey(self) -> str:
-        return self._target_field_key
+        return self.__target_field_key
 
     @TargetFieldKey.setter
     def TargetFieldKey(self, value: str):
-        self._target_field_key = value
+        self.__target_field_key = value
 
     @property
     def TypeCode(self) -> SdsTypeCode:
-        return self._type_code
+        return self.__type_code
 
     @TypeCode.setter
     def TypeCode(self, value: SdsTypeCode):
-        self._type_code = value
+        self.__type_code = value
 
     @property
     def Uom(self) -> str:
-        return self._uom
+        return self.__uom
 
     @Uom.setter
     def Uom(self, value: str):
-        self._uom = value
+        self.__uom = value
 
     @property
     def SummaryType(self) -> SdsSummaryType:
-        return self._summary_type
+        return self.__summary_type
 
     @SummaryType.setter
     def SummaryType(self, value: SdsSummaryType):
-        self._summary_type = value
+        self.__summary_type = value
 
     @property
     def SummaryDirection(self) -> Enum.SummaryDirection:
-        return self._summary_direction
+        return self.__summary_direction
 
     @SummaryDirection.setter
     def SummaryDirection(self, value: Enum.SummaryDirection):
-        self._summary_direction = value
+        self.__summary_direction = value
 
     @property
     def FieldSetIndex(self) -> int:
-        return self._field_set_index
+        return self.__field_set_index
 
     @FieldSetIndex.setter
     def FieldSetIndex(self, value: int):
-        self._field_set_index = value
+        self.__field_set_index = value
 
     @property
     def FieldIndex(self) -> int:
-        return self._field_index
+        return self.__field_index
 
     @FieldIndex.setter
     def FieldIndex(self, value: int):
-        self._field_index = value
+        self.__field_index = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

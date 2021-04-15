@@ -34,7 +34,7 @@ class DataViews(object):
             raise TypeError
 
         response = self.__baseClient.request(
-            "post",
+            'post',
             self.__dataViewPath.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
@@ -44,7 +44,7 @@ class DataViews(object):
         )
 
         self.__baseClient.checkResponse(
-            response, f"Failed to create Data View, {data_view.Id}."
+            response, f'Failed to create Data View, {data_view.Id}.'
         )
 
         data_view = DataView.fromJson(response.json())
@@ -62,7 +62,7 @@ class DataViews(object):
             raise TypeError
 
         response = self.__baseClient.request(
-            "put",
+            'put',
             self.__dataViewPath.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
@@ -72,7 +72,7 @@ class DataViews(object):
         )
 
         self.__baseClient.checkResponse(
-            response, f"Failed to update Data View, {data_view.Id}."
+            response, f'Failed to update Data View, {data_view.Id}.'
         )
 
         return
@@ -89,7 +89,7 @@ class DataViews(object):
             raise TypeError
 
         response = self.__baseClient.request(
-            "delete",
+            'delete',
             self.__dataViewPath.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
@@ -98,7 +98,7 @@ class DataViews(object):
         )
 
         self.__baseClient.checkResponse(
-            response, f"Failed to delete Data View, {data_view_id}."
+            response, f'Failed to delete Data View, {data_view_id}.'
         )
 
         return
@@ -116,7 +116,7 @@ class DataViews(object):
             raise TypeError
 
         response = self.__baseClient.request(
-            "get",
+            'get',
             self.__dataViewPath.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
@@ -125,7 +125,7 @@ class DataViews(object):
         )
 
         self.__baseClient.checkResponse(
-            response, f"Failed to get Data View, {data_view_id}."
+            response, f'Failed to get Data View, {data_view_id}.'
         )
 
         dataView = DataView.fromJson(response.json())
@@ -143,14 +143,14 @@ class DataViews(object):
             raise TypeError
 
         response = self.__baseClient.request(
-            "get",
+            'get',
             self.__dataViewsPath.format(
                 tenant_id=self.__baseClient.tenant, namespace_id=namespace_id
             ),
-            params={"skip": skip, "count": count}
+            params={'skip': skip, 'count': count}
         )
 
-        self.__baseClient.checkResponse(response, "Failed to get Data Views.")
+        self.__baseClient.checkResponse(response, 'Failed to get Data Views.')
 
         dataViews = json.loads(response.content)
 
@@ -172,7 +172,7 @@ class DataViews(object):
             raise TypeError
 
         response = self.__baseClient.request(
-            "get",
+            'get',
             self.__dataViewResolvedDataItems.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
@@ -182,7 +182,7 @@ class DataViews(object):
         )
 
         self.__baseClient.checkResponse(
-            response, f"Failed to get ResolvedDataitems for Data View, {data_view_id}."
+            response, f'Failed to get ResolvedDataitems for Data View, {data_view_id}.'
         )
         results = ResolvedDataItems.fromJson(response.json())
 
@@ -201,7 +201,7 @@ class DataViews(object):
             raise TypeError
 
         response = self.__baseClient.request(
-            "get",
+            'get',
             self.__dataViewResolvedIneligibleDataItems.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
@@ -211,7 +211,7 @@ class DataViews(object):
         )
 
         self.__baseClient.checkResponse(
-            response, f"Failed to get ResolvedIneligibleDataitems for Data View, {data_view_id}."
+            response, f'Failed to get ResolvedIneligibleDataitems for Data View, {data_view_id}.'
         )
         results = ResolvedDataItems.fromJson(response.json())
 
@@ -229,7 +229,7 @@ class DataViews(object):
             raise TypeError
 
         response = self.__baseClient.request(
-            "get",
+            'get',
             self.__dataViewResolvedAvailableFieldSets.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
@@ -238,7 +238,7 @@ class DataViews(object):
         )
 
         self.__baseClient.checkResponse(
-            response, f"Failed to get ResolvedAvailableFieldSetsfor Data View, {data_view_id}."
+            response, f'Failed to get ResolvedAvailableFieldSetsfor Data View, {data_view_id}.'
         )
         results = ResolvedFieldSets.fromJson(response.json())
 
@@ -271,18 +271,18 @@ class DataViews(object):
                 raise TypeError
 
         params = {
-            "count": count,
-            "form": form,
-            "startIndex": start_index,
-            "endIndex": end_index,
-            "interval": interval
+            'count': count,
+            'form': form,
+            'startIndex': start_index,
+            'endIndex': end_index,
+            'interval': interval
         }
         response = {}
         if url:
-            response = self.__baseClient.request("get", url)
+            response = self.__baseClient.request('get', url)
         else:
             response = self.__baseClient.request(
-                "get",
+                'get',
                 self.__dataViewDataInterpolated.format(
                     tenant_id=self.__baseClient.tenant,
                     namespace_id=namespace_id,
@@ -293,16 +293,16 @@ class DataViews(object):
 
         self.__baseClient.checkResponse(
             response,
-            f"Failed to get Data View data interpolated for Data View, {data_view_id}.",
+            f'Failed to get Data View data interpolated for Data View, {data_view_id}.',
         )
 
         # build dictionary of first/next page URL links, if any
-        links_header = response.headers.get("Link", "")
+        links_header = response.headers.get('Link', '')
         links = {link.group(2): link.group(1)
                  for link in self.__urlLinks.finditer(links_header)}
 
-        nextPage = links.get("next", None)
-        firstPage = links.get("first", None)
+        nextPage = links.get('next', None)
+        firstPage = links.get('first', None)
 
         if form is not None:
             return response.text, nextPage, firstPage
@@ -319,17 +319,17 @@ class DataViews(object):
         :return:
         """
         self.__basePath = (
-            self.__baseClient.uri_API + "-preview"
-            "/Tenants/{tenant_id}/Namespaces/{namespace_id}"
+            self.__baseClient.uri_API + '-preview'
+            '/Tenants/{tenant_id}/Namespaces/{namespace_id}'
         )
 
-        self.__dataViewsPath = self.__basePath + "/dataviews"
-        self.__dataViewPath = self.__dataViewsPath + "/{dataView_id}"
-        self.__dataViewResolved = self.__dataViewPath + "/Resolved"
+        self.__dataViewsPath = self.__basePath + '/dataviews'
+        self.__dataViewPath = self.__dataViewsPath + '/{dataView_id}'
+        self.__dataViewResolved = self.__dataViewPath + '/Resolved'
         self.__dataViewResolvedDataItems = self.__dataViewResolved + \
-            "/DataItems/{query_id}"
+            '/DataItems/{query_id}'
         self.__dataViewResolvedIneligibleDataItems = self.__dataViewResolved + \
-            "/IneligibleDataItems/{query_id}"
-        self.__dataViewResolvedAvailableFieldSets = self.__dataViewResolved + "/AvailableFieldSets"
-        self.__dataViewData = self.__dataViewPath + "/data"
-        self.__dataViewDataInterpolated = self.__dataViewData + "/interpolated"
+            '/IneligibleDataItems/{query_id}'
+        self.__dataViewResolvedAvailableFieldSets = self.__dataViewResolved + '/AvailableFieldSets'
+        self.__dataViewData = self.__dataViewPath + '/data'
+        self.__dataViewDataInterpolated = self.__dataViewData + '/interpolated'

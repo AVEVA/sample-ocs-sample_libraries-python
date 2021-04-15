@@ -12,35 +12,35 @@ class DataErrors(object):
 
     @property
     def OperationId(self) -> str:
-        return self._operation_id
+        return self.__operation_id
 
     @OperationId.setter
     def OperationId(self, value: str):
-        self._operation_id = value
+        self.__operation_id = value
 
     @property
     def Error(self) -> str:
-        return self._error
+        return self.__error
 
     @Error.setter
     def Error(self, value: str):
-        self._error = value
+        self.__error = value
 
     @property
     def Reason(self) -> str:
-        return self._reason
+        return self.__reason
 
     @Reason.setter
     def Reason(self, value: str):
-        self._reason = value
+        self.__reason = value
 
     @property
     def ChildErrors(self) -> dict[str, Any]:
-        return self._child_errors
+        return self.__child_errors
 
     @ChildErrors.setter
     def ChildErrors(self, value: dict[str, Any]):
-        self._child_errors = value
+        self.__child_errors = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

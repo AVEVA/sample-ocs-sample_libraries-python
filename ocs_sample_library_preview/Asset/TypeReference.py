@@ -23,7 +23,7 @@ class TypeReference(object):
         required
         :return:
         """
-        return self._stream_reference_id
+        return self.__stream_reference_id
 
     @StreamReferenceId.setter
     def StreamReferenceId(self, value: str):
@@ -32,7 +32,7 @@ class TypeReference(object):
         :param value:
         :return:
         """
-        self._stream_reference_id = value
+        self.__stream_reference_id = value
 
     @property
     def StreamReferenceName(self) -> str:
@@ -40,7 +40,7 @@ class TypeReference(object):
         required
         :return:
         """
-        return self._stream_reference_name
+        return self.__stream_reference_name
 
     @StreamReferenceName.setter
     def StreamReferenceName(self, value: str):
@@ -49,7 +49,7 @@ class TypeReference(object):
         :param value:
         :return:
         """
-        self._stream_reference_name = value
+        self.__stream_reference_name = value
 
     @property
     def Description(self) -> str:
@@ -57,7 +57,7 @@ class TypeReference(object):
         not required
         :return:
         """
-        return self._description
+        return self.__description
 
     @Description.setter
     def Description(self, value: str):
@@ -66,7 +66,7 @@ class TypeReference(object):
         :param value:
         :return:
         """
-        self._description = value
+        self.__description = value
 
     @property
     def TypeId(self) -> str:
@@ -74,7 +74,7 @@ class TypeReference(object):
         required
         :return:
         """
-        return self._type_id
+        return self.__type_id
 
     @TypeId.setter
     def TypeId(self, value: str):
@@ -83,7 +83,7 @@ class TypeReference(object):
         :param value:
         :return:
         """
-        self._type_id = value
+        self.__type_id = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

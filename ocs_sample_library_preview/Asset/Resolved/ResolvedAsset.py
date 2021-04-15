@@ -23,75 +23,75 @@ class ResolvedAsset(object):
 
     @property
     def Id(self) -> str:
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
-        self._id = value
+        self.__id = value
 
     @property
     def Name(self) -> str:
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
-        self._name = value
+        self.__name = value
 
     @property
     def Description(self) -> str:
-        return self._description
+        return self.__description
 
     @Description.setter
     def Description(self, value: str):
-        self._description = value
+        self.__description = value
 
     @property
     def AssetTypeId(self) -> str:
-        return self._asset_type_id
+        return self.__asset_type_id
 
     @AssetTypeId.setter
     def AssetTypeId(self, value: str):
-        self._asset_type_id = value
+        self.__asset_type_id = value
 
     @property
     def AssetTypeName(self) -> str:
-        return self._asset_type_name
+        return self.__asset_type_name
 
     @AssetTypeName.setter
     def AssetTypeName(self, value: str):
-        self._asset_type_name = value
+        self.__asset_type_name = value
 
     @property
     def Metadata(self) -> list[MetadataItem]:
-        return self._metadata
+        return self.__metadata
 
     @Metadata.setter
     def Metadata(self, value: list[MetadataItem]):
-        self._metadata = value
+        self.__metadata = value
 
     @property
     def Streams(self) -> list[ResolvedStream]:
-        return self._streams
+        return self.__streams
 
     @Streams.setter
     def Streams(self, value: list[ResolvedStream]):
-        self._streams = value
+        self.__streams = value
 
     @property
     def UnresolvedStreams(self) -> list[UnresolvedStream]:
-        return self._unresolved_streams
+        return self.__unresolved_streams
 
     @UnresolvedStreams.setter
     def UnresolvedStreams(self, value: list[UnresolvedStream]):
-        self._unresolved_streams = value
+        self.__unresolved_streams = value
 
     @property
     def Status(self) -> ResolvedStatus:
-        return self._status
+        return self.__status
 
     @Status.setter
     def Status(self, value: ResolvedStatus):
-        self._status = value
+        self.__status = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

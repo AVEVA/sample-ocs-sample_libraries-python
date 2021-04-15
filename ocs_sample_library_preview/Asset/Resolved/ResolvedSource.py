@@ -8,19 +8,19 @@ class ResolvedSource(object):
 
     @property
     def StreamId(self) -> str:
-        return self._stream_id
+        return self.__stream_id
 
     @StreamId.setter
     def StreamId(self, value: str):
-        self._stream_id = value
+        self.__stream_id = value
 
     @property
     def PropertyId(self) -> str:
-        return self._property_id
+        return self.__property_id
 
     @PropertyId.setter
     def PropertyId(self, value: str):
-        self._property_id = value
+        self.__property_id = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

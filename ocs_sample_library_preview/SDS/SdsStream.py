@@ -41,7 +41,7 @@ class SdsStream(object):
         required
         :return:
         """
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
@@ -50,7 +50,7 @@ class SdsStream(object):
         :param value:
         :return:
         """
-        self._id = value
+        self.__id = value
 
     @property
     def Name(self) -> str:
@@ -58,7 +58,7 @@ class SdsStream(object):
         not required
         :return:
         """
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
@@ -67,7 +67,7 @@ class SdsStream(object):
         :param value:
         :return:
         """
-        self._name = value
+        self.__name = value
 
     @property
     def Description(self) -> str:
@@ -75,7 +75,7 @@ class SdsStream(object):
         not required
         :return:
         """
-        return self._description
+        return self.__description
 
     @Description.setter
     def Description(self, value: str):
@@ -84,7 +84,7 @@ class SdsStream(object):
         :param value:
         :return:
         """
-        self._description = value
+        self.__description = value
 
     @property
     def TypeId(self) -> str:
@@ -92,7 +92,7 @@ class SdsStream(object):
         required
         :return:
         """
-        return self._type_id
+        return self.__type_id
 
     @TypeId.setter
     def TypeId(self, value: str):
@@ -101,7 +101,7 @@ class SdsStream(object):
         :param value:
         :return:
         """
-        self._type_id = value
+        self.__type_id = value
 
     @property
     def Indexes(self) -> list[SdsStreamIndex]:
@@ -109,7 +109,7 @@ class SdsStream(object):
         not required
         :return:
         """
-        return self._indexes
+        return self.__indexes
 
     @Indexes.setter
     def Indexes(self, value: list[SdsStreamIndex]):
@@ -118,7 +118,7 @@ class SdsStream(object):
         :param value:
         :return:
         """
-        self._indexes = value
+        self.__indexes = value
 
     @property
     def InterpolationMode(self) -> SdsInterpolationMode:
@@ -126,7 +126,7 @@ class SdsStream(object):
         not required
         :return:
         """
-        return self._interpolation_mode
+        return self.__interpolation_mode
 
     @InterpolationMode.setter
     def InterpolationMode(self, value: SdsInterpolationMode):
@@ -135,7 +135,7 @@ class SdsStream(object):
         :param value:
         :return:
         """
-        self._interpolation_mode = value
+        self.__interpolation_mode = value
 
     @property
     def ExtrapolationMode(self) -> SdsExtrapolationMode:
@@ -143,7 +143,7 @@ class SdsStream(object):
         not required
         :return:
         """
-        return self._extrapolation_mode
+        return self.__extrapolation_mode
 
     @ExtrapolationMode.setter
     def ExtrapolationMode(self, value: SdsExtrapolationMode):
@@ -152,7 +152,7 @@ class SdsStream(object):
         :param value:
         :return:
         """
-        self._extrapolation_mode = value
+        self.__extrapolation_mode = value
 
     @property
     def PropertyOverrides(self) -> list[SdsStreamPropertyOverride]:
@@ -160,7 +160,7 @@ class SdsStream(object):
         not required
         :return:
         """
-        return self._property_overrides
+        return self.__property_overrides
 
     @PropertyOverrides.setter
     def PropertyOverrides(self, value: list[SdsStreamPropertyOverride]):
@@ -169,7 +169,7 @@ class SdsStream(object):
         :param value:
         :return:
         """
-        self._property_overrides = value
+        self.__property_overrides = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

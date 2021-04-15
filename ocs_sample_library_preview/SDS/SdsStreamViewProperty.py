@@ -11,7 +11,7 @@ class SdsStreamViewProperty(object):
         required
         :return:
         """
-        return self._source_id
+        return self.__source_id
 
     @SourceId.setter
     def SourceId(self, value: str):
@@ -20,7 +20,7 @@ class SdsStreamViewProperty(object):
         :param value:
         :return:
         """
-        self._source_id = value
+        self.__source_id = value
 
     @property
     def TargetId(self) -> str:
@@ -28,7 +28,7 @@ class SdsStreamViewProperty(object):
         required
         :return:
         """
-        return self._target_id
+        return self.__target_id
 
     @TargetId.setter
     def TargetId(self, value: str):
@@ -37,7 +37,7 @@ class SdsStreamViewProperty(object):
         :param value:
         :return:
         """
-        self._target_id = value
+        self.__target_id = value
 
     @property
     def SdsStreamView(self) -> SdsStreamView:
@@ -45,7 +45,7 @@ class SdsStreamViewProperty(object):
         not required
         :return:
         """
-        return self._sds_stream_view
+        return self.__sds_stream_view
 
     @SdsStreamView.setter
     def SdsStreamView(self, value: SdsStreamView):
@@ -54,7 +54,7 @@ class SdsStreamViewProperty(object):
         :param value:
         :return:
         """
-        self._sds_stream_view = value
+        self.__sds_stream_view = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

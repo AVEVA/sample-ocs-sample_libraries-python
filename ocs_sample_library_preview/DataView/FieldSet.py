@@ -23,7 +23,7 @@ class FieldSet(object):
         required
         :return:
         """
-        return self._query_id
+        return self.__query_id
 
     @QueryId.setter
     def QueryId(self, value: str):
@@ -32,7 +32,7 @@ class FieldSet(object):
         :param value:
         :return:
         """
-        self._query_id = value
+        self.__query_id = value
 
     @property
     def DataFields(self) -> list[Field]:
@@ -40,7 +40,7 @@ class FieldSet(object):
         not required
         :return:
         """
-        return self._data_fields
+        return self.__data_fields
 
     @DataFields.setter
     def DataFields(self, value: list[Field]):
@@ -49,7 +49,7 @@ class FieldSet(object):
         :param value:
         :return:
         """
-        self._data_fields = value
+        self.__data_fields = value
 
     @property
     def IdentifyingField(self) -> Field:
@@ -57,7 +57,7 @@ class FieldSet(object):
         not required
         :return:
         """
-        return self._identifying_field
+        return self.__identifying_field
 
     @IdentifyingField.setter
     def IdentifyingField(self, value: Field):
@@ -66,7 +66,7 @@ class FieldSet(object):
         :param value:
         :return:
         """
-        self._identifying_field = value
+        self.__identifying_field = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

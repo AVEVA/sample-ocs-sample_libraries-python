@@ -17,51 +17,51 @@ class DataItemField(object):
 
     @property
     def Id(self) -> str:
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
-        self._id = value
+        self.__id = value
 
     @property
     def Name(self) -> str:
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
-        self._name = value
+        self.__name = value
 
     @property
     def TypeCode(self) -> SdsTypeCode:
-        return self._type_code
+        return self.__type_code
 
     @TypeCode.setter
     def TypeCode(self, value: SdsTypeCode):
-        self._type_code = value
+        self.__type_code = value
 
     @property
     def Uom(self) -> str:
-        return self._uom
+        return self.__uom
 
     @Uom.setter
     def Uom(self, value: str):
-        self._uom = value
+        self.__uom = value
 
     @property
     def IsKey(self) -> bool:
-        return self._is_key
+        return self.__is_key
 
     @IsKey.setter
     def IsKey(self, value: bool):
-        self._is_key = value
+        self.__is_key = value
 
     @property
     def StreamReferenceName(self) -> str:
-        return self._stream_reference_name
+        return self.__stream_reference_name
 
     @StreamReferenceName.setter
     def StreamReferenceName(self, value: str):
-        self._stream_reference_name = value
+        self.__stream_reference_name = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

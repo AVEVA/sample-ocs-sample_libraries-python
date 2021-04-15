@@ -12,11 +12,11 @@ class ResolvedDataItems(object):
 
     @property
     def TimeOfResolution(self) -> str:
-        return self._time_of_resolution
+        return self.__time_of_resolution
 
     @TimeOfResolution.setter
     def TimeOfResolution(self, value: str):
-        self._time_of_resolution = value
+        self.__time_of_resolution = value
 
     @property
     def Items(self) -> list[DataItem]:

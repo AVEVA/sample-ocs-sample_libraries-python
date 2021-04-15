@@ -35,7 +35,7 @@ class Asset(object):
         required
         :return:
         """
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
@@ -44,7 +44,7 @@ class Asset(object):
         :param value:
         :return:
         """
-        self._id = value
+        self.__id = value
 
     @property
     def Name(self) -> str:
@@ -52,7 +52,7 @@ class Asset(object):
         not required
         :return:
         """
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
@@ -61,7 +61,7 @@ class Asset(object):
         :param value:
         :return:
         """
-        self._name = value
+        self.__name = value
 
     @property
     def Description(self) -> str:
@@ -69,7 +69,7 @@ class Asset(object):
         not required
         :return:
         """
-        return self._description
+        return self.__description
 
     @Description.setter
     def Description(self, value: str):
@@ -78,7 +78,7 @@ class Asset(object):
         :param value:
         :return:
         """
-        self._description = value
+        self.__description = value
 
     @property
     def AssetTypeId(self) -> str:
@@ -86,7 +86,7 @@ class Asset(object):
         not required
         :return:
         """
-        return self._asset_type_id
+        return self.__asset_type_id
 
     @AssetTypeId.setter
     def AssetTypeId(self, value: str):
@@ -95,7 +95,7 @@ class Asset(object):
         :param value:
         :return:
         """
-        self._asset_type_id = value
+        self.__asset_type_id = value
 
     @property
     def Metadata(self) -> list[MetadataItem]:
@@ -103,7 +103,7 @@ class Asset(object):
         not required
         :return:
         """
-        return self._metadata
+        return self.__metadata
 
     @Metadata.setter
     def Metadata(self, value: list[MetadataItem]):
@@ -112,7 +112,7 @@ class Asset(object):
         :param value:
         :return:
         """
-        self._metadata = value
+        self.__metadata = value
 
     @property
     def StreamReferences(self) -> list[StreamReference]:
@@ -120,7 +120,7 @@ class Asset(object):
         not required
         :return:
         """
-        return self._stream_references
+        return self.__stream_references
 
     @StreamReferences.setter
     def StreamReferences(self, value: list[StreamReference]):
@@ -129,7 +129,7 @@ class Asset(object):
         :param value:
         :return:
         """
-        self._stream_references = value
+        self.__stream_references = value
 
     @property
     def StatusMapping(self) -> Status.StatusMapping:
@@ -137,7 +137,7 @@ class Asset(object):
         not required
         :return:
         """
-        return self._status_mapping
+        return self.__status_mapping
 
     @StatusMapping.setter
     def StatusMapping(self, value: Status.StatusMapping):
@@ -146,7 +146,7 @@ class Asset(object):
         :param value:
         :return:
         """
-        self._status_mapping = value
+        self.__status_mapping = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

@@ -10,19 +10,19 @@ class ResolvedStream(object):
 
     @property
     def Name(self) -> str:
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
-        self._name = value
+        self.__name = value
 
     @property
     def Properties(self) -> list[ResolvedProperty]:
-        return self._properties
+        return self.__properties
 
     @Properties.setter
     def Properties(self, value: list[ResolvedProperty]):
-        self._properties = value
+        self.__properties = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

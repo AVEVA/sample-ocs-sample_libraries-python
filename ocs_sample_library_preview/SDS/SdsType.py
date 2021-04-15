@@ -49,7 +49,7 @@ class SdsType(object):
         required
         :return:
         """
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
@@ -58,7 +58,7 @@ class SdsType(object):
         :param value:
         :return:
         """
-        self._id = value
+        self.__id = value
 
     @property
     def Name(self) -> str:
@@ -66,7 +66,7 @@ class SdsType(object):
         not required
         :return:
         """
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
@@ -75,7 +75,7 @@ class SdsType(object):
         :param value:
         :return:
         """
-        self._name = value
+        self.__name = value
 
     @property
     def Description(self) -> str:
@@ -83,7 +83,7 @@ class SdsType(object):
         not required
         :return:
         """
-        return self._description
+        return self.__description
 
     @Description.setter
     def Description(self, value: str):
@@ -92,7 +92,7 @@ class SdsType(object):
         :param value:
         :return:
         """
-        self._description = value
+        self.__description = value
 
     @property
     def SdsTypeCode(self) -> SDS.SdsTypeCode:
@@ -100,7 +100,7 @@ class SdsType(object):
         SdsTypeCode    required
         :return:
         """
-        return self._type_code
+        return self.__type_code
 
     @SdsTypeCode.setter
     def SdsTypeCode(self, value: SDS.SdsTypeCode):
@@ -109,7 +109,7 @@ class SdsType(object):
         :param value:
         :return:
         """
-        self._type_code = value
+        self.__type_code = value
 
     @property
     def IsGenericType(self) -> bool:
@@ -117,7 +117,7 @@ class SdsType(object):
         not required
         :return:
         """
-        return self._is_generic_type
+        return self.__is_generic_type
 
     @IsGenericType.setter
     def IsGenericType(self, value: bool):
@@ -126,7 +126,7 @@ class SdsType(object):
         :param value:
         :return:
         """
-        self._is_generic_type = value
+        self.__is_generic_type = value
 
     @property
     def IsReferenceType(self) -> bool:
@@ -134,7 +134,7 @@ class SdsType(object):
         not required
         :return:
         """
-        return self._is_reference_type
+        return self.__is_reference_type
 
     @IsReferenceType.setter
     def IsReferenceType(self, value: bool):
@@ -143,7 +143,7 @@ class SdsType(object):
         :param value:
         :return:
         """
-        self._is_reference_type = value
+        self.__is_reference_type = value
 
     @property
     def GenericArguments(self) -> list[SdsType]:
@@ -151,7 +151,7 @@ class SdsType(object):
         not required
         :return:
         """
-        return self._generic_arguments
+        return self.__generic_arguments
 
     @GenericArguments.setter
     def GenericArguments(self, value: list[SdsType]):
@@ -160,7 +160,7 @@ class SdsType(object):
         :param value:
         :return:
         """
-        self._generic_arguments = value
+        self.__generic_arguments = value
 
     @property
     def Properties(self) -> list[SdsTypeProperty]:
@@ -168,7 +168,7 @@ class SdsType(object):
         required
         :return:
         """
-        return self._properties
+        return self.__properties
 
     @Properties.setter
     def Properties(self, value: list[SdsTypeProperty]):
@@ -177,7 +177,7 @@ class SdsType(object):
         :param value:
         :return:
         """
-        self._properties = value
+        self.__properties = value
 
     @property
     def BaseType(self) -> SdsType:
@@ -185,7 +185,7 @@ class SdsType(object):
         not required
         :return:
         """
-        return self._base_type
+        return self.__base_type
 
     @BaseType.setter
     def BaseType(self, value: SdsType):
@@ -194,7 +194,7 @@ class SdsType(object):
         :param value:
         :return:
         """
-        self._base_type = value
+        self.__base_type = value
 
     @property
     def DerivedTypes(self) -> list[SdsType]:
@@ -202,7 +202,7 @@ class SdsType(object):
         not required
         :return:
         """
-        return self._base_types
+        return self.__base_types
 
     @DerivedTypes.setter
     def DerivedTypes(self, value: list[SdsType]):
@@ -211,7 +211,7 @@ class SdsType(object):
         :param value:
         :return:
         """
-        self._base_types = value
+        self.__base_types = value
 
     @property
     def InterpolationMode(self) -> SdsInterpolationMode:
@@ -219,7 +219,7 @@ class SdsType(object):
         not required
         :return:
         """
-        return self._interpolation_mode
+        return self.__interpolation_mode
 
     @InterpolationMode.setter
     def InterpolationMode(self, value: SdsInterpolationMode):
@@ -228,7 +228,7 @@ class SdsType(object):
         :param value:
         :return:
         """
-        self._interpolation_mode = value
+        self.__interpolation_mode = value
 
     @property
     def ExtrapolationMode(self) -> SdsExtrapolationMode:
@@ -236,7 +236,7 @@ class SdsType(object):
         not required
         :return:
         """
-        return self._extrapolation_mode
+        return self.__extrapolation_mode
 
     @ExtrapolationMode.setter
     def ExtrapolationMode(self, value: SdsExtrapolationMode):
@@ -245,7 +245,7 @@ class SdsType(object):
         :param value:
         :return:
         """
-        self._extrapolation_mode = value
+        self.__extrapolation_mode = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

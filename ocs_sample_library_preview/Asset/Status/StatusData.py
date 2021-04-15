@@ -15,43 +15,43 @@ class StatusData(object):
 
     @property
     def AssetId(self) -> str:
-        return self._asset_id
+        return self.__asset_id
 
     @AssetId.setter
     def AssetId(self, value: str):
-        self._asset_id = value
+        self.__asset_id = value
 
     @property
     def Status(self) -> StatusEnum:
-        return self._status
+        return self.__status
 
     @Status.setter
     def Status(self, value: StatusEnum):
-        self._status = value
+        self.__status = value
 
     @property
     def Value(self) -> Any:
-        return self._value
+        return self.__value
 
     @Value.setter
     def Value(self, value: Any):
-        self._value = value
+        self.__value = value
 
     @property
     def DisplayName(self) -> str:
-        return self._display_name
+        return self.__display_name
 
     @DisplayName.setter
     def DisplayName(self, value: str):
-        self._display_name = value
+        self.__display_name = value
 
     @property
     def DataRetrievalTime(self) -> str:
-        return self._data_retrieval_time
+        return self.__data_retrieval_time
 
     @DataRetrievalTime.setter
     def DataRetrievalTime(self, value: str):
-        self._data_retrieval_time = value
+        self.__data_retrieval_time = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

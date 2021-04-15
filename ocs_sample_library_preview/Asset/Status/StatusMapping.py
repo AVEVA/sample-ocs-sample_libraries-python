@@ -24,7 +24,7 @@ class StatusMapping(object):
         required
         :return:
         """
-        return self._stream_reference_id
+        return self.__stream_reference_id
 
     @StreamReferenceId.setter
     def StreamReferenceId(self, value: str):
@@ -33,7 +33,7 @@ class StatusMapping(object):
         :param value:
         :return:
         """
-        self._stream_reference_id = value
+        self.__stream_reference_id = value
 
     @property
     def StreamPropertyId(self) -> str:
@@ -41,7 +41,7 @@ class StatusMapping(object):
         required
         :return:
         """
-        return self._stream_property_id
+        return self.__stream_property_id
 
     @StreamPropertyId.setter
     def StreamPropertyId(self, value: str):
@@ -50,7 +50,7 @@ class StatusMapping(object):
         :param value:
         :return:
         """
-        self._stream_property_id = value
+        self.__stream_property_id = value
 
     @property
     def ValueStatusMappings(self) -> List[ValueStatusMapping]:
@@ -58,7 +58,7 @@ class StatusMapping(object):
         required
         :return:
         """
-        return self._value_status_mappings
+        return self.__value_status_mappings
 
     @ValueStatusMappings.setter
     def ValueStatusMappings(self, value: List[ValueStatusMapping]):
@@ -67,7 +67,7 @@ class StatusMapping(object):
         :param value:
         :return:
         """
-        self._value_status_mappings = value
+        self.__value_status_mappings = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

@@ -33,7 +33,7 @@ class AssetType(object):
         required
         :return:
         """
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
@@ -42,7 +42,7 @@ class AssetType(object):
         :param value:
         :return:
         """
-        self._id = value
+        self.__id = value
 
     @property
     def Name(self) -> str:
@@ -50,7 +50,7 @@ class AssetType(object):
         not required
         :return:
         """
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
@@ -59,7 +59,7 @@ class AssetType(object):
         :param value:
         :return:
         """
-        self._name = value
+        self.__name = value
 
     @property
     def Description(self) -> str:
@@ -67,7 +67,7 @@ class AssetType(object):
         not required
         :return:
         """
-        return self._description
+        return self.__description
 
     @Description.setter
     def Description(self, value: str):
@@ -76,7 +76,7 @@ class AssetType(object):
         :param value:
         :return:
         """
-        self._description = value
+        self.__description = value
 
     @property
     def Metadata(self) -> list[MetadataItem]:
@@ -84,7 +84,7 @@ class AssetType(object):
         not required
         :return:
         """
-        return self._metadata
+        return self.__metadata
 
     @Metadata.setter
     def Metadata(self, value: list[MetadataItem]):
@@ -93,7 +93,7 @@ class AssetType(object):
         :param value:
         :return:
         """
-        self._metadata = value
+        self.__metadata = value
 
     @property
     def TypeReferences(self) -> list[TypeReference]:
@@ -101,7 +101,7 @@ class AssetType(object):
         not required
         :return:
         """
-        return self._type_references
+        return self.__type_references
 
     @TypeReferences.setter
     def TypeReferences(self, value: list[TypeReference]):
@@ -110,7 +110,7 @@ class AssetType(object):
         :param value:
         :return:
         """
-        self._type_references = value
+        self.__type_references = value
 
     @property
     def Status(self) -> StatusMapping:
@@ -118,7 +118,7 @@ class AssetType(object):
         not required
         :return:
         """
-        return self._status
+        return self.__status
 
     @Status.setter
     def Status(self, value: StatusMapping):
@@ -127,7 +127,7 @@ class AssetType(object):
         :param value:
         :return:
         """
-        self._status = value
+        self.__status = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

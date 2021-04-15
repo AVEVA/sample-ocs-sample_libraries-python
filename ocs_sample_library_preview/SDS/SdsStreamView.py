@@ -14,7 +14,7 @@ class SdsStreamView(object):
         required
         :return:
         """
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
@@ -23,7 +23,7 @@ class SdsStreamView(object):
         :param value:
         :return:
         """
-        self._id = value
+        self.__id = value
 
     @property
     def Name(self) -> str:
@@ -31,7 +31,7 @@ class SdsStreamView(object):
         not required
         :return:
         """
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
@@ -40,7 +40,7 @@ class SdsStreamView(object):
         :param value:
         :return:
         """
-        self._name = value
+        self.__name = value
 
     @property
     def Description(self) -> str:
@@ -48,7 +48,7 @@ class SdsStreamView(object):
         not required
         :return:
         """
-        return self._description
+        return self.__description
 
     @Description.setter
     def Description(self, value: str):
@@ -57,7 +57,7 @@ class SdsStreamView(object):
         :param value:
         :return:
         """
-        self._description = value
+        self.__description = value
 
     @property
     def SourceTypeId(self) -> str:
@@ -65,7 +65,7 @@ class SdsStreamView(object):
         required
         :return:
         """
-        return self._source_type_id
+        return self.__source_type_id
 
     @SourceTypeId.setter
     def SourceTypeId(self, value: str):
@@ -74,7 +74,7 @@ class SdsStreamView(object):
         :param value:
         :return:
         """
-        self._source_type_id = value
+        self.__source_type_id = value
 
     @property
     def TargetTypeId(self) -> str:
@@ -82,7 +82,7 @@ class SdsStreamView(object):
         required
         :return:
         """
-        return self._target_type_id
+        return self.__target_type_id
 
     @TargetTypeId.setter
     def TargetTypeId(self, value: str):
@@ -91,7 +91,7 @@ class SdsStreamView(object):
         :param value:
         :return:
         """
-        self._target_type_id = value
+        self.__target_type_id = value
 
     @property
     def Properties(self) -> list[SdsStreamViewProperty]:
@@ -99,7 +99,7 @@ class SdsStreamView(object):
         not required
         :return:
         """
-        return self._properties
+        return self.__properties
 
     @Properties.setter
     def Properties(self, value: list[SdsStreamViewProperty]):
@@ -108,7 +108,7 @@ class SdsStreamView(object):
         :param value:
         :return:
         """
-        self._properties = value
+        self.__properties = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

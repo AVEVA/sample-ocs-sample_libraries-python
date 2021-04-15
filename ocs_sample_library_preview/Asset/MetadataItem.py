@@ -29,7 +29,7 @@ class MetadataItem(object):
         required
         :return:
         """
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
@@ -38,7 +38,7 @@ class MetadataItem(object):
         :param value:
         :return:
         """
-        self._id = value
+        self.__id = value
 
     @property
     def Name(self) -> str:
@@ -46,7 +46,7 @@ class MetadataItem(object):
         required
         :return:
         """
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
@@ -55,7 +55,7 @@ class MetadataItem(object):
         :param value:
         :return:
         """
-        self._name = value
+        self.__name = value
 
     @property
     def Description(self) -> str:
@@ -63,7 +63,7 @@ class MetadataItem(object):
         not required
         :return:
         """
-        return self._description
+        return self.__description
 
     @Description.setter
     def Description(self, value: str):
@@ -72,7 +72,7 @@ class MetadataItem(object):
         :param value:
         :return:
         """
-        self._description = value
+        self.__description = value
 
     @property
     def SdsTypeCode(self) -> SDS.SdsTypeCode:
@@ -80,7 +80,7 @@ class MetadataItem(object):
         not required
         :return:
         """
-        return self._sds_type_code
+        return self.__sds_type_code
 
     @SdsTypeCode.setter
     def SdsTypeCode(self, value: SDS.SdsTypeCode):
@@ -89,7 +89,7 @@ class MetadataItem(object):
         :param value:
         :return:
         """
-        self._sds_type_code = value
+        self.__sds_type_code = value
 
     @property
     def Uom(self) -> str:
@@ -97,7 +97,7 @@ class MetadataItem(object):
         not required
         :return:
         """
-        return self._uom
+        return self.__uom
 
     @Uom.setter
     def Uom(self, value: str):
@@ -106,7 +106,7 @@ class MetadataItem(object):
         :param value:
         :return:
         """
-        self._uom = value
+        self.__uom = value
 
     @property
     def Value(self) -> str:
@@ -114,7 +114,7 @@ class MetadataItem(object):
         not required
         :return:
         """
-        return self._value
+        return self.__value
 
     @Value.setter
     def Value(self, value: str):
@@ -123,7 +123,7 @@ class MetadataItem(object):
         :param value:
         :return:
         """
-        self._value = value
+        self.__value = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

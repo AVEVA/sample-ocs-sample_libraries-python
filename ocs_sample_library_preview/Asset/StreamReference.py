@@ -23,7 +23,7 @@ class StreamReference(object):
         required
         :return:
         """
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
@@ -32,7 +32,7 @@ class StreamReference(object):
         :param value:
         :return:
         """
-        self._id = value
+        self.__id = value
 
     @property
     def Name(self) -> str:
@@ -40,7 +40,7 @@ class StreamReference(object):
         required
         :return:
         """
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
@@ -49,7 +49,7 @@ class StreamReference(object):
         :param value:
         :return:
         """
-        self._name = value
+        self.__name = value
 
     @property
     def Description(self) -> str:
@@ -57,7 +57,7 @@ class StreamReference(object):
         not required
         :return:
         """
-        return self._description
+        return self.__description
 
     @Description.setter
     def Description(self, value: str):
@@ -66,7 +66,7 @@ class StreamReference(object):
         :param value:
         :return:
         """
-        self._description = value
+        self.__description = value
 
     @property
     def StreamId(self) -> str:
@@ -74,7 +74,7 @@ class StreamReference(object):
         required
         :return:
         """
-        return self._stream_id
+        return self.__stream_id
 
     @StreamId.setter
     def StreamId(self, value: str):
@@ -83,7 +83,7 @@ class StreamReference(object):
         :param value:
         :return:
         """
-        self._stream_id = value
+        self.__stream_id = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

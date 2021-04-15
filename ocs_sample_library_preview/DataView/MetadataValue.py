@@ -17,43 +17,43 @@ class MetadataValue(object):
 
     @property
     def Name(self) -> str:
-        return self._name
+        return self.__name
 
     @Name.setter
     def Name(self, value: str):
-        self._name = value
+        self.__name = value
 
     @property
     def Value(self) -> Any:
-        return self._value
+        return self.__value
 
     @Value.setter
     def Value(self, value: Any):
-        self._value = value
+        self.__value = value
 
     @property
     def Description(self) -> str:
-        return self._description
+        return self.__description
 
     @Description.setter
     def Description(self, value: str):
-        self._description = value
+        self.__description = value
 
     @property
     def TypeCode(self) -> SdsTypeCode:
-        return self._type_code
+        return self.__type_code
 
     @TypeCode.setter
     def TypeCode(self, value: SdsTypeCode):
-        self._type_code = value
+        self.__type_code = value
 
     @property
     def Uom(self) -> str:
-        return self._uom
+        return self.__uom
 
     @Uom.setter
     def Uom(self, value: str):
-        self._uom = value
+        self.__uom = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

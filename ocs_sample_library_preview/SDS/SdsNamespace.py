@@ -11,11 +11,11 @@ class SdsNamespace(object):
 
     @property
     def Id(self) -> str:
-        return self._id
+        return self.__id
 
     @Id.setter
     def Id(self, value: str):
-        self._id = value
+        self.__id = value
 
     def toString(self):
         return json.dumps(self.toDictionary())

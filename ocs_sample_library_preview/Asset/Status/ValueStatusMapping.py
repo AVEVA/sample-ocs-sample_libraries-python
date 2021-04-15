@@ -23,7 +23,7 @@ class ValueStatusMapping(object):
         required
         :return:
         """
-        return self._value
+        return self.__value
 
     @Value.setter
     def Value(self, value: Any):
@@ -32,7 +32,7 @@ class ValueStatusMapping(object):
         :param value:
         :return:
         """
-        self._value = value
+        self.__value = value
 
     @property
     def Status(self) -> StatusEnum:
@@ -40,7 +40,7 @@ class ValueStatusMapping(object):
         required
         :return:
         """
-        return self._status
+        return self.__status
 
     @Status.setter
     def Status(self, value: StatusEnum):
@@ -49,7 +49,7 @@ class ValueStatusMapping(object):
         :param value:
         :return:
         """
-        self._status = value
+        self.__status = value
 
     @property
     def DisplayName(self) -> str:
@@ -57,7 +57,7 @@ class ValueStatusMapping(object):
         not required
         :return:
         """
-        return self._display_name
+        return self.__display_name
 
     @DisplayName.setter
     def DisplayName(self, value: str):
@@ -66,7 +66,7 @@ class ValueStatusMapping(object):
         :param value:
         :return:
         """
-        self._display_name = value
+        self.__display_name = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

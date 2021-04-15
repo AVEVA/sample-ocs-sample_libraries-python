@@ -25,7 +25,7 @@ class SdsStreamPropertyOverride(object):
         required
         :return:
         """
-        return self._sds_type_property_id
+        return self.__sds_type_property_id
 
     @SdsTypePropertyId.setter
     def SdsTypePropertyId(self, value: str):
@@ -34,7 +34,7 @@ class SdsStreamPropertyOverride(object):
         :param value:
         :return:
         """
-        self._sds_type_property_id = value
+        self.__sds_type_property_id = value
 
     @property
     def Uom(self) -> str:
@@ -42,7 +42,7 @@ class SdsStreamPropertyOverride(object):
         not required
         :return:
         """
-        return self._uom
+        return self.__uom
 
     @Uom.setter
     def Uom(self, value: str):
@@ -51,7 +51,7 @@ class SdsStreamPropertyOverride(object):
         :param value:
         :return:
         """
-        self._uom = value
+        self.__uom = value
 
     @property
     def InterpolationMode(self) -> SdsInterpolationMode:
@@ -59,7 +59,7 @@ class SdsStreamPropertyOverride(object):
         not required
         :return:
         """
-        return self._interpolation_mode
+        return self.__interpolation_mode
 
     @InterpolationMode.setter
     def InterpolationMode(self, value: SdsInterpolationMode):
@@ -68,7 +68,7 @@ class SdsStreamPropertyOverride(object):
         :param value:
         :return:
         """
-        self._interpolation_mode = value
+        self.__interpolation_mode = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())

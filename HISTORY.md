@@ -1,8 +1,9 @@
 # Version History
 
-## 0.2.0_preview / 2021-04-15
+## 0.2.0_preview / 2021-04-19
 
 - Added OCS Assets models and API endpoints
+- Added type hints for all API models and endpoints
 
 ## 0.1.18_preview / 2021-03-24
 

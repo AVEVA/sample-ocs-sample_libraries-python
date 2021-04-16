@@ -1,6 +1,6 @@
 import json
 
-from .Enum.DataItemResourceType import DataItemResourceType
+from .DataItemResourceType import DataItemResourceType
 
 
 class Query(object):

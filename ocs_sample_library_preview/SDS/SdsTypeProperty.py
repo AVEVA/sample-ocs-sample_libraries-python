@@ -2,8 +2,7 @@ from enum import Enum
 import json
 from typing import Any
 
-from .. import SDS
-from .Enum import SdsInterpolationMode
+from .SdsInterpolationMode import SdsInterpolationMode
 
 
 class SdsTypeProperty(object):
@@ -12,7 +11,7 @@ class SdsTypeProperty(object):
     """
 
     def __init__(self, id: str = None, name: str = None, description: str = None, order: int = None,
-                 is_key: bool = None, fixed_size: int = None, sds_type: SDS.SdsType = None,
+                 is_key: bool = None, fixed_size: int = None, sds_type: 'SdsType' = None,
                  value: Any = None, uom: str = None,
                  interpolation_mode: SdsInterpolationMode = None):
         """
@@ -141,7 +140,7 @@ class SdsTypeProperty(object):
         self.__fixed_size = value
 
     @property
-    def SdsType(self) -> SDS.SdsType:
+    def SdsType(self) -> 'SdsType':
         """
         required
         :return:
@@ -149,7 +148,7 @@ class SdsTypeProperty(object):
         return self.__sds_type
 
     @SdsType.setter
-    def SdsType(self, value: SDS.SdsType):
+    def SdsType(self, value: 'SdsType'):
         """
         required
         :param value:
@@ -269,7 +268,8 @@ class SdsTypeProperty(object):
             result.FixedSize = content['FixedSize']
 
         if 'SdsType' in content:
-            result.SdsType = SDS.SdsType.fromJson(content['SdsType'])
+            from .SdsType import SdsType
+            result.SdsType = SdsType.fromJson(content['SdsType'])
 
         if 'Value' in content:
             result.Value = content['Value']

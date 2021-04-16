@@ -1,7 +1,7 @@
 import json
 
-from .Enum.DataItemResourceType import DataItemResourceType
 from .DataItemField import DataItemField
+from .DataItemResourceType import DataItemResourceType
 from .MetadataValue import MetadataValue
 
 

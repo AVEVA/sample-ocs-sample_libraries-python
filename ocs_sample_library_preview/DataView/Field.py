@@ -1,6 +1,6 @@
 import json
 
-from .Enum.FieldSource import FieldSource
+from .FieldSource import FieldSource
 
 
 class Field(object):

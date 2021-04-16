@@ -1,7 +1,7 @@
 import json
 
 from ..SDS import SdsTypeCode
-from .Enum.DataViewShape import DataViewShape
+from .DataViewShape import DataViewShape
 from .Field import Field
 from .FieldSet import FieldSet
 from .Query import Query

@@ -1,17 +1,18 @@
 import json
 
 from ..SDS import SdsSummaryType, SdsTypeCode
-from . import Enum
 from .DataMapping import DataMapping
+from .FieldKind import FieldKind as FieldKindType
+from .SummaryDirection import SummaryDirection as SummaryDirectionType
 
 
 class FieldMapping(object):
     """OCS Field Mapping definition"""
 
-    def __init__(self, id: str = None, label: str = None, field_kind: Enum.FieldKind = None,
+    def __init__(self, id: str = None, label: str = None, field_kind: FieldKindType = None,
                  data_mappings: list[DataMapping] = None, type_code: SdsTypeCode = None,
                  uom: str = None, summary_type: SdsSummaryType = None,
-                 summary_direction: Enum.SummaryDirection = None):
+                 summary_direction: SummaryDirectionType = None):
         self.Id = id
         self.Label = label
         self.FieldKind = field_kind
@@ -38,11 +39,11 @@ class FieldMapping(object):
         self.__label = value
 
     @property
-    def FieldKind(self) -> Enum.FieldKind:
+    def FieldKind(self) -> FieldKindType:
         return self.__field_kind
 
     @FieldKind.setter
-    def FieldKind(self, value: Enum.FieldKind):
+    def FieldKind(self, value: FieldKindType):
         self.__field_kind = value
 
     @property
@@ -78,11 +79,11 @@ class FieldMapping(object):
         self.__summary_type = value
 
     @property
-    def SummaryDirection(self) -> Enum.SummaryDirection:
+    def SummaryDirection(self) -> SummaryDirectionType:
         return self.__summary_direction
 
     @SummaryDirection.setter
-    def SummaryDirection(self, value: Enum.SummaryDirection):
+    def SummaryDirection(self, value: SummaryDirectionType):
         self.__summary_direction = value
 
     def toJson(self):
@@ -135,7 +136,7 @@ class FieldMapping(object):
             result.Label = content['Label']
 
         if 'FieldKind' in content:
-            result.FieldKind = Enum.FieldKind[content['FieldKind']]
+            result.FieldKind = FieldKindType[content['FieldKind']]
 
         if 'DataMappings' in content:
             data_mappings = content['DataMappings']
@@ -154,6 +155,6 @@ class FieldMapping(object):
             result.SummaryType = SdsSummaryType[content['SummaryType']]
 
         if 'SummaryDirection' in content:
-            result.SummaryDirection = Enum.SummaryDirection[content['SummaryDirection']]
+            result.SummaryDirection = SummaryDirectionType[content['SummaryDirection']]
 
         return result

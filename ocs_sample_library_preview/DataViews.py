@@ -53,7 +53,7 @@ class DataViews(object):
 
     def putDataView(self, namespace_id: str, data_view: DataView):
         """
-        Tells Sds Service to update a Data View based on local 'dataView'
+        Tells Sds Service to update a Data View based on local 'data_view'
         :param namespace_id: namespace to work against
         :param data_view: Data View definition. Data View object expected
         :return: Retrieved Data View as Data View object

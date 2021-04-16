@@ -1,8 +1,9 @@
-import json
 from __future__ import annotations  # To type hint the enclosing class
+import json
 
-from .. import SDS
-from .Enum import SdsExtrapolationMode, SdsInterpolationMode
+from .SdsExtrapolationMode import SdsExtrapolationMode
+from .SdsInterpolationMode import SdsInterpolationMode
+from .SdsTypeCode import SdsTypeCode as SdsTypeCodeType
 from .SdsTypeProperty import SdsTypeProperty
 
 
@@ -10,7 +11,7 @@ class SdsType(object):
     """Sds type definitions"""
 
     def __init__(self, id: str = None, name: str = None, description: str = None,
-                 sds_type_code: SDS.SdsTypeCode = None, is_generic_type: bool = None,
+                 sds_type_code: SdsTypeCodeType = None, is_generic_type: bool = None,
                  is_reference_type: bool = None, generic_arguments: list[SdsType] = None,
                  properties: list[SdsTypeProperty] = None, base_type: SdsType = None,
                  derived_types: list[SdsType] = None,
@@ -95,7 +96,7 @@ class SdsType(object):
         self.__description = value
 
     @property
-    def SdsTypeCode(self) -> SDS.SdsTypeCode:
+    def SdsTypeCode(self) -> SdsTypeCodeType:
         """
         required
         :return:
@@ -103,7 +104,7 @@ class SdsType(object):
         return self.__type_code
 
     @SdsTypeCode.setter
-    def SdsTypeCode(self, value: SDS.SdsTypeCode):
+    def SdsTypeCode(self, value: SdsTypeCodeType):
         """
         required
         :param value:
@@ -309,7 +310,7 @@ class SdsType(object):
             result.Description = content['Description']
 
         if 'SdsTypeCode' in content:
-            result.SdsTypeCode = SDS.SdsTypeCode(content['SdsTypeCode'])
+            result.SdsTypeCode = SdsTypeCodeType(content['SdsTypeCode'])
 
         if 'IsGenericType' in content:
             result.IsGenericType = content['IsGenericType']

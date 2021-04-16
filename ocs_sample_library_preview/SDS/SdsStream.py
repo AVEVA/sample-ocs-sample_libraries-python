@@ -1,6 +1,7 @@
 import json
 
-from .Enum import SdsExtrapolationMode, SdsInterpolationMode
+from .SdsExtrapolationMode import SdsExtrapolationMode
+from .SdsInterpolationMode import SdsInterpolationMode
 from .SdsStreamIndex import SdsStreamIndex
 from .SdsStreamPropertyOverride import SdsStreamPropertyOverride
 

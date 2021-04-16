@@ -1,6 +1,6 @@
 import json
 
-from .Enum import SdsInterpolationMode
+from .SdsInterpolationMode import SdsInterpolationMode
 
 
 class SdsStreamPropertyOverride(object):

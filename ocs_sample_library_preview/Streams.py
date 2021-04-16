@@ -2,7 +2,7 @@ import json
 from typing import Any
 
 from .BaseClient import BaseClient
-from .SDS.Enum.SdsBoundaryType import SdsBoundaryType
+from .SDS.SdsBoundaryType import SdsBoundaryType
 from .SDS.SdsStream import SdsStream
 from .SDS.SdsType import SdsType
 from .SDS.SdsStreamView import SdsStreamView
@@ -41,16 +41,16 @@ class Streams(object):
             self.__streamViewsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                streamView_id=stream_view_id))
+                stream_view_id=stream_view_id))
         self.__base_client.checkResponse(
             response, f'Failed to get SdsStreamView, {stream_view_id}.')
 
-        result = SdsStreamView.fromJson(json.loads(response.content))
+        result = SdsStreamView.fromJson(response.json())
         return result
 
     def getStreamViewMap(self, namespace_id: str, stream_view_id: str) -> SdsStreamViewMap:
         """
-        Retrieves the streamView map specified by 'streamView_id' from Sds
+        Retrieves the streamView map specified by 'stream_view_id' from Sds
             Service
         :param namespace_id: namespace to work against
         :param stream_view_id:  streamview map to get
@@ -66,11 +66,11 @@ class Streams(object):
             self.__streamViewsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                streamView_id=stream_view_id) + '/Map')
+                stream_view_id=stream_view_id) + '/Map')
         self.__base_client.checkResponse(
             response, f'Failed to get SdsStreamViewMap, {stream_view_id}.')
 
-        result = SdsStreamViewMap.fromJson(json.loads(response.text))
+        result = SdsStreamViewMap.fromJson(response.json())
         return result
 
     def getStreamViews(self, namespace_id: str, skip: int = 0,
@@ -95,7 +95,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, 'Failed to get all SdsStreamViews.')
 
-        content = json.loads(response.content)
+        content = response.json()
         results = []
         for item in content:
             results.append(SdsStreamView.fromJson(item))
@@ -119,12 +119,12 @@ class Streams(object):
             self.__streamViewsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                streamView_id=stream_view.Id),
+                stream_view_id=stream_view.Id),
             data=stream_view.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create SdsStreamView, {stream_view.Id}.')
 
-        result = SdsStreamView.fromJson(json.loads(response.text))
+        result = SdsStreamView.fromJson(response.json())
         return result
 
     def createOrUpdateStreamView(self, namespace_id: str, stream_view: SdsStreamView):
@@ -144,7 +144,7 @@ class Streams(object):
             self.__streamViewsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                streamView_id=stream_view.Id),
+                stream_view_id=stream_view.Id),
             data=stream_view.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create SdsStreamView, {stream_view.Id}.')
@@ -152,7 +152,7 @@ class Streams(object):
     def deleteStreamView(self, namespace_id: str, stream_view_id: str):
         """
         Tells Sds Service to delete the streamView with the specified
-            'streamView_id'
+            'stream_view_id'
         :param namespace_id: namespace to work against
         :param stream_view_id: id of streamview to delete
         :return:
@@ -167,7 +167,7 @@ class Streams(object):
             self.__streamViewsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                streamView_id=stream_view_id))
+                stream_view_id=stream_view_id))
         self.__base_client.checkResponse(
             response, f'Failed to delete SdsStreamView, {stream_view_id}.')
 
@@ -192,7 +192,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, f'Failed to get SdsStream, {stream_id}.')
 
-        result = SdsStream.fromJson(json.loads(response.content))
+        result = SdsStream.fromJson(response.json())
         return result
 
     def getStreamType(self, namespace_id: str, stream_id: str) -> SdsType:
@@ -216,7 +216,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, f'Failed to get SdsStream type, {stream_id}.')
 
-        result = SdsType.fromJson(json.loads(response.content))
+        result = SdsType.fromJson(response.json())
         return result
 
     def getStreams(self, namespace_id: str, query: str = '', skip: int = 0,
@@ -243,7 +243,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, 'Failed to get all SdsStreams.')
 
-        content = json.loads(response.content)
+        content = response.json()
         results: list[SdsStream] = []
         for item in content:
             results.append(SdsStream.fromJson(item))
@@ -271,7 +271,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, f'Failed to create SdsStream, {stream.Id}.')
 
-        result = SdsStream.fromJson(json.loads(response.content))
+        result = SdsStream.fromJson(response.json())
         return result
 
     def createOrUpdateStream(self, namespace_id: str, stream: SdsStream):
@@ -424,7 +424,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, f'Failed to get tags for Stream: {stream_id}.')
 
-        result = json.loads(response.text)
+        result = response.json()
         return result
 
     def getMetadata(self, namespace_id: str, stream_id: str, key: str) -> Any:
@@ -447,7 +447,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, f'Failed to get metadata for Stream: {stream_id}.')
 
-        result = json.loads(response.text)
+        result = response.json()
         return result
 
     # The following section provides functionality to interact with Data
@@ -484,7 +484,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, f'Failed to get value for SdsStream: {stream_id}.')
 
-        result = json.loads(response.content)
+        result = response.json()
         if value_class is None:
             return result
         return value_class.fromJson(result)
@@ -515,7 +515,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, f'Failed to get first value for SdsStream: {stream_id}.')
 
-        result = json.loads(response.content)
+        result = response.json()
         if value_class is None:
             return result
         return value_class.fromJson(result)
@@ -546,7 +546,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, f'Failed to get last value for SdsStream: {stream_id}.')
 
-        result = json.loads(response.text)
+        result = response.json()
         if value_class is None:
             return result
         return value_class.fromJson(result)
@@ -587,7 +587,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, f'Failed to get window values for SdsStream: {stream_id}.')
 
-        content = json.loads(response.text)
+        content = response.json()
         if value_class is None:
             return content
 
@@ -632,7 +632,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, f'Failed to get window values for SdsStream, form: {stream_id}.')
 
-        content = json.loads(response.text)
+        content = response.json()
         if value_class is None:
             return content
 
@@ -659,7 +659,7 @@ class Streams(object):
         :param reversed: which direction to go when getting values
         :param boundary_type: the boundary condition to use.
             Can be an SdsBoundaryType or the integer value
-        :param streamView_id: streamview to map the results to
+        :param stream_view_id: streamview to map the results to
         :return: An array of the data in type specified if value_class
             is defined.  Otherwise it is a dynamic Python object
         """
@@ -690,11 +690,11 @@ class Streams(object):
                 stream_id=stream_id),
             params={'startIndex': start, 'skip': skip, 'count': count,
                     'reversed': reversed, 'boundary_type': boundary,
-                    'streamView_id': stream_view_id})
+                    'stream_view_id': stream_view_id})
         self.__base_client.checkResponse(
             response, f'Failed to get range values for SdsStream: {stream_id}.')
 
-        content = json.loads(response.text)
+        content = response.json()
         if value_class is None:
             return content
         results = []
@@ -739,7 +739,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, f'Failed to get range values for SdsStream: {stream_id}.')
 
-        content = json.loads(response.text)
+        content = response.json()
         if value_class is None:
             return content
         results = []
@@ -810,7 +810,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, f'Failed to get sampled values for SdsStream: {stream_id}.')
 
-        content = json.loads(response.text)
+        content = response.json()
         if value_class is None:
             return content
         results = []
@@ -879,7 +879,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, f'Failed to get summaries for SdsStream: {stream_id}.')
 
-        content = json.loads(response.text)
+        content = response.json()
         if value_class is None:
             return content
 
@@ -1090,7 +1090,7 @@ class Streams(object):
         self.__base_client.checkResponse(
             response, f'Failed to get bulk values for SdsStream: {stream_ids}.')
 
-        content = json.loads(response.text)
+        content = response.json()
         if value_class is None:
             return content
 
@@ -1112,7 +1112,8 @@ class Streams(object):
         self.__basePath = self.__uri_api + \
             '/Tenants/{tenant_id}/Namespaces/{namespace_id}'
         self.__getStreamViewsPath = self.__basePath + '/StreamViews'
-        self.__streamViewsPath = self.__getStreamViewsPath + '/{streamView_id}'
+        self.__streamViewsPath = self.__getStreamViewsPath + \
+            '/{stream_view_id}'
         self.__getStreamsPath = self.__basePath + '/Streams'
         self.__streamsPath = self.__getStreamsPath + '/{stream_id}'
         self.__updateStreamTypePath = self.__streamsPath + '/Type'

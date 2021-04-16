@@ -1,14 +1,13 @@
 import json
 
-from .. import SDS
-from .Enum import SdsStreamViewMode
+from .SdsStreamViewMode import SdsStreamViewMode
 
 
 class SdsStreamViewMapProperty(object):
     """Sds StreamViewMap Property definition"""
 
     def __init__(self, source_id: str = None, target_id: str = None, mode: SdsStreamViewMode = None,
-                 sds_stream_view_map: SDS.SdsStreamViewMap = None):
+                 sds_stream_view_map: 'SdsStreamViewMap' = None):
         """
         :param source_id: required
         :param target_id: required
@@ -72,7 +71,7 @@ class SdsStreamViewMapProperty(object):
         self.__mode = value
 
     @property
-    def SdsStreamViewMap(self) -> SDS.SdsStreamViewMap:
+    def SdsStreamViewMap(self) -> 'SdsStreamViewMap':
         """
         not required
         :return:
@@ -80,7 +79,7 @@ class SdsStreamViewMapProperty(object):
         return self.__sds_stream_view_map
 
     @SdsStreamViewMap.setter
-    def SdsStreamViewMap(self, value: SDS.SdsStreamViewMap):
+    def SdsStreamViewMap(self, value: 'SdsStreamViewMap'):
         """
         not required
         :param value:
@@ -117,10 +116,11 @@ class SdsStreamViewMapProperty(object):
             result.TargetId = content['TargetId']
 
         if 'Mode' in content:
-            result.Mode = SdsStreamViewMode[content['Mode']]
+            result.Mode = SdsStreamViewMode(content['Mode'])
 
         if 'SdsStreamViewMap' in content:
-            result.SdsStreamViewMap = SDS.SdsStreamView.fromJson(
+            from .SdsStreamViewMap import SdsStreamViewMap
+            result.SdsStreamViewMap = SdsStreamViewMap.fromJson(
                 content['SdsStreamViewMap'])
 
         return result

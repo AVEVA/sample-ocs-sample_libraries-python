@@ -6,6 +6,20 @@ from .Enum import SdsStreamViewMode
 
 class SdsStreamViewMapProperty(object):
     """Sds StreamViewMap Property definition"""
+
+    def __init__(self, source_id: str = None, target_id: str = None, mode: SdsStreamViewMode = None,
+                 sds_stream_view_map: SDS.SdsStreamViewMap = None):
+        """
+        :param source_id: required
+        :param target_id: required
+        :param mode: not required
+        :param sds_stream_view_map: not required
+        """
+        self.SourceId = source_id
+        self.TargetId = target_id
+        self.Mode = mode
+        self.SdsStreamViewMap = sds_stream_view_map
+
     @property
     def SourceId(self) -> str:
         """

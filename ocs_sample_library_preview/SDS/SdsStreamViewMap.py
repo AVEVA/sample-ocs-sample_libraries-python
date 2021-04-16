@@ -8,6 +8,17 @@ class SdsStreamViewMap(object):
     SdsStreamViewMap definitions
     """
 
+    def __init__(self, source_type_id: str = None, target_type_id: str = None,
+                 properties: list[SdsStreamViewMapProperty] = None):
+        """
+        :param source_type_id: required
+        :param target_type_id: required
+        :param properties: not required
+        """
+        self.SourceTypeId = source_type_id
+        self.TargetTypeId = target_type_id
+        self.Properties = properties
+
     @property
     def SourceTypeId(self) -> str:
         """

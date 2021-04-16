@@ -97,7 +97,7 @@ class SdsType(object):
     @property
     def SdsTypeCode(self) -> SDS.SdsTypeCode:
         """
-        SdsTypeCode    required
+        required
         :return:
         """
         return self.__type_code
@@ -105,7 +105,7 @@ class SdsType(object):
     @SdsTypeCode.setter
     def SdsTypeCode(self, value: SDS.SdsTypeCode):
         """
-        SdsTypeCode    required
+        required
         :param value:
         :return:
         """

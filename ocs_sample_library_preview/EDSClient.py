@@ -1,5 +1,4 @@
 from .BaseClient import BaseClient
-from .DataViews import DataViews
 from .Types import Types
 from .Streams import Streams
 
@@ -9,65 +8,66 @@ class EDSClient:
     A client that handles communication with EDS
     """
 
-    def __init__(self, apiversion="v1", url='http://localhost:5590', acceptVerbosity=False):
+    def __init__(self, api_version: str = 'v1', url: str = 'http://localhost:5590',
+                 accept_verbosity: bool = False):
         """
-        Use this to help communinication with EDS
+        Use this to help in communinication with EDS
+        :param api_version: Version of the api you are communicating with, default is v1
         :param url: The base URL for EDS, default is http://localhost:5590
-        :param apiversion: Version of the api you are communicating with, default is v1
-        :param acceptVerbosity: Sets whether in value calls you get all values
-                or just non-default values
+        :param accept_verbosity: Sets whether in value calls you get all values or just
+            non-default values
         """
-        self.__baseClient = BaseClient(
-            apiversion, 'default', url, None, None, acceptVerbosity)
-        self.__Types = Types(self.__baseClient)
-        self.__Streams = Streams(self.__baseClient)
+        self.__base_client = BaseClient(
+            api_version, 'default', url, None, None, accept_verbosity)
+        self.__types = Types(self.__base_client)
+        self.__streams = Streams(self.__base_client)
 
     @property
-    def uri(self):
+    def uri(self) -> str:
         """
         :return: The uri of this EDS client as a string
         """
-        return self.__baseClient.uri
+        return self.__base_client.uri
 
     @property
-    def acceptverbosity(self):
+    def acceptverbosity(self) -> bool:
         """
         :return: Whether this will include the accept verbosity header
         """
-        return self.__baseClient.AcceptVerbosity
+        return self.__base_client.AcceptVerbosity
 
     @acceptverbosity.setter
-    def acceptverbosity(self, AcceptVerbosity):
-        self.__baseClient.AcceptVerbosity = AcceptVerbosity
+    def acceptverbosity(self, value: bool):
+        self.__base_client.AcceptVerbosity = value
 
     @property
-    def request_timeout(self):
+    def request_timeout(self) -> int:
         """
         :return: Request timeout in seconds (default 30 secs)
         """
-        return self.__baseClient.RequestTimeout
+        return self.__base_client.RequestTimeout
 
     @request_timeout.setter
-    def request_timeout(self, timeout):
-        self.__baseClient.RequestTimeout = timeout
+    def request_timeout(self, value: int):
+        self.__base_client.RequestTimeout = value
 
     @property
-    def Types(self):
+    def Types(self) -> Types:
         """
         :return: A client for interacting with Types
         """
-        return self.__Types
+        return self.__types
 
     @property
-    def Streams(self):
+    def Streams(self) -> Streams:
         """
         :return: A client for interacting with Streams
         """
-        return self.__Streams
+        return self.__streams
 
     @property
-    def baseClient(self):
+    def baseClient(self) -> BaseClient:
         """
         :return: A client for interacting with the baseclient directly
         """
-        return self.__baseClient
+        return self.__base_client

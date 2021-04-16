@@ -1,10 +1,22 @@
 import json
 
-from .SdsStreamView import SdsStreamView
+from .. import SDS
 
 
 class SdsStreamViewProperty(object):
     """Sds StreamView Property definition"""
+
+    def __init__(self, source_id: str = None, target_id: str = None,
+                 sds_stream_view: SDS.SdsStreamView = None):
+        """
+        :param source_id: required
+        :param target_id: required
+        :param sds_stream_view: not required
+        """
+        self.SourceId = source_id
+        self.TargetId = target_id
+        self.SdsStreamView = sds_stream_view
+
     @property
     def SourceId(self) -> str:
         """
@@ -40,7 +52,7 @@ class SdsStreamViewProperty(object):
         self.__target_id = value
 
     @property
-    def SdsStreamView(self) -> SdsStreamView:
+    def SdsStreamView(self) -> SDS.SdsStreamView:
         """
         not required
         :return:
@@ -48,7 +60,7 @@ class SdsStreamViewProperty(object):
         return self.__sds_stream_view
 
     @SdsStreamView.setter
-    def SdsStreamView(self, value: SdsStreamView):
+    def SdsStreamView(self, value: SDS.SdsStreamView):
         """
         not required
         :param value:
@@ -82,7 +94,7 @@ class SdsStreamViewProperty(object):
             result.TargetId = content['TargetId']
 
         if 'SdsStreamView' in content:
-            result.SdsStreamView = SdsStreamView.fromJson(
+            result.SdsStreamView = SDS.SdsStreamView.fromJson(
                 content['SdsStreamView'])
 
         return result

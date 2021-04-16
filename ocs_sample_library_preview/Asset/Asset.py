@@ -1,6 +1,6 @@
 import json
 
-from . import Status
+from .Status.StatusMapping import StatusMapping as StatusMappingType
 from .MetadataItem import MetadataItem
 from .StreamReference import StreamReference
 
@@ -11,7 +11,7 @@ class Asset(object):
     def __init__(self, id: str = None, name: str = None, description: str = None,
                  asset_type_id: str = None, metadata: list[MetadataItem] = None,
                  stream_references: list[StreamReference] = None,
-                 status_mapping: Status.StatusMapping = None):
+                 status_mapping: StatusMappingType = None):
         """
         :param id: required
         :param name: not required
@@ -132,7 +132,7 @@ class Asset(object):
         self.__stream_references = value
 
     @property
-    def StatusMapping(self) -> Status.StatusMapping:
+    def StatusMapping(self) -> StatusMappingType:
         """
         not required
         :return:
@@ -140,7 +140,7 @@ class Asset(object):
         return self.__status_mapping
 
     @StatusMapping.setter
-    def StatusMapping(self, value: Status.StatusMapping):
+    def StatusMapping(self, value: StatusMappingType):
         """
         not required
         :param value:
@@ -217,7 +217,7 @@ class Asset(object):
                         StreamReference.fromJson(value))
 
         if 'StatusMapping' in content:
-            result.StatusMapping = Status.StatusMapping.fromJson(
+            result.StatusMapping = StatusMappingType.fromJson(
                 content['StatusMapping'])
 
         return result

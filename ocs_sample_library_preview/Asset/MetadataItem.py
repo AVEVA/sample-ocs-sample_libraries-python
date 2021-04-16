@@ -1,13 +1,13 @@
 import json
 
-from .. import SDS
+from ..SDS.SdsTypeCode import SdsTypeCode as SdsTypeCodeType
 
 
 class MetadataItem(object):
     """OCS Asset Metadata Item definition"""
 
     def __init__(self, id: str = None, name: str = None, description: str = None,
-                 sds_type_code: SDS.SdsTypeCode = None, uom: str = None, value: str = None):
+                 sds_type_code: SdsTypeCodeType = None, uom: str = None, value: str = None):
         """
         :param id: required
         :param name: required
@@ -75,7 +75,7 @@ class MetadataItem(object):
         self.__description = value
 
     @property
-    def SdsTypeCode(self) -> SDS.SdsTypeCode:
+    def SdsTypeCode(self) -> SdsTypeCodeType:
         """
         not required
         :return:
@@ -83,7 +83,7 @@ class MetadataItem(object):
         return self.__sds_type_code
 
     @SdsTypeCode.setter
-    def SdsTypeCode(self, value: SDS.SdsTypeCode):
+    def SdsTypeCode(self, value: SdsTypeCodeType):
         """
         not required
         :param value:
@@ -164,7 +164,7 @@ class MetadataItem(object):
             result.Description = content['Description']
 
         if 'SdsTypeCode' in content:
-            result.SdsTypeCode = SDS.SdsTypeCode[content['SdsTypeCode']]
+            result.SdsTypeCode = SdsTypeCodeType[content['SdsTypeCode']]
 
         if 'Uom' in content:
             result.Uom = content['Uom']

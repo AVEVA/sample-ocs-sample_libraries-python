@@ -1,6 +1,6 @@
 import json
 
-from ..SDS import SdsTypeCode
+from ..SDS.SdsTypeCode import SdsTypeCode
 
 
 class DataItemField(object):

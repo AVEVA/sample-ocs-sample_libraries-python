@@ -1,6 +1,4 @@
-import json
 import requests
-import time
 
 from .Authentication import Authentication
 from .SdsError import SdsError

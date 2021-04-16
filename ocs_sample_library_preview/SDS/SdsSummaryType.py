@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import Flag
 
 
-class SdsSummaryType(Enum):
+class SdsSummaryType(Flag):
     """
     enum 0-4096  not fully inclusive
     """

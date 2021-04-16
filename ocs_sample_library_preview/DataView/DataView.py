@@ -1,6 +1,6 @@
 import json
 
-from ..SDS import SdsTypeCode
+from ..SDS.SdsTypeCode import SdsTypeCode
 from .DataViewShape import DataViewShape
 from .Field import Field
 from .FieldSet import FieldSet

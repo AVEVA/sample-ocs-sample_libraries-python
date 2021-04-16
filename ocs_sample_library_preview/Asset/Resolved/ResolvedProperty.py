@@ -1,6 +1,7 @@
 import json
 
-from ...SDS import SdsInterpolationMode, SdsExtrapolationMode
+from ...SDS.SdsInterpolationMode import SdsInterpolationMode
+from ...SDS.SdsExtrapolationMode import SdsExtrapolationMode
 from .ResolvedSource import ResolvedSource
 from .ResolvedSdsType import ResolvedSdsType
 

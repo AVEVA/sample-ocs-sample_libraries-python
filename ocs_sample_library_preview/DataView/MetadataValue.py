@@ -1,7 +1,7 @@
 import json
 from typing import Any
 
-from ..SDS import SdsTypeCode
+from ..SDS.SdsTypeCode import SdsTypeCode
 
 
 class MetadataValue(object):

@@ -1,20 +1,20 @@
 import json
 
-from ... import SDS
+from ...SDS.SdsTypeCode import SdsTypeCode as SdsTypeCodeType
 from .ResolvedEnum import ResolvedEnum
 
 
 class ResolvedSdsType(object):
-    def __init__(self, sds_type_code: SDS.SdsTypeCode = None, properties: list[ResolvedEnum] = None):
+    def __init__(self, sds_type_code: SdsTypeCodeType = None, properties: list[ResolvedEnum] = None):
         self.SdsTypeCode = sds_type_code
         self.Properties = properties
 
     @property
-    def SdsTypeCode(self) -> SDS.SdsTypeCode:
+    def SdsTypeCode(self) -> SdsTypeCodeType:
         return self.__sds_type_code
 
     @SdsTypeCode.setter
-    def SdsTypeCode(self, value: SDS.SdsTypeCode):
+    def SdsTypeCode(self, value: SdsTypeCodeType):
         self.__sds_type_code = value
 
     @property
@@ -45,7 +45,7 @@ class ResolvedSdsType(object):
             return result
 
         if 'SdsTypeCode' in content:
-            result.SdsTypeCode = SDS.SdsTypeCode[content['SdsTypeCode']]
+            result.SdsTypeCode = SdsTypeCodeType[content['SdsTypeCode']]
 
         if 'Properties' in content:
             properties = content['Properties']

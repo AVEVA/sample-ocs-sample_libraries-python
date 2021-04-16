@@ -1,6 +1,7 @@
 import json
 
-from ..SDS import SdsTypeCode, SdsSummaryType
+from ..SDS.SdsTypeCode import SdsTypeCode
+from ..SDS.SdsSummaryType import SdsSummaryType
 from .SummaryDirection import SummaryDirection as SummaryDirectionType
 
 

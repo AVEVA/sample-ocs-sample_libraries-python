@@ -1,6 +1,6 @@
 import json
 
-from .Status import StatusMapping
+from .Status.StatusMapping import StatusMapping
 from .MetadataItem import MetadataItem
 from .TypeReference import TypeReference
 

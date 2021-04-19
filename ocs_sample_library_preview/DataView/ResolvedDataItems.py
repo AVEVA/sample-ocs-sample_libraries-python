@@ -34,7 +34,7 @@ class ResolvedDataItems(object):
 
         if self.Items is not None:
             for value in self.Items:
-                result['Items'].append(value)
+                result['Items'].append(value.toDictionary())
 
         return result
 

@@ -37,7 +37,7 @@ class Types(object):
         self.__base_client.checkResponse(
             response, f'Failed to get SdsType, {type_id}.')
 
-        result = SdsType.fromJson(json.loads(response.content))
+        result = SdsType.fromJson(response.json())
         return result
 
     def getTypeReferenceCount(self, namespace_id: str, type_id: str) -> dict[str, int]:
@@ -61,8 +61,8 @@ class Types(object):
         self.__base_client.checkResponse(
             response, f'Failed to get SdsType reference count, {type_id}.')
 
-        result = json.loads(response.content)
-        return result
+        content = response.json()
+        return content
 
     def getTypes(self, namespace_id: str, skip: int = 0, count: int = 100,
                  query: str = '') -> list[SdsType]:
@@ -87,9 +87,9 @@ class Types(object):
         self.__base_client.checkResponse(
             response, 'Failed to get all SdsTypes.')
 
-        types = json.loads(response.content)
+        content = response.json()
         results = []
-        for t in types:
+        for t in content:
             results.append(SdsType.fromJson(t))
         return results
 
@@ -116,7 +116,7 @@ class Types(object):
         self.__base_client.checkResponse(
             response, f'Failed to create type, {type.Id}.')
 
-        result = SdsType.fromJson(json.loads(response.text))
+        result = SdsType.fromJson(response.json())
         return result
 
     def deleteType(self, namespace_id: str, type_id: str):

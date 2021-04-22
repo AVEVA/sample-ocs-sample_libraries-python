@@ -11,7 +11,7 @@ class OCSClient:
     """
 
     def __init__(self, api_version: str, tenant: str, url: str, client_id: str,
-                 client_secret: str = None, accept_cerbosity: bool = False):
+                 client_secret: str = None, accept_verbosity: bool = False):
         """
         Use this to help in communinication with OCS
         :param api_version: Version of the api you are communicating with
@@ -23,7 +23,7 @@ class OCSClient:
             non-default values
         """
         self.__base_client = BaseClient(api_version, tenant, url, client_id,
-                                        client_secret, accept_cerbosity)
+                                        client_secret, accept_verbosity)
         self.__assets = Assets(self.__base_client)
         self.__data_views = DataViews(self.__base_client)
         self.__streams = Streams(self.__base_client)

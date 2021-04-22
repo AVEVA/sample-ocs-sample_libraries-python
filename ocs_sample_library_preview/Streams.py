@@ -957,7 +957,7 @@ class Streams(object):
                 stream_id=stream_id),
             data=payload)
         self.__base_client.checkResponse(
-            response,  f'Failed to update all values for SdsStream: {stream_id}.')
+            response, f'Failed to update all values for SdsStream: {stream_id}.')
 
     def replaceValues(self, namespace_id: str, stream_id: str, values: list[Any]):
         """

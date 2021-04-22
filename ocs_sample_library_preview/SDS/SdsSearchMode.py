@@ -2,7 +2,9 @@ from enum import Enum
 
 
 class SdsSearchMode(Enum):
-    """Search enum 0-4"""
+    """
+    enum 0-4 fully inclusive
+    """
     Exact = 0
     ExactOrNext = 1
     Next = 2

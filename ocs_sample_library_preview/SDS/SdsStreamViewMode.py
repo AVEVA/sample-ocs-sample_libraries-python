@@ -3,7 +3,7 @@ from enum import Flag
 
 class SdsStreamViewMode(Flag):
     """
-    SdsStreamViewMode 0-32
+    flag 0-32 not fully inclusive
     """
     none = 0
     FieldAdd = 1

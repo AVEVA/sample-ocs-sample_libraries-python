@@ -3,7 +3,7 @@ from enum import Enum
 
 class SdsExtrapolationMode(Enum):
     """
-    SdsExtrapolationMode 0-3
+    enum 0-3 fully inclusive
     """
     All = 0
     none = 1

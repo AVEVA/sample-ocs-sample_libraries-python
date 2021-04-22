@@ -3,7 +3,7 @@ from enum import Enum
 
 class SdsInterpolationMode(Enum):
     """
-    SdsInterpolationMode 0-5
+    enum 0-5 fully inclusive
     """
     Continuous = 0
     StepwiseContinuousLeading = 1

@@ -3,7 +3,7 @@ from enum import Enum
 
 class SdsBoundaryType(Enum):
     """
-    Enum for boundary types 0-3
+    enum 0-3 fully inclusive
     """
     Exact = 0
     Inside = 1

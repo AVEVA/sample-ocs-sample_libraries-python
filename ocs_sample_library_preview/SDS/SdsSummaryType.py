@@ -3,7 +3,7 @@ from enum import Flag
 
 class SdsSummaryType(Flag):
     """
-    enum 0-4096  not fully inclusive
+    flag 0-4096 not fully inclusive
     """
     none = 0
     Count = 1

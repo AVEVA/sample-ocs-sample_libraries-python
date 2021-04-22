@@ -9,5 +9,6 @@ class SdsInterpolationMode(Enum):
     StepwiseContinuousLeading = 1
     StepwiseContinuousTrailing = 2
     Discrete = 3
+    Default = Continuous
     ContinuousNullableLeading = 4
     ContinuousNullableTrailing = 5

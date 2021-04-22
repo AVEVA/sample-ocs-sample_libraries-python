@@ -10,29 +10,29 @@ class SdsTypeProperty(object):
     Sds type property definition
     """
 
-    def __init__(self, id: str = None, name: str = None, description: str = None, order: int = None,
-                 is_key: bool = None, fixed_size: int = None, sds_type: 'SdsType' = None,
-                 value: Any = None, uom: str = None,
+    def __init__(self, id: str = None, is_key: bool = None, sds_type: 'SdsType' = None,
+                 name: str = None, description: str = None, order: int = None,
+                 fixed_size: int = None, value: Any = None, uom: str = None,
                  interpolation_mode: SdsInterpolationMode = None):
         """
         :param id: required
+        :param is_key: required
+        :param sds_type: required
         :param name: not required
         :param description: not required
         :param order: not required
-        :param is_key: required
         :param fixed_size: not required
-        :param sds_type: required
         :param value: not required
         :param uom: not required
         :param interpolation_mode: not required
         """
         self.Id = id
+        self.IsKey = is_key
+        self.SdsType = sds_type
         self.Name = name
         self.Description = description
         self.Order = order
-        self.IsKey = is_key
         self.FixedSize = fixed_size
-        self.SdsType = sds_type
         self.Value = value
         self.Uom = uom
         self.InterpolationMode = interpolation_mode

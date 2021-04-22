@@ -5,17 +5,17 @@ class TypeReference(object):
     """OCS Asset Type Type Reference definition"""
 
     def __init__(self, stream_reference_id: str = None, stream_reference_name: str = None,
-                 description: str = None, type_id: str = None):
+                 type_id: str = None, description: str = None):
         """
         :param stream_reference_id: required
         :param stream_reference_name: required
-        :param description: not required
         :param type_id: required
+        :param description: not required
         """
         self.StreamReferenceId = stream_reference_id
         self.StreamReferenceName = stream_reference_name
-        self.Description = description
         self.TypeId = type_id
+        self.Description = description
 
     @property
     def StreamReferenceId(self) -> str:

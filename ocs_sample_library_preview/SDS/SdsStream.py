@@ -9,16 +9,16 @@ from .SdsStreamPropertyOverride import SdsStreamPropertyOverride
 class SdsStream(object):
     """Sds stream definition"""
 
-    def __init__(self, id: str = None, name: str = None, description: str = None,
-                 type_id: str = None, indexes: list[SdsStreamIndex] = None,
+    def __init__(self, id: str = None, type_id: str = None, name: str = None,
+                 description: str = None, indexes: list[SdsStreamIndex] = None,
                  interpolation_mode: SdsInterpolationMode = None,
                  extrapolationMode: SdsExtrapolationMode = None,
                  property_overrides: list[SdsStreamPropertyOverride] = None):
         """
         :param id: required
+        :param type_id: required
         :param name: not required
         :param description: not required
-        :param type_id: required
         :param indexes: array of SdsStreamIndex   not required
         :param interpolation_mode: SdsInterpolationMode   default is null
                                    not required
@@ -28,9 +28,9 @@ class SdsStream(object):
                                    not required
         """
         self.Id = id
+        self.TypeId = type_id
         self.Name = name
         self.Description = description
-        self.TypeId = type_id
         self.Indexes = indexes
         self.InterpolationMode = interpolation_mode
         self.ExtrapolationMode = extrapolationMode

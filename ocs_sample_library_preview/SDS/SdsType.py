@@ -10,35 +10,35 @@ from .SdsTypeProperty import SdsTypeProperty
 class SdsType(object):
     """Sds type definitions"""
 
-    def __init__(self, id: str = None, name: str = None, description: str = None,
-                 sds_type_code: SdsTypeCodeType = None, is_generic_type: bool = None,
+    def __init__(self, id: str = None, sds_type_code: SdsTypeCodeType = None,
+                 properties: list[SdsTypeProperty] = None, name: str = None,
+                 description: str = None, is_generic_type: bool = None,
                  is_reference_type: bool = None, generic_arguments: list[SdsType] = None,
-                 properties: list[SdsTypeProperty] = None, base_type: SdsType = None,
-                 derived_types: list[SdsType] = None,
+                 base_type: SdsType = None, derived_types: list[SdsType] = None,
                  interpolation_mode: SdsInterpolationMode = None,
                  extrapolation_mode: SdsExtrapolationMode = None):
         """
         :param id: required
+        :param sds_type_code: required
+        :param properties: required
         :param name: not required
         :param description: not required
-        :param sds_type_code: required
         :param is_generic_type: not required
         :param is_reference_type: not required
         :param generic_arguments: not required
-        :param properties: required
         :param base_type: not required
         :param derived_types: not required
         :param interpolation_mode: not required
         :param extrapolation_mode: not required
         """
         self.Id = id
+        self.SdsTypeCode = sds_type_code
+        self.Properties = properties
         self.Name = name
         self.Description = description
-        self.SdsTypeCode = sds_type_code
         self.IsGenericType = is_generic_type
         self.IsReferenceType = is_reference_type
         self.GenericArguments = generic_arguments
-        self.Properties = properties
         self.BaseType = base_type
         self.DerivedTypes = derived_types
         self.InterpolationMode = interpolation_mode

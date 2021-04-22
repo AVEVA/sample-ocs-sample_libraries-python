@@ -4,18 +4,18 @@ import json
 class StreamReference(object):
     """OCS Asset Stream Reference definition"""
 
-    def __init__(self, id: str = None, name: str = None, description: str = None,
-                 stream_id: str = None):
+    def __init__(self, id: str = None, name: str = None, stream_id: str = None,
+                 description: str = None):
         """
         :param id: required
         :param name: required
-        :param description: not required
         :param stream_id: required
+        :param description: not required
         """
         self.Id = id
         self.Name = name
-        self.Description = description
         self.StreamId = stream_id
+        self.Description = description
 
     @property
     def Id(self) -> str:

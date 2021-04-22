@@ -8,22 +8,22 @@ class SdsStreamView(object):
     Sds StreamView definitions
     """
 
-    def __init__(self, id: str = None, name: str = None, description: str = None,
-                 source_type_id: str = None, target_type_id: str = None,
+    def __init__(self, id: str = None, source_type_id: str = None, target_type_id: str = None,
+                 name: str = None, description: str = None,
                  properties: list[SdsStreamViewProperty] = None):
         """
         :param id: required
-        :param name: not required
-        :param description: not required
         :param source_type_id: required
         :param target_type_id: required
+        :param name: not required
+        :param description: not required
         :param properties: not required
         """
         self.Id = id
-        self.Name = name
-        self.Description = description
         self.SourceTypeId = source_type_id
         self.TargetTypeId = target_type_id
+        self.Name = name
+        self.Description = description
         self.Properties = properties
 
     @property

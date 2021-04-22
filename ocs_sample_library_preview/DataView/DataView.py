@@ -11,36 +11,36 @@ class DataView(object):
     """OCS Data View definition"""
 
     def __init__(self, id: str = None, name: str = None, description: str = None,
-                 index_field: Field = None, queries: list[Query] = None,
+                 queries: list[Query] = None, index_field: Field = None,
                  data_field_sets: list[FieldSet] = None, grouping_fields: list[Field] = None,
-                 default_start_index: str = None, default_end_index: str = None,
-                 default_interval: str = None, index_type_code: SdsTypeCode = None,
+                 index_type_code: SdsTypeCode = None, default_start_index: str = None,
+                 default_end_index: str = None, default_interval: str = None,
                  shape: DataViewShape = None):
         """
         :param id: required
         :param name: not required
         :param description: not required
-        :param index_field: not required
         :param queries: not required
+        :param index_field: not required
         :param data_field_sets: not required
         :param grouping_fields: not required
+        :param index_type_code: not required
         :param default_start_index: not required
         :param default_end_index: not required
         :param default_interval: not required
-        :param index_type_code: not required
         :param shape: not required
         """
         self.Id = id
         self.Name = name
         self.Description = description
-        self.IndexField = index_field
         self.Queries = queries
+        self.IndexField = index_field
         self.DataFieldSets = data_field_sets
         self.GroupingFields = grouping_fields
+        self.IndexTypeCode = index_type_code
         self.DefaultStartIndex = default_start_index
         self.DefaultEndIndex = default_end_index
         self.DefaultInterval = default_interval
-        self.IndexTypeCode = index_type_code
         self.Shape = shape
 
     @property

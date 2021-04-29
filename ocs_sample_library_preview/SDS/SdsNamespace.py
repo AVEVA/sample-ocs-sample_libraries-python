@@ -6,36 +6,31 @@ class SdsNamespace(object):
     definition of SdsNamespace
     """
 
+    def __init__(self, id: str = None):
+        self.Id = id
+
     @property
-    def Id(self):
+    def Id(self) -> str:
         return self.__id
 
     @Id.setter
-    def Id(self, id):
-        self.__id = id
+    def Id(self, value: str):
+        self.__id = value
 
     def toString(self):
         return json.dumps(self.toDictionary())
 
     def toDictionary(self):
-        # required properties
-        dictionary = {'Id': self.Id}
-
-        return dictionary
+        return {'Id': self.Id}
 
     @staticmethod
-    def fromString(content):
-        dictionary = json.loads(content)
-        return SdsNamespace.fromDictionary(dictionary)
-
-    @staticmethod
-    def fromDictionary(content):
-        namespace = SdsNamespace()
+    def fromJson(content: dict[str, str]):
+        result = SdsNamespace()
 
         if not content:
-            return namespace
+            return result
 
-        if "Id" in content:
-            namespace.Id = content["Id"]
+        if 'Id' in content:
+            result.Id = content['Id']
 
-        return namespace
+        return result

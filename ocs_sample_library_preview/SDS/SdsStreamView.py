@@ -1,4 +1,5 @@
 import json
+
 from .SdsStreamViewProperty import SdsStreamViewProperty
 
 
@@ -7,8 +8,26 @@ class SdsStreamView(object):
     Sds StreamView definitions
     """
 
+    def __init__(self, id: str = None, source_type_id: str = None, target_type_id: str = None,
+                 name: str = None, description: str = None,
+                 properties: list[SdsStreamViewProperty] = None):
+        """
+        :param id: required
+        :param source_type_id: required
+        :param target_type_id: required
+        :param name: not required
+        :param description: not required
+        :param properties: not required
+        """
+        self.Id = id
+        self.SourceTypeId = source_type_id
+        self.TargetTypeId = target_type_id
+        self.Name = name
+        self.Description = description
+        self.Properties = properties
+
     @property
-    def Id(self):
+    def Id(self) -> str:
         """
         required
         :return:
@@ -16,16 +35,16 @@ class SdsStreamView(object):
         return self.__id
 
     @Id.setter
-    def Id(self, id):
+    def Id(self, value: str):
         """
         required
-        :param id:
+        :param value:
         :return:
         """
-        self.__id = id
+        self.__id = value
 
     @property
-    def Name(self):
+    def Name(self) -> str:
         """
         not required
         :return:
@@ -33,16 +52,16 @@ class SdsStreamView(object):
         return self.__name
 
     @Name.setter
-    def Name(self, name):
+    def Name(self, value: str):
         """
         not required
-        :param name:
+        :param value:
         :return:
         """
-        self.__name = name
+        self.__name = value
 
     @property
-    def Description(self):
+    def Description(self) -> str:
         """
         not required
         :return:
@@ -50,119 +69,115 @@ class SdsStreamView(object):
         return self.__description
 
     @Description.setter
-    def Description(self, description):
+    def Description(self, value: str):
         """
         not required
-        :param description:
+        :param value:
         :return:
         """
-        self.__description = description
+        self.__description = value
 
     @property
-    def SourceTypeId(self):
+    def SourceTypeId(self) -> str:
         """
         required
         :return:
         """
-        return self.__sourceTypeId
+        return self.__source_type_id
 
     @SourceTypeId.setter
-    def SourceTypeId(self, baseType):
+    def SourceTypeId(self, value: str):
         """
         required
-        :param baseType:
+        :param value:
         :return:
         """
-        self.__sourceTypeId = baseType
+        self.__source_type_id = value
 
     @property
-    def TargetTypeId(self):
+    def TargetTypeId(self) -> str:
         """
         required
         :return:
         """
-        return self.__targetTypeId
+        return self.__target_type_id
 
     @TargetTypeId.setter
-    def TargetTypeId(self, typeCode):
+    def TargetTypeId(self, value: str):
         """
         required
-        :param typeCode:
+        :param value:
         :return:
         """
-        self.__targetTypeId = typeCode
+        self.__target_type_id = value
 
     @property
-    def Properties(self):
+    def Properties(self) -> list[SdsStreamViewProperty]:
         """
-        array of SdsStreamViewProperty   not required
+        not required
         :return:
         """
         return self.__properties
 
     @Properties.setter
-    def Properties(self, properties):
+    def Properties(self, value: list[SdsStreamViewProperty]):
         """
-        array of SdsStreamViewProperty   not required
-        :param properties:
+        not required
+        :param value:
         :return:
         """
-        self.__properties = properties
+        self.__properties = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())
 
     def toDictionary(self):
         # required properties
-        dictionary = {'Id': self.Id, 'SourceTypeId': self.SourceTypeId,
-                      'TargetTypeId': self.TargetTypeId}
+        result = {'Id': self.Id, 'SourceTypeId': self.SourceTypeId,
+                  'TargetTypeId': self.TargetTypeId}
 
         # optional properties
-        if hasattr(self, 'Properties'):
-            dictionary['Properties'] = []
+        if self.Name is not None:
+            result['Name'] = self.Name
+
+        if self.Description is not None:
+            result['Description'] = self.Description
+
+        if self.Properties is not None:
+            result['Properties'] = []
             for value in self.Properties:
-                dictionary['Properties'].append(value.toDictionary())
+                result['Properties'].append(value.toDictionary())
 
-        if hasattr(self, 'Name'):
-            dictionary['Name'] = self.Name
-
-        if hasattr(self, 'Description'):
-            dictionary['Description'] = self.Description
-
-        return dictionary
+        return result
 
     @staticmethod
-    def fromJson(jsonObj):
-        return SdsStreamView.fromDictionary(jsonObj)
-
-    @staticmethod
-    def fromDictionary(content):
-        streamView = SdsStreamView()
+    def fromJson(content: dict[str, str]):
+        result = SdsStreamView()
 
         if not content:
-            return streamView
+            return result
 
         if 'Id' in content:
-            streamView.Id = content['Id']
+            result.Id = content['Id']
 
         if 'Name' in content:
-            streamView.Name = content['Name']
+            result.Name = content['Name']
 
         if 'Description' in content:
-            streamView.Description = content['Description']
+            result.Description = content['Description']
 
         if 'TargetTypeId' in content:
-            streamView.TargetTypeId = content['TargetTypeId']
+            result.TargetTypeId = content['TargetTypeId']
 
         if 'SourceTypeId' in content:
-            streamView.SourceTypeId = content['SourceTypeId']
+            result.SourceTypeId = content['SourceTypeId']
 
         if 'Properties' in content:
             properties = content['Properties']
             if properties is not None and len(properties) > 0:
-                streamView.Properties = []
+                result.Properties = []
                 for value in properties:
-                    streamView.Properties.append(
-                        SdsStreamViewProperty.fromDictionary(value))
+                    result.Properties.append(
+                        SdsStreamViewProperty.fromJson(value))
 
-        return streamView
+        return result

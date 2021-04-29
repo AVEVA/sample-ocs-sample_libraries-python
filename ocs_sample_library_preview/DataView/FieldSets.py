@@ -1,97 +1,58 @@
 import json
+
 from .FieldSet import FieldSet
 
 
-class FieldSets(object):
+class ResolvedFieldSets(object):
+    """OCS Resolved Field Sets definition"""
 
-    def __init__(
-        self,
-        timeOfResolution=None,
-        items=None
-    ):
-        """
-
-        :param timeOfResolution: not required
-        :param items: not required
-        """
-        self.__timeOfResolution = timeOfResolution
-        if items:
-            self.__items = items
-        else:
-            self.__items = []
+    def __init__(self, time_of_resolution: str = None, items: list[FieldSet] = None):
+        self.TimeOfResolution = time_of_resolution
+        self.Items = items
 
     @property
-    def TimeOfResolution(self):
-        """
-        Get the timeOfResolution  required
-        :return:
-        """
-        return self.__timeOfResolution
+    def TimeOfResolution(self) -> str:
+        return self.__time_of_resolution
 
     @TimeOfResolution.setter
-    def TimeOfResolution(self, timeOfResolution):
-        """
-        Set the timeOfResolution  required
-        :param timeOfResolution:
-        :return:
-        """
-        self.__timeOfResolution = timeOfResolution
+    def TimeOfResolution(self, value: str):
+        self.__time_of_resolution = value
 
     @property
-    def Items(self):
-        """
-        Get the items  required
-        :return:
-        """
+    def Items(self) -> list[FieldSet]:
         return self.__items
 
     @Items.setter
-    def Items(self, items):
-        """
-        Set the items  required
-        :param items:
-        :return:
-        """
-        self.__items = items
+    def Items(self, value: list[FieldSet]):
+        self.__items = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())
 
     def toDictionary(self):
-        # required properties
-        dictionary = {}
+        result = {'TimeOfResolution': self.TimeOfResolution, 'Items': []}
 
-        # optional properties
-        if hasattr(self, 'TimeOfResolution'):
-            dictionary['TimeOfResolution'] = self.TimeOfResolution
-
-        if hasattr(self, "Items"):
-            dictionary["Items"] = []
+        if self.Items is not None:
             for value in self.Items:
-                dictionary["Items"].append(value.toDictionary())
+                result['Items'].append(value.toDictionary())
 
-        return dictionary
-
-    @staticmethod
-    def fromJson(jsonObj):
-        return FieldSets.fromDictionary(jsonObj)
+        return result
 
     @staticmethod
-    def fromDictionary(content):
-        fieldSets = FieldSets()
+    def fromJson(content: dict[str, str]):
+        result = ResolvedFieldSets()
 
         if not content:
-            return fieldSets
+            return result
 
         if 'TimeOfResolution' in content:
-            fieldSets.TimeOfResolution = content['TimeOfResolution']
+            result.TimeOfResolution = content['TimeOfResolution']
 
-        if "Items" in content:
-            Items = content["Items"]
-            if Items is not None and len(Items) > 0:
-                fieldSets.Items = []
-                for value in Items:
-                    fieldSets.Items.append(
-                        FieldSet.fromDictionary(value))
+        if 'Items' in content:
+            items = content["Items"]
+            if items is not None and len(items) > 0:
+                result.Items = []
+                for value in items:
+                    result.Items.append(FieldSet.fromJson(value))
 
-        return fieldSets
+        return result

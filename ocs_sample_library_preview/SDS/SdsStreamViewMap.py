@@ -1,5 +1,6 @@
 import json
-from .SdsStreamViewProperty import SdsStreamViewProperty
+
+from .SdsStreamViewMapProperty import SdsStreamViewMapProperty
 
 
 class SdsStreamViewMap(object):
@@ -7,96 +8,103 @@ class SdsStreamViewMap(object):
     SdsStreamViewMap definitions
     """
 
+    def __init__(self, source_type_id: str = None, target_type_id: str = None,
+                 properties: list[SdsStreamViewMapProperty] = None):
+        """
+        :param source_type_id: required
+        :param target_type_id: required
+        :param properties: not required
+        """
+        self.SourceTypeId = source_type_id
+        self.TargetTypeId = target_type_id
+        self.Properties = properties
+
     @property
-    def SourceTypeId(self):
+    def SourceTypeId(self) -> str:
         """
         required
         :return:
         """
-        return self.__sourceTypeId
+        return self.__source_type_id
 
     @SourceTypeId.setter
-    def SourceTypeId(self, baseType):
+    def SourceTypeId(self, value: str):
         """
         required
-        :param baseType:
+        :param value:
         :return:
         """
-        self.__sourceTypeId = baseType
+        self.__source_type_id = value
 
     @property
-    def TargetTypeId(self):
+    def TargetTypeId(self) -> str:
         """
         required
         :return:
         """
-        return self.__targetTypeId
+        return self.__target_type_id
 
     @TargetTypeId.setter
-    def TargetTypeId(self, typeCode):
+    def TargetTypeId(self, value: str):
         """
         required
-        :param typeCode:
+        :param value:
         :return:
         """
-        self.__targetTypeId = typeCode
+        self.__target_type_id = value
 
     @property
-    def Properties(self):
+    def Properties(self) -> list[SdsStreamViewMapProperty]:
         """
-        list of SdsStreamViewMapProperty    not required
+        not required
         :return:
         """
         return self.__properties
 
     @Properties.setter
-    def Properties(self, properties):
+    def Properties(self, value: list[SdsStreamViewMapProperty]):
         """
-        list of SdsStreamViewMapProperty    not required
-        :param properties:
+        not required
+        :param value:
         :return:
         """
-        self.__properties = properties
+        self.__properties = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())
 
     def toDictionary(self):
         # required properties
-        dictionary = {'SourceTypeId': self.SourceTypeId,
-                      'TargetTypeId': self.TargetTypeId}
+        result = {'SourceTypeId': self.SourceTypeId,
+                  'TargetTypeId': self.TargetTypeId}
 
         # optional properties
-        if hasattr(self, 'Properties'):
-            dictionary['Properties'] = []
+        if self.Properties is not None:
+            result['Properties'] = []
             for value in self.Properties:
-                dictionary['Properties'].append(value.toDictionary())
+                result['Properties'].append(value.toDictionary())
 
-        return dictionary
-
-    @staticmethod
-    def fromJson(jsonObj):
-        return SdsStreamViewMap.fromDictionary(jsonObj)
+        return result
 
     @staticmethod
-    def fromDictionary(content):
-        streamViewMap = SdsStreamViewMap()
+    def fromJson(content: dict[str, str]):
+        result = SdsStreamViewMap()
 
         if not content:
-            return streamViewMap
+            return result
 
         if 'TargetTypeId' in content:
-            streamViewMap.TargetTypeId = content['TargetTypeId']
+            result.TargetTypeId = content['TargetTypeId']
 
         if 'SourceTypeId' in content:
-            streamViewMap.SourceTypeId = content['SourceTypeId']
+            result.SourceTypeId = content['SourceTypeId']
 
         if 'Properties' in content:
             properties = content['Properties']
             if properties is not None and len(properties) > 0:
-                streamViewMap.Properties = []
+                result.Properties = []
                 for value in properties:
-                    streamViewMap.Properties.append(
-                        SdsStreamViewProperty.fromDictionary(value))
+                    result.Properties.append(
+                        SdsStreamViewMapProperty.fromJson(value))
 
-        return streamViewMap
+        return result

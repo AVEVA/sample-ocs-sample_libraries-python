@@ -1,11 +1,11 @@
 from enum import Enum
 
 
-class SdsStreamExtrapolation(Enum):
+class SdsExtrapolationMode(Enum):
     """
-    SdsStreamExtrapolation 0 -3
+    enum 0-3 fully inclusive
     """
     All = 0
-    Nonex = 1
+    none = 1
     Forward = 2
     Backward = 3

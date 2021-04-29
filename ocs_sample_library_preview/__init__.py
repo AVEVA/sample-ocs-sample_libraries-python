@@ -5,5 +5,6 @@ from .Types import Types
 from .Streams import Streams
 from .DataViews import DataViews
 from .SdsError import SdsError
-from .SDS import *
+from .Asset import *
 from .DataView import *
+from .SDS import *

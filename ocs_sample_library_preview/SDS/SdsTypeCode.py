@@ -3,7 +3,7 @@ from enum import Enum
 
 class SdsTypeCode(Enum):
     """
-    enum 0-712  not fully inclusive
+    enum 0-712 not fully inclusive
     """
     Empty = 0
     Object = 1

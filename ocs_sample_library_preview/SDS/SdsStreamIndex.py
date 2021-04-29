@@ -6,40 +6,43 @@ class SdsStreamIndex(object):
     Sds Stream Index definitions
     """
 
-    @property
-    def SdsTypePropertyId(self):
+    def __init__(self, sds_type_property_id: str = None):
         """
-        id of property   required
+        :param sds_type_property_id: required
+        """
+        self.SdsTypePropertyId = sds_type_property_id
+
+    @property
+    def SdsTypePropertyId(self) -> str:
+        """
+        required
         :return:
         """
-        return self.__sdsTypePropertyId
+        return self.__sds_type_property_id
 
     @SdsTypePropertyId.setter
-    def SdsTypePropertyId(self, sdsTypePropertyId):
+    def SdsTypePropertyId(self, value: str):
         """
-        id of property   required
-        :param sdsTypePropertyId:
+        required
+        :param value:
         :return:
         """
-        self.__sdsTypePropertyId = sdsTypePropertyId
+        self.__sds_type_property_id = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())
 
     def toDictionary(self):
-        # required properties
-        dictionary = {'SdsTypePropertyId': self.SdsTypePropertyId}
-
-        return dictionary
+        return {'SdsTypePropertyId': self.SdsTypePropertyId}
 
     @staticmethod
-    def fromDictionary(content):
-        typePropertyId = SdsStreamIndex()
+    def fromJson(content: dict[str, str]):
+        result = SdsStreamIndex()
 
         if not content:
-            return typePropertyId
+            return result
 
         if 'SdsTypePropertyId' in content:
-            typePropertyId.SdsTypePropertyId = content['SdsTypePropertyId']
+            result.SdsTypePropertyId = content['SdsTypePropertyId']
 
-        return typePropertyId
+        return result

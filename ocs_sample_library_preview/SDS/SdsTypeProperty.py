@@ -1,4 +1,8 @@
 from enum import Enum
+import json
+from typing import Any
+
+from .SdsInterpolationMode import SdsInterpolationMode
 
 
 class SdsTypeProperty(object):
@@ -6,220 +10,275 @@ class SdsTypeProperty(object):
     Sds type property definition
     """
 
-    def __init__(self, id=None, name=None, description=None, isKey=False,
-                 sdsType=None, value=None, order=None):
+    def __init__(self, id: str = None, is_key: bool = None, sds_type: 'SdsType' = None,
+                 name: str = None, description: str = None, order: int = None,
+                 fixed_size: int = None, value: Any = None, uom: str = None,
+                 interpolation_mode: SdsInterpolationMode = None):
         """
-
         :param id: required
+        :param is_key: required
+        :param sds_type: required
         :param name: not required
         :param description: not required
-        :param isKey: bool   Set whether this property is part of the type's
-                     index    required
-        :param sdsType: SdsType required
-        :param value:  object   not required
-        :param order: Integer   Determines the order of a complex index type.
-                    If isKey is set and this is part of a complex index
-                    this is required.   Not required
+        :param order: not required
+        :param fixed_size: not required
+        :param value: not required
+        :param uom: not required
+        :param interpolation_mode: not required
         """
         self.Id = id
+        self.IsKey = is_key
+        self.SdsType = sds_type
+        self.Name = name
         self.Description = description
-        self.IsKey = isKey
-        self.SdsType = sdsType
-        self.Value = value
         self.Order = order
+        self.FixedSize = fixed_size
+        self.Value = value
+        self.Uom = uom
+        self.InterpolationMode = interpolation_mode
 
     @property
-    def Id(self):
+    def Id(self) -> str:
         """
         required
-        :param self:
         :return:
         """
         return self.__id
 
     @Id.setter
-    def Id(self, id):
+    def Id(self, value: str):
         """
         required
-        :param self:
-        :param id:
+        :param value:
         :return:
         """
-        self.__id = id
+        self.__id = value
 
     @property
-    def Name(self):
+    def Name(self) -> str:
         """
         not required
-        :param self:
         :return:
         """
         return self.__name
 
     @Name.setter
-    def Name(self, name):
+    def Name(self, value: str):
         """
         not required
-        :param self:
-        :param name:
+        :param value:
         :return:
         """
-        self.__name = name
+        self.__name = value
 
     @property
-    def Description(self):
+    def Description(self) -> str:
         """
         not required
-        :param self:
         :return:
         """
         return self.__description
 
     @Description.setter
-    def Description(self, Description):
+    def Description(self, value: str):
         """
         not required
-        :param self:
-        :param Description:
+        :param value:
         :return:
         """
-        self.__description = Description
+        self.__description = value
 
     @property
-    def IsKey(self):
+    def Order(self) -> int:
         """
-        bool  Set whether this property is part of the type's index    required
-        :param self:
+        not required
         :return:
         """
-        return self.__isKey
+        return self.__order
+
+    @Order.setter
+    def Order(self, value: int):
+        """
+        not required
+        :param value:
+        :return:
+        """
+        self.__order = value
+
+    @property
+    def IsKey(self) -> bool:
+        """
+        required
+        :return:
+        """
+        return self.__is_key
 
     @IsKey.setter
-    def IsKey(self, iskey):
-        """
-        bool  Set whether this property is part of the type's index   required
-        :param self:
-        :param iskey:
-        :return:
-        """
-        self.__isKey = iskey
-
-    @property
-    def SdsType(self):
+    def IsKey(self, value: bool):
         """
         required
-        :param self:
+        :param value:
         :return:
         """
-        return self.__sdsType
-
-    @SdsType.setter
-    def SdsType(self, sdsType):
-        """
-        required
-        :param self:
-        :param sdsType:
-        :return:
-        """
-        self.__sdsType = sdsType
+        self.__is_key = value
 
     @property
-    def Value(self):
+    def FixedSize(self) -> int:
         """
         not required
-        :param self:
+        :return:
+        """
+        return self.__fixed_size
+
+    @FixedSize.setter
+    def FixedSize(self, value: int):
+        """
+        not required
+        :param value:
+        :return:
+        """
+        self.__fixed_size = value
+
+    @property
+    def SdsType(self) -> 'SdsType':
+        """
+        required
+        :return:
+        """
+        return self.__sds_type
+
+    @SdsType.setter
+    def SdsType(self, value: 'SdsType'):
+        """
+        required
+        :param value:
+        :return:
+        """
+        self.__sds_type = value
+
+    @property
+    def Value(self) -> Any:
+        """
+        not required
         :return:
         """
         return self.__value
 
     @Value.setter
-    def Value(self, value):
+    def Value(self, value: Any):
         """
         not required
-        :param self:
         :param value:
         :return:
         """
         self.__value = value
 
     @property
-    def Order(self):
+    def Uom(self) -> str:
         """
-        Integer   Determines the order of a complex index type.
-                  If isKey is set and this is part of a complex index
-                  this is required.   Not required
-        :param self:
+        not required
         :return:
         """
-        return self.__order
+        return self.__uom
 
-    @Order.setter
-    def Order(self, order):
+    @Uom.setter
+    def Uom(self, value: str):
         """
-        Integer   Determines the order of a complex index type.  If isKey is
-                    set and this is part of a complex index  this is required.
-                     Not required
-        :param self:
-        :param order:
+        not required
+        :param value:
         :return:
         """
-        self.__order = order
+        self.__uom = value
+
+    @property
+    def InterpolationMode(self) -> SdsInterpolationMode:
+        """
+        not required
+        :return:
+        """
+        return self.__interpolation_mode
+
+    @InterpolationMode.setter
+    def InterpolationMode(self, value: SdsInterpolationMode):
+        """
+        not required
+        :param value:
+        :return:
+        """
+        self.__interpolation_mode = value
+
+    def toJson(self):
+        return json.dumps(self.toDictionary())
 
     def toDictionary(self):
-        dictionary = {'IsKey': self.IsKey}
+        # required properties
+        result = {'Id': self.Id, 'IsKey': self.IsKey,
+                  'SdsType': self.SdsType.toDictionary()}
 
-        if hasattr(self, 'Id'):
-            dictionary['Id'] = self.Id
+        # optional properties
+        if self.Name is not None:
+            result['Name'] = self.Name
 
-        if hasattr(self, 'Name'):
-            dictionary['Name'] = self.Name
+        if self.Description is not None:
+            result['Description'] = self.Description
 
-        if hasattr(self, 'Description'):
-            dictionary['Description'] = self.Description
+        if self.Order is not None:
+            result['Order'] = self.Order
 
-        if hasattr(self, 'SdsType'):
-            if(self.SdsType):
-                from .SdsType import SdsType
-                dictionary['SdsType'] = self.SdsType.toDictionary()
+        if self.FixedSize is not None:
+            result['FixedSize'] = self.FixedSize
 
-        if hasattr(self, 'Value'):
+        if self.Value is not None:
             if (isinstance(self.Value, Enum)):
-                dictionary['Value'] = self.Value.name
+                result['Value'] = self.Value.name
             else:
-                dictionary['Value'] = self.Value
+                result['Value'] = self.Value
 
-        if hasattr(self, 'Order'):
-            dictionary['Order'] = self.Order
+        if self.Uom is not None:
+            result['Uom'] = self.Uom
 
-        return dictionary
+        if self.InterpolationMode is not None:
+            result['InterpolationMode'] = self.InterpolationMode.name
+
+        return result
 
     @staticmethod
-    def fromDictionary(content):
-        typeProperty = SdsTypeProperty()
+    def fromJson(content: dict[str, str]):
+        result = SdsTypeProperty()
 
         if not content:
-            return typeProperty
+            return result
 
         if 'Id' in content:
-            typeProperty.Id = content['Id']
-
-        if 'IsKey' in content:
-            typeProperty.IsKey = content['IsKey']
+            result.Id = content['Id']
 
         if 'Name' in content:
-            typeProperty.Name = content['Name']
+            result.Name = content['Name']
 
         if 'Description' in content:
-            typeProperty.Description = content['Description']
+            result.Description = content['Description']
+
+        if 'Order' in content:
+            result.Order = content['Order']
+
+        if 'IsKey' in content:
+            result.IsKey = content['IsKey']
+
+        if 'FixedSize' in content:
+            result.FixedSize = content['FixedSize']
 
         if 'SdsType' in content:
             from .SdsType import SdsType
-            typeProperty.SdsType = SdsType.fromDictionary(content['SdsType'])
+            result.SdsType = SdsType.fromJson(content['SdsType'])
 
         if 'Value' in content:
-            typeProperty.Value = content['Value']
+            result.Value = content['Value']
 
-        if 'Order' in content:
-            typeProperty.Order = content['Order']
+        if 'Uom' in content:
+            result.Uom = content['Uom']
 
-        return typeProperty
+        if 'InterpolationMode' in content:
+            result.InterpolationMode = SdsInterpolationMode(
+                content['InterpolationMode'])
+
+        return result

@@ -1,124 +1,110 @@
 import json
+
 from .Field import Field
 
 
 class FieldSet(object):
+    """OCS Field Set definition"""
 
-    def __init__(
-        self,
-        queryId=None,
-        dataFields=None,
-        identifyingField=None
-    ):
+    def __init__(self, query_id: str = None, data_fields: list[Field] = None,
+                 identifying_field: Field = None):
         """
-        :param queryId: not required
-        :param dataFields: not required
-        :param identifyingField: not required
+        :param query_id: required
+        :param data_fields: not required
+        :param identifying_field: not required
         """
-        self.__queryId = queryId
-        if dataFields:
-            self.__dataFields = dataFields
-        else:
-            self.__dataFields = []
-        self.__identifyingField = identifyingField
+        self.QueryId = query_id
+        self.DataFields = data_fields
+        self.IdentifyingField = identifying_field
 
     @property
-    def QueryId(self):
+    def QueryId(self) -> str:
         """
-        Get the queryId  required
+        required
         :return:
         """
-        return self.__queryId
+        return self.__query_id
 
     @QueryId.setter
-    def QueryId(self, queryId):
+    def QueryId(self, value: str):
         """
-        Set the queryId  required
-        :param queryId:
+        required
+        :param value:
         :return:
         """
-        self.__queryId = queryId
+        self.__query_id = value
 
     @property
-    def DataFields(self):
+    def DataFields(self) -> list[Field]:
         """
-        Get the dataFields  required
+        not required
         :return:
         """
-        return self.__dataFields
+        return self.__data_fields
 
     @DataFields.setter
-    def DataFields(self, dataFields):
+    def DataFields(self, value: list[Field]):
         """
-        Set the dataFields  required
-        :param dataFields:
+        not required
+        :param value:
         :return:
         """
-        self.__dataFields = dataFields
+        self.__data_fields = value
 
     @property
-    def IdentifyingField(self):
+    def IdentifyingField(self) -> Field:
         """
-        Get the identifyingField  required
+        not required
         :return:
         """
-        return self.__identifyingField
+        return self.__identifying_field
 
     @IdentifyingField.setter
-    def IdentifyingField(self, identifyingField):
+    def IdentifyingField(self, value: Field):
         """
-        Set the identifyingField  required
-        :param identifyingField:
+        not required
+        :param value:
         :return:
         """
-        self.__identifyingField = identifyingField
+        self.__identifying_field = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())
 
     def toDictionary(self):
         # required properties
-        dictionary = {}
+        result = {'QueryId': self.QueryId}
 
         # optional properties
-        if hasattr(self, 'QueryId'):
-            dictionary['QueryId'] = self.QueryId
-
-        if hasattr(self, "DataFields"):
-            dictionary["DataFields"] = []
+        if self.DataFields is not None:
+            result['DataFields'] = []
             for value in self.DataFields:
-                dictionary["DataFields"].append(value.toDictionary())
+                result['DataFields'].append(value.toDictionary())
 
-        if hasattr(self, 'IdentifyingField'):
-            if self.IdentifyingField is not None:
-                dictionary['IdentifyingField'] = self.IdentifyingField.toDictionary()
+        if self.IdentifyingField is not None:
+            result['IdentifyingField'] = self.IdentifyingField.toDictionary()
 
-        return dictionary
-
-    @staticmethod
-    def fromJson(jsonObj):
-        return FieldSet.fromDictionary(jsonObj)
+        return result
 
     @staticmethod
-    def fromDictionary(content):
-        fieldSet = FieldSet()
+    def fromJson(content: dict[str, str]):
+        result = FieldSet()
 
         if not content:
-            return fieldSet
+            return result
 
         if 'QueryId' in content:
-            fieldSet.QueryId = content['QueryId']
+            result.QueryId = content['QueryId']
 
-        if "DataFields" in content:
-            DataFields = content["DataFields"]
-            if DataFields is not None and len(DataFields) > 0:
-                fieldSet.DataFields = []
-                for value in DataFields:
-                    fieldSet.DataFields.append(
-                        Field.fromDictionary(value))
+        if 'DataFields' in content:
+            data_fields = content['DataFields']
+            if data_fields is not None and len(data_fields) > 0:
+                result.DataFields = []
+                for value in data_fields:
+                    result.DataFields.append(Field.fromJson(value))
 
         if 'IdentifyingField' in content:
-            fieldSet.IdentifyingField = Field.fromDictionary(
+            result.IdentifyingField = Field.fromJson(
                 content['IdentifyingField'])
 
-        return fieldSet
+        return result

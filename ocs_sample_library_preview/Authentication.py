@@ -1,62 +1,58 @@
-
-from .SdsError import SdsError
-
 import base64
-import configparser
 import hashlib
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import json
-import os
+import requests
 import secrets
 import time
 from urllib.parse import urlparse, parse_qs
 import webbrowser
 
-import requests
+from .SdsError import SdsError
 
 
 class Authentication(object):
 
-    def __init__(self, tenant, url, clientId, clientSecret):
+    def __init__(self, tenant: str, url: str, client_id: str, client_secret: str):
         self.__tenant = tenant
-        self.__clientId = clientId
-        self.__clientSecret = clientSecret
+        self.__client_id = client_id
+        self.__client_secret = client_secret
         self.__url = url
 
         self.__expiration = 0
-        self.__token = ""
-        if clientSecret is not None:
+        self.__token = ''
+        if client_secret is not None:
             self.__getToken = self.__getClientIDSecretToken
         else:
             self.__getToken = self.__getPKCEToken
 
-    def getToken(self):
+    def getToken(self) -> str:
         if ((self.__expiration - time.time()) > 5 * 60):
             return self.__token
 
         return self.__getToken()
 
-    def __getClientIDSecretToken(self):
-        tokenEndpoint = self.__url + "/identity/connect/token"
+    def __getClientIDSecretToken(self) -> str:
+        tokenEndpoint = self.__url + '/identity/connect/token'
 
         tokenInformation = requests.post(
             tokenEndpoint,
-            data={"client_id": self.__clientId,
-                  "client_secret": self.__clientSecret,
-                  "grant_type": "client_credentials"})
+            data={'client_id': self.__client_id,
+                  'client_secret': self.__client_secret,
+                  'grant_type': 'client_credentials'})
 
         token = json.loads(tokenInformation.content)
 
-        expiration = token.get("expires_in", None)
+        expiration = token.get('expires_in', None)
         if expiration is None:
             raise SdsError(
-                f"Failed to get token, check client id/secret: {token['error']}")
+                f'Failed to get token, check client id/secret: {token["error"]}')
 
         self.__expiration = float(expiration) + time.time()
         self.__token = token['access_token']
         return self.__token
 
-    def __getPKCEToken(self):
+    def __getPKCEToken(self) -> str:
         try:
             redirect_uri = 'http://localhost:5004/callback.html'
             scope = 'openid ocsapi'
@@ -101,7 +97,7 @@ class Authentication(object):
             print('Step 3: Authorize the user...')
             auth_url = auth_endpoint + \
                 '?response_type=code&code_challenge=' + challenge.decode() + \
-                '&code_challenge_method=S256&client_id=' + self.__clientId + \
+                '&code_challenge_method=S256&client_id=' + self.__client_id + \
                 '&redirect_uri=' + redirect_uri + \
                 '&scope=' + scope + \
                 '&acr_values=tenant:' + self.__tenant
@@ -109,7 +105,7 @@ class Authentication(object):
             # Open user default web browser at Auth page
             if not webbrowser.open(auth_url):
                 raise SdsError(
-                    "This notebook/script should be run locally on your machine to authenticate")
+                    'This notebook/script should be run locally on your machine to authenticate')
 
             # Wait for response in browser
             print('Step 4: Set server to handle one request...')
@@ -119,22 +115,22 @@ class Authentication(object):
             print('Step 5: Get a token using the authorization code...')
             token = requests.post(token_endpoint, [
                 ('grant_type', 'authorization_code'),
-                ('client_id', self.__clientId),
+                ('client_id', self.__client_id),
                 ('code_verifier', verifier),
                 ('code', RequestHandler.code),
                 ('redirect_uri', redirect_uri)])
 
             token = json.loads(token.content)
-            expiration = token.get("expires_in", None)
+            expiration = token.get('expires_in', None)
             if expiration is None:
                 raise SdsError(
-                    f"Failed to get token, please retry login in: {token['error']}")
+                    f'Failed to get token, please retry login in: {token["error"]}')
 
             self.__expiration = float(expiration) + time.time()
             self.__token = token['access_token']
-            print(f"Step 6: Access token read ok\nComplete!")
+            print(f'Step 6: Access token read ok\nComplete!')
             return self.__token
 
         except Exception as error:
-            msg = "Encountered Error: {error}".format(error=error)
+            msg = 'Encountered Error: {error}'.format(error=error)
             raise SdsError(msg)

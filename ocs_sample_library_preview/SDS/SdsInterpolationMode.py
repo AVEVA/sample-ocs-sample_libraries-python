@@ -1,12 +1,14 @@
 from enum import Enum
 
 
-class SdsStreamMode(Enum):
+class SdsInterpolationMode(Enum):
     """
-    Enum 0-3
+    enum 0-5 fully inclusive
     """
     Continuous = 0
     StepwiseContinuousLeading = 1
     StepwiseContinuousTrailing = 2
     Discrete = 3
     Default = Continuous
+    ContinuousNullableLeading = 4
+    ContinuousNullableTrailing = 5

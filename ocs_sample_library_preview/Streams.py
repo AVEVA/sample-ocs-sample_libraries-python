@@ -1,11 +1,12 @@
 import json
+from typing import Any
 
 from .BaseClient import BaseClient
+from .SDS.SdsBoundaryType import SdsBoundaryType
 from .SDS.SdsStream import SdsStream
 from .SDS.SdsType import SdsType
 from .SDS.SdsStreamView import SdsStreamView
 from .SDS.SdsStreamViewMap import SdsStreamViewMap
-from .SDS.SdsBoundaryType import SdsBoundaryType
 
 
 class Streams(object):
@@ -17,67 +18,63 @@ class Streams(object):
         """
         :param client: base client that handles auth and base routing
         """
-        self.__apiVersion = client.api_version
         self.__tenant = client.tenant
-        self.__uri_API = client.uri_API
-        self.__baseClient = client
+        self.__uri_api = client.uri_API
+        self.__base_client = client
 
         self.__setPathAndQueryTemplates()
 
-    def getStreamView(self, namespace_id, streamView_id):
+    def getStreamView(self, namespace_id: str, stream_view_id: str) -> SdsStreamView:
         """
-        Retrieves the streamView specified by 'streamView_id' from Sds Service
+        Retrieves the streamView specified by 'stream_view_id' from Sds Service
         :param namespace_id: namespace to work against
-        :param streamView_id: streamview id to get
-        :return: Streamview as SDsStreamview
+        :param stream_view_id: streamview id to get
+        :return: Stream view as SdsStreamView
         """
         if namespace_id is None:
             raise TypeError
-        if streamView_id is None:
+        if stream_view_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__streamViewsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                streamView_id=streamView_id))
+                stream_view_id=stream_view_id))
+        self.__base_client.checkResponse(
+            response, f'Failed to get SdsStreamView, {stream_view_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get SdsStreamView, {streamView_id}.")
+        result = SdsStreamView.fromJson(response.json())
+        return result
 
-        streamView = SdsStreamView.fromJson(json.loads(response.content))
-        response.close()
-        return streamView
-
-    def getStreamViewMap(self, namespace_id, streamView_id):
+    def getStreamViewMap(self, namespace_id: str, stream_view_id: str) -> SdsStreamViewMap:
         """
-        Retrieves the streamView map specified by 'streamView_id' from Sds
+        Retrieves the streamView map specified by 'stream_view_id' from Sds
             Service
         :param namespace_id: namespace to work against
-        :param streamView_id:  streamview map to get
+        :param stream_view_id:  streamview map to get
         :return:
         """
         if namespace_id is None:
             raise TypeError
-        if streamView_id is None:
+        if stream_view_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__streamViewsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                streamView_id=streamView_id) + "/Map")
+                stream_view_id=stream_view_id) + '/Map')
+        self.__base_client.checkResponse(
+            response, f'Failed to get SdsStreamViewMap, {stream_view_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get SdsStreamViewMap, {streamView_id}.")
+        result = SdsStreamViewMap.fromJson(response.json())
+        return result
 
-        streamViewMap = SdsStreamViewMap.fromJson(json.loads(response.text))
-        response.close()
-        return streamViewMap
-
-    def getStreamViews(self, namespace_id, skip=0, count=100):
+    def getStreamViews(self, namespace_id: str, skip: int = 0,
+                       count: int = 100) -> list[SdsStreamView]:
         """
         Retrieves a list of streamViews associated with the specified
             'namespace_id' under the current tenant
@@ -89,101 +86,92 @@ class Streams(object):
         if namespace_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__getStreamViewsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id),
-            params={"skip": skip, "count": count})
-        self.__baseClient.checkResponse(
-            response, "Failed to get all SdsStreamViews.")
+            params={'skip': skip, 'count': count})
+        self.__base_client.checkResponse(
+            response, 'Failed to get all SdsStreamViews.')
 
-        content = json.loads(response.content)
+        content = response.json()
         results = []
         for item in content:
             results.append(SdsStreamView.fromJson(item))
-        response.close()
         return results
 
-    def getOrCreateStreamView(self, namespace_id, streamView):
+    def getOrCreateStreamView(self, namespace_id: str, stream_view: SdsStreamView) -> SdsStreamView:
         """
         Tells Sds Service to create a streamView based on a local
             SdsStreamView object
         :param namespace_id: namespace to work against
-        :param streamView: Streamview object to create in OCS
+        :param stream_view: Streamview object to create in OCS
         :return: created Streamview as SdsStreamview
         """
         if namespace_id is None:
             raise TypeError
-        if streamView is None or not isinstance(streamView, SdsStreamView):
+        if stream_view is None or not isinstance(stream_view, SdsStreamView):
             raise TypeError
 
-        response = self.__baseClient.request(
-            "post",
+        response = self.__base_client.request(
+            'post',
             self.__streamViewsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                streamView_id=streamView.Id),
-            data=streamView.toJson())
+                stream_view_id=stream_view.Id),
+            data=stream_view.toJson())
+        self.__base_client.checkResponse(
+            response, f'Failed to create SdsStreamView, {stream_view.Id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to create SdsStreamView, {streamView.Id}.")
+        result = SdsStreamView.fromJson(response.json())
+        return result
 
-        streamView = SdsStreamView.fromJson(json.loads(response.text))
-        response.close()
-        return streamView
-
-    def createOrUpdateStreamView(self, namespace_id, streamView):
+    def createOrUpdateStreamView(self, namespace_id: str, stream_view: SdsStreamView):
         """
-        Tells Sds Service to create a streamView based on a local
-            SdsStreamView object
+        Tells Sds Service to create a streamView based on a local SdsStreamView object
         :param namespace_id: namespace to work against
-        :param streamView: Streamview object to create or update in OCS
+        :param stream_view: Streamview object to create or update in OCS
         :return: created Streamview as SdsStream
         """
         if namespace_id is None:
             raise TypeError
-        if streamView is None or not isinstance(streamView, SdsStreamView):
+        if stream_view is None or not isinstance(stream_view, SdsStreamView):
             raise TypeError
 
-        response = self.__baseClient.request(
-            "put",
+        response = self.__base_client.request(
+            'put',
             self.__streamViewsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                streamView_id=streamView.Id),
-            data=streamView.toJson())
-        self.__baseClient.checkResponse(
-            response, f"Failed to create SdsStreamView, {streamView.Id}.")
+                stream_view_id=stream_view.Id),
+            data=stream_view.toJson())
+        self.__base_client.checkResponse(
+            response, f'Failed to create SdsStreamView, {stream_view.Id}.')
 
-        response.close()
-
-    def deleteStreamView(self, namespace_id, streamView_id):
+    def deleteStreamView(self, namespace_id: str, stream_view_id: str):
         """
         Tells Sds Service to delete the streamView with the specified
-            'streamView_id'
+            'stream_view_id'
         :param namespace_id: namespace to work against
-        :param streamView_id: id of streamview to delete
+        :param stream_view_id: id of streamview to delete
         :return:
         """
         if namespace_id is None:
             raise TypeError
-        if streamView_id is None:
+        if stream_view_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "delete",
+        response = self.__base_client.request(
+            'delete',
             self.__streamViewsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                streamView_id=streamView_id))
+                stream_view_id=stream_view_id))
+        self.__base_client.checkResponse(
+            response, f'Failed to delete SdsStreamView, {stream_view_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to delete SdsStreamView, {streamView_id}.")
-
-        response.close()
-
-    def getStream(self, namespace_id, stream_id):
+    def getStream(self, namespace_id: str, stream_id: str) -> SdsStream:
         """
         Retrieves a stream specified by 'stream_id' from the Sds Service
         :param namespace_id: namespace to work against
@@ -195,21 +183,19 @@ class Streams(object):
         if stream_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__streamsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id))
+        self.__base_client.checkResponse(
+            response, f'Failed to get SdsStream, {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get SdsStream, {stream_id}.")
+        result = SdsStream.fromJson(response.json())
+        return result
 
-        stream = SdsStream.fromJson(json.loads(response.content))
-        response.close()
-        return stream
-
-    def getStreamType(self, namespace_id, stream_id):
+    def getStreamType(self, namespace_id: str, stream_id: str) -> SdsType:
         """
         Retrieves a stream specified by 'stream_id' from the Sds Service
         :param namespace_id: namespace to work against
@@ -221,24 +207,22 @@ class Streams(object):
         if stream_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__streamsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_id=stream_id) + "/Type")
+                stream_id=stream_id) + '/Type')
+        self.__base_client.checkResponse(
+            response, f'Failed to get SdsStream type, {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get SdsStream type,  {stream_id}.")
+        result = SdsType.fromJson(response.json())
+        return result
 
-        type = SdsType.fromJson(json.loads(response.content))
-        response.close()
-        return type
-
-    def getStreams(self, namespace_id, query="", skip=0, count=100):
+    def getStreams(self, namespace_id: str, query: str = '', skip: int = 0,
+                   count: int = 100) -> list[SdsStream]:
         """
-        Retrieves a list of streams associated with 'namespace_id' under
-            the current tenant"
+        Retrieves a list of streams associated with 'namespace_id' under the current tenant
         :param namespace_id: namespace to work against
         :param query: filtering query
         :param skip: number of streams to skip for paging
@@ -250,27 +234,24 @@ class Streams(object):
         if query is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__getStreamsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id),
-            params={"query": query, "skip": skip, "count": count})
+            params={'query': query, 'skip': skip, 'count': count})
+        self.__base_client.checkResponse(
+            response, 'Failed to get all SdsStreams.')
 
-        self.__baseClient.checkResponse(
-            response, "Failed to get all SdsStreams.")
-
-        content = json.loads(response.content)
-        results: [SdsStream] = []
+        content = response.json()
+        results: list[SdsStream] = []
         for item in content:
             results.append(SdsStream.fromJson(item))
-        response.close()
         return results
 
-    def getOrCreateStream(self, namespace_id, stream):
+    def getOrCreateStream(self, namespace_id: str, stream: SdsStream) -> SdsStream:
         """
-        Tells Sds Service to create a stream based on the local 'stream'
-            SdsStream object
+        Tells Sds Service to create a stream based on the local 'stream' SdsStream object
         :param namespace_id: namespace to work against
         :param stream: the stream to Create or retrieve, as a SDsStream
         :return: the created Stream as an SdsStream
@@ -279,25 +260,23 @@ class Streams(object):
             raise TypeError
         if stream is None or not isinstance(stream, SdsStream):
             raise TypeError
-        response = self.__baseClient.request(
-            "post",
+
+        response = self.__base_client.request(
+            'post',
             self.__streamsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream.Id),
             data=stream.toJson())
+        self.__base_client.checkResponse(
+            response, f'Failed to create SdsStream, {stream.Id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to create SdsStream, {stream.Id}.")
+        result = SdsStream.fromJson(response.json())
+        return result
 
-        stream = SdsStream.fromJson(json.loads(response.content))
-        response.close()
-        return stream
-
-    def createOrUpdateStream(self, namespace_id, stream):
+    def createOrUpdateStream(self, namespace_id: str, stream: SdsStream):
         """
-        Tells Sds Service to create a stream based on the local 'stream'
-            SdsStream object
+        Tells Sds Service to create a stream based on the local 'stream' SdsStream object
         :param namespace_id: namespace to work against
         :param stream: the stream to Create or update, as a SDsStream
         :return: the created or updated Stream as an SdsStream
@@ -307,49 +286,42 @@ class Streams(object):
         if stream is None or not isinstance(stream, SdsStream):
             raise TypeError
 
-        response = self.__baseClient.request(
-            "put",
+        response = self.__base_client.request(
+            'put',
             self.__streamsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream.Id),
             data=stream.toJson())
+        self.__base_client.checkResponse(
+            response, f'Failed to create SdsStream, {stream.Id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to create SdsStream, {stream.Id}.")
-
-        response.close()
-
-    def updateStreamType(self, namespace_id, streamId, streamViewId):
+    def updateStreamType(self, namespace_id: str, stream_id: str, stream_view_id: str):
         """
-        Tells Sds Service to update a stream based on the local 'stream'
-             SdsStream object
+        Tells Sds Service to update a stream based on the local 'stream' SdsStream object
         :param namespace_id: namespace to work against
         :param stream_id: id of the stream to change the type of
-        :param streamViewId: if of the streamview to change the type to
+        :param stream_view_id: if of the streamview to change the type to
         :return:
         """
         if namespace_id is None:
             raise TypeError
-        if streamId is None:
+        if stream_id is None:
             raise TypeError
-        if streamViewId is None:
+        if stream_view_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "put",
+        response = self.__base_client.request(
+            'put',
             self.__updateStreamTypePath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_id=streamId),
-            params={"streamViewId": streamViewId})
+                stream_id=stream_id),
+            params={'streamViewId': stream_view_id})
+        self.__base_client.checkResponse(
+            response, f'Failed to update SdsStream type, {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to update SdsStream type, {streamId}.")
-
-        response.close()
-
-    def deleteStream(self, namespace_id, stream_id):
+    def deleteStream(self, namespace_id: str, stream_id: str):
         """
         Tells Sds Service to delete the stream speficied by 'stream_id'
         :param namespace_id: id of namespace to work against
@@ -361,67 +333,58 @@ class Streams(object):
         if stream_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "delete",
+        response = self.__base_client.request(
+            'delete',
             self.__streamsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id))
+        self.__base_client.checkResponse(
+            response, f'Failed to delete SdsStream, {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to delete SdsStream, {stream_id}.")
-
-        response.close()
-
-    def createOrUpdateTags(self, namespace_id, streamId, tags):
+    def createOrUpdateTags(self, namespace_id: str, stream_id: str, tags: list[str]):
         """
-        "Tells Sds Service to create tags and associate them with the given
-            streamId
+        Tells Sds Service to create tags and associate them with the given stream_id
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to update with tags
-        :param tags: tags to create or update.  expected for is an array of
-            strings
+        :param tags: tags to create or update. expected for is an array of strings
         :return:
         """
         if namespace_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "put",
+        response = self.__base_client.request(
+            'put',
             self.__streamsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_id=streamId) + "/Tags",
+                stream_id=stream_id) + '/Tags',
             data=json.dumps(tags))
+        self.__base_client.checkResponse(
+            response, f'Failed to create tags for Stream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to create tags for Stream: {streamId}.")
-
-    def createOrUpdateMetadata(self, namespace_id, streamId, metadata):
+    def createOrUpdateMetadata(self, namespace_id: str, stream_id: str, metadata: dict[str, str]):
         """
-        Tells Sds Service to create metadata and associate them with the given
-            streamId
+        Tells Sds Service to create metadata and associate them with the given stream_id
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to update with metadata
-        :param metadata: metadata to create or update.  expected for is an
-            dict(string,string)
+        :param metadata: metadata to create or update. expected for is an dict(string,string)
         :return:
         """
         if namespace_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "put",
+        response = self.__base_client.request(
+            'put',
             self.__streamsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_id=streamId) + "/Metadata",
+                stream_id=stream_id) + '/Metadata',
             data=json.dumps(metadata))
+        self.__base_client.checkResponse(
+            response, f'Failed to create metadata for Stream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to create metadata for Stream: {streamId}.")
-
-    def patchMetadata(self, namespace_id, streamId, patch):
+    def patchMetadata(self, namespace_id: str, stream_id: str, patch: list[dict, Any]):
         """
         Tells Sds Service to update metadata on the given streamId
         :param namespace_id: id of namespace to work against
@@ -432,20 +395,19 @@ class Streams(object):
         if namespace_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "patch",
+        response = self.__base_client.request(
+            'patch',
             self.__streamsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_id=streamId) + "/Metadata",
+                stream_id=stream_id) + '/Metadata',
             data=json.dumps(patch))
+        self.__base_client.checkResponse(
+            response, f'Failed to update metadata for Stream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to update metadata for Stream: {streamId}.")
-
-    def getTags(self, namespace_id, streamId):
+    def getTags(self, namespace_id: str, stream_id: str) -> list[str]:
         """
-        Tells Sds Service to get tags associated with the given streamId
+        Tells Sds Service to get tags associated with the given stream_id
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to get the tags of
         :return: stream's tags
@@ -453,24 +415,21 @@ class Streams(object):
         if namespace_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__streamsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_id=streamId) + "/Tags")
+                stream_id=stream_id) + '/Tags')
+        self.__base_client.checkResponse(
+            response, f'Failed to get tags for Stream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get tags for Stream: {streamId}.")
+        result = response.json()
+        return result
 
-        content = json.loads(response.text)
-        response.close()
-        return content
-
-    def getMetadata(self, namespace_id, streamId, key):
+    def getMetadata(self, namespace_id: str, stream_id: str, key: str) -> Any:
         """
-        Tells Sds Service to get metadata associated with the given streamId
-            and key
+        Tells Sds Service to get metadata associated with the given stream_id and key
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to get the metadata value of
         :param key: specific metadata field to retrieve
@@ -479,28 +438,26 @@ class Streams(object):
         if namespace_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__streamsPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_id=streamId) + "/Metadata/" + key)
+                stream_id=stream_id) + '/Metadata/' + key)
+        self.__base_client.checkResponse(
+            response, f'Failed to get metadata for Stream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get metadata for Stream: {streamId}.")
-
-        content = json.loads(response.text)
-        response.close()
-        return content
+        result = response.json()
+        return result
 
     # The following section provides functionality to interact with Data
     #  We assume the value(s) passed follow the Sds object patterns
     #  supporting fromJson and toJson method
 
-    def getValue(self, namespace_id, stream_id, index, value_class=None):
+    def getValue(self, namespace_id: str, stream_id: str, index: int,
+                 value_class: type = None) -> Any:
         """
-        Retrieves JSON object from Sds Service for value specified by 'index'
-            from Sds Service
+        Retrieves JSON object from Sds Service for value specified by 'index' from Sds Service
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to get the data of
         :param index: index at which to get a value
@@ -517,25 +474,22 @@ class Streams(object):
         if index is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__dataPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
-            params={"index": index})
+            params={'index': index})
+        self.__base_client.checkResponse(
+            response, f'Failed to get value for SdsStream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get value for SdsStream: {stream_id}.")
-
-        content = json.loads(response.content)
-        response.close()
-
+        result = response.json()
         if value_class is None:
-            return content
-        return value_class.fromJson(content)
+            return result
+        return value_class.fromJson(result)
 
-    def getFirstValue(self, namespace_id, stream_id, value_class=None):
+    def getFirstValue(self, namespace_id: str, stream_id: str, value_class: type = None) -> Any:
         """
         Retrieves JSON object from Sds Service the first value to be added to
             the stream specified by 'stream_id'
@@ -552,23 +506,21 @@ class Streams(object):
         if stream_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__getFirstValue.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id))
+        self.__base_client.checkResponse(
+            response, f'Failed to get first value for SdsStream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get first value for SdsStream: {stream_id}.")
-
-        content = json.loads(response.content)
-        response.close()
+        result = response.json()
         if value_class is None:
-            return content
-        return value_class.fromJson(content)
+            return result
+        return value_class.fromJson(result)
 
-    def getLastValue(self, namespace_id, stream_id, value_class=None):
+    def getLastValue(self, namespace_id: str, stream_id: str, value_class: type = None) -> Any:
         """
         Retrieves JSON object from Sds Service the last value to be added to
             the stream specified by 'stream_id'
@@ -585,24 +537,22 @@ class Streams(object):
         if stream_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__getLastValue.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id))
+        self.__base_client.checkResponse(
+            response, f'Failed to get last value for SdsStream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get last value for SdsStream: {stream_id}.")
-
-        content = json.loads(response.text)
-        response.close()
+        result = response.json()
         if value_class is None:
-            return content
-        return value_class.fromJson(content)
+            return result
+        return value_class.fromJson(result)
 
-    def getWindowValues(self, namespace_id, stream_id, value_class, start, end,
-                        filter=""):
+    def getWindowValues(self, namespace_id: str, stream_id: str, value_class: type, start: str,
+                        end: str, filter: str = '') -> list[Any]:
         """
         Retrieves JSON object representing a window of values from the stream
             specified by 'stream_id'
@@ -613,7 +563,7 @@ class Streams(object):
             If None returns a dynamic Python object from the data.
         :param start: Starting index
         :param end: Ending index
-        :param filter: An optional filter.  By Default it is "".
+        :param filter: An optional filter.  By Default it is ''.
         :return: an array of values.
             If value_class is defined it is in this type.
             Otherwise it is a dynamic Python object
@@ -627,30 +577,27 @@ class Streams(object):
         if end is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__dataPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
-            params={"startIndex": start, "endIndex": end, "filter": filter})
+            params={'startIndex': start, 'endIndex': end, 'filter': filter})
+        self.__base_client.checkResponse(
+            response, f'Failed to get window values for SdsStream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get window values"
-                      " for SdsStream: {stream_id}.")
-
-        content = json.loads(response.text)
-        response.close()
+        content = response.json()
         if value_class is None:
             return content
 
-        values = []
+        results = []
         for c in content:
-            values.append(value_class.fromDictionary(c))
-        return values
+            results.append(value_class.fromJson(c))
+        return results
 
-    def getWindowValuesForm(self, namespace_id, stream_id, value_class, start,
-                            end, form=""):
+    def getWindowValuesForm(self, namespace_id: str, stream_id: str, value_class: type, start: str,
+                            end: str, form: str = '') -> list[Any]:
         """
         Retrieves JSON object representing a window of values from the stream
             specified by 'stream_id'.  Use this to get the data in a different
@@ -675,30 +622,28 @@ class Streams(object):
         if end is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__dataPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
-            params={"startIndex": start, "endIndex": end, "form": form})
+            params={'startIndex': start, 'endIndex': end, 'form': form})
+        self.__base_client.checkResponse(
+            response, f'Failed to get window values for SdsStream, form: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get window values for SdsStream, "
-                      "form : {stream_id}.")
-
-        content = json.loads(response.text)
-        response.close()
+        content = response.json()
         if value_class is None:
             return content
 
-        values = []
+        results = []
         for c in content:
-            values.append(value_class.fromDictionary(c))
-        return values
+            results.append(value_class.fromJson(c))
+        return results
 
-    def getRangeValues(self, namespace_id, stream_id, value_class, start, skip,
-                       count, reversed, boundary_type, streamView_id=""):
+    def getRangeValues(self, namespace_id: str, stream_id: str, value_class: type, start: str,
+                       skip: int, count: int, reversed: bool, boundary_type: str,
+                       stream_view_id: str = '') -> list[Any]:
         """
         Retrieves JSON object representing a range of values from the stream
             specified by 'stream_id'
@@ -714,7 +659,7 @@ class Streams(object):
         :param reversed: which direction to go when getting values
         :param boundary_type: the boundary condition to use.
             Can be an SdsBoundaryType or the integer value
-        :param streamView_id: streamview to map the results to
+        :param stream_view_id: streamview to map the results to
         :return: An array of the data in type specified if value_class
             is defined.  Otherwise it is a dynamic Python object
         """
@@ -737,31 +682,28 @@ class Streams(object):
         if isinstance(boundary_type, SdsBoundaryType):
             boundary = boundary_type.value
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__transform.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
-            params={"startIndex": start, "skip": skip, "count": count,
-                    "reversed": reversed, "boundary_type": boundary,
-                    "streamView_id": streamView_id})
+            params={'startIndex': start, 'skip': skip, 'count': count,
+                    'reversed': reversed, 'boundary_type': boundary,
+                    'stream_view_id': stream_view_id})
+        self.__base_client.checkResponse(
+            response, f'Failed to get range values for SdsStream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get range values for"
-            " SdsStream: {stream_id}.")
-
-        content = json.loads(response.text)
-        response.close()
+        content = response.json()
         if value_class is None:
             return content
-        values = []
+        results = []
         for c in content:
-            values.append(value_class.fromJson(c))
-        return values
+            results.append(value_class.fromJson(c))
+        return results
 
-    def getRangeValuesInterpolated(self, namespace_id, stream_id, value_class,
-                                   start, end, count):
+    def getRangeValuesInterpolated(self, namespace_id: str, stream_id: str, value_class: type,
+                                   start: str, end: str, count: int) -> list[Any]:
         """
         Retrieves JSON object representing a range of values from the stream
             specified by 'stream_id'
@@ -776,7 +718,6 @@ class Streams(object):
         :return: An array of the data in type specified if value_class is
         defined.  Otherwise it is a dynamic Python object
         """
-
         if namespace_id is None:
             raise TypeError
         if stream_id is None:
@@ -788,33 +729,29 @@ class Streams(object):
         if count is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__getRangeInterpolatedQuery.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
-            params={"startIndex": start, "endIndex": end, "count": count})
+            params={'startIndex': start, 'endIndex': end, 'count': count})
+        self.__base_client.checkResponse(
+            response, f'Failed to get range values for SdsStream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get range values for"
-                      " SdsStream: {stream_id}.")
-
-        content = json.loads(response.text)
-        response.close()
+        content = response.json()
         if value_class is None:
             return content
-        values = []
+        results = []
         for c in content:
-            values.append(value_class.fromJson(c))
-        return values
+            results.append(value_class.fromJson(c))
+        return results
 
-    def getSampledValues(self, namespace_id, stream_id, value_class, start,
-                         end, sample_by, intervals, filter="",
-                         stream_view_id=""):
+    def getSampledValues(self, namespace_id: str, stream_id: str, value_class: type, start: str,
+                         end: str, sample_by: str, intervals: str, filter: str = '',
+                         stream_view_id: str = '') -> list[Any]:
         """
-        Returns data sampled by intervals between a specified start and end
-            index.
+        Returns data sampled by intervals between a specified start and end index.
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to get the data of
         :param value_class: use this to cast the value into a given type.
@@ -835,7 +772,6 @@ class Streams(object):
         :return: An array of the data in type specified if value_class is
             defined.  Otherwise it is a dynamic Python object
         """
-
         if namespace_id is None:
             raise TypeError
         if stream_id is None:
@@ -856,42 +792,36 @@ class Streams(object):
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id)
-
         else:
             _path = self.__getSampledValuesT.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id)
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             _path,
-            params={"startIndex": start,
-                    "endIndex": end,
-                    "sampleBy": sample_by,
-                    "intervals": intervals,
-                    "filter": filter,
-                    "stream_view_id": stream_view_id})
+            params={'startIndex': start,
+                    'endIndex': end,
+                    'sampleBy': sample_by,
+                    'intervals': intervals,
+                    'filter': filter,
+                    'stream_view_id': stream_view_id})
+        self.__base_client.checkResponse(
+            response, f'Failed to get sampled values for SdsStream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get sampled values for"
-                      " SdsStream: {stream_id}.")
-
-        content = json.loads(response.text)
-        response.close()
-
+        content = response.json()
         if value_class is None:
             return content
-        values = []
+        results = []
         for c in content:
-            values.append(value_class.fromJson(c))
-        return values
+            results.append(value_class.fromJson(c))
+        return results
 
-    def getSummaries(self, namespace_id, stream_id, value_class, start, end,
-                     count, stream_view_id="", filter=""):
+    def getSummaries(self, namespace_id: str, stream_id: str, value_class: type, start: str,
+                     end: str, count: int, stream_view_id: str = '', filter: str = '') -> list[Any]:
         """
-        Retrieves JSON object representing a summary for the stream specified
-            by 'stream_id'
+        Retrieves JSON object representing a summary for the stream specified by 'stream_id'
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to get the data of
         :param value_class: use this to cast the value into a given type.
@@ -907,7 +837,6 @@ class Streams(object):
         :return: An array of the data summary in type specified if value_class
             is defined.  Otherwise it is a dynamic Python object
         """
-
         if namespace_id is None:
             raise TypeError
         if stream_id is None:
@@ -928,40 +857,38 @@ class Streams(object):
                 namespace_id=namespace_id,
                 stream_id=stream_id)
 
-            paramsToUse = {"startIndex": start,
-                           "endIndex": end,
-                           "count": count,
-                           "filter": filter}
+            paramsToUse = {'startIndex': start,
+                           'endIndex': end,
+                           'count': count,
+                           'filter': filter}
         else:
             _path = self.__getSummariesT.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id)
 
-            paramsToUse = {"startIndex": start,
-                           "endIndex": end,
-                           "count": count,
-                           "filter": filter,
-                           "streamViewId": stream_view_id}
+            paramsToUse = {'startIndex': start,
+                           'endIndex': end,
+                           'count': count,
+                           'filter': filter,
+                           'streamViewId': stream_view_id}
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             _path, paramsToUse)
+        self.__base_client.checkResponse(
+            response, f'Failed to get summaries for SdsStream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get summaries for SdsStream: {stream_id}.")
-
-        content = json.loads(response.text)
-        response.close()
+        content = response.json()
         if value_class is None:
             return content
 
-        values = []
+        results = []
         for c in content:
-            values.append(value_class.fromDictionary(c))
-        return values
+            results.append(value_class.fromJson(c))
+        return results
 
-    def insertValues(self, namespace_id, stream_id, values):
+    def insertValues(self, namespace_id: str, stream_id: str, values: list[Any]):
         """
         Tells Sds Service to insert the values, defined by the list 'values',
         into the stream specified by 'stream_id'
@@ -979,7 +906,7 @@ class Streams(object):
         if values is None:
             raise TypeError
 
-        if callable(getattr(values[0], "toJson", None)):
+        if callable(getattr(values[0], 'toJson', None)):
             events = []
             for value in values:
                 events.append(value.toDictionary())
@@ -987,22 +914,19 @@ class Streams(object):
         else:
             payload = values
 
-        response = self.__baseClient.request(
-            "post",
+        response = self.__base_client.request(
+            'post',
             self.__insertValuesPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
             data=payload)
+        self.__base_client.checkResponse(
+            response, f'Failed to insert multiple values for SdsStream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to insert multiple values for "
-                      " SdsStream: {stream_id}.")
-
-    def updateValues(self, namespace_id, stream_id, values):
+    def updateValues(self, namespace_id: str, stream_id: str, values: list[Any]):
         """
-        Tells Sds Service to update values defined by the SdsValue list,
-            'values'
+        Tells Sds Service to update values defined by the SdsValue list, 'values'
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to get data updated
         :param values: values to update in OCS.
@@ -1017,7 +941,7 @@ class Streams(object):
         if values is None:
             raise TypeError
 
-        if callable(getattr(values[0], "toJson", None)):
+        if callable(getattr(values[0], 'toJson', None)):
             events = []
             for value in values:
                 events.append(value.toDictionary())
@@ -1025,21 +949,17 @@ class Streams(object):
         else:
             payload = values
 
-        response = self.__baseClient.request(
-            "put",
+        response = self.__base_client.request(
+            'put',
             self.__updateValuesPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
             data=payload)
+        self.__base_client.checkResponse(
+            response, f'Failed to update all values for SdsStream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response,  f"Failed to update all values "
-                       " for SdsStream: {stream_id}.")
-
-        response.close()
-
-    def replaceValues(self, namespace_id, stream_id, values):
+    def replaceValues(self, namespace_id: str, stream_id: str, values: list[Any]):
         """
         Tells Sds Service to replace the values defined by the list 'values'
         :param namespace_id: id of namespace to work against
@@ -1056,7 +976,7 @@ class Streams(object):
         if values is None:
             raise TypeError
 
-        if callable(getattr(values[0], "toJson", None)):
+        if callable(getattr(values[0], 'toJson', None)):
             events = []
             for value in values:
                 events.append(value.toDictionary())
@@ -1064,23 +984,19 @@ class Streams(object):
         else:
             payload = values
 
-        response = self.__baseClient.request(
-            "put",
+        response = self.__base_client.request(
+            'put',
             self.__replaceValuesPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
             data=payload)
+        self.__base_client.checkResponse(
+            response, f'Failed to replace values for SdsStream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to replace values for SdsStream: {stream_id}.")
-
-        response.close()
-
-    def removeValue(self, namespace_id, stream_id, key):
+    def removeValue(self, namespace_id: str, stream_id: str, key: str):
         """
-        Tells Sds Service to delete the value with a key property matching
-            'key'
+        Tells Sds Service to delete the value with a key property matching 'key'
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to get data removed
         :param key: the index to remove
@@ -1093,23 +1009,19 @@ class Streams(object):
         if key is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "delete",
+        response = self.__base_client.request(
+            'delete',
             self.__dataPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
-            params={"index": key})
+            params={'index': key})
+        self.__base_client.checkResponse(
+            response, f'Failed to remove value for SdsStream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to remove value for SdsStream: {stream_id}.")
-
-        response.close()
-
-    def removeWindowValues(self, namespace_id, stream_id, start, end):
+    def removeWindowValues(self, namespace_id: str, stream_id: str, start: str, end: str):
         """
-        Tells Sds Service to delete a window of values in the stream specified
-            by 'stream_id'
+        Tells Sds Service to delete a window of values in the stream specified by 'stream_id'
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to get data removed
         :param start: starting index
@@ -1125,22 +1037,18 @@ class Streams(object):
         if end is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "delete",
+        response = self.__base_client.request(
+            'delete',
             self.__dataPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
-            params={"startIndex": start, "endIndex": end})
+            params={'startIndex': start, 'endIndex': end})
+        self.__base_client.checkResponse(
+            response, f'Failed to remove all values for  SdsStream: {stream_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to remove all values for "
-                      " SdsStream: {stream_id}.")
-
-        response.close()
-
-    def getStreamsWindow(self, namespace_id, stream_ids, value_class, start,
-                         end, joinMode=1):
+    def getStreamsWindow(self, namespace_id: str, stream_ids: list[str], value_class: type,
+                         start: str, end: str, join_mode: int = 1) -> list[Any]:
         """
         Retrieves JSON object representing a window of values from the stream
              specified by 'stream_id'
@@ -1167,25 +1075,22 @@ class Streams(object):
             raise TypeError
         if end is None:
             raise TypeError
-        if joinMode is None:
+        if join_mode is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__bulkStreams.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id),
-            params={"streams": ','.join(stream_ids),
-                    "startIndex": start,
-                    "endIndex": end,
-                    "joinMode": joinMode})
+            params={'streams': ','.join(stream_ids),
+                    'startIndex': start,
+                    'endIndex': end,
+                    'joinMode': join_mode})
+        self.__base_client.checkResponse(
+            response, f'Failed to get bulk values for SdsStream: {stream_ids}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get bulk values for"
-                      " SdsStream: {stream_ids}.")
-
-        content = json.loads(response.text)
-        response.close()
+        content = response.json()
         if value_class is None:
             return content
 
@@ -1193,7 +1098,7 @@ class Streams(object):
         for valueArray in content:
             valuesInside = []
             for value in valueArray:
-                valuesInside.append(value_class.fromDictionary(value))
+                valuesInside.append(value_class.fromJson(value))
             values.append(valuesInside)
         return values
 
@@ -1204,26 +1109,27 @@ class Streams(object):
         creates the urls that are used
         :return:
         """
-        self.__basePath = self.__uri_API + \
-            "/Tenants/{tenant_id}/Namespaces/{namespace_id}"
-        self.__getStreamViewsPath = self.__basePath + "/StreamViews"
-        self.__streamViewsPath = self.__getStreamViewsPath + "/{streamView_id}"
-        self.__getStreamsPath = self.__basePath + "/Streams"
-        self.__streamsPath = self.__getStreamsPath + "/{stream_id}"
-        self.__updateStreamTypePath = self.__streamsPath + "/Type"
+        self.__basePath = self.__uri_api + \
+            '/Tenants/{tenant_id}/Namespaces/{namespace_id}'
+        self.__getStreamViewsPath = self.__basePath + '/StreamViews'
+        self.__streamViewsPath = self.__getStreamViewsPath + \
+            '/{stream_view_id}'
+        self.__getStreamsPath = self.__basePath + '/Streams'
+        self.__streamsPath = self.__getStreamsPath + '/{stream_id}'
+        self.__updateStreamTypePath = self.__streamsPath + '/Type'
 
-        self.__dataPath = self.__streamsPath + "/Data"
-        self.__getFirstValue = self.__dataPath + "/First"
-        self.__getLastValue = self.__dataPath + "/Last"
-        self.__transform = self.__dataPath + "/Transform"
-        self.__getSummaries = self.__dataPath + "/Summaries"
-        self.__getSummariesT = self.__transform + "/Summaries"
-        self.__getSampledValues = self.__dataPath + "/Sampled"
-        self.__getSampledValuesT = self.__transform + "/Sampled"
-        self.__getRangeInterpolatedQuery = self.__transform + "/Interpolated"
+        self.__dataPath = self.__streamsPath + '/Data'
+        self.__getFirstValue = self.__dataPath + '/First'
+        self.__getLastValue = self.__dataPath + '/Last'
+        self.__transform = self.__dataPath + '/Transform'
+        self.__getSummaries = self.__dataPath + '/Summaries'
+        self.__getSummariesT = self.__transform + '/Summaries'
+        self.__getSampledValues = self.__dataPath + '/Sampled'
+        self.__getSampledValuesT = self.__transform + '/Sampled'
+        self.__getRangeInterpolatedQuery = self.__transform + '/Interpolated'
 
         self.__insertValuesPath = self.__dataPath
         self.__updateValuesPath = self.__dataPath
-        self.__replaceValuesPath = self.__dataPath + "?allowCreate=false"
+        self.__replaceValuesPath = self.__dataPath + '?allowCreate=false'
 
-        self.__bulkStreams = self.__basePath + "/Bulk/Streams/Data/Joins"
+        self.__bulkStreams = self.__basePath + '/Bulk/Streams/Data/Joins'

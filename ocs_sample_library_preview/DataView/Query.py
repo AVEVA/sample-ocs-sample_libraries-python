@@ -1,49 +1,67 @@
 import json
 
+from .DataItemResourceType import DataItemResourceType
+
 
 class Query(object):
+    """OCS Query definition"""
 
-    def __init__(
-        self,
-        id=None,
-        value=None
-    ):
+    def __init__(self, id: str = None, kind: DataItemResourceType = None, value: str = None):
         """
         :param id: required
+        :param kind: not required
         :param value: not required
         """
-        self.__id = id
-        self.__value = value
+        self.Id = id
+        self.Kind = kind
+        self.Value = value
 
     @property
-    def Id(self):
+    def Id(self) -> str:
         """
-        Get the id  required
+        required
         :return:
         """
         return self.__id
 
     @Id.setter
-    def Id(self, id):
+    def Id(self, value: str):
         """
-        Set the id  required
-        :param id:
+        required
+        :param value:
         :return:
         """
-        self.__id = id
+        self.__id = value
 
     @property
-    def Value(self):
+    def Kind(self) -> DataItemResourceType:
         """
-        Get the value  required
+        not required
+        :return:
+        """
+        return self.__kind
+
+    @Kind.setter
+    def Kind(self, value: DataItemResourceType):
+        """
+        not required
+        :param value:
+        :return:
+        """
+        self.__kind = value
+
+    @property
+    def Value(self) -> str:
+        """
+        not required
         :return:
         """
         return self.__value
 
     @Value.setter
-    def Value(self, value):
+    def Value(self, value: str):
         """
-        Set the value  required
+        not required
         :param value:
         :return:
         """
@@ -54,13 +72,16 @@ class Query(object):
 
     def toDictionary(self):
         # required properties
-        dictionary = {'Id': self.Id}
+        result = {'Id': self.Id}
 
         # optional properties
-        if hasattr(self, 'Value'):
-            dictionary['Value'] = self.Value
+        if self.Kind is not None:
+            result['Kind'] = self.Kind.name
 
-        return dictionary
+        if self.Value is not None:
+            result['Value'] = self.Value
+
+        return result
 
     @staticmethod
     def fromJson(jsonObj):
@@ -75,6 +96,9 @@ class Query(object):
 
         if 'Id' in content:
             query.Id = content['Id']
+
+        if 'Kind' in content:
+            query.Kind = DataItemResourceType[content['Kind']]
 
         if 'Value' in content:
             query.Value = content['Value']

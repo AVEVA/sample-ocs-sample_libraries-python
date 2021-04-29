@@ -1,6 +1,7 @@
 import json
 
 from .SDS.SdsType import SdsType
+from .BaseClient import BaseClient
 
 
 class Types(object):
@@ -8,15 +9,14 @@ class Types(object):
     Handles communication with Sds Service
     """
 
-    def __init__(self, client):
-        self.__apiVersion = client.api_version
+    def __init__(self, client: BaseClient):
         self.__tenant = client.tenant
         self.__url = client.uri_API
-        self.__baseClient = client
+        self.__base_client = client
 
         self.__setPathAndQueryTemplates()
 
-    def getType(self, namespace_id, type_id):
+    def getType(self, namespace_id: str, type_id: str) -> SdsType:
         """
         Retrieves the type specified by 'type_id' from Sds Service
         :param namespace_id: id of namespace to work against
@@ -28,20 +28,19 @@ class Types(object):
         if type_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__typePath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 type_id=type_id))
-        self.__baseClient.checkResponse(
-            response, f"Failed to get SdsType, {type_id}.")
+        self.__base_client.checkResponse(
+            response, f'Failed to get SdsType, {type_id}.')
 
-        _type = SdsType.fromJson(json.loads(response.content))
-        response.close()
-        return _type
+        result = SdsType.fromJson(response.json())
+        return result
 
-    def getTypeReferenceCount(self, namespace_id, type_id):
+    def getTypeReferenceCount(self, namespace_id: str, type_id: str) -> dict[str, int]:
         """
         Retrieves the number of times the type is referenced
         :param namespace_id: id of namespace to work against
@@ -53,50 +52,48 @@ class Types(object):
         if type_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__typeRefCountPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 type_id=type_id))
+        self.__base_client.checkResponse(
+            response, f'Failed to get SdsType reference count, {type_id}.')
 
-        self.__baseClient.checkResponse(
-            response, f"Failed to get SdsType reference count, {type_id}.")
+        content = response.json()
+        return content
 
-        counts = json.loads(response.content)
-        response.close()
-        return counts
-
-    def getTypes(self, namespace_id, skip=0, count=100, query=""):
+    def getTypes(self, namespace_id: str, skip: int = 0, count: int = 100,
+                 query: str = '') -> list[SdsType]:
         """
         Retrieves a list of types associated with the specified 'namespace_id'
             under the current tenant
         :param namespace_id: id of namespace to work against
         :param skip: number of types to skip, used for paging
         :param count: number of types to retrieve
-        :param query: optional query.  Default is ""
+        :param query: optional query.  Default is ''
         :return: array of types as SdsType
         """
         if namespace_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "get",
+        response = self.__base_client.request(
+            'get',
             self.__typesPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id),
-            params={"skip": skip, "count": count, "query": query})
-        self.__baseClient.checkResponse(
-            response, "Failed to get all SdsTypes.")
+            params={'skip': skip, 'count': count, 'query': query})
+        self.__base_client.checkResponse(
+            response, 'Failed to get all SdsTypes.')
 
-        types = json.loads(response.content)
+        content = response.json()
         results = []
-        for t in types:
+        for t in content:
             results.append(SdsType.fromJson(t))
-        response.close()
         return results
 
-    def getOrCreateType(self, namespace_id, type):
+    def getOrCreateType(self, namespace_id: str, type: SdsType) -> SdsType:
         """
         Tells Sds Service to create or get a type based on local 'type'
         or get if existing type matches
@@ -109,21 +106,20 @@ class Types(object):
             raise TypeError
         if type is None or not isinstance(type, SdsType):
             raise TypeError
-        response = self.__baseClient.request(
-            "post",
+        response = self.__base_client.request(
+            'post',
             self.__typePath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 type_id=type.Id),
             data=type.toJson())
-        self.__baseClient.checkResponse(
-            response, f"Failed to create type, {type.Id}.")
+        self.__base_client.checkResponse(
+            response, f'Failed to create type, {type.Id}.')
 
-        type = SdsType.fromJson(json.loads(response.text))
-        response.close()
-        return type
+        result = SdsType.fromJson(response.json())
+        return result
 
-    def deleteType(self, namespace_id, type_id):
+    def deleteType(self, namespace_id: str, type_id: str):
         """
         Tells Sds Service to delete the type specified by 'type_id'
 
@@ -136,17 +132,14 @@ class Types(object):
         if type_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
-            "delete",
+        response = self.__base_client.request(
+            'delete',
             self.__typePath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 type_id=type_id))
-
-        self.__baseClient.checkResponse(
-            response, f"Failed to delete SdsType, {type_id}.")
-
-        response.close()
+        self.__base_client.checkResponse(
+            response, f'Failed to delete SdsType, {type_id}.')
 
     # private methods
 
@@ -156,7 +149,7 @@ class Types(object):
         :return:
         """
         self.__basePath = self.__url + \
-            "/Tenants/{tenant_id}/Namespaces/{namespace_id}"
-        self.__typesPath = self.__basePath + "/Types"
-        self.__typePath = self.__typesPath + "/{type_id}"
-        self.__typeRefCountPath = self.__typePath + "/ReferenceCount"
+            '/Tenants/{tenant_id}/Namespaces/{namespace_id}'
+        self.__typesPath = self.__basePath + '/Types'
+        self.__typePath = self.__typesPath + '/{type_id}'
+        self.__typeRefCountPath = self.__typePath + '/ReferenceCount'

@@ -1,5 +1,11 @@
 # Version History
 
+## 0.2.0_preview / 2021-04-23
+
+- Major refactor of classes and parameters, including many breaking changes
+- Added OCS Assets models and API endpoints
+- Added type hints for all API models and endpoints
+
 ## 0.1.18_preview / 2021-03-24
 
 - Updated pipeline to use internal agent pool

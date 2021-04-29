@@ -59,29 +59,31 @@ def createData(ocsClient):
     import random
     global namespaceId, startTime, endTime
 
-    doubleType = SdsType(id="doubleType", sdsTypeCode=SdsTypeCode.Double)
-    dateTimeType = SdsType(id="dateTimeType", sdsTypeCode=SdsTypeCode.DateTime)
+    doubleType = SdsType(id="doubleType", sds_type_code=SdsTypeCode.Double)
+    dateTimeType = SdsType(
+        id="dateTimeType", sds_type_code=SdsTypeCode.DateTime)
 
-    pressureDoubleProperty = SdsTypeProperty(id="pressure", sdsType=doubleType)
+    pressureDoubleProperty = SdsTypeProperty(
+        id="pressure", sds_type=doubleType)
     temperatureDoubleProperty = SdsTypeProperty(id=fieldToConsolidateTo,
-                                                sdsType=doubleType)
+                                                sds_type=doubleType)
     ambientTemperatureDoubleProperty = SdsTypeProperty(id=fieldToConsolidate,
-                                                       sdsType=doubleType)
-    timeDateTimeProperty = SdsTypeProperty(id="time", sdsType=dateTimeType,
-                                           isKey=True)
+                                                       sds_type=doubleType)
+    timeDateTimeProperty = SdsTypeProperty(id="time", sds_type=dateTimeType,
+                                           is_key=True)
 
     sDSType1 = SdsType(
         id=sampleTypeId,
         description="This is a sample Sds type for storing Pressure type "
                     "events for Data Views",
-        sdsTypeCode=SdsTypeCode.Object,
+        sds_type_code=SdsTypeCode.Object,
         properties=[pressureDoubleProperty, temperatureDoubleProperty, timeDateTimeProperty])
 
     sDSType2 = SdsType(
         id=samplePressureId2,
         description="This is a new sample Sds type for storing Pressure type "
                     "events for Data Views",
-        sdsTypeCode=SdsTypeCode.Object,
+        sds_type_code=SdsTypeCode.Object,
         properties=[pressureDoubleProperty, ambientTemperatureDoubleProperty, timeDateTimeProperty])
 
     print('Creating SDS Type')
@@ -92,13 +94,13 @@ def createData(ocsClient):
         id=sampleStreamId,
         name=sampleStreamName,
         description="A Stream to store the sample Pressure events",
-        typeId=sampleTypeId)
+        type_id=sampleTypeId)
 
     stream2 = SdsStream(
         id=sampleStreamId2,
         name=sampleStreamName2,
         description="A Stream to store the sample Pressure events",
-        typeId=samplePressureId2)
+        type_id=samplePressureId2)
 
     print('Creating SDS Streams')
     ocsClient.Streams.createOrUpdateStream(namespaceId, stream1)
@@ -187,15 +189,16 @@ def main(test=False):
 
         # Step 2
         print()
-        print ("Step 2: Create types, streams, and data")
+        print("Step 2: Create types, streams, and data")
         if needData:
             createData(ocsClient)
 
         # Step 3
         print()
         print("Step 3: Create a data view")
-        dataView = DataView(id=sampleDataViewId,name=sampleDataViewName,description=sampleDataViewDescription)
-        dataViews = ocsClient.DataViews.postDataView(namespaceId, dataView)
+        dataView = DataView(id=sampleDataViewId, name=sampleDataViewName,
+                            description=sampleDataViewDescription)
+        dataView = ocsClient.DataViews.postDataView(namespaceId, dataView)
 
         # Step 4
         print()
@@ -244,8 +247,8 @@ def main(test=False):
 
         print("Retrieving data from the data view:")
         dataViewDataPreview1 = ocsClient.DataViews.getDataInterpolated(
-            namespace_id=namespaceId, dataView_id=sampleDataViewId, startIndex=startTime,
-            endIndex=endTime, interval=interval)
+            namespace_id=namespaceId, data_view_id=sampleDataViewId, start_index=startTime,
+            end_index=endTime, interval=interval)
         print(str(dataViewDataPreview1))
         print(len(dataViewDataPreview1))
         assert len(dataViewDataPreview1) > 0, "Error getting back data"
@@ -254,15 +257,15 @@ def main(test=False):
         print()
         print("Step 9: Group the data view")
         grouping = Field(source=fieldSourceForGrouping,
-                        label="{DistinguisherValue} {FirstKey}")
+                         label="{DistinguisherValue} {FirstKey}")
         dv.GroupingFields.append(grouping)
         # No DataView returned, success is 204
         ocsClient.DataViews.putDataView(namespaceId, dv)
 
         print("Retrieving data from the data view:")
         dataViewDataPreview1 = ocsClient.DataViews.getDataInterpolated(
-            namespace_id=namespaceId, dataView_id=sampleDataViewId, startIndex=startTime,
-            endIndex=endTime, interval=interval)
+            namespace_id=namespaceId, data_view_id=sampleDataViewId, start_index=startTime,
+            end_index=endTime, interval=interval)
         print(str(dataViewDataPreview1))
         assert len(dataViewDataPreview1) > 0, "Error getting back data"
 
@@ -277,8 +280,8 @@ def main(test=False):
 
         print("Retrieving data from the data view:")
         dataViewDataPreview1 = ocsClient.DataViews.getDataInterpolated(
-            namespace_id=namespaceId, dataView_id=sampleDataViewId, startIndex=startTime,
-            endIndex=endTime, interval=interval)
+            namespace_id=namespaceId, data_view_id=sampleDataViewId, start_index=startTime,
+            end_index=endTime, interval=interval)
         print(str(dataViewDataPreview1))
         assert len(dataViewDataPreview1) > 0, "Error getting back data"
 
@@ -298,8 +301,8 @@ def main(test=False):
 
         print("Retrieving data from the data view:")
         dataViewDataPreview1 = ocsClient.DataViews.getDataInterpolated(
-            namespace_id=namespaceId, dataView_id=sampleDataViewId, startIndex=startTime,
-            endIndex=endTime, interval=interval)
+            namespace_id=namespaceId, data_view_id=sampleDataViewId, start_index=startTime,
+            end_index=endTime, interval=interval)
         print(str(dataViewDataPreview1))
         assert len(dataViewDataPreview1) > 0, "Error getting back data"
 

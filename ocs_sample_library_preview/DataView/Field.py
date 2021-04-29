@@ -1,125 +1,169 @@
 import json
+
 from .FieldSource import FieldSource
 
 
 class Field(object):
+    """OCS Field definition"""
 
-    def __init__(
-        self,
-        source=None,
-        keys=None,
-        label=None,
-    ):
+    def __init__(self, source: FieldSource = None, keys: list[str] = None,
+                 stream_reference_names: list[str] = None, label: str = None,
+                 include_uom: bool = None):
         """
-
         :param source: not required
         :param keys: not required
+        :param stream_reference_names: not required
         :param label: not required
+        :param include_uom: not required
         """
-        self.__source = source
-        if keys:
-            self.__keys = keys
-        else:
-            self.__keys = []
-        self.__label = label
+        self.Source = source
+        self.Keys = keys
+        self.StreamReferenceNames = stream_reference_names
+        self.Label = label
+        self.IncludeUom = include_uom
 
     @property
-    def Source(self):
+    def Source(self) -> FieldSource:
         """
-        Get the source  required
+        not required
         :return:
         """
         return self.__source
 
     @Source.setter
-    def Source(self, source):
+    def Source(self, value: FieldSource):
         """
-        Set the source  required
-        :param source:
+        not required
+        :param value:
         :return:
         """
-        self.__source = source
+        self.__source = value
 
     @property
-    def Keys(self):
+    def Keys(self) -> list[str]:
         """
-        Get the keys  required
+        not required
         :return:
         """
         return self.__keys
 
     @Keys.setter
-    def Keys(self, keys):
+    def Keys(self, value: list[str]):
         """
-        Set the keys  required
-        :param keys:
+        not required
+        :param value:
         :return:
         """
-        self.__keys = keys
+        self.__keys = value
 
     @property
-    def Label(self):
+    def StreamReferenceNames(self) -> list[str]:
         """
-        Get the label  required
+        not required
+        :return:
+        """
+        return self.__stream_reference_names
+
+    @StreamReferenceNames.setter
+    def StreamReferenceNames(self, value: list[str]):
+        """
+        not required
+        :param value:
+        :return:
+        """
+        self.__stream_reference_names = value
+
+    @property
+    def Label(self) -> str:
+        """
+        not required
         :return:
         """
         return self.__label
 
     @Label.setter
-    def Label(self, label):
+    def Label(self, value: str):
         """
-        Set the label  required
-        :param label:
+        not required
+        :param value:
         :return:
         """
-        self.__label = label
+        self.__label = value
+
+    @property
+    def IncludeUom(self) -> bool:
+        """
+        not required
+        :return:
+        """
+        return self.__include_uom
+
+    @IncludeUom.setter
+    def IncludeUom(self, value: bool):
+        """
+        not required
+        :param value:
+        :return:
+        """
+        self.__include_uom = value
 
     def toJson(self):
         return json.dumps(self.toDictionary())
 
     def toDictionary(self):
         # required properties
-        dictionary = {}
+        result = {}
 
         # optional properties
-        if hasattr(self, 'Source'):
-            if hasattr(self.Source, 'name'):
-                dictionary['Source'] = self.Source.name
-            else:
-                dictionary['Source'] = self.Source
+        if self.Source is not None:
+            result['Source'] = self.Source.name
 
-        if hasattr(self, "Keys"):
-            dictionary["Keys"] = []
+        if self.Keys is not None:
+            result['Keys'] = []
             for value in self.Keys:
-                dictionary["Keys"].append(value)
+                result['Keys'].append(value)
 
-        if hasattr(self, 'Label'):
-            dictionary['Label'] = self.Label
+        if self.StreamReferenceNames is not None:
+            result['StreamReferenceNames'] = []
+            for value in self.StreamReferenceNames:
+                result['StreamReferenceNames'].append(value)
 
-        return dictionary
+        if self.Label is not None:
+            result['Label'] = self.Label
+
+        if self.IncludeUom is not None:
+            result['IncludeUom'] = self.IncludeUom
+
+        return result
 
     @staticmethod
-    def fromJson(jsonObj):
-        return Field.fromDictionary(jsonObj)
-
-    @staticmethod
-    def fromDictionary(content):
-        field = Field()
+    def fromJson(content: dict[str, str]):
+        result = Field()
 
         if not content:
-            return field
+            return result
 
         if 'Source' in content:
-            field.Source = FieldSource[content['Source']]
+            result.Source = FieldSource[content['Source']]
 
-        if "Keys" in content:
-            Keys = content["Keys"]
-            if Keys is not None and len(Keys) > 0:
-                field.Keys = []
-                for value in Keys:
-                    field.Keys.append(value)
+        if 'Keys' in content:
+            keys = content['Keys']
+            if keys is not None and len(keys) > 0:
+                result.Keys = []
+                for value in keys:
+                    result.Keys.append(value)
+
+        if 'StreamReferenceNames' in content:
+            stream_reference_names = content['StreamReferenceNames']
+            if stream_reference_names is not None and len(stream_reference_names) > 0:
+                result.StreamReferenceNames = []
+                for value in stream_reference_names:
+                    result.StreamReferenceNames.append(value)
 
         if 'Label' in content:
-            field.Label = content['Label']
+            result.Label = content['Label']
 
-        return field
+        if 'IncludeUom' in content:
+            result.IncludeUom = content['IncludeUom']
+
+        return result

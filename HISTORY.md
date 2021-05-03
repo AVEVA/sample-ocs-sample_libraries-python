@@ -1,5 +1,9 @@
 # Version History
 
+## 0.2.1_preview / 2021-05-03
+
+- Add check for null SdsTypeProperty InterpolationMode
+
 ## 0.2.0_preview / 2021-04-23
 
 - Major refactor of classes and parameters, including many breaking changes

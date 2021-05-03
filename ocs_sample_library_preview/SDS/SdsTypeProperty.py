@@ -281,6 +281,6 @@ class SdsTypeProperty(object):
             interpolation_mode = content['InterpolationMode']
             if interpolation_mode is not None:
                 result.InterpolationMode = SdsInterpolationMode(
-                    content['InterpolationMode'])
+                    interpolation_mode)
 
         return result

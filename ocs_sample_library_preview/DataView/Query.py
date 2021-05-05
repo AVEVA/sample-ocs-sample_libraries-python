@@ -84,23 +84,21 @@ class Query(object):
         return result
 
     @staticmethod
-    def fromJson(jsonObj):
-        return Query.fromDictionary(jsonObj)
-
-    @staticmethod
-    def fromDictionary(content):
-        query = Query()
+    def fromJson(content):
+        result = Query()
 
         if not content:
-            return query
+            return result
 
         if 'Id' in content:
-            query.Id = content['Id']
+            result.Id = content['Id']
 
         if 'Kind' in content:
-            query.Kind = DataItemResourceType[content['Kind']]
+            kind = content['Kind']
+            if kind is not None:
+                result.Kind = DataItemResourceType[kind]
 
         if 'Value' in content:
-            query.Value = content['Value']
+            result.Value = content['Value']
 
-        return query
+        return result

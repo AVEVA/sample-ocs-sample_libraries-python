@@ -144,7 +144,9 @@ class Field(object):
             return result
 
         if 'Source' in content:
-            result.Source = FieldSource[content['Source']]
+            source = content['Source']
+            if source is not None:
+                result.Source = FieldSource[source]
 
         if 'Keys' in content:
             keys = content['Keys']

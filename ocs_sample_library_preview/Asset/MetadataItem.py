@@ -164,7 +164,9 @@ class MetadataItem(object):
             result.Description = content['Description']
 
         if 'SdsTypeCode' in content:
-            result.SdsTypeCode = SdsTypeCodeType[content['SdsTypeCode']]
+            sds_type_code = content['SdsTypeCode']
+            if sds_type_code is not None:
+                result.SdsTypeCode = SdsTypeCodeType[sds_type_code]
 
         if 'Uom' in content:
             result.Uom = content['Uom']

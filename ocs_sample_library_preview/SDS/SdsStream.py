@@ -12,7 +12,7 @@ class SdsStream(object):
     def __init__(self, id: str = None, type_id: str = None, name: str = None,
                  description: str = None, indexes: list[SdsStreamIndex] = None,
                  interpolation_mode: SdsInterpolationMode = None,
-                 extrapolationMode: SdsExtrapolationMode = None,
+                 extrapolation_mode: SdsExtrapolationMode = None,
                  property_overrides: list[SdsStreamPropertyOverride] = None):
         """
         :param id: required
@@ -33,7 +33,7 @@ class SdsStream(object):
         self.Description = description
         self.Indexes = indexes
         self.InterpolationMode = interpolation_mode
-        self.ExtrapolationMode = extrapolationMode
+        self.ExtrapolationMode = extrapolation_mode
         self.PropertyOverrides = property_overrides
 
     @property
@@ -192,10 +192,10 @@ class SdsStream(object):
                 result['Indexes'].append(value.toDictionary())
 
         if self.InterpolationMode is not None:
-            result['InterpolationMode'] = self.InterpolationMode
+            result['InterpolationMode'] = self.InterpolationMode.name
 
         if self.ExtrapolationMode is not None:
-            result['ExtrapolationMode'] = self.ExtrapolationMode
+            result['ExtrapolationMode'] = self.ExtrapolationMode.name
 
         if self.PropertyOverrides is not None:
             result['PropertyOverrides'] = []
@@ -232,10 +232,14 @@ class SdsStream(object):
                     result.Indexes.append(SdsStreamIndex.fromJson(value))
 
         if 'InterpolationMode' in content:
-            result.InterpolationMode = SdsInterpolationMode[content['InterpolationMode']]
+            interpolation_mode = content['InterpolationMode']
+            if interpolation_mode is not None:
+                result.InterpolationMode = SdsInterpolationMode[interpolation_mode]
 
         if 'ExtrapolationMode' in content:
-            result.ExtrapolationMode = SdsExtrapolationMode[content['ExtrapolationMode']]
+            extrapolation_mode = content['ExtrapolationMode']
+            if extrapolation_mode is not None:
+                result.ExtrapolationMode = SdsExtrapolationMode[extrapolation_mode]
 
         if 'PropertyOverrides' in content:
             property_overrides = content['PropertyOverrides']

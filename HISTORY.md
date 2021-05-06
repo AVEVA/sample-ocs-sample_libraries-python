@@ -1,5 +1,9 @@
 # Version History
 
+## 0.2.2_preview / 2021-05-05
+
+- Add comprehensive handling for optional enumeration properties
+
 ## 0.2.1_preview / 2021-05-03
 
 - Add check for null SdsTypeProperty InterpolationMode

@@ -343,11 +343,15 @@ class SdsType(object):
                     result.DerivedTypes.append(SdsType.fromJson(value))
 
         if 'InterpolationMode' in content:
-            result.InterpolationMode = SdsInterpolationMode(
-                content['InterpolationMode'])
+            interpolation_mode = content['InterpolationMode']
+            if interpolation_mode is not None:
+                result.InterpolationMode = SdsInterpolationMode(
+                    interpolation_mode)
 
         if 'ExtrapolationMode' in content:
-            result.ExtrapolationMode = SdsExtrapolationMode(
-                content['ExtrapolationMode'])
+            extrapolation_mode = content['ExtrapolationMode']
+            if extrapolation_mode is not None:
+                result.ExtrapolationMode = SdsExtrapolationMode(
+                    extrapolation_mode)
 
         return result

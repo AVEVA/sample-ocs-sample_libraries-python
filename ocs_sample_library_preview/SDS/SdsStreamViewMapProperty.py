@@ -116,7 +116,9 @@ class SdsStreamViewMapProperty(object):
             result.TargetId = content['TargetId']
 
         if 'Mode' in content:
-            result.Mode = SdsStreamViewMode(content['Mode'])
+            mode = content['Mode']
+            if mode is not None:
+                result.Mode = SdsStreamViewMode(mode)
 
         if 'SdsStreamViewMap' in content:
             from .SdsStreamViewMap import SdsStreamViewMap

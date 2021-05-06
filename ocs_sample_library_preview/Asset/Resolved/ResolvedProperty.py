@@ -89,8 +89,8 @@ class ResolvedProperty(object):
 
     def toDictionary(self):
         return {'Id': self.Id, 'IsKey': self.IsKey, 'Uom': self.Uom, 'Order': self.Order,
-                'InterpolationMode': self.InterpolationMode,
-                'ExtrapolationMode': self.ExtrapolationMode,
+                'InterpolationMode': self.InterpolationMode.name,
+                'ExtrapolationMode': self.ExtrapolationMode.name,
                 'SdsType': self.SdsType.toDictionary(), 'Source': self.Source.toDictionary()}
 
     @staticmethod

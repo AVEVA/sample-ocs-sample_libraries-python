@@ -346,9 +346,13 @@ class DataView(object):
             result.DefaultInterval = content['DefaultInterval']
 
         if 'IndexTypeCode' in content:
-            result.IndexTypeCode = SdsTypeCode[content['IndexTypeCode']]
+            index_type_code = content['IndexTypeCode']
+            if index_type_code is not None:
+                result.IndexTypeCode = SdsTypeCode[index_type_code]
 
         if 'Shape' in content:
-            result.Shape = DataViewShape[content['Shape']]
+            shape = content['shape']
+            if shape is not None:
+                result.Shape = DataViewShape[shape]
 
         return result

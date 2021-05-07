@@ -351,7 +351,7 @@ class DataView(object):
                 result.IndexTypeCode = SdsTypeCode[index_type_code]
 
         if 'Shape' in content:
-            shape = content['shape']
+            shape = content['Shape']
             if shape is not None:
                 result.Shape = DataViewShape[shape]
 

@@ -1,5 +1,9 @@
 # Version History
 
+## 0.2.3_preview / 2021-05-07
+
+- Fix typo in DataView.py
+
 ## 0.2.2_preview / 2021-05-05
 
 - Add comprehensive handling for optional enumeration properties

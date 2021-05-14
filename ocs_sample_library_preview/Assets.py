@@ -64,9 +64,10 @@ class Assets(object):
             results.append(Asset.fromJson(i))
         return results
 
-    def createAsset(self, namespace_id: str, asset: Asset) -> Asset:
+    def getOrCreateAsset(self, namespace_id: str, asset: Asset) -> Asset:
         """
         Create a new asset with a specified Id
+        If an asset already exists with the same Id and definition, it will be returned instead
         :param namespace_id: The namespace identifier
         :param asset: An asset object
         """
@@ -198,9 +199,10 @@ class Assets(object):
             results.append(AssetType.fromJson(i))
         return results
 
-    def createAssetType(self, namespace_id: str, asset_type: AssetType) -> AssetType:
+    def getOrCreateAssetType(self, namespace_id: str, asset_type: AssetType) -> AssetType:
         """
         Create a new asset type with a specified Id
+        If an asset type already exists with the same Id and definition, it will be returned instead
         :param namespace_id: The namespace identifier
         :param asset_type: An asset type object
         """

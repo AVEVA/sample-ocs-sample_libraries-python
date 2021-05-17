@@ -1,5 +1,9 @@
 # Version History
 
+## 0.2.4_preview / 2021-05-07
+
+- Add support for continuation tokens in getWindowValues
+
 ## 0.2.3_preview / 2021-05-07
 
 - Fix typo in DataView.py

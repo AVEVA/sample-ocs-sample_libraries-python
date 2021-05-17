@@ -1,4 +1,5 @@
 from .SdsBoundaryType import SdsBoundaryType
+from .SdsContinuationToken import SdsContinuationToken
 from .SdsExtrapolationMode import SdsExtrapolationMode
 from .SdsInterpolationMode import SdsInterpolationMode
 from .SdsNamespace import SdsNamespace

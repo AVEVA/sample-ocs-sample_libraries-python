@@ -1,5 +1,13 @@
 # Version History
 
+## 0.2.6_preview / 2021-05-18
+
+- Added summaries to DataView Field class definition
+
+## 0.2.5_preview / 2021-05-19
+
+- Add support for paging in getWindowValues
+
 ## 0.2.4_preview / 2021-05-18
 
 - Changed function names from createAsset[Type] to getOrCreateAsset[Type]

@@ -1,6 +1,8 @@
 import json
 
 from .FieldSource import FieldSource
+from ..SDS.SdsSummaryType import SdsSummaryType
+from .SummaryDirection import SummaryDirection as SummaryDirectionType
 
 
 class Field(object):
@@ -8,19 +10,24 @@ class Field(object):
 
     def __init__(self, source: FieldSource = None, keys: list[str] = None,
                  stream_reference_names: list[str] = None, label: str = None,
-                 include_uom: bool = None):
+                 include_uom: bool = None, summary_type: SdsSummaryType = None,
+                 summary_direction: SummaryDirectionType = None):
         """
         :param source: not required
         :param keys: not required
         :param stream_reference_names: not required
         :param label: not required
         :param include_uom: not required
+        :param summary_type: not required
+        :param summary_direction: not required
         """
         self.Source = source
         self.Keys = keys
         self.StreamReferenceNames = stream_reference_names
         self.Label = label
         self.IncludeUom = include_uom
+        self.SummaryType = summary_type
+        self.SummaryDirection = summary_direction
 
     @property
     def Source(self) -> FieldSource:
@@ -107,6 +114,22 @@ class Field(object):
         """
         self.__include_uom = value
 
+    @property
+    def SummaryType(self) -> SdsSummaryType:
+        return self.__summary_type
+
+    @SummaryType.setter
+    def SummaryType(self, value: SdsSummaryType):
+        self.__summary_type = value
+
+    @property
+    def SummaryDirection(self) -> SummaryDirectionType:
+        return self.__summary_direction
+
+    @SummaryDirection.setter
+    def SummaryDirection(self, value: SummaryDirectionType):
+        self.__summary_direction = value
+
     def toJson(self):
         return json.dumps(self.toDictionary())
 
@@ -133,6 +156,12 @@ class Field(object):
 
         if self.IncludeUom is not None:
             result['IncludeUom'] = self.IncludeUom
+
+        if self.SummaryDirection is not None:
+            result['SummaryDirection'] = self.SummaryDirection.name
+
+        if self.SummaryType is not None:
+            result['SummaryType'] = self.SummaryType.name
 
         return result
 
@@ -167,5 +196,11 @@ class Field(object):
 
         if 'IncludeUom' in content:
             result.IncludeUom = content['IncludeUom']
+
+        if 'SummaryType' in content:
+            result.SummaryType = SdsSummaryType[content['SummaryType']]
+
+        if 'SummaryDirection' in content:
+            result.SummaryDirection = SummaryDirectionType[content['SummaryDirection']]
 
         return result

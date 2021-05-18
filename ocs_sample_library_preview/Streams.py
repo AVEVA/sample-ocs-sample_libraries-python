@@ -591,7 +591,6 @@ class Streams(object):
             response, f'Failed to get window values for SdsStream: {stream_id}.')
 
         content = response.json()
-
         if value_class is None:
             return content
 

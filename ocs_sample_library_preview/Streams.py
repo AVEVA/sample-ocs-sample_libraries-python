@@ -1,11 +1,11 @@
 import json
-from ocs_sample_library_preview.SDS.SdsResultPage import SdsResultPage
 from typing import Any
 from typing import overload
 
 from .BaseClient import BaseClient
 from .SDS.SdsBoundaryType import SdsBoundaryType
 from .SDS.SdsStreamView import SdsStreamView
+from .SDS.SdsResultPage import SdsResultPage
 from .SDS.SdsStream import SdsStream
 from .SDS.SdsType import SdsType
 from .SDS.SdsStreamView import SdsStreamView

@@ -1,9 +1,11 @@
 import json
+from ocs_sample_library_preview.SDS.SdsResultPage import SdsResultPage
 from typing import Any
+from typing import overload
 
 from .BaseClient import BaseClient
 from .SDS.SdsBoundaryType import SdsBoundaryType
-from .SDS.SdsContinuationToken import SdsContinuationToken
+from .SDS.SdsStreamView import SdsStreamView
 from .SDS.SdsStream import SdsStream
 from .SDS.SdsType import SdsType
 from .SDS.SdsStreamView import SdsStreamView
@@ -553,7 +555,7 @@ class Streams(object):
         return value_class.fromJson(result)
 
     def getWindowValues(self, namespace_id: str, stream_id: str, value_class: type, start: str,
-                        end: str, count: int = None, continuation_token: SdsContinuationToken = None, filter: str = '') -> list[Any]:
+                        end: str, filter: str = '') -> list[Any]:
         """
         Retrieves JSON object representing a window of values from the stream
             specified by 'stream_id'
@@ -564,11 +566,6 @@ class Streams(object):
             If None returns a dynamic Python object from the data.
         :param start: Starting index
         :param end: Ending index
-        :param count: Optional maximum number of events to return. 
-            If count is specified, a continuationToken must also be specified.
-        :param continuationToken: Optional token used to retrieve the next page of data. 
-            If count is specified, a continuationToken must also be specified.
-            This is modified to contain the new continuation when this function is called.
         :param filter: An optional filter.  By Default it is ''.
         :return: an array of values.
             If value_class is defined it is in this type.
@@ -582,13 +579,6 @@ class Streams(object):
             raise TypeError
         if end is None:
             raise TypeError
-        if count is None:
-            params = {'startIndex': start, 'endIndex': end, 'filter': filter}
-        elif continuation_token is None:
-            raise TypeError
-        else:
-            params = {'startIndex': start, 'endIndex': end, 'filter': filter,
-                      'count': count, 'continuationToken': continuation_token.token}
 
         response = self.__base_client.request(
             'get',
@@ -596,15 +586,11 @@ class Streams(object):
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
-            params=params)
+            params={'startIndex': start, 'endIndex': end, 'filter': filter})
         self.__base_client.checkResponse(
             response, f'Failed to get window values for SdsStream: {stream_id}.')
 
         content = response.json()
-
-        if count is not None:
-            continuation_token.token = content.get('ContinuationToken', None)
-            content = content['Results']
 
         if value_class is None:
             return content
@@ -612,6 +598,59 @@ class Streams(object):
         results = []
         for c in content:
             results.append(value_class.fromJson(c))
+        return results
+
+    def getWindowValuesPaged(self, namespace_id: str, stream_id: str, value_class: type, start: str,
+                        end: str, count: int, continuation_token: str = '', filter: str = '') -> SdsResultPage:
+        """
+        Retrieves JSON object representing a window of values from the stream
+            specified by 'stream_id' using paging
+        :param namespace_id: id of namespace to work against
+        :param stream_id: id of the stream to get the data of
+        :param value_class: use this to cast the value into a given type.
+            Type must support .fromJson().
+            If None returns a dynamic Python object from the data.
+        :param start: Starting index
+        :param end: Ending index
+        :param count: maximum number of events to return.
+        :param continuationToken: token used to retrieve the next page of data.
+        :param filter: An optional filter.  By Default it is ''.
+        :return: an SdsResultPage containing the results and the next continuation token.
+            If value_class is defined it is in this type.
+            Otherwise it is a dynamic Python object
+        """
+        if namespace_id is None:
+            raise TypeError
+        if stream_id is None:
+            raise TypeError
+        if start is None:
+            raise TypeError
+        if end is None:
+            raise TypeError
+        if count is None:
+            raise TypeError
+        if continuation_token is None:
+            raise TypeError
+
+        response = self.__base_client.request(
+            'get',
+            self.__dataPath.format(
+                tenant_id=self.__tenant,
+                namespace_id=namespace_id,
+                stream_id=stream_id),
+            params={'startIndex': start, 'endIndex': end, 'filter': filter,
+                    'count': count, 'continuationToken': continuation_token})
+        self.__base_client.checkResponse(
+            response, f'Failed to get window values for SdsStream: {stream_id}.')
+
+        content = SdsResultPage.fromJson(response.json())
+
+        if value_class is None:
+            return content
+
+        results = SdsResultPage(continuation_token = content.ContinuationToken)
+        for r in content.Results:
+            results.Results.append(value_class.fromJson(r))
         return results
 
     def getWindowValuesForm(self, namespace_id: str, stream_id: str, value_class: type, start: str,

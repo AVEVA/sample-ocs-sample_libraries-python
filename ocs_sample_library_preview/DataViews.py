@@ -309,10 +309,8 @@ class DataViews(object):
         Internal  Sets the needed URLs
         :return:
         """
-        self.__basePath = (
-            self.__baseClient.uri_API + '-preview'
+        self.__basePath = self.__baseClient.uri_API + \
             '/Tenants/{tenant_id}/Namespaces/{namespace_id}'
-        )
 
         self.__dataViewsPath = self.__basePath + '/dataviews'
         self.__dataViewPath = self.__dataViewsPath + '/{dataView_id}'

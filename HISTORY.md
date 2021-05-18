@@ -1,8 +1,9 @@
 # Version History
 
-## 0.2.4_preview / 2021-05-17
+## 0.2.4_preview / 2021-05-18
 
 - Changed function names from createAsset[Type] to getOrCreateAsset[Type]
+- Switch from v1-preview to v1 route in DataViews client
 
 ## 0.2.3_preview / 2021-05-07
 

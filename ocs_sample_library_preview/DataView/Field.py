@@ -10,7 +10,7 @@ class Field(object):
 
     def __init__(self, source: FieldSource = None, keys: list[str] = None,
                  stream_reference_names: list[str] = None, label: str = None,
-                 include_uom: bool = None, summary_type: SdsSummaryType = None,
+                 include_uom: bool = None, summary_type: SdsSummaryType = SdsSummaryType.none,
                  summary_direction: SummaryDirectionType = None):
         """
         :param source: not required
@@ -198,7 +198,10 @@ class Field(object):
             result.IncludeUom = content['IncludeUom']
 
         if 'SummaryType' in content:
-            result.SummaryType = SdsSummaryType[content['SummaryType']]
+            if content['SummaryType'] == 'None':
+                result.SummaryType = SdsSummaryType['none']
+            else:
+                result.SummaryType = SdsSummaryType[content['SummaryType']]
 
         if 'SummaryDirection' in content:
             result.SummaryDirection = SummaryDirectionType[content['SummaryDirection']]

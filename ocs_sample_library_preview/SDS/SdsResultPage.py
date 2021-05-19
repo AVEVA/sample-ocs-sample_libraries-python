@@ -44,8 +44,7 @@ class SdsResultPage(object):
             return result
 
         if 'Results' in content:
-            results = content['Results']
-            result.Results = results
+            result.Results = content['Results']
 
         if 'ContinuationToken' in content:
             result.ContinuationToken = content['ContinuationToken']
@@ -54,5 +53,5 @@ class SdsResultPage(object):
 
         return result
 
-    def end(self):
+    def end(self) -> bool:
         return self.ContinuationToken == None

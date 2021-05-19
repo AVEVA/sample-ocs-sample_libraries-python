@@ -7,7 +7,7 @@ class SdsResultPage(object):
     definition of SdsResultPage
     """
 
-    def __init__(self, results: list[Any] = None, continuation_token: str = ''):
+    def __init__(self, results: list[Any] = None, continuation_token: str = None):
         self.Results = results
         self.ContinuationToken = continuation_token
 
@@ -48,8 +48,6 @@ class SdsResultPage(object):
 
         if 'ContinuationToken' in content:
             result.ContinuationToken = content['ContinuationToken']
-        else:
-            result.ContinuationToken = None
 
         return result
 

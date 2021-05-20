@@ -153,7 +153,10 @@ class FieldMapping(object):
             result.Uom = content['Uom']
 
         if 'SummaryType' in content:
-            result.SummaryType = SdsSummaryType[content['SummaryType']]
+            if content['SummaryType'] == 'None':
+                result.SummaryType = SdsSummaryType['none']
+            else:
+                result.SummaryType = SdsSummaryType[content['SummaryType']]
 
         if 'SummaryDirection' in content:
             result.SummaryDirection = SummaryDirectionType[content['SummaryDirection']]

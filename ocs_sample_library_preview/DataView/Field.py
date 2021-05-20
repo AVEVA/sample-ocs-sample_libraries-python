@@ -10,7 +10,7 @@ class Field(object):
 
     def __init__(self, source: FieldSource = None, keys: list[str] = None,
                  stream_reference_names: list[str] = None, label: str = None,
-                 include_uom: bool = None, summary_type: SdsSummaryType = SdsSummaryType.none,
+                 include_uom: bool = None, summary_type: SdsSummaryType = None,
                  summary_direction: SummaryDirectionType = None):
         """
         :param source: not required

@@ -3,9 +3,10 @@ from typing import Any
 
 from .BaseClient import BaseClient
 from .SDS.SdsBoundaryType import SdsBoundaryType
+from .SDS.SdsStreamView import SdsStreamView
+from .SDS.SdsResultPage import SdsResultPage
 from .SDS.SdsStream import SdsStream
 from .SDS.SdsType import SdsType
-from .SDS.SdsStreamView import SdsStreamView
 from .SDS.SdsStreamViewMap import SdsStreamViewMap
 
 
@@ -594,6 +595,59 @@ class Streams(object):
         results = []
         for c in content:
             results.append(value_class.fromJson(c))
+        return results
+
+    def getWindowValuesPaged(self, namespace_id: str, stream_id: str, value_class: type, start: str,
+                        end: str, count: int, continuation_token: str = '', filter: str = '') -> SdsResultPage:
+        """
+        Retrieves JSON object representing a window of values from the stream
+            specified by 'stream_id' using paging
+        :param namespace_id: id of namespace to work against
+        :param stream_id: id of the stream to get the data of
+        :param value_class: use this to cast the value into a given type.
+            Type must support .fromJson().
+            If None returns a dynamic Python object from the data.
+        :param start: Starting index
+        :param end: Ending index
+        :param count: maximum number of events to return.
+        :param continuationToken: token used to retrieve the next page of data.
+        :param filter: An optional filter.  By Default it is ''.
+        :return: an SdsResultPage containing the results and the next continuation token.
+            If value_class is defined it is in this type.
+            Otherwise it is a dynamic Python object
+        """
+        if namespace_id is None:
+            raise TypeError
+        if stream_id is None:
+            raise TypeError
+        if start is None:
+            raise TypeError
+        if end is None:
+            raise TypeError
+        if count is None:
+            raise TypeError
+        if continuation_token is None:
+            raise TypeError
+
+        response = self.__base_client.request(
+            'get',
+            self.__dataPath.format(
+                tenant_id=self.__tenant,
+                namespace_id=namespace_id,
+                stream_id=stream_id),
+            params={'startIndex': start, 'endIndex': end, 'filter': filter,
+                    'count': count, 'continuationToken': continuation_token})
+        self.__base_client.checkResponse(
+            response, f'Failed to get window values for SdsStream: {stream_id}.')
+
+        content = SdsResultPage.fromJson(response.json())
+
+        if value_class is None:
+            return content
+
+        results = SdsResultPage(continuation_token = content.ContinuationToken)
+        for r in content.Results:
+            results.Results.append(value_class.fromJson(r))
         return results
 
     def getWindowValuesForm(self, namespace_id: str, stream_id: str, value_class: type, start: str,

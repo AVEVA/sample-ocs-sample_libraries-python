@@ -92,7 +92,7 @@ class ValueStatusMapping(object):
             result.Value = content['Value']
 
         if 'Status' in content:
-            result.Status = StatusEnum(content['Status'])
+            result.Status = StatusEnum[content['Status']]
 
         if 'DisplayName' in content:
             result.DisplayName = content['DisplayName']

@@ -1,5 +1,9 @@
 # Version History
 
+## 0.2.7_preview / 2021-06-01
+
+- Updated asset status APIs to read enum string instead of int
+
 ## 0.2.6_preview / 2021-05-24
 
 - Added summaries to DataView Field class definition

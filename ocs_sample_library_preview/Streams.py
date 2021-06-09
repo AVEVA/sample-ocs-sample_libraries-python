@@ -1,4 +1,5 @@
 import json
+from jsonpatch import JsonPatch
 from typing import Any
 
 from .BaseClient import BaseClient
@@ -8,6 +9,7 @@ from .SDS.SdsResultPage import SdsResultPage
 from .SDS.SdsStream import SdsStream
 from .SDS.SdsType import SdsType
 from .SDS.SdsStreamViewMap import SdsStreamViewMap
+from .Security.AccessControlList import AccessControlList
 
 
 class Streams(object):
@@ -39,7 +41,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__streamViewsPath.format(
+            self.__stream_view_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_view_id=stream_view_id))
@@ -64,7 +66,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__streamViewsPath.format(
+            self.__stream_view_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_view_id=stream_view_id) + '/Map')
@@ -89,7 +91,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__getStreamViewsPath.format(
+            self.__stream_views_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id),
             params={'skip': skip, 'count': count})
@@ -117,7 +119,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'post',
-            self.__streamViewsPath.format(
+            self.__stream_view_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_view_id=stream_view.Id),
@@ -142,7 +144,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'put',
-            self.__streamViewsPath.format(
+            self.__stream_view_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_view_id=stream_view.Id),
@@ -165,7 +167,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'delete',
-            self.__streamViewsPath.format(
+            self.__stream_view_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_view_id=stream_view_id))
@@ -186,7 +188,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__streamsPath.format(
+            self.__stream_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id))
@@ -210,7 +212,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__streamsPath.format(
+            self.__stream_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id) + '/Type')
@@ -237,7 +239,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__getStreamsPath.format(
+            self.__streams_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id),
             params={'query': query, 'skip': skip, 'count': count})
@@ -264,7 +266,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'post',
-            self.__streamsPath.format(
+            self.__stream_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream.Id),
@@ -289,7 +291,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'put',
-            self.__streamsPath.format(
+            self.__stream_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream.Id),
@@ -314,7 +316,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'put',
-            self.__updateStreamTypePath.format(
+            self.__stream_type_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
@@ -336,7 +338,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'delete',
-            self.__streamsPath.format(
+            self.__stream_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id))
@@ -356,7 +358,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'put',
-            self.__streamsPath.format(
+            self.__stream_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id) + '/Tags',
@@ -377,7 +379,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'put',
-            self.__streamsPath.format(
+            self.__stream_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id) + '/Metadata',
@@ -398,7 +400,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'patch',
-            self.__streamsPath.format(
+            self.__stream_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id) + '/Metadata',
@@ -418,7 +420,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__streamsPath.format(
+            self.__stream_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id) + '/Tags')
@@ -441,7 +443,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__streamsPath.format(
+            self.__stream_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id) + '/Metadata/' + key)
@@ -477,7 +479,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__dataPath.format(
+            self.__data_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
@@ -509,7 +511,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__getFirstValue.format(
+            self.__first_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id))
@@ -540,7 +542,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__getLastValue.format(
+            self.__last_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id))
@@ -580,7 +582,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__dataPath.format(
+            self.__data_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
@@ -598,7 +600,7 @@ class Streams(object):
         return results
 
     def getWindowValuesPaged(self, namespace_id: str, stream_id: str, value_class: type, start: str,
-                        end: str, count: int, continuation_token: str = '', filter: str = '') -> SdsResultPage:
+                             end: str, count: int, continuation_token: str = '', filter: str = '') -> SdsResultPage:
         """
         Retrieves JSON object representing a window of values from the stream
             specified by 'stream_id' using paging
@@ -631,7 +633,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__dataPath.format(
+            self.__data_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
@@ -645,7 +647,7 @@ class Streams(object):
         if value_class is None:
             return content
 
-        results = SdsResultPage(continuation_token = content.ContinuationToken)
+        results = SdsResultPage(continuation_token=content.ContinuationToken)
         for r in content.Results:
             results.Results.append(value_class.fromJson(r))
         return results
@@ -678,7 +680,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__dataPath.format(
+            self.__data_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
@@ -738,7 +740,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__transform.format(
+            self.__transform_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
@@ -785,7 +787,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__getRangeInterpolatedQuery.format(
+            self.__transform_interpolated_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
@@ -842,12 +844,12 @@ class Streams(object):
         # if stream_view_id is not set, do not specify /transform/ route
         # and stream_view_id parameter
         if len(stream_view_id) == 0:
-            _path = self.__getSampledValues.format(
+            _path = self.__sampled_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id)
         else:
-            _path = self.__getSampledValuesT.format(
+            _path = self.__transform_sampled_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id)
@@ -906,7 +908,7 @@ class Streams(object):
         # and stream_view_id parameter
         paramsToUse = {}
         if len(stream_view_id) == 0:
-            _path = self.__getSummaries.format(
+            _path = self.__summaries_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id)
@@ -916,7 +918,7 @@ class Streams(object):
                            'count': count,
                            'filter': filter}
         else:
-            _path = self.__getSummariesT.format(
+            _path = self.__transform_summaries_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id)
@@ -970,7 +972,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'post',
-            self.__insertValuesPath.format(
+            self.__data_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
@@ -1005,7 +1007,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'put',
-            self.__updateValuesPath.format(
+            self.__data_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
@@ -1040,7 +1042,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'put',
-            self.__replaceValuesPath.format(
+            self.__replace_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
@@ -1065,7 +1067,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'delete',
-            self.__dataPath.format(
+            self.__data_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
@@ -1093,7 +1095,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'delete',
-            self.__dataPath.format(
+            self.__data_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
@@ -1134,7 +1136,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get',
-            self.__bulkStreams.format(
+            self.__bulk_join_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id),
             params={'streams': ','.join(stream_ids),
@@ -1156,6 +1158,54 @@ class Streams(object):
             values.append(valuesInside)
         return values
 
+    def getStreamAccessControl(self, stream_id: str) -> AccessControlList:
+        """
+        Get a stream's access control list
+        :param stream_id: The stream identifier
+        """
+        if stream_id is None:
+            raise TypeError
+
+        response = self.__base_client.request(
+            'get', self.__stream_acl_path.format(stream_id=stream_id))
+        self.__base_client.checkResponse(
+            response, f'Failed to get stream access control, {stream_id}.')
+
+        result = AccessControlList.fromJson(response.json())
+        return result
+
+    def updateStreamAccessControl(self, stream_id: str, access_control: AccessControlList):
+        """
+        Update a stream's access control list
+        :param stream_id: The stream identifier
+        :param access_control: The access control list
+        """
+        if stream_id is None:
+            raise TypeError
+        if access_control is None:
+            raise TypeError
+
+        response = self.__base_client.request(
+            'put', self.__stream_acl_path.format(stream_id=stream_id), data=access_control.toJson())
+        self.__base_client.checkResponse(
+            response, f'Failed to update stream access control, {stream_id}.')
+
+    def patchStreamAccessControl(self, stream_id: str, patch: JsonPatch):
+        """
+        Patch a stream's access control list
+        :param stream_id: The stream identifier
+        :param patch: A JSON Patch document describing the patch operations
+        """
+        if stream_id is None:
+            raise TypeError
+        if patch is None:
+            raise TypeError
+
+        response = self.__base_client.request(
+            'patch', self.__stream_acl_path.format(stream_id=stream_id), data=patch.to_string())
+        self.__base_client.checkResponse(
+            response, f'Failed to patch stream access control, {stream_id}.')
+
     # private methods
 
     def __setPathAndQueryTemplates(self):
@@ -1163,27 +1213,27 @@ class Streams(object):
         creates the urls that are used
         :return:
         """
-        self.__basePath = self.__uri_api + \
+        self.__base_path = self.__uri_api + \
             '/Tenants/{tenant_id}/Namespaces/{namespace_id}'
-        self.__getStreamViewsPath = self.__basePath + '/StreamViews'
-        self.__streamViewsPath = self.__getStreamViewsPath + \
+        self.__stream_views_path = self.__base_path + '/StreamViews'
+        self.__stream_view_path = self.__stream_views_path + \
             '/{stream_view_id}'
-        self.__getStreamsPath = self.__basePath + '/Streams'
-        self.__streamsPath = self.__getStreamsPath + '/{stream_id}'
-        self.__updateStreamTypePath = self.__streamsPath + '/Type'
+        self.__streams_path = self.__base_path + '/Streams'
+        self.__stream_path = self.__streams_path + '/{stream_id}'
+        self.__stream_type_path = self.__stream_path + '/Type'
 
-        self.__dataPath = self.__streamsPath + '/Data'
-        self.__getFirstValue = self.__dataPath + '/First'
-        self.__getLastValue = self.__dataPath + '/Last'
-        self.__transform = self.__dataPath + '/Transform'
-        self.__getSummaries = self.__dataPath + '/Summaries'
-        self.__getSummariesT = self.__transform + '/Summaries'
-        self.__getSampledValues = self.__dataPath + '/Sampled'
-        self.__getSampledValuesT = self.__transform + '/Sampled'
-        self.__getRangeInterpolatedQuery = self.__transform + '/Interpolated'
+        self.__data_path = self.__stream_path + '/Data'
+        self.__first_path = self.__data_path + '/First'
+        self.__last_path = self.__data_path + '/Last'
+        self.__transform_path = self.__data_path + '/Transform'
+        self.__summaries_path = self.__data_path + '/Summaries'
+        self.__transform_summaries_path = self.__transform_path + '/Summaries'
+        self.__sampled_path = self.__data_path + '/Sampled'
+        self.__transform_sampled_path = self.__transform_path + '/Sampled'
+        self.__transform_interpolated_path = self.__transform_path + '/Interpolated'
 
-        self.__insertValuesPath = self.__dataPath
-        self.__updateValuesPath = self.__dataPath
-        self.__replaceValuesPath = self.__dataPath + '?allowCreate=false'
+        self.__replace_path = self.__data_path + '?allowCreate=false'
 
-        self.__bulkStreams = self.__basePath + '/Bulk/Streams/Data/Joins'
+        self.__bulk_join_path = self.__base_path + '/Bulk/Streams/Data/Joins'
+
+        self.__stream_acl_path = self.__stream_path + '/AccessControl'

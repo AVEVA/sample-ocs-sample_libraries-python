@@ -1,5 +1,4 @@
 import json
-from typing import List
 
 from .ValueStatusMapping import ValueStatusMapping
 
@@ -8,7 +7,7 @@ class StatusMapping(object):
     """OCS Asset Status Mapping definition"""
 
     def __init__(self, stream_reference_id: str = None, stream_property_id: str = None,
-                 value_status_mappings: List[ValueStatusMapping] = None):
+                 value_status_mappings: list[ValueStatusMapping] = None):
         """
         :param stream_reference_id: required
         :param stream_property_id: required
@@ -53,7 +52,7 @@ class StatusMapping(object):
         self.__stream_property_id = value
 
     @property
-    def ValueStatusMappings(self) -> List[ValueStatusMapping]:
+    def ValueStatusMappings(self) -> list[ValueStatusMapping]:
         """
         required
         :return:
@@ -61,7 +60,7 @@ class StatusMapping(object):
         return self.__value_status_mappings
 
     @ValueStatusMappings.setter
-    def ValueStatusMappings(self, value: List[ValueStatusMapping]):
+    def ValueStatusMappings(self, value: list[ValueStatusMapping]):
         """
         required
         :param value:

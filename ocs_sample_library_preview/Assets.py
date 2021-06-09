@@ -1,5 +1,4 @@
 import json
-from typing import List
 
 from .BaseClient import BaseClient
 from .Asset.Data.DataResults import DataResults
@@ -42,7 +41,7 @@ class Assets(object):
         return result
 
     def getAssets(self, namespace_id: str, query: str = '', skip: int = 0, count: int = 100,
-                  ) -> List[Asset]:
+                  ) -> list[Asset]:
         """
         Returns a list of assets
         :param namespace_id: The namespace identifier
@@ -84,7 +83,7 @@ class Assets(object):
         result = Asset.fromJson(response.json())
         return result
 
-    def createAssets(self, namespace_id: str, assets: List[Asset]) -> List[Asset]:
+    def createAssets(self, namespace_id: str, assets: list[Asset]) -> list[Asset]:
         """
         Creates multiple assets in a single call
         :param namespace_id: The namespace identifier
@@ -92,7 +91,7 @@ class Assets(object):
         """
         if namespace_id is None:
             raise TypeError
-        if assets is None or not isinstance(assets, List[Asset]):
+        if assets is None or not isinstance(assets, list[Asset]):
             raise TypeError
 
         dictionary = []
@@ -142,7 +141,7 @@ class Assets(object):
         self.__base_client.checkResponse(
             response, f'Failed to delete asset, {asset_id}.')
 
-    def deleteAssets(self, namespace_id: str, asset_ids: List[str]):
+    def deleteAssets(self, namespace_id: str, asset_ids: list[str]):
         """
         Delete all assets with the specified Ids. Use this API to delete up to a maximum of 1000
         assets in one API call.
@@ -177,7 +176,7 @@ class Assets(object):
         result = AssetType.fromJson(response.json())
         return result
 
-    def getAssetTypes(self, namespace_id: str, skip: int = 0, count: int = 100) -> List[AssetType]:
+    def getAssetTypes(self, namespace_id: str, skip: int = 0, count: int = 100) -> list[AssetType]:
         """
         Returns a list of asset types
         :param namespace_id: The namespace identifier
@@ -219,7 +218,7 @@ class Assets(object):
         result = AssetType.fromJson(response.json())
         return result
 
-    def createAssetTypes(self, namespace_id: str, asset_types: List[AssetType]) -> List[AssetType]:
+    def createAssetTypes(self, namespace_id: str, asset_types: list[AssetType]) -> list[AssetType]:
         """
         Creates multiple asset types in a single call
         :param namespace_id: The namespace identifier
@@ -227,7 +226,7 @@ class Assets(object):
         """
         if namespace_id is None:
             raise TypeError
-        if asset_types is None or not isinstance(asset_types, List[Asset]):
+        if asset_types is None or not isinstance(asset_types, list[Asset]):
             raise TypeError
 
         dictionary = []
@@ -297,7 +296,7 @@ class Assets(object):
         result = ResolvedAsset.fromJson(response.json())
         return result
 
-    def getResolvedAssets(self, namespace_id: str, asset_ids: List[str]) -> List[ResolvedAsset]:
+    def getResolvedAssets(self, namespace_id: str, asset_ids: list[str]) -> list[ResolvedAsset]:
         """
         Returns bulk resolved assets
         :param namespace_id: The namespace identifier
@@ -473,7 +472,7 @@ class Assets(object):
         result = StatusData.fromJson(response.json())
         return result
 
-    def getAssetStatuses(self, namespace_id: str, asset_ids: List[str]) -> List[StatusData]:
+    def getAssetStatuses(self, namespace_id: str, asset_ids: list[str]) -> list[StatusData]:
         """
         Returns the current status for multiple specified assets
         :param namespace_id: The namespace identifier

@@ -7,6 +7,8 @@ class Roles(object):
     Client for interacting with OCS Roles
     """
 
+    CommunityMember = 'f79a55da-7c76-4600-a809-0f62ca9971d9'
+
     def __init__(self, client: BaseClient):
         """
         Initializes the Roles client

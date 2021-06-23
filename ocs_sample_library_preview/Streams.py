@@ -477,7 +477,7 @@ class Streams(object):
         if index is None:
             raise TypeError
 
-        return self.getValueUrl(self.__data_path.format(
+        return self.getValueUrl(self.__stream_path.format(
             tenant_id=self.__tenant,
             namespace_id=namespace_id,
             stream_id=stream_id), index, value_class)
@@ -499,7 +499,7 @@ class Streams(object):
             raise TypeError
 
         response = self.__base_client.request(
-            'get', url, params={'index': index})
+            'get', self.__data_path.format(stream=url), params={'index': index})
         self.__base_client.checkResponse(
             response, f'Failed to get value for SdsStream: {url}.')
 
@@ -525,7 +525,7 @@ class Streams(object):
         if stream_id is None:
             raise TypeError
 
-        return self.getFirstValueUrl(self.__first_path.format(
+        return self.getFirstValueUrl(self.__stream_path.format(
             tenant_id=self.__tenant,
             namespace_id=namespace_id,
             stream_id=stream_id), value_class)
@@ -544,7 +544,8 @@ class Streams(object):
         if url is None:
             raise TypeError
 
-        response = self.__base_client.request('get', url)
+        response = self.__base_client.request(
+            'get', self.__first_path.format(stream=url))
         self.__base_client.checkResponse(
             response, f'Failed to get first value for SdsStream: {url}.')
 
@@ -570,7 +571,7 @@ class Streams(object):
         if stream_id is None:
             raise TypeError
 
-        return self.getLastValueUrl(self.__last_path.format(
+        return self.getLastValueUrl(self.__stream_path.format(
             tenant_id=self.__tenant,
             namespace_id=namespace_id,
             stream_id=stream_id), value_class)
@@ -589,7 +590,8 @@ class Streams(object):
         if url is None:
             raise TypeError
 
-        response = self.__base_client.request('get', url)
+        response = self.__base_client.request(
+            'get', self.__last_path.format(stream=url))
         self.__base_client.checkResponse(
             response, f'Failed to get last value for SdsStream: {url}.')
 
@@ -624,7 +626,7 @@ class Streams(object):
         if end is None:
             raise TypeError
 
-        return self.getWindowValuesUrl(self.__data_path.format(
+        return self.getWindowValuesUrl(self.__stream_path.format(
             tenant_id=self.__tenant,
             namespace_id=namespace_id,
             stream_id=stream_id), value_class, start, end, filter)
@@ -652,7 +654,8 @@ class Streams(object):
             raise TypeError
 
         response = self.__base_client.request(
-            'get', url, params={'startIndex': start, 'endIndex': end, 'filter': filter})
+            'get', self.__data_path.format(stream=url),
+            params={'startIndex': start, 'endIndex': end, 'filter': filter})
         self.__base_client.checkResponse(
             response, f'Failed to get window values for SdsStream: {url}.')
 
@@ -697,7 +700,7 @@ class Streams(object):
         if continuation_token is None:
             raise TypeError
 
-        return self.getWindowValuesPagedUrl(self.__data_path.format(
+        return self.getWindowValuesPagedUrl(self.__stream_path.format(
             tenant_id=self.__tenant,
             namespace_id=namespace_id,
             stream_id=stream_id), value_class, start, end, count, continuation_token, filter)
@@ -732,7 +735,7 @@ class Streams(object):
             raise TypeError
 
         response = self.__base_client.request(
-            'get', url,
+            'get', self.__data_path.format(stream=url),
             params={'startIndex': start, 'endIndex': end, 'filter': filter,
                     'count': count, 'continuationToken': continuation_token})
         self.__base_client.checkResponse(
@@ -774,7 +777,7 @@ class Streams(object):
         if end is None:
             raise TypeError
 
-        return self.getWindowValuesFormUrl(self.__data_path.format(
+        return self.getWindowValuesFormUrl(self.__stream_path.format(
             tenant_id=self.__tenant,
             namespace_id=namespace_id,
             stream_id=stream_id), value_class, start, end, form)
@@ -803,7 +806,7 @@ class Streams(object):
             raise TypeError
 
         response = self.__base_client.request(
-            'get', url, params={'startIndex': start, 'endIndex': end, 'form': form})
+            'get', self.__data_path.format(stream=url), params={'startIndex': start, 'endIndex': end, 'form': form})
         self.__base_client.checkResponse(
             response, f'Failed to get window values for SdsStream: {url}.')
 
@@ -854,7 +857,7 @@ class Streams(object):
             raise TypeError
 
         return self.getRangeValuesUrl(
-            self.__transform_path.format(
+            self.__stream_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
@@ -899,7 +902,7 @@ class Streams(object):
             boundary = boundary_type.value
 
         response = self.__base_client.request(
-            'get', url,
+            'get', self.__transform_path.format(stream=url),
             params={'startIndex': start, 'skip': skip, 'count': count,
                     'reversed': reversed, 'boundary_type': boundary,
                     'stream_view_id': stream_view_id})
@@ -942,7 +945,7 @@ class Streams(object):
             raise TypeError
 
         return self.getRangeValuesInterpolatedUrl(
-            self.__transform_interpolated_path.format(
+            self.__stream_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
@@ -973,7 +976,7 @@ class Streams(object):
             raise TypeError
 
         response = self.__base_client.request(
-            'get', url,
+            'get', self.__transform_interpolated_path.format(stream=url),
             params={'startIndex': start, 'endIndex': end, 'count': count})
         self.__base_client.checkResponse(
             response, f'Failed to get range values for SdsStream: {url}.')
@@ -1024,21 +1027,11 @@ class Streams(object):
         if intervals is None:
             raise TypeError
 
-        # if stream_view_id is not set, do not specify /transform/ route
-        # and stream_view_id parameter
-        if len(stream_view_id) == 0:
-            _path = self.__sampled_path.format(
-                tenant_id=self.__tenant,
-                namespace_id=namespace_id,
-                stream_id=stream_id)
-        else:
-            _path = self.__transform_sampled_path.format(
-                tenant_id=self.__tenant,
-                namespace_id=namespace_id,
-                stream_id=stream_id)
-
-        return self.getSampledValuesUrl(_path, value_class, start, end, sample_by, intervals,
-                                        filter, stream_view_id)
+        return self.getSampledValuesUrl(self.__stream_path.format(
+            tenant_id=self.__tenant,
+            namespace_id=namespace_id,
+            stream_id=stream_id), value_class, start, end, sample_by, intervals,
+            filter, stream_view_id)
 
     def getSampledValuesUrl(self, url: str, value_class: type, start: str,
                             end: str, sample_by: str, intervals: str, filter: str = '',
@@ -1075,9 +1068,16 @@ class Streams(object):
         if intervals is None:
             raise TypeError
 
+        # if stream_view_id is not set, do not specify /transform/ route
+        # and stream_view_id parameter
+        if len(stream_view_id) == 0:
+            _path = self.__sampled_path.format(stream=url)
+        else:
+            _path = self.__transform_sampled_path.format(stream=url)
+
         response = self.__base_client.request(
             'get',
-            url,
+            _path,
             params={'startIndex': start,
                     'endIndex': end,
                     'sampleBy': sample_by,
@@ -1085,7 +1085,7 @@ class Streams(object):
                     'filter': filter,
                     'stream_view_id': stream_view_id})
         self.__base_client.checkResponse(
-            response, f'Failed to get sampled values for SdsStream: {url}.')
+            response, f'Failed to get sampled values for SdsStream: {_path}.')
 
         content = response.json()
         if value_class is None:
@@ -1125,20 +1125,10 @@ class Streams(object):
         if count is None:
             raise TypeError
 
-        # if stream_view_id is not set, do not specify /transform/ route
-        # and stream_view_id parameter
-        if len(stream_view_id) == 0:
-            _path = self.__summaries_path.format(
-                tenant_id=self.__tenant,
-                namespace_id=namespace_id,
-                stream_id=stream_id)
-        else:
-            _path = self.__transform_summaries_path.format(
-                tenant_id=self.__tenant,
-                namespace_id=namespace_id,
-                stream_id=stream_id)
-
-        return self.getSummariesUrl(_path, value_class, start, end, count, stream_view_id)
+        return self.getSummariesUrl(self.__stream_path.format(
+            tenant_id=self.__tenant,
+            namespace_id=namespace_id,
+            stream_id=stream_id), value_class, start, end, count, stream_view_id)
 
     def getSummariesUrl(self, url: str, value_class: type, start: str,
                         end: str, count: int, stream_view_id: str = '', filter: str = '') -> list[Any]:
@@ -1171,20 +1161,22 @@ class Streams(object):
         # and stream_view_id parameter
         paramsToUse = {}
         if len(stream_view_id) == 0:
+            _path = self.__summaries_path.format(stream=url)
             paramsToUse = {'startIndex': start,
                            'endIndex': end,
                            'count': count,
                            'filter': filter}
         else:
+            _path = self.__transform_summaries_path.format(stream=url)
             paramsToUse = {'startIndex': start,
                            'endIndex': end,
                            'count': count,
                            'filter': filter,
                            'streamViewId': stream_view_id}
 
-        response = self.__base_client.request('get', url, paramsToUse)
+        response = self.__base_client.request('get', _path, paramsToUse)
         self.__base_client.checkResponse(
-            response, f'Failed to get summaries for SdsStream: {url}.')
+            response, f'Failed to get summaries for SdsStream: {_path}.')
 
         content = response.json()
         if value_class is None:
@@ -1224,9 +1216,10 @@ class Streams(object):
         response = self.__base_client.request(
             'post',
             self.__data_path.format(
-                tenant_id=self.__tenant,
-                namespace_id=namespace_id,
-                stream_id=stream_id),
+                stream=self.__stream_path.format(
+                    tenant_id=self.__tenant,
+                    namespace_id=namespace_id,
+                    stream_id=stream_id)),
             data=payload)
         self.__base_client.checkResponse(
             response, f'Failed to insert multiple values for SdsStream: {stream_id}.')
@@ -1259,9 +1252,10 @@ class Streams(object):
         response = self.__base_client.request(
             'put',
             self.__data_path.format(
-                tenant_id=self.__tenant,
-                namespace_id=namespace_id,
-                stream_id=stream_id),
+                stream=self.__stream_path.format(
+                    tenant_id=self.__tenant,
+                    namespace_id=namespace_id,
+                    stream_id=stream_id)),
             data=payload)
         self.__base_client.checkResponse(
             response, f'Failed to update all values for SdsStream: {stream_id}.')
@@ -1294,9 +1288,10 @@ class Streams(object):
         response = self.__base_client.request(
             'put',
             self.__replace_path.format(
-                tenant_id=self.__tenant,
-                namespace_id=namespace_id,
-                stream_id=stream_id),
+                stream=self.__stream_path.format(
+                    tenant_id=self.__tenant,
+                    namespace_id=namespace_id,
+                    stream_id=stream_id)),
             data=payload)
         self.__base_client.checkResponse(
             response, f'Failed to replace values for SdsStream: {stream_id}.')
@@ -1319,9 +1314,10 @@ class Streams(object):
         response = self.__base_client.request(
             'delete',
             self.__data_path.format(
-                tenant_id=self.__tenant,
-                namespace_id=namespace_id,
-                stream_id=stream_id),
+                stream=self.__stream_path.format(
+                    tenant_id=self.__tenant,
+                    namespace_id=namespace_id,
+                    stream_id=stream_id)),
             params={'index': key})
         self.__base_client.checkResponse(
             response, f'Failed to remove value for SdsStream: {stream_id}.')
@@ -1347,9 +1343,10 @@ class Streams(object):
         response = self.__base_client.request(
             'delete',
             self.__data_path.format(
-                tenant_id=self.__tenant,
-                namespace_id=namespace_id,
-                stream_id=stream_id),
+                stream=self.__stream_path.format(
+                    tenant_id=self.__tenant,
+                    namespace_id=namespace_id,
+                    stream_id=stream_id)),
             params={'startIndex': start, 'endIndex': end})
         self.__base_client.checkResponse(
             response, f'Failed to remove all values for  SdsStream: {stream_id}.')
@@ -1409,7 +1406,7 @@ class Streams(object):
             values.append(valuesInside)
         return values
 
-    def getStreamAccessControl(self, stream_id: str) -> AccessControlList:
+    def getStreamAccessControl(self, namespace_id: str, stream_id: str) -> AccessControlList:
         """
         Get a stream's access control list
         :param stream_id: The stream identifier
@@ -1418,14 +1415,17 @@ class Streams(object):
             raise TypeError
 
         response = self.__base_client.request(
-            'get', self.__stream_acl_path.format(stream_id=stream_id))
+            'get', self.__stream_acl_path.format(
+                tenant_id=self.__tenant,
+                namespace_id=namespace_id,
+                stream_id=stream_id))
         self.__base_client.checkResponse(
             response, f'Failed to get stream access control, {stream_id}.')
 
         result = AccessControlList.fromJson(response.json())
         return result
 
-    def updateStreamAccessControl(self, stream_id: str, access_control: AccessControlList):
+    def updateStreamAccessControl(self, namespace_id: str, stream_id: str, access_control: AccessControlList):
         """
         Update a stream's access control list
         :param stream_id: The stream identifier
@@ -1437,11 +1437,15 @@ class Streams(object):
             raise TypeError
 
         response = self.__base_client.request(
-            'put', self.__stream_acl_path.format(stream_id=stream_id), data=access_control.toJson())
+            'put', self.__stream_acl_path.format(
+                tenant_id=self.__tenant,
+                namespace_id=namespace_id,
+                stream_id=stream_id),
+            data=access_control.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to update stream access control, {stream_id}.')
 
-    def patchStreamAccessControl(self, stream_id: str, patch: JsonPatch):
+    def patchStreamAccessControl(self, namespace_id: str, stream_id: str, patch: JsonPatch):
         """
         Patch a stream's access control list
         :param stream_id: The stream identifier
@@ -1453,7 +1457,11 @@ class Streams(object):
             raise TypeError
 
         response = self.__base_client.request(
-            'patch', self.__stream_acl_path.format(stream_id=stream_id), data=patch.to_string())
+            'patch', self.__stream_acl_path.format(
+                tenant_id=self.__tenant,
+                namespace_id=namespace_id,
+                stream_id=stream_id),
+            data=patch.to_string())
         self.__base_client.checkResponse(
             response, f'Failed to patch stream access control, {stream_id}.')
 
@@ -1473,7 +1481,7 @@ class Streams(object):
         self.__stream_path = self.__streams_path + '/{stream_id}'
         self.__stream_type_path = self.__stream_path + '/Type'
 
-        self.__data_path = self.__stream_path + '/Data'
+        self.__data_path = '{stream}/Data'
         self.__first_path = self.__data_path + '/First'
         self.__last_path = self.__data_path + '/Last'
         self.__transform_path = self.__data_path + '/Transform'

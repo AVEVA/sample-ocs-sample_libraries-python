@@ -7,7 +7,15 @@ class Roles(object):
     Client for interacting with OCS Roles
     """
 
-    CommunityMember = 'f79a55da-7c76-4600-a809-0f62ca9971d9'
+    TenantAdministratorRoleTypeId = '2dc742ab-39ea-4fc0-a39e-2bcb71c26a5f'
+    TenantContributorRoleTypeId = 'f1439595-e5a2-487f-8a4f-0627fefe75df'
+    TenantDataStewardRoleTypeId = '45b66433-5f57-420b-bbdf-8bbd60c1cd9d'
+    TenantMemberRoleTypeId = '7ad2b9ef-5386-4ead-ac9f-ad99c5c5b977'
+    TenantViewerRoleTypeId = 'e6cbf91e-0be8-4858-92b5-f88ecafd5574'
+
+    CommunityAdministratorRoleTypeId = 'b50b3349-fa9e-4a03-9220-cf99184b4645'
+    CommunityModeratorRoleTypeId = 'f49f69a6-61b2-423e-8ad5-d58841be441c'
+    CommunityMemberRoleTypeId = 'f79a55da-7c76-4600-a809-0f62ca9971d9'
 
     def __init__(self, client: BaseClient):
         """

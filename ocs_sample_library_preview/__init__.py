@@ -5,6 +5,10 @@ from .Types import Types
 from .Streams import Streams
 from .DataViews import DataViews
 from .SdsError import SdsError
+from .Communities import Communities
+from .Roles import Roles
 from .Asset import *
+from .Community import *
 from .DataView import *
 from .SDS import *
+from .Security import *

@@ -1,6 +1,8 @@
 from .Assets import Assets
 from .BaseClient import BaseClient
+from .Communities import Communities
 from .DataViews import DataViews
+from .Roles import Roles
 from .Streams import Streams
 from .Types import Types
 
@@ -28,6 +30,8 @@ class OCSClient:
         self.__data_views = DataViews(self.__base_client)
         self.__streams = Streams(self.__base_client)
         self.__types = Types(self.__base_client)
+        self.__communities = Communities(self.__base_client)
+        self.__roles = Roles(self.__base_client)
 
     @property
     def uri(self) -> str:
@@ -92,6 +96,20 @@ class OCSClient:
         :return: A client for interacting with Types
         """
         return self.__types
+
+    @property
+    def Communities(self) -> Communities:
+        """
+        :return: A client for interacting with Communities
+        """
+        return self.__communities
+
+    @property
+    def Roles(self) -> Roles:
+        """
+        :return: A client for interacting with Roles
+        """
+        return self.__roles
 
     @property
     def baseClient(self) -> BaseClient:

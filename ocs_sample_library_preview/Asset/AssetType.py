@@ -1,6 +1,6 @@
 import json
 
-from .Status.StatusMapping import StatusMapping
+from .Status.StatusConfiguration import StatusConfiguration
 from .MetadataItem import MetadataItem
 from .TypeReference import TypeReference
 
@@ -11,7 +11,7 @@ class AssetType(object):
     def __init__(self, id: str = None, name: str = None, description: str = None,
                  metadata: MetadataItem = None,
                  type_references: list[TypeReference] = None,
-                 status: StatusMapping = None):
+                 status: StatusConfiguration = None):
         """
         :param id: required
         :param name: not required
@@ -113,7 +113,7 @@ class AssetType(object):
         self.__type_references = value
 
     @property
-    def Status(self) -> StatusMapping:
+    def Status(self) -> StatusConfiguration:
         """
         not required
         :return:
@@ -121,7 +121,7 @@ class AssetType(object):
         return self.__status
 
     @Status.setter
-    def Status(self, value: StatusMapping):
+    def Status(self, value: StatusConfiguration):
         """
         not required
         :param value:
@@ -190,6 +190,6 @@ class AssetType(object):
                         TypeReference.fromJson(value))
 
         if 'Status' in content:
-            result.Status = StatusMapping.fromJson(content['Status'])
+            result.Status = StatusConfiguration.fromJson(content['Status'])
 
         return result

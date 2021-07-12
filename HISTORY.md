@@ -1,5 +1,13 @@
 # Version History
 
+## 0.3.1_preview / 2021-07-12
+
+- Added new StatusConfiguration and StatusDefinitionType classes to sync with latest assets REST API
+
+## 0.3.0_preview / 2021-07-09
+
+- Added required features for sample community steps
+
 ## 0.2.7_preview / 2021-06-01
 
 - Updated asset status APIs to read enum string instead of int

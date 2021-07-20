@@ -1,5 +1,9 @@
 # Version History
 
+## 0.3.2_preview / 2021-07-15
+
+- Updated dependencies
+
 ## 0.3.1_preview / 2021-07-12
 
 - Added new StatusConfiguration and StatusDefinitionType classes to sync with latest assets REST API

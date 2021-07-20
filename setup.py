@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='ocs_sample_library_preview',
-    version='0.3.1_preview',
+    version='0.3.2_preview',
     author='OSIsoft',
     license='Apache 2.0',
     author_email='dendres@osisoft.com',
@@ -15,9 +15,9 @@ setuptools.setup(
     url='https://github.com/osisoft/sample-ocs-sample_libraries-python',
     packages=setuptools.find_packages(),
     install_requires=[
-        'requests==2.25.1',
-        'python-dateutil==2.8.1',
-        'jsonpatch==1.32'
+        'requests>=2.26.0',
+        'python-dateutil>=2.8.1',
+        'jsonpatch>=1.32'
     ],
     python_requires='>=3.9',
     classifiers=[

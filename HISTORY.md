@@ -1,5 +1,13 @@
 # Version History
 
+## 0.3.4_preview / 2021-07-29
+
+- Added index collection value retrieval to the Streams class
+
+## 0.3.3_preview / 2021-07-28
+
+- Added filter expressions for the Streams class's getRangeValues and getRangeValuesInterpolated functions
+
 ## 0.3.2_preview / 2021-07-15
 
 - Updated dependencies

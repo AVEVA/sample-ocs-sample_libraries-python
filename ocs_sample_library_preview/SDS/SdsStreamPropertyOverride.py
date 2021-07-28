@@ -102,6 +102,6 @@ class SdsStreamPropertyOverride(object):
         if 'InterpolationMode' in content:
             interpolation_mode = content['InterpolationMode']
             if interpolation_mode is not None:
-                result.InterpolationMode = SdsInterpolationMode[interpolation_mode]
+                result.InterpolationMode = SdsInterpolationMode(interpolation_mode)
 
         return result

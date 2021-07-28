@@ -982,6 +982,7 @@ class Streams(object):
         response = self.__base_client.request(
             'get', self.__transform_interpolated_path.format(stream=url),
             params={'startIndex': start, 'endIndex': end, 'count': count, 'filter': filter})
+
         self.__base_client.checkResponse(
             response, f'Failed to get range values for SdsStream: {url}.')
 
@@ -1049,6 +1050,7 @@ class Streams(object):
         response = self.__base_client.request(
             'get', self.__transform_interpolated_path.format(stream=url),
             params=params)
+
         self.__base_client.checkResponse(
             response, f'Failed to get range values for SdsStream: {url}.')
 

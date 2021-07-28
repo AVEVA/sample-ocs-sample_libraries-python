@@ -1,5 +1,9 @@
 # Version History
 
+## 0.3.3_preview / 2021-07-28
+
+- Interpolation/Extrapolation mode enum handling
+
 ## 0.3.2_preview / 2021-07-15
 
 - Updated dependencies

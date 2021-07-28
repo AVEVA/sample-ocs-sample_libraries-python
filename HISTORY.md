@@ -1,5 +1,9 @@
 # Version History
 
+## 0.3.4_preview / 2021-07-28
+
+- Added filter expressions for the Streams class's getRangeValues and getRangeValuesInterpolated functions
+
 ## 0.3.3_preview / 2021-07-28
 
 - Interpolation/Extrapolation mode enum handling

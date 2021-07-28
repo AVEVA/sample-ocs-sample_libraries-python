@@ -820,7 +820,7 @@ class Streams(object):
         return results
 
     def getRangeValues(self, namespace_id: str, stream_id: str, value_class: type, start: str,
-                       skip: int, count: int, reversed: bool, boundary_type: str,
+                       skip: int, count: int, reversed: bool, boundary_type: str, filter: str = '',
                        stream_view_id: str = '') -> list[Any]:
         """
         Retrieves JSON object representing a range of values from the stream
@@ -837,6 +837,7 @@ class Streams(object):
         :param reversed: which direction to go when getting values
         :param boundary_type: the boundary condition to use.
             Can be an SdsBoundaryType or the integer value
+        :param filter: An optional filter.  By Default it is ''.
         :param stream_view_id: streamview to map the results to
         :return: An array of the data in type specified if value_class
             is defined.  Otherwise it is a dynamic Python object
@@ -861,11 +862,11 @@ class Streams(object):
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
-            value_class, start, skip, count, reversed, boundary_type, stream_view_id)
+            value_class, start, skip, count, reversed, boundary_type, filter, stream_view_id)
 
     def getRangeValuesUrl(self, url: str, value_class: type, start: str,
                           skip: int, count: int, reversed: bool, boundary_type: str,
-                          stream_view_id: str = '') -> list[Any]:
+                          filter: str = '', stream_view_id: str = '') -> list[Any]:
         """
         Retrieves JSON object representing a range of values from the stream
             specified by 'url'
@@ -880,6 +881,7 @@ class Streams(object):
         :param reversed: which direction to go when getting values
         :param boundary_type: the boundary condition to use.
             Can be an SdsBoundaryType or the integer value
+        :param filter: An optional filter.  By Default it is ''.
         :param stream_view_id: streamview to map the results to
         :return: An array of the data in type specified if value_class
             is defined.  Otherwise it is a dynamic Python object
@@ -905,7 +907,7 @@ class Streams(object):
             'get', self.__transform_path.format(stream=url),
             params={'startIndex': start, 'skip': skip, 'count': count,
                     'reversed': reversed, 'boundary_type': boundary,
-                    'stream_view_id': stream_view_id})
+                    'filter': filter, 'stream_view_id': stream_view_id})
         self.__base_client.checkResponse(
             response, f'Failed to get range values for SdsStream: {url}.')
 
@@ -918,7 +920,7 @@ class Streams(object):
         return results
 
     def getRangeValuesInterpolated(self, namespace_id: str, stream_id: str, value_class: type,
-                                   start: str, end: str, count: int) -> list[Any]:
+                                   start: str, end: str, count: int, filter: str = '') -> list[Any]:
         """
         Retrieves JSON object representing a range of values from the stream
             specified by 'stream_id'
@@ -930,6 +932,7 @@ class Streams(object):
         :param start: starting index
         :param end:  ending index
         :param count: number of datapoints to retrieve
+        :param filter: An optional filter.  By Default it is ''.
         :return: An array of the data in type specified if value_class is
         defined.  Otherwise it is a dynamic Python object
         """
@@ -949,10 +952,10 @@ class Streams(object):
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=stream_id),
-            value_class, start, end, count)
+            value_class, start, end, count, filter)
 
     def getRangeValuesInterpolatedUrl(self, url: str, value_class: type,
-                                      start: str, end: str, count: int) -> list[Any]:
+                                      start: str, end: str, count: int, filter: str = '') -> list[Any]:
         """
         Retrieves JSON object representing a range of values from the stream
             specified by 'url'
@@ -963,6 +966,7 @@ class Streams(object):
         :param start: starting index
         :param end:  ending index
         :param count: number of datapoints to retrieve
+        :param filter: An optional filter.  By Default it is ''.
         :return: An array of the data in type specified if value_class is
         defined.  Otherwise it is a dynamic Python object
         """
@@ -977,7 +981,7 @@ class Streams(object):
 
         response = self.__base_client.request(
             'get', self.__transform_interpolated_path.format(stream=url),
-            params={'startIndex': start, 'endIndex': end, 'count': count})
+            params={'startIndex': start, 'endIndex': end, 'count': count, 'filter': filter})
         self.__base_client.checkResponse(
             response, f'Failed to get range values for SdsStream: {url}.')
 

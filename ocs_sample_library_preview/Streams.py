@@ -9,10 +9,10 @@ from .SDS.SdsResultPage import SdsResultPage
 from .SDS.SdsStream import SdsStream
 from .SDS.SdsType import SdsType
 from .SDS.SdsStreamViewMap import SdsStreamViewMap
-from .Security.AccessControlList import AccessControlList
+from .Securable import Securable
 
 
-class Streams(object):
+class Streams(Securable, object):
     """
     Client for interacting with Streams
     """
@@ -21,6 +21,8 @@ class Streams(object):
         """
         :param client: base client that handles auth and base routing
         """
+        super().__init__(client=client, collection='Streams')
+
         self.__tenant = client.tenant
         self.__uri_api = client.uri_API
         self.__base_client = client
@@ -993,6 +995,73 @@ class Streams(object):
             results.append(value_class.fromJson(c))
         return results
 
+    def getIndexCollectionValues(self, namespace_id: str, stream_id: str, value_class: type,
+                                 index: list[str]) -> list[Any]:
+        """
+        Retrieves JSON object representing values at specific indexes from the stream
+            specified by 'stream_id'
+        :param namespace_id: id of namespace to work against
+        :param stream_id: id of the stream to get the data of
+        :param value_class: use this to cast the value into a given type.
+            Type must support .fromJson(). If None returns a dynamic Python
+            object from the data.
+        :param start: starting index
+        :param index: One or more indexes to retrieve events at
+        :return: An array of the data in type specified if value_class is
+        defined.  Otherwise it is a dynamic Python object
+        """
+        if namespace_id is None:
+            raise TypeError
+        if stream_id is None:
+            raise TypeError
+        if index is None:
+            raise TypeError
+
+        return self.getIndexCollectionValuesUrl(
+            self.__stream_path.format(
+                tenant_id=self.__tenant,
+                namespace_id=namespace_id,
+                stream_id=stream_id),
+            value_class, index)
+
+    def getIndexCollectionValuesUrl(self, url: str, value_class: type,
+                                    index: list[str]) -> list[Any]:
+        """
+        Retrieves JSON object representing values at specific indexes from the stream
+            specified by 'stream_id'
+        :param namespace_id: id of namespace to work against
+        :param stream_id: id of the stream to get the data of
+        :param value_class: use this to cast the value into a given type.
+            Type must support .fromJson(). If None returns a dynamic Python
+            object from the data.
+        :param start: starting index
+        :param index: One or more indexes to retrieve events at
+        :return: An array of the data in type specified if value_class is
+        defined.  Otherwise it is a dynamic Python object
+        """
+        if url is None:
+            raise TypeError
+        if index is None:
+            raise TypeError
+
+        params = []
+        for i in index:
+            params.append(('index', i))
+
+        response = self.__base_client.request(
+            'get', self.__transform_interpolated_path.format(stream=url),
+            params=params)
+        self.__base_client.checkResponse(
+            response, f'Failed to get range values for SdsStream: {url}.')
+
+        content = response.json()
+        if value_class is None:
+            return content
+        results = []
+        for c in content:
+            results.append(value_class.fromJson(c))
+        return results
+
     def getSampledValues(self, namespace_id: str, stream_id: str, value_class: type, start: str,
                          end: str, sample_by: str, intervals: str, filter: str = '',
                          stream_view_id: str = '') -> list[Any]:
@@ -1410,65 +1479,6 @@ class Streams(object):
             values.append(valuesInside)
         return values
 
-    def getStreamAccessControl(self, namespace_id: str, stream_id: str) -> AccessControlList:
-        """
-        Get a stream's access control list
-        :param stream_id: The stream identifier
-        """
-        if stream_id is None:
-            raise TypeError
-
-        response = self.__base_client.request(
-            'get', self.__stream_acl_path.format(
-                tenant_id=self.__tenant,
-                namespace_id=namespace_id,
-                stream_id=stream_id))
-        self.__base_client.checkResponse(
-            response, f'Failed to get stream access control, {stream_id}.')
-
-        result = AccessControlList.fromJson(response.json())
-        return result
-
-    def updateStreamAccessControl(self, namespace_id: str, stream_id: str, access_control: AccessControlList):
-        """
-        Update a stream's access control list
-        :param stream_id: The stream identifier
-        :param access_control: The access control list
-        """
-        if stream_id is None:
-            raise TypeError
-        if access_control is None:
-            raise TypeError
-
-        response = self.__base_client.request(
-            'put', self.__stream_acl_path.format(
-                tenant_id=self.__tenant,
-                namespace_id=namespace_id,
-                stream_id=stream_id),
-            data=access_control.toJson())
-        self.__base_client.checkResponse(
-            response, f'Failed to update stream access control, {stream_id}.')
-
-    def patchStreamAccessControl(self, namespace_id: str, stream_id: str, patch: JsonPatch):
-        """
-        Patch a stream's access control list
-        :param stream_id: The stream identifier
-        :param patch: A JSON Patch document describing the patch operations
-        """
-        if stream_id is None:
-            raise TypeError
-        if patch is None:
-            raise TypeError
-
-        response = self.__base_client.request(
-            'patch', self.__stream_acl_path.format(
-                tenant_id=self.__tenant,
-                namespace_id=namespace_id,
-                stream_id=stream_id),
-            data=patch.to_string())
-        self.__base_client.checkResponse(
-            response, f'Failed to patch stream access control, {stream_id}.')
-
     # private methods
 
     def __setPathAndQueryTemplates(self):
@@ -1498,5 +1508,3 @@ class Streams(object):
         self.__replace_path = self.__data_path + '?allowCreate=false'
 
         self.__bulk_join_path = self.__base_path + '/Bulk/Streams/Data/Joins'
-
-        self.__stream_acl_path = self.__stream_path + '/AccessControl'

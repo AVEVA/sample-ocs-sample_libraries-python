@@ -7,6 +7,7 @@ from .DataViews import DataViews
 from .SdsError import SdsError
 from .Communities import Communities
 from .Roles import Roles
+from .Securable import Securable
 from .Asset import *
 from .Community import *
 from .DataView import *

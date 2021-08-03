@@ -9,3 +9,5 @@ from .RoleScope import RoleScope
 from .Trustee import Trustee
 from .TrusteeType import TrusteeType
 from .User import User
+from .UserInvitation import UserInvitation
+from .UserInvitationState import UserInvitationState

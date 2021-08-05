@@ -984,6 +984,75 @@ class Streams(Securable, object):
         response = self.__base_client.request(
             'get', self.__transform_interpolated_path.format(stream=url),
             params={'startIndex': start, 'endIndex': end, 'count': count, 'filter': filter})
+
+        self.__base_client.checkResponse(
+            response, f'Failed to get range values for SdsStream: {url}.')
+
+        content = response.json()
+        if value_class is None:
+            return content
+        results = []
+        for c in content:
+            results.append(value_class.fromJson(c))
+        return results
+
+    def getIndexCollectionValues(self, namespace_id: str, stream_id: str, value_class: type,
+                                 index: list[str]) -> list[Any]:
+        """
+        Retrieves JSON object representing values at specific indexes from the stream
+            specified by 'stream_id'
+        :param namespace_id: id of namespace to work against
+        :param stream_id: id of the stream to get the data of
+        :param value_class: use this to cast the value into a given type.
+            Type must support .fromJson(). If None returns a dynamic Python
+            object from the data.
+        :param start: starting index
+        :param index: One or more indexes to retrieve events at
+        :return: An array of the data in type specified if value_class is
+        defined.  Otherwise it is a dynamic Python object
+        """
+        if namespace_id is None:
+            raise TypeError
+        if stream_id is None:
+            raise TypeError
+        if index is None:
+            raise TypeError
+
+        return self.getIndexCollectionValuesUrl(
+            self.__stream_path.format(
+                tenant_id=self.__tenant,
+                namespace_id=namespace_id,
+                stream_id=stream_id),
+            value_class, index)
+
+    def getIndexCollectionValuesUrl(self, url: str, value_class: type,
+                                      index: list[str]) -> list[Any]:
+        """
+        Retrieves JSON object representing values at specific indexes from the stream
+            specified by 'stream_id'
+        :param namespace_id: id of namespace to work against
+        :param stream_id: id of the stream to get the data of
+        :param value_class: use this to cast the value into a given type.
+            Type must support .fromJson(). If None returns a dynamic Python
+            object from the data.
+        :param start: starting index
+        :param index: One or more indexes to retrieve events at
+        :return: An array of the data in type specified if value_class is
+        defined.  Otherwise it is a dynamic Python object
+        """
+        if url is None:
+            raise TypeError
+        if index is None:
+            raise TypeError
+
+        params = []
+        for i in index:
+            params.append(('index', i))
+
+        response = self.__base_client.request(
+            'get', self.__transform_interpolated_path.format(stream=url),
+            params=params)
+
         self.__base_client.checkResponse(
             response, f'Failed to get range values for SdsStream: {url}.')
 

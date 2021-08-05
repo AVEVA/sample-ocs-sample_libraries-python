@@ -1,5 +1,9 @@
 # Version History
 
+## 0.3.6_preview / 2021-08-05
+
+- Added support for managing ACLs on securable collections
+
 ## 0.3.4_preview / 2021-07-28
 
 - Added filter expressions for the Streams class's getRangeValues and getRangeValuesInterpolated functions

@@ -10,15 +10,19 @@ class Users(object):
     Client for interacting with Users
     """
 
+    AADIdentityProviderId = 'e2398938-bf8f-40fa-b380-d538ece2bfc2'
+    GoogleIdentityProviderId = 'd2a478ca-52e3-4fd4-9d93-ded440476364'
+    MicrosoftIdentityProviderId = '68a3a33b-b9dd-4eea-884f-87daefc4ff0f'
+
     def __init__(self, client: BaseClient):
         """
         :param client: base client that handles auth and base routing
         """
-        super().__init__(client=client, collection='Streams')
-
         self.__tenant = client.tenant
         self.__uri_api = client.uri_API
         self.__base_client = client
+
+        self.__setPathAndQueryTemplates()
 
     def getUsers(self, query: str = '', skip: int = 0, count: int = 100) -> list[User]:
         """
@@ -66,7 +70,23 @@ class Users(object):
         for item in content:
             results.append(UserInvitation.fromJson(item))
         return results
-    
+
+    def createUser(self, user: User) -> User:
+        """
+        Creates a new tenant user
+        :param user: A user object
+        """
+        if user is None or not isinstance(user, User):
+            raise TypeError
+
+        response = self.__base_client.request(
+            'post', self.__users_path.format(tenant_id=self.__tenant), data=user.toJson())
+        self.__base_client.checkResponse(
+            response, f'Failed to create User')
+
+        result = User.fromJson(response.json())
+        return result
+
     def getOrCreateUser(self, user: User) -> User:
         """
         Gets a user based on the user object and creates it if it does not exist
@@ -142,15 +162,15 @@ class Users(object):
         if user_invitation is None or not isinstance(user_invitation, UserInvitation):
             raise TypeError
 
-        response = self.__user_invitation_path.request(
+        response = self.__base_client.request(
             'put',
-            self.__user_path.format(
+            self.__user_invitation_path.format(
                 tenant_id=self.__tenant,
                 user_id=user_id),
             data=user_invitation.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create UserInviation, {user_id}.')
-    
+
     def deleteUser(self, user_id: str):
         """
         Deletes the user specified by user_id
@@ -162,9 +182,9 @@ class Users(object):
 
         response = self.__base_client.request(
             'delete',
-            self.__stream_path.format(
+            self.__user_path.format(
                 tenant_id=self.__tenant,
-                stream_id=user_id))
+                user_id=user_id))
         self.__base_client.checkResponse(
             response, f'Failed to delete User, {user_id}.')
 

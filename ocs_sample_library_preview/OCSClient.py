@@ -1,10 +1,16 @@
+from .AssetRules import AssetRules
 from .Assets import Assets
+from .AssetTypes import AssetTypes
 from .BaseClient import BaseClient
 from .Communities import Communities
 from .DataViews import DataViews
+from .Namespaces import Namespaces
 from .Roles import Roles
 from .Streams import Streams
+from .Subscriptions import Subscriptions
+from .Topics import Topics
 from .Types import Types
+from .Users import Users
 
 
 class OCSClient:
@@ -26,12 +32,18 @@ class OCSClient:
         """
         self.__base_client = BaseClient(api_version, tenant, url, client_id,
                                         client_secret, accept_verbosity)
+        self.__asset_rules = AssetRules(self.__base_client)
         self.__assets = Assets(self.__base_client)
+        self.__asset_types = AssetTypes(self.__base_client)
         self.__data_views = DataViews(self.__base_client)
         self.__streams = Streams(self.__base_client)
         self.__types = Types(self.__base_client)
         self.__communities = Communities(self.__base_client)
+        self.__namespaces = Namespaces(self.__base_client)
         self.__roles = Roles(self.__base_client)
+        self.__subscriptions = Subscriptions(self.__base_client)
+        self.__topics = Topics(self.__base_client)
+        self.__users = Users(self.__base_client)
 
     @property
     def uri(self) -> str:
@@ -70,11 +82,25 @@ class OCSClient:
         self.__base_client.RequestTimeout = value
 
     @property
+    def AssetRules(self) -> AssetRules:
+        """
+        :return: A client for interacting with Asset Rules
+        """
+        return self.__asset_rules
+
+    @property
     def Assets(self) -> Assets:
         """
         :return: A client for interacting with Assets
         """
         return self.__assets
+
+    @property
+    def AssetTypes(self) -> AssetTypes:
+        """
+        :return: A client for interacting with Asset Types
+        """
+        return self.__asset_types
 
     @property
     def DataViews(self) -> DataViews:
@@ -105,11 +131,39 @@ class OCSClient:
         return self.__communities
 
     @property
+    def Namespaces(self) -> Roles:
+        """
+        :return: A client for interacting with Namespaces
+        """
+        return self.__namespaces
+
+    @property
     def Roles(self) -> Roles:
         """
         :return: A client for interacting with Roles
         """
         return self.__roles
+
+    @property
+    def Subscriptions(self) -> Subscriptions:
+        """
+        :return: A client for interacting with Subscriptions
+        """
+        return self.__subscriptions
+
+    @property
+    def Topics(self) -> Topics:
+        """
+        :return: A client for interacting with Topics
+        """
+        return self.__topics
+
+    @property
+    def Users(self) -> Users:
+        """
+        :return: A client for interacting with Users
+        """
+        return self.__users
 
     @property
     def baseClient(self) -> BaseClient:

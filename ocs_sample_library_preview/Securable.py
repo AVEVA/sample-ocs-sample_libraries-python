@@ -142,7 +142,7 @@ class Securable(object):
         self.__base_client.checkResponse(
             response, f'Failed to get owner, {item_id} in collection {self.__collection}.')
 
-        result = AccessControlList.fromJson(response.json())
+        result = Owner.fromJson(response.json())
         return result
 
     def updateOwner(self, namespace_id: str, item_id: str, owner: Owner):
@@ -172,8 +172,12 @@ class Securable(object):
         creates the urls that are used
         :return:
         """
-        self.__base_path = self.__uri_api + \
-            '/Tenants/{tenant_id}/Namespaces/{namespace_id}'
+        if self.__collection == 'Namespaces':
+          self.__base_path = self.__uri_api + \
+              '/Tenants/{tenant_id}'
+        else:
+          self.__base_path = self.__uri_api + \
+              '/Tenants/{tenant_id}/Namespaces/{namespace_id}'
 
         self.__default_collection_acl_path = self.__base_path + \
             '/AccessControl/' + self.__collection

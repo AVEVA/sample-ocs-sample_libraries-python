@@ -83,6 +83,9 @@ class FieldSet(object):
 
         if self.IdentifyingField is not None:
             result['IdentifyingField'] = self.IdentifyingField.toDictionary()
+            
+            if result['IdentifyingField'] == {}:
+                result['IdentifyingField'] = None
 
         return result
 

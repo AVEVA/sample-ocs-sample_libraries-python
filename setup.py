@@ -16,7 +16,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=[
         'requests>=2.26.0',
-        'python-dateutil>=2.8.1',
+        'python-dateutil>=2.8.2',
         'jsonpatch>=1.32'
     ],
     python_requires='>=3.9',

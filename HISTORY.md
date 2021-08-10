@@ -3,7 +3,8 @@
 ## 0.3.6_preview / 2021-08-09
 
 - Added stored value retrieval for data views
-- updated dependencies
+- Updated dependencies
+- Cleaned up gitignore
 
 ## 0.3.5_preview / 2021-07-29
 

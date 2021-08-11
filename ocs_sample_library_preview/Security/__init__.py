@@ -1,5 +1,6 @@
 from .AccessControlEntry import AccessControlEntry
 from .AccessControlList import AccessControlList
+from .AccessRights import AccessRights
 from .AccessType import AccessType
 from .CommonAccessRightsEnum import CommonAccessRightsEnum
 from .OwnerType import OwnerType

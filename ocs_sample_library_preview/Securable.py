@@ -1,3 +1,4 @@
+from ocs_sample_library_preview.Security.AccessRights import AccessRights
 from jsonpatch import JsonPatch
 from typing import Any
 
@@ -165,6 +166,25 @@ class Securable(object):
         self.__base_client.checkResponse(
             response, f'Failed to update access control, {item_id} in collection {self.__collection}.')
 
+    def getAccessRights(self, namespace_id: str, item_id: str) -> AccessRights:
+        """
+        Get an item's access rights
+        :param item_id: The item identifier
+        """
+        if item_id is None:
+            raise TypeError
+
+        response = self.__base_client.request(
+            'get', self.__item_access_rights_path.format(
+                tenant_id=self.__tenant,
+                namespace_id=namespace_id,
+                item_id=item_id))
+        self.__base_client.checkResponse(
+            response, f'Failed to get access rights, {item_id} in collection {self.__collection}.')
+
+        result = AccessRights.fromJson(response.json())
+        return result
+
     # private methods
 
     def __setPathAndQueryTemplates(self):
@@ -187,3 +207,4 @@ class Securable(object):
         self.__item_path = self.__collection_path + '/{item_id}'
         self.__item_acl_path = self.__item_path + '/AccessControl'
         self.__item_owner_path = self.__item_path + '/Owner'
+        self.__item_access_rights_path = self.__item_path + '/AccessRights'

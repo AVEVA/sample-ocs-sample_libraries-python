@@ -1,8 +1,10 @@
 # Version History
 
-## 0.3.6_preview / 2021-08-05
+## 0.4.0_preview / 2021-08-05
 
 - Added support for managing ACLs on securable collections
+- Support for additional collections (Users, Topics, Subscriptions, etc.)
+- Split related collections out of the Assts and Streams classes 
 
 ## 0.3.5_preview / 2021-07-29
 

@@ -5,10 +5,10 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='ocs_sample_library_preview',
-    version='0.3.5_preview',
+    version='0.4.0_preview',
     author='OSIsoft',
     license='Apache 2.0',
-    author_email='dendres@osisoft.com',
+    author_email='samples@osisoft.com',
     description='A preview of an OCS (OSIsoft Cloud Services) client library',
     long_description=long_description,
     long_description_content_type='text/markdown',

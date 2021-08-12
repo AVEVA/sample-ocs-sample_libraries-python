@@ -6,6 +6,7 @@ from .Assets import Assets
 from .AssetTypes import AssetTypes
 from .Types import Types
 from .Streams import Streams
+from .StreamViews import StreamViews
 from .DataViews import DataViews
 from .Namespaces import Namespaces
 from .SdsError import SdsError

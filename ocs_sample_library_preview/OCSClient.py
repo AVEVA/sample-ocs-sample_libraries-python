@@ -7,6 +7,7 @@ from .DataViews import DataViews
 from .Namespaces import Namespaces
 from .Roles import Roles
 from .Streams import Streams
+from .StreamViews import StreamViews
 from .Subscriptions import Subscriptions
 from .Topics import Topics
 from .Types import Types
@@ -37,6 +38,7 @@ class OCSClient:
         self.__asset_types = AssetTypes(self.__base_client)
         self.__data_views = DataViews(self.__base_client)
         self.__streams = Streams(self.__base_client)
+        self.__stream_views = StreamViews(self.__base_client)
         self.__types = Types(self.__base_client)
         self.__communities = Communities(self.__base_client)
         self.__namespaces = Namespaces(self.__base_client)
@@ -115,6 +117,13 @@ class OCSClient:
         :return: A client for interacting with Streams
         """
         return self.__streams
+
+    @property
+    def StreamViews(self) -> StreamViews:
+        """
+        :return: A client for interacting with Stream Views
+        """
+        return self.__stream_views
 
     @property
     def Types(self) -> Types:

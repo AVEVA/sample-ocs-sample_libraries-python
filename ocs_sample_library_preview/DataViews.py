@@ -307,6 +307,73 @@ class DataViews(Securable, object):
             return content, nextPage, firstPage
         return value_class.fromJson(content), nextPage, firstPage
 
+    def getDataStored(self, namespace_id: str = None, data_view_id: str = None,
+                            count: int = None, form: str = None, start_index: str = None,
+                            end_index: str = None, value_class=None, url: str = None
+                            ) -> tuple[Any, str, str]:
+        """
+        Retrieves the stored data of the 'dataView_id' from Sds Service
+        :param namespace_id: namespace to work against
+        :param data_view_id: Data View to work against
+        :param skip: number of values to skip
+        :param count: number of values to return
+        :param form: form definition
+        :param start_index: start index
+        :param end_index: end index
+        :param value_class: Use this to auto format the data into the defined
+            type.  The type is expected to have a fromJson method that takes a
+            dynamicObject and converts it into the defined type.
+            Otherwise you get a dynamic object
+        :return:
+        """
+        if url is None:
+            if namespace_id is None:
+                raise TypeError
+            if data_view_id is None:
+                raise TypeError
+
+        params = {
+            'count': count,
+            'form': form,
+            'startIndex': start_index,
+            'endIndex': end_index
+        }
+        response = {}
+        if url:
+            response = self.__baseClient.request('get', url)
+        else:
+            response = self.__baseClient.request(
+                'get',
+                self.__dataViewDataStored.format(
+                    tenant_id=self.__baseClient.tenant,
+                    namespace_id=namespace_id,
+                    dataView_id=data_view_id,
+                ),
+                params=params
+            )
+
+        self.__baseClient.checkResponse(
+            response,
+            f'Failed to get Data View data stored for Data View, {data_view_id}.',
+        )
+
+        # build dictionary of first/next page URL links, if any
+        links_header = response.headers.get('Link', '')
+        links = {link.group(2): link.group(1)
+                 for link in self.__urlLinks.finditer(links_header)}
+
+        nextPage = links.get('next', None)
+        firstPage = links.get('first', None)
+
+        if form is not None:
+            return response.text, nextPage, firstPage
+
+        content = response.json()
+
+        if value_class is None:
+            return content, nextPage, firstPage
+        return value_class.fromJson(content), nextPage, firstPage
+
     def __setPathAndQueryTemplates(self):
         """
         Internal  Sets the needed URLs
@@ -325,3 +392,4 @@ class DataViews(Securable, object):
         self.__dataViewResolvedAvailableFieldSets = self.__dataViewResolved + '/AvailableFieldSets'
         self.__dataViewData = self.__dataViewPath + '/data'
         self.__dataViewDataInterpolated = self.__dataViewData + '/interpolated'
+        self.__dataViewDataStored = self.__dataViewData + '/stored'

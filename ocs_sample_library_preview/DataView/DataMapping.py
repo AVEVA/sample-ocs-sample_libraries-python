@@ -143,7 +143,7 @@ class DataMapping(object):
             else:
                 result.SummaryType = SdsSummaryType[content['SummaryType']]
 
-        if 'SummaryDirection' in content:
+        if 'SummaryDirection' in content and content['SummaryDirection'] is not None:
             result.SummaryDirection = SummaryDirectionType[content['SummaryDirection']]
 
         if 'FieldSetIndex' in content:

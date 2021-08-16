@@ -1,5 +1,11 @@
 # Version History
 
+## 0.3.6_preview / 2021-08-09
+
+- Added stored value retrieval for data views
+- Updated dependencies
+- Cleaned up gitignore
+
 ## 0.3.5_preview / 2021-07-29
 
 - Added index collection value retrieval to the Streams class

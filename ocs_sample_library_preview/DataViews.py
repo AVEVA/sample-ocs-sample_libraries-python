@@ -19,8 +19,9 @@ class DataViews(Securable, object):
         Initializes the Data View client
         :param client: This is the base client that is used to make the calls
         """
+        super().__init__(client=client, collection='DataViews')
+        
         self.__baseClient = client
-        self.__setPathAndQueryTemplates()
         self.__urlLinks = re.compile(r'<(\S+)>; rel="(\S+)"')
 
         self.__setPathAndQueryTemplates()

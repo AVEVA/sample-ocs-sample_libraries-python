@@ -1,9 +1,9 @@
-from ocs_sample_library_preview.Security.AccessRights import AccessRights
 from jsonpatch import JsonPatch
 from typing import Any
 
 from .BaseClient import BaseClient
 from .Security.AccessControlList import AccessControlList
+from .Security.AccessRights import AccessRights
 from .Security.Owner import Owner
 
 class Securable(object):

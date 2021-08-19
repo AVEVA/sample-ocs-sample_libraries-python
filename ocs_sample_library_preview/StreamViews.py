@@ -1,10 +1,10 @@
 from .BaseClient import BaseClient
 from .SDS.SdsStreamView import SdsStreamView
 from .SDS.SdsStreamViewMap import SdsStreamViewMap
-from .Securable import Securable
+from .PatchableSecurable import PatchableSecurable
 
 
-class StreamViews(Securable, object):
+class StreamViews(PatchableSecurable, object):
     """
     Client for interacting with Stream Views
     """

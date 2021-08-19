@@ -7,10 +7,10 @@ from .SDS.SdsBoundaryType import SdsBoundaryType
 from .SDS.SdsResultPage import SdsResultPage
 from .SDS.SdsStream import SdsStream
 from .SDS.SdsType import SdsType
-from .Securable import Securable
+from .PatchableSecurable import PatchableSecurable
 
 
-class Streams(Securable, object):
+class Streams(PatchableSecurable, object):
     """
     Client for interacting with Streams
     """

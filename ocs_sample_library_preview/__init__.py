@@ -11,6 +11,7 @@ from .DataViews import DataViews
 from .Namespaces import Namespaces
 from .SdsError import SdsError
 from .Communities import Communities
+from .PatchableSecurable import PatchableSecurable
 from .Roles import Roles
 from .Securable import Securable
 from .Subscriptions import Subscriptions

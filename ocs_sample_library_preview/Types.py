@@ -2,10 +2,10 @@ import json
 
 from .SDS.SdsType import SdsType
 from .BaseClient import BaseClient
-from .Securable import Securable
+from .PatchableSecurable import PatchableSecurable
 
 
-class Types(Securable, object):
+class Types(PatchableSecurable, object):
     """
     Handles communication with Sds Service
     """

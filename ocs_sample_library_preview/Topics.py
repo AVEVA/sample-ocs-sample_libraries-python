@@ -7,7 +7,8 @@ from .Securable import Securable
 
 class Topics(Securable, object):
     """
-    Client for interacting with OCS Topic
+    Client for interacting with OCS Topics
+    This class does not represent the full functionality of the Topics route and is included to allow management of security on the route
     """
 
     def __init__(self, client: BaseClient):

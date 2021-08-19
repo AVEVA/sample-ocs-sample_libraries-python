@@ -3,7 +3,7 @@ from typing import Any
 
 from .BaseClient import BaseClient
 from .Security.AccessControlList import AccessControlList
-from .Security.AccessRights import AccessRights
+from .Security.CommonAccessRightsEnum import CommonAccessRightsEnum
 from .Security.Owner import Owner
 
 class Securable(object):
@@ -166,7 +166,7 @@ class Securable(object):
         self.__base_client.checkResponse(
             response, f'Failed to update access control, {item_id} in collection {self.__collection}.')
 
-    def getAccessRights(self, namespace_id: str, item_id: str) -> AccessRights:
+    def getAccessRights(self, namespace_id: str, item_id: str) -> list[CommonAccessRightsEnum]:
         """
         Get an item's access rights
         :param item_id: The item identifier
@@ -181,8 +181,15 @@ class Securable(object):
                 item_id=item_id))
         self.__base_client.checkResponse(
             response, f'Failed to get access rights, {item_id} in collection {self.__collection}.')
+        
+        content = response.json()
+        result = []
+        if len(content) > 0:
+            for i in content:
+              result.append(CommonAccessRightsEnum[i])
+        else:
+            result = [CommonAccessRightsEnum.none]
 
-        result = AccessRights.fromJson(response.json())
         return result
 
     # private methods

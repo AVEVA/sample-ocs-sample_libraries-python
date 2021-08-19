@@ -1,21 +1,21 @@
 import json
 
-from .OwnerType import OwnerType
+from .TrusteeType import TrusteeType
 
 class Owner(object):
   """OCS owner definition"""
 
-  def __init__(self, type: OwnerType = None, tenant_id: str = None, object_id: str = None):
+  def __init__(self, type: TrusteeType = None, tenant_id: str = None, object_id: str = None):
       self.Type = type
       self.TenantId = tenant_id
       self.ObjectId = object_id
 
   @property
-  def Type(self) -> OwnerType:
+  def Type(self) -> TrusteeType:
       return self.__type
 
   @Type.setter
-  def Type(self, value: OwnerType):
+  def Type(self, value: TrusteeType):
       self.__type = value
 
   @property
@@ -57,9 +57,9 @@ class Owner(object):
 
       if 'Type' in content:
           if (type(content['Type']) is str):
-            result.Type = OwnerType[content['Type']]
+            result.Type = TrusteeType[content['Type']]
           else:
-            result.Type = OwnerType(content['Type'])
+            result.Type = TrusteeType(content['Type'])
 
       if 'TenantId' in content:
           result.TenantId = content['TenantId']

@@ -7,7 +7,8 @@ from .Securable import Securable
 
 class Subscriptions(Securable, object):
     """
-    Client for interacting with OCS Subscription
+    Client for interacting with OCS Subscriptions
+    This class does not represent the full functionality of the Subscriptions route and is included to allow management of security on the route
     """
 
     def __init__(self, client: BaseClient):

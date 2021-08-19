@@ -15,6 +15,13 @@ class PatchableSecurable(Securable, object):
         """
         super().__init__(client=client, collection=collection)
 
+        self.__tenant = client.tenant
+        self.__uri_api = client.uri_API
+        self.__base_client = client
+        self.__collection = collection
+
+        self.__setPathAndQueryTemplates()
+
     def patchDefaultAccessControl(self, namespace_id: str, patch: JsonPatch):
         """
         Patch a collection's default access control list
@@ -50,3 +57,25 @@ class PatchableSecurable(Securable, object):
             data=patch.to_string())
         self.__base_client.checkResponse(
             response, f'Failed to patch access control, {item_id} in collection {self.__collection}.')
+
+    # private methods
+
+    def __setPathAndQueryTemplates(self):
+        """
+        creates the urls that are used
+        :return:
+        """
+        if self.__collection == 'Namespaces':
+          self.__base_path = self.__uri_api + \
+              '/Tenants/{tenant_id}'
+        else:
+          self.__base_path = self.__uri_api + \
+              '/Tenants/{tenant_id}/Namespaces/{namespace_id}'
+
+        self.__default_collection_acl_path = self.__base_path + \
+            '/AccessControl/' + self.__collection
+        
+        self.__collection_path = self.__base_path + '/' + self.__collection
+
+        self.__item_path = self.__collection_path + '/{item_id}'
+        self.__item_acl_path = self.__item_path + '/AccessControl'

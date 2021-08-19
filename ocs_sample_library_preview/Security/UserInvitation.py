@@ -28,11 +28,11 @@ class UserInvitation(object):
         self.__id = value
 
     @property
-    def ExpiresDataTime(self) -> str:
+    def ExpiresDateTime(self) -> str:
         return self.__expires_date_time
 
-    @ExpiresDataTime.setter
-    def ExpiresDataTime(self, value: str):
+    @ExpiresDateTime.setter
+    def ExpiresDateTime(self, value: str):
         self.__expires_date_time = value
 
     @property
@@ -121,7 +121,7 @@ class UserInvitation(object):
             result['Accepted'] = self.Accepted
         
         if self.State is not None:
-            result['State'] = self.State
+            result['State'] = self.State.value
 
         if self.SendInvitation is not None:
             result['SendInvitation'] = self.SendInvitation

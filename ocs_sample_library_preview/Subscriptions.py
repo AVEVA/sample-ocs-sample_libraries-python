@@ -41,22 +41,16 @@ class Subscriptions(Securable, object):
         result = Subscription.fromJson(response.json())
         return result
 
-    def getSubscriptions(self, namespace_id: str, query: str = '', skip: int = 0, count: int = 100,
-                  ) -> list[Subscription]:
+    def getSubscriptions(self, namespace_id: str) -> list[Subscription]:
         """
         Returns a list of Subscriptions
         :param namespace_id: The namespace identifier
-        :param query: An optional query string to search for matching subscriptions.
-        :param skip: An optional parameter representing the zero-based offset of the first subscription to
-        retrieve. If not specified, a default value of 0 is used.
-        :param count: An optional parameter, between 1 and 1000 (inclusive), that represents the
-        maximum number of retrieved Subscriptions. If not specified, the default is 100.
         """
         if namespace_id is None:
             raise TypeError
 
         response = self.__base_client.request('get', self.__subscriptions_path.format(
-            namespace_id=namespace_id), params={'skip': skip, 'count': count, 'query': query})
+            namespace_id=namespace_id))
         self.__base_client.checkResponse(response, f'Failed to get Subscriptions.')
 
         results = []

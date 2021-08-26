@@ -1,6 +1,6 @@
 # Version History
 
-## 0.4.0_preview / 2021-08-05
+## 0.4.0_preview / 2021-08-26
 
 - Added support for managing ACLs on securable collections
 - Support for additional collections (Users, Topics, Subscriptions, etc.)

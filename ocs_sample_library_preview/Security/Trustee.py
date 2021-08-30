@@ -57,6 +57,9 @@ class Trustee(object):
             return result
 
         if 'Type' in content:
+          if (type(content['Type']) is str):
+            result.Type = TrusteeType[content['Type']]
+          else:
             result.Type = TrusteeType(content['Type'])
 
         if 'TenantId' in content:

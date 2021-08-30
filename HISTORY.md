@@ -1,5 +1,11 @@
 # Version History
 
+## 0.4.0_preview / 2021-08-26
+
+- Added support for managing ACLs on securable collections
+- Support for additional collections (Users, Topics, Subscriptions, etc.)
+- Split related collections out of the Assts and Streams classes 
+
 ## 0.3.6_preview / 2021-08-09
 
 - Added stored value retrieval for data views

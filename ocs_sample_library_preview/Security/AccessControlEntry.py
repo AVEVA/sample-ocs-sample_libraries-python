@@ -57,9 +57,13 @@ class AccessControlEntry(object):
 
         if 'AccessType' in content:
             result.AccessType = AccessType(content['AccessType'])
+        else:
+            result.AccessType = AccessType.Allowed
 
         if 'AccessRights' in content:
             result.AccessRights = CommonAccessRightsEnum(
                 content['AccessRights'])
+        else:
+            result.AccessRights = CommonAccessRightsEnum.none
 
         return result

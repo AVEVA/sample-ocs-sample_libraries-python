@@ -2,14 +2,20 @@ import json
 
 from .SDS.SdsType import SdsType
 from .BaseClient import BaseClient
+from .PatchableSecurable import PatchableSecurable
 
 
-class Types(object):
+class Types(PatchableSecurable, object):
     """
     Handles communication with Sds Service
     """
 
     def __init__(self, client: BaseClient):
+        """
+        :param client: base client that handles auth and base routing
+        """
+        super().__init__(client=client, collection='Types')
+
         self.__tenant = client.tenant
         self.__url = client.uri_API
         self.__base_client = client

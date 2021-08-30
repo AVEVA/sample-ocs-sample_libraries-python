@@ -6,9 +6,10 @@ from .BaseClient import BaseClient
 from .DataView.DataView import DataView
 from .DataView.ResolvedDataItems import ResolvedDataItems
 from .DataView.FieldSets import ResolvedFieldSets
+from .Securable import Securable
 
 
-class DataViews(object):
+class DataViews(Securable, object):
     """
     Client for interacting with Data Views
     """
@@ -18,9 +19,12 @@ class DataViews(object):
         Initializes the Data View client
         :param client: This is the base client that is used to make the calls
         """
+        super().__init__(client=client, collection='DataViews')
+        
         self.__baseClient = client
-        self.__setPathAndQueryTemplates()
         self.__urlLinks = re.compile(r'<(\S+)>; rel="(\S+)"')
+
+        self.__setPathAndQueryTemplates()
 
     def postDataView(self, namespace_id: str, data_view: DataView) -> DataView:
         """

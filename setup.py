@@ -8,7 +8,7 @@ setuptools.setup(
     version='0.4.0_preview',
     author='OSIsoft',
     license='Apache 2.0',
-    author_email='samples@osisoft.com',
+    author_email='dendres@osisoft.com',
     description='A preview of an OCS (OSIsoft Cloud Services) client library',
     long_description=long_description,
     long_description_content_type='text/markdown',

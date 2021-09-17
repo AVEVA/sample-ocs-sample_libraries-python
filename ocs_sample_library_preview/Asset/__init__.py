@@ -2,6 +2,7 @@ from .Data import *
 from .Resolved import *
 from .Status import *
 from .Asset import Asset
+from .AssetRule import AssetRule
 from .AssetType import AssetType
 from .MetadataItem import MetadataItem
 from .StreamReference import StreamReference

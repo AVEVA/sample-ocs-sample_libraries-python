@@ -73,5 +73,5 @@ class AssetRules(Securable, object):
         """
         self.__base_path = self.__base_client.uri_API + '-preview/Tenants/' + \
             self.__base_client.tenant + '/Namespaces/{namespace_id}'
-        self.__asset_rules_path = self.__base_path + '/AssetsRules'
+        self.__asset_rules_path = self.__base_path + '/AssetRules'
         self.__asset_rule_path = self.__asset_rules_path + '/{asset_rule_id}'

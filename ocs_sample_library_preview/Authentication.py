@@ -33,10 +33,14 @@ class Authentication(object):
         return self.__getToken()
 
     def __getClientIDSecretToken(self) -> str:
-        tokenEndpoint = self.__url + '/identity/connect/token'
+
+        # Get OAuth endpoint configuration
+        endpoint = json.loads(requests.get(
+            self.__url + '/identity/.well-known/openid-configuration').content)
+        token_endpoint = endpoint.get('token_endpoint')
 
         tokenInformation = requests.post(
-            tokenEndpoint,
+            token_endpoint,
             data={'client_id': self.__client_id,
                   'client_secret': self.__client_secret,
                   'grant_type': 'client_credentials'})

@@ -16,7 +16,7 @@ class AssetRules(Securable, object):
         Initializes the Asset Rules client
         :param client: This is the base client that is used to make REST calls
         """
-        super().__init__(client=client, collection='AssetRules')
+        super().__init__(client=client, collection='AssetRules', api_suffix='-preview')
 
         self.__base_client = client
 

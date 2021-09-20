@@ -8,13 +8,13 @@ class Securable(object):
     Client for interacting with the access control of a collection
     """
 
-    def __init__(self, client: BaseClient, collection: str):
+    def __init__(self, client: BaseClient, collection: str, api_suffix: str = ''):
         """
         :param client: base client that handles auth and base routing
         :param acl_path: The access control path of the object
         """
         self.__tenant = client.tenant
-        self.__uri_api = client.uri_API
+        self.__uri_api = client.uri_API + api_suffix
         self.__base_client = client
         self.__collection = collection
 
@@ -42,7 +42,7 @@ class Securable(object):
             raise TypeError
 
         response = self.__base_client.request(
-            'put', self.__default_collection_acl_path(
+            'put', self.__default_collection_acl_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id),
             data=access_control.toJson())

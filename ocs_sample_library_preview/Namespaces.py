@@ -37,14 +37,11 @@ class Namespaces(Securable, object):
         result = Namespace.fromJson(response.json())
         return result
 
-    def getNamespaces(self, namespace_id: str, region: str = '') -> list[Namespace]:
+    def getNamespaces(self, region: str = '') -> list[Namespace]:
         """
         Returns a list of Namespaces
-        :param namespace_id: The namespace identifier
         :param region: An optional region string identifier.
         """
-        if namespace_id is None:
-            raise TypeError
 
         response = self.__base_client.request('get', self.__namespaces_path, params={'region': region})
         self.__base_client.checkResponse(response, f'Failed to get Namespaces.')

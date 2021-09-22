@@ -1,3 +1,4 @@
+from enum import IntEnum
 import json
 
 from .AccessType import AccessType
@@ -55,8 +56,10 @@ class AccessControlEntry(object):
         if 'Trustee' in content:
             result.Trustee = Trustee.fromJson(content['Trustee'])
 
-        if 'AccessType' in content:
+        if 'AccessType' in content and type(content['AccessType']) == int:
             result.AccessType = AccessType(content['AccessType'])
+        elif 'AccessType' in content and type(content['AccessType']) == str:
+            result.AccessType = AccessType[content['AccessType']]
         else:
             result.AccessType = AccessType.Allowed
 

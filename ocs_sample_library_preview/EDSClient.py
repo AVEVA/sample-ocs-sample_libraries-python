@@ -1,6 +1,7 @@
 from .BaseClient import BaseClient
 from .Types import Types
 from .Streams import Streams
+from .StreamViews import StreamViews
 
 
 class EDSClient:
@@ -21,6 +22,7 @@ class EDSClient:
             api_version, 'default', url, None, None, accept_verbosity)
         self.__types = Types(self.__base_client)
         self.__streams = Streams(self.__base_client)
+        self.__stream_views = StreamViews(self.__base_client)
 
     @property
     def uri(self) -> str:
@@ -64,6 +66,13 @@ class EDSClient:
         :return: A client for interacting with Streams
         """
         return self.__streams
+
+    @property
+    def StreamViews(self) -> StreamViews:
+        """
+        :return: A client for interacting with Stream Views
+        """
+        return self.__stream_views
 
     @property
     def baseClient(self) -> BaseClient:

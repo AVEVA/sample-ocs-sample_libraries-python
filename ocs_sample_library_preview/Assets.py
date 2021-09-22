@@ -18,7 +18,7 @@ class Assets(Securable, object):
         Initializes the Assets client
         :param client: This is the base client that is used to make REST calls
         """
-        super().__init__(client=client, collection='Assets')
+        super().__init__(client=client, collection='Assets', api_suffix='-preview')
 
         self.__base_client = client
         self.__setPathAndQueryTemplates()

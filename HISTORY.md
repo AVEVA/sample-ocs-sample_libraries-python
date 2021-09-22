@@ -1,5 +1,9 @@
 # Version History
 
+## 0.4.1_preview / 2021-09-10
+
+- Added StreamViews to EDS Client
+
 ## 0.4.0_preview / 2021-08-26
 
 - Added support for managing ACLs on securable collections

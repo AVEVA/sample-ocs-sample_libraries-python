@@ -140,7 +140,7 @@ class OCSClient:
         return self.__communities
 
     @property
-    def Namespaces(self) -> Roles:
+    def Namespaces(self) -> Namespaces:
         """
         :return: A client for interacting with Namespaces
         """

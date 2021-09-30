@@ -32,7 +32,7 @@ class AssetTypes(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('get', self.__asset_type_path.format(
-            namespace_id=namespace_id, asset_type_id=asset_type_id))
+            namespace_id=namespace_id, asset_type_id=self.__base_client.encode(asset_type_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get asset type, {asset_type_id}.')
 
@@ -74,7 +74,7 @@ class AssetTypes(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('post', self.__asset_type_path.format(
-            namespace_id=namespace_id, asset_type_id=asset_type.Id), data=asset_type.toJson())
+            namespace_id=namespace_id, asset_type_id=self.__base_client.encode(asset_type.Id)), data=asset_type.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create asset type, {asset_type.Id}.')
 
@@ -117,7 +117,7 @@ class AssetTypes(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('put', self.__asset_type_path.format(
-            namespace_id=namespace_id, asset_type_id=asset_type.Id), data=asset_type.toJson())
+            namespace_id=namespace_id, asset_type_id=self.__base_client.encode(asset_type.Id)), data=asset_type.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create or update asset type, {asset_type.Id}.')
 
@@ -136,7 +136,7 @@ class AssetTypes(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('delete', self.__asset_type_path.format(
-            namespace_id=namespace_id, asset_type_id=asset_type_id))
+            namespace_id=namespace_id, asset_type_id=self.__base_client.encode(asset_type_id)))
         self.__base_client.checkResponse(
             response, f'Failed to delete asset type, {asset_type_id}.')
 

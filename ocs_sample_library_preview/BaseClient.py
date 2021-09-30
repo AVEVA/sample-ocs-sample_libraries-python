@@ -1,4 +1,5 @@
 import requests
+from urllib.parse import urlsplit
 
 from .Authentication import Authentication
 from .SdsError import SdsError
@@ -78,6 +79,13 @@ class BaseClient(object):
         """
         return self.__auth_object.getToken()
 
+    def encode(self, url: str):
+        """
+        Url encodes a provided url string
+        :return:
+        """
+        return requests.utils.quote(url, safe=':')
+
     def sdsHeaders(self) -> dict[str, str]:
         """
         Gets the base headers needed for SDS call
@@ -133,4 +141,4 @@ class BaseClient(object):
     def request(self, method: str, url: str, params=None, data=None, headers=None, **kwargs):
         if not headers:
             headers = self.sdsHeaders()
-        return requests.request(method, requests.utils.quote(url, safe=':/'), params=params, data=data, headers=headers, **kwargs)
+        return requests.request(method, url, params=params, data=data, headers=headers, **kwargs)

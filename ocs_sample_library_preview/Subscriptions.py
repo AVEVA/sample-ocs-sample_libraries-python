@@ -34,7 +34,7 @@ class Subscriptions(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('get', self.__subscription_path.format(
-            namespace_id=namespace_id, subscription_id=subscription_id))
+            namespace_id=namespace_id, subscription_id=self.__base_client.encode(subscription_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get Subscription, {subscription_id}.')
 

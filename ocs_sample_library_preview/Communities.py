@@ -27,7 +27,7 @@ class Communities(object):
             raise TypeError
 
         response = self.__base_client.request(
-            'get', self.__community_path.format(community_id=community_id))
+            'get', self.__community_path.format(community_id=self.__base_client.encode(community_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get community, {community_id}.')
 
@@ -77,7 +77,7 @@ class Communities(object):
             raise TypeError
 
         response = self.__base_client.request(
-            'put', self.__community_path.format(community_id=community.Id), data=community.toJson())
+            'put', self.__community_path.format(community_id=self.__base_client.encode(community.Id)), data=community.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to update community, {community.Id}')
 
@@ -90,7 +90,7 @@ class Communities(object):
             raise TypeError
 
         response = self.__base_client.request(
-            'delete', self.__community_path.format(community_id=community_id))
+            'delete', self.__community_path.format(community_id=self.__base_client.encode(community_id)))
         self.__base_client.checkResponse(
             response, f'Failed to delete community, {community_id}.')
 
@@ -103,7 +103,7 @@ class Communities(object):
             raise TypeError
 
         response = self.__base_client.request(
-            'get', self.__summary_path.format(community_id=community_id))
+            'get', self.__summary_path.format(community_id=self.__base_client.encode(community_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get summary for community, {community_id}.')
 
@@ -128,7 +128,7 @@ class Communities(object):
             params['searchTenantId'] = search_tenant_id
 
         response = self.__base_client.request('get', self.__search_streams_path.format(
-            community_id=community_id), params=params)
+            community_id=self.__base_client.encode(community_id)), params=params)
         self.__base_client.checkResponse(
             response, f'Failed to search for streams.')
 

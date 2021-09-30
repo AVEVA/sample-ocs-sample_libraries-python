@@ -38,7 +38,7 @@ class StreamViews(PatchableSecurable, object):
             self.__stream_view_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_view_id=stream_view_id))
+                stream_view_id=self.__base_client.encode(stream_view_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get SdsStreamView, {stream_view_id}.')
 
@@ -63,7 +63,7 @@ class StreamViews(PatchableSecurable, object):
             self.__stream_view_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_view_id=stream_view_id) + '/Map')
+                stream_view_id=self.__base_client.encode(stream_view_id)) + '/Map')
         self.__base_client.checkResponse(
             response, f'Failed to get SdsStreamViewMap, {stream_view_id}.')
 
@@ -116,7 +116,7 @@ class StreamViews(PatchableSecurable, object):
             self.__stream_view_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_view_id=stream_view.Id),
+                stream_view_id=self.__base_client.encode(stream_view.Id)),
             data=stream_view.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create SdsStreamView, {stream_view.Id}.')
@@ -141,7 +141,7 @@ class StreamViews(PatchableSecurable, object):
             self.__stream_view_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_view_id=stream_view.Id),
+                stream_view_id=self.__base_client.encode(stream_view.Id)),
             data=stream_view.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create SdsStreamView, {stream_view.Id}.')
@@ -164,7 +164,7 @@ class StreamViews(PatchableSecurable, object):
             self.__stream_view_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_view_id=stream_view_id))
+                stream_view_id=self.__base_client.encode(stream_view_id)))
         self.__base_client.checkResponse(
             response, f'Failed to delete SdsStreamView, {stream_view_id}.')
 

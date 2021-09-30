@@ -35,7 +35,7 @@ class Assets(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('get', self.__asset_path.format(
-            namespace_id=namespace_id, asset_id=asset_id))
+            namespace_id=namespace_id, asset_id=self.__base_client.encode(asset_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get asset, {asset_id}.')
 
@@ -78,7 +78,7 @@ class Assets(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('post', self.__asset_path.format(
-            namespace_id=namespace_id, asset_id=asset.Id), data=asset.toJson())
+            namespace_id=namespace_id, asset_id=self.__base_client.encode(asset.Id)), data=asset.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create asset, {asset.Id}.')
 
@@ -120,7 +120,7 @@ class Assets(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('put', self.__asset_path.format(
-            namespace_id=namespace_id, asset_id=asset.Id), data=asset.toJson())
+            namespace_id=namespace_id, asset_id=self.__base_client.encode(asset.Id)), data=asset.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create or update asset, {asset.Id}.')
 
@@ -139,7 +139,7 @@ class Assets(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('delete', self.__asset_path.format(
-            namespace_id=namespace_id, asset_id=asset_id))
+            namespace_id=namespace_id, asset_id=self.__base_client.encode(asset_id)))
         self.__base_client.checkResponse(
             response, f'Failed to delete asset, {asset_id}.')
 
@@ -171,7 +171,7 @@ class Assets(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('get', self.__resolved_path.format(
-            namespace_id=namespace_id, asset_id=asset_id))
+            namespace_id=namespace_id, asset_id=self.__base_client.encode(asset_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get resolved asset, {asset_id}.')
 
@@ -211,7 +211,7 @@ class Assets(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('get', self.__last_path.format(
-            namespace_id=namespace_id, asset_id=asset_id))
+            namespace_id=namespace_id, asset_id=self.__base_client.encode(asset_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get last data for resolved asset, {asset_id}.')
 
@@ -240,7 +240,7 @@ class Assets(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('get', self.__sampled_path.format(
-            namespace_id=namespace_id, asset_id=asset_id, start_index=start_index,
+            namespace_id=namespace_id, asset_id=self.__base_client.encode(asset_id), start_index=start_index,
             end_index=end_index, intervals=intervals))
         self.__base_client.checkResponse(
             response, f'Failed to get sampled data for resolved asset, {asset_id}.')
@@ -270,7 +270,7 @@ class Assets(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('get', self.__summaries_path.format(
-            namespace_id=namespace_id, asset_id=asset_id, start_index=start_index,
+            namespace_id=namespace_id, asset_id=self.__base_client.encode(asset_id), start_index=start_index,
             end_index=end_index, count=count))
         self.__base_client.checkResponse(
             response, f'Failed to get summary data for resolved asset, {asset_id}.')
@@ -297,7 +297,7 @@ class Assets(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('get', self.__window_path.format(
-            namespace_id=namespace_id, asset_id=asset_id, start_index=start_index,
+            namespace_id=namespace_id, asset_id=self.__base_client.encode(asset_id), start_index=start_index,
             end_index=end_index))
         self.__base_client.checkResponse(
             response, f'Failed to get window data for resolved asset, {asset_id}.')
@@ -327,7 +327,7 @@ class Assets(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('get', self.__interpolated_path.format(
-            namespace_id=namespace_id, asset_id=asset_id, start_index=start_index,
+            namespace_id=namespace_id, asset_id=self.__base_client.encode(asset_id), start_index=start_index,
             end_index=end_index, count=count))
         self.__base_client.checkResponse(
             response, f'Failed to get interpolated data for resolved asset, {asset_id}.')
@@ -347,7 +347,7 @@ class Assets(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('get', self.__status_path.format(
-            namespace_id=namespace_id, asset_id=asset_id))
+            namespace_id=namespace_id, asset_id=self.__base_client.encode(asset_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get asset status, {asset_id}.')
 

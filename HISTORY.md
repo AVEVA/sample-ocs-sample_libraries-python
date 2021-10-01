@@ -1,5 +1,9 @@
 # Version History
 
+## 0.4.2_preview / 2021-09-30
+
+- Resolve issue with data view data calls accepting urls as input parameters
+
 ## 0.4.1_preview / 2021-09-10
 
 - Added StreamViews to EDS Client

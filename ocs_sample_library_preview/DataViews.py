@@ -44,7 +44,7 @@ class DataViews(Securable, object):
             self.__dataViewPath.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
-                dataView_id=data_view.Id,
+                dataView_id=self.__base_client.encode(data_view.Id),
             ),
             data=data_view.toJson()
         )
@@ -72,7 +72,7 @@ class DataViews(Securable, object):
             self.__dataViewPath.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
-                dataView_id=data_view.Id,
+                dataView_id=self.__base_client.encode(data_view.Id),
             ),
             data=data_view.toJson()
         )
@@ -96,7 +96,7 @@ class DataViews(Securable, object):
             self.__dataViewPath.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
-                dataView_id=data_view_id,
+                dataView_id=self.__base_client.encode(data_view_id),
             )
         )
         self.__baseClient.checkResponse(
@@ -120,7 +120,7 @@ class DataViews(Securable, object):
             self.__dataViewPath.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
-                dataView_id=data_view_id,
+                dataView_id=self.__base_client.encode(data_view_id),
             )
         )
         self.__baseClient.checkResponse(
@@ -173,7 +173,7 @@ class DataViews(Securable, object):
             self.__dataViewResolvedDataItems.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
-                dataView_id=data_view_id,
+                dataView_id=self.__base_client.encode(data_view_id),
                 query_id=query_id,
             )
         )
@@ -202,7 +202,7 @@ class DataViews(Securable, object):
             self.__dataViewResolvedIneligibleDataItems.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
-                dataView_id=data_view_id,
+                dataView_id=self.__base_client.encode(data_view_id),
                 query_id=query_id,
             )
         )
@@ -229,7 +229,7 @@ class DataViews(Securable, object):
             self.__dataViewResolvedAvailableFieldSets.format(
                 tenant_id=self.__baseClient.tenant,
                 namespace_id=namespace_id,
-                dataView_id=data_view_id
+                dataView_id=self.__base_client.encode(data_view_id)
             )
         )
         self.__baseClient.checkResponse(
@@ -281,7 +281,7 @@ class DataViews(Securable, object):
                 self.__dataViewDataInterpolated.format(
                     tenant_id=self.__baseClient.tenant,
                     namespace_id=namespace_id,
-                    dataView_id=data_view_id,
+                    dataView_id=self.__base_client.encode(data_view_id),
                 ),
                 params=params
             )
@@ -348,7 +348,7 @@ class DataViews(Securable, object):
                 self.__dataViewDataStored.format(
                     tenant_id=self.__baseClient.tenant,
                     namespace_id=namespace_id,
-                    dataView_id=data_view_id,
+                    dataView_id=self.__base_client.encode(data_view_id),
                 ),
                 params=params
             )

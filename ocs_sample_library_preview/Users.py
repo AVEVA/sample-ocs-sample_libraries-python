@@ -36,7 +36,7 @@ class Users(object):
             raise TypeError
 
         response = self.__base_client.request('get', self.__user_path.format(
-            namespace_id=namespace_id, user_id=user_id))
+            namespace_id=namespace_id, user_id=self.__base_client.encode(user_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get User, {user_id}.')
 
@@ -135,7 +135,7 @@ class Users(object):
             'post',
             self.__user_path.format(
                 tenant_id=self.__tenant,
-                user_id=user.Id),
+                user_id=self.__base_client.encode(user.Id)),
             data=user.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create User, {user.Id}.')
@@ -159,7 +159,7 @@ class Users(object):
             'post',
             self.__user_invitation_path.format(
                 tenant_id=self.__tenant,
-                user_id=user_id),
+                user_id=self.__base_client.encode(user_id)),
             data=user_invitation.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create User Invitation, {user_id}.')
@@ -180,7 +180,7 @@ class Users(object):
             'put',
             self.__user_path.format(
                 tenant_id=self.__tenant,
-                user_id=user.Id),
+                user_id=self.__base_client.encode(user.Id)),
             data=user.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create User, {user.Id}.')
@@ -201,7 +201,7 @@ class Users(object):
             'put',
             self.__user_invitation_path.format(
                 tenant_id=self.__tenant,
-                user_id=user_id),
+                user_id=self.__base_client.encode(user_id)),
             data=user_invitation.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create UserInviation, {user_id}.')
@@ -219,7 +219,7 @@ class Users(object):
             'delete',
             self.__user_path.format(
                 tenant_id=self.__tenant,
-                user_id=user_id))
+                user_id=self.__base_client.encode(user_id)))
         self.__base_client.checkResponse(
             response, f'Failed to delete User, {user_id}.')
 

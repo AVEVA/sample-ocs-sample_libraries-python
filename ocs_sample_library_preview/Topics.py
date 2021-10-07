@@ -34,7 +34,7 @@ class Topics(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('get', self.__topic_path.format(
-            namespace_id=namespace_id, topic_id=topic_id))
+            namespace_id=namespace_id, topic_id=self.__base_client.encode(topic_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get Topic, {topic_id}.')
 

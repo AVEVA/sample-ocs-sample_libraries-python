@@ -34,7 +34,7 @@ class AssetRules(Securable, object):
             raise TypeError
 
         response = self.__base_client.request('get', self.__asset_rule_path.format(
-            namespace_id=namespace_id, asset_rule_id=asset_rule_id))
+            namespace_id=namespace_id, asset_rule_id=self.__base_client.encode(asset_rule_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get asset rule, {asset_rule_id}.')
 

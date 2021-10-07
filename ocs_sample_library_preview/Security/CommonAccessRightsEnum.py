@@ -11,3 +11,4 @@ class CommonAccessRightsEnum(Flag):
     Delete = 4
     ManageAccessControl = 8
     Share = 16
+    All = 31

@@ -39,7 +39,7 @@ class Types(PatchableSecurable, object):
             self.__typePath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                type_id=type_id))
+                type_id=self.__base_client.encode(type_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get SdsType, {type_id}.')
 
@@ -63,7 +63,7 @@ class Types(PatchableSecurable, object):
             self.__typeRefCountPath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                type_id=type_id))
+                type_id=self.__base_client.encode(type_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get SdsType reference count, {type_id}.')
 
@@ -117,7 +117,7 @@ class Types(PatchableSecurable, object):
             self.__typePath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                type_id=type.Id),
+                type_id=self.__base_client.encode(type.Id)),
             data=type.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to create type, {type.Id}.')
@@ -143,7 +143,7 @@ class Types(PatchableSecurable, object):
             self.__typePath.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                type_id=type_id))
+                type_id=self.__base_client.encode(type_id)))
         self.__base_client.checkResponse(
             response, f'Failed to delete SdsType, {type_id}.')
 

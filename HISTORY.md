@@ -1,5 +1,9 @@
 # Version History
 
+## 0.4.3_preview / 2021-09-31
+
+- Add support for special characters in Ids by url encoding them
+
 ## 0.4.2_preview / 2021-09-30
 
 - Resolve issue with data view data calls accepting urls as input parameters
@@ -12,7 +16,7 @@
 
 - Added support for managing ACLs on securable collections
 - Support for additional collections (Users, Topics, Subscriptions, etc.)
-- Split related collections out of the Assts and Streams classes 
+- Split related collections out of the Assts and Streams classes
 
 ## 0.3.6_preview / 2021-08-09
 

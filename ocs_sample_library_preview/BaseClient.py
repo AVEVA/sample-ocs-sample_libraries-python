@@ -1,4 +1,5 @@
 import requests
+from urllib.parse import urlsplit
 
 from .Authentication import Authentication
 from .SdsError import SdsError
@@ -77,6 +78,13 @@ class BaseClient(object):
         :return:
         """
         return self.__auth_object.getToken()
+
+    def encode(self, url: str):
+        """
+        Url encodes a provided url string
+        :return:
+        """
+        return requests.utils.quote(url, safe=':')
 
     def sdsHeaders(self) -> dict[str, str]:
         """

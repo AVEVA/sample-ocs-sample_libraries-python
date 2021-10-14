@@ -382,7 +382,7 @@ class Assets(Securable, object):
         Creates URLs that are used by the client
         :return:
         """
-        self.__base_path = self.__base_client.uri_API + '-preview/Tenants/' + \
+        self.__base_path = self.__base_client.uri_API + '/Tenants/' + \
             self.__base_client.tenant + '/Namespaces/{namespace_id}'
         self.__assets_path = self.__base_path + '/Assets'
         self.__bulk_path = self.__base_path + '/Bulk/Assets'

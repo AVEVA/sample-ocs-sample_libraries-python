@@ -1,5 +1,9 @@
 # Version History
 
+## 0.4.4_preview / 2021-10-14
+
+- Update base client references in DataViews class and remove extra  '-preview' string in Asset & AssetTypes classes
+
 ## 0.4.3_preview / 2021-09-31
 
 - Add support for special characters in Ids by url encoding them

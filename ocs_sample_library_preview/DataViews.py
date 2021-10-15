@@ -21,7 +21,7 @@ class DataViews(Securable, object):
         """
         super().__init__(client=client, collection='DataViews')
         
-        self.__baseClient = client
+        self.__base_client = client
         self.__urlLinks = re.compile(r'<(\S+)>; rel="(\S+)"')
 
         self.__setPathAndQueryTemplates()
@@ -39,16 +39,16 @@ class DataViews(Securable, object):
         if data_view is None or not isinstance(data_view, DataView):
             raise TypeError
 
-        response = self.__baseClient.request(
+        response = self.__base_client.request(
             'post',
             self.__dataViewPath.format(
-                tenant_id=self.__baseClient.tenant,
+                tenant_id=self.__base_client.tenant,
                 namespace_id=namespace_id,
                 dataView_id=self.__base_client.encode(data_view.Id),
             ),
             data=data_view.toJson()
         )
-        self.__baseClient.checkResponse(
+        self.__base_client.checkResponse(
             response, f'Failed to create Data View, {data_view.Id}.'
         )
 
@@ -67,16 +67,16 @@ class DataViews(Securable, object):
         if data_view is None or not isinstance(data_view, DataView):
             raise TypeError
 
-        response = self.__baseClient.request(
+        response = self.__base_client.request(
             'put',
             self.__dataViewPath.format(
-                tenant_id=self.__baseClient.tenant,
+                tenant_id=self.__base_client.tenant,
                 namespace_id=namespace_id,
                 dataView_id=self.__base_client.encode(data_view.Id),
             ),
             data=data_view.toJson()
         )
-        self.__baseClient.checkResponse(
+        self.__base_client.checkResponse(
             response, f'Failed to update Data View, {data_view.Id}.'
         )
 
@@ -91,15 +91,15 @@ class DataViews(Securable, object):
         if data_view_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
+        response = self.__base_client.request(
             'delete',
             self.__dataViewPath.format(
-                tenant_id=self.__baseClient.tenant,
+                tenant_id=self.__base_client.tenant,
                 namespace_id=namespace_id,
                 dataView_id=self.__base_client.encode(data_view_id),
             )
         )
-        self.__baseClient.checkResponse(
+        self.__base_client.checkResponse(
             response, f'Failed to delete Data View, {data_view_id}.'
         )
 
@@ -115,15 +115,15 @@ class DataViews(Securable, object):
         if data_view_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
+        response = self.__base_client.request(
             'get',
             self.__dataViewPath.format(
-                tenant_id=self.__baseClient.tenant,
+                tenant_id=self.__base_client.tenant,
                 namespace_id=namespace_id,
                 dataView_id=self.__base_client.encode(data_view_id),
             )
         )
-        self.__baseClient.checkResponse(
+        self.__base_client.checkResponse(
             response, f'Failed to get Data View, {data_view_id}.'
         )
 
@@ -141,14 +141,14 @@ class DataViews(Securable, object):
         if namespace_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
+        response = self.__base_client.request(
             'get',
             self.__dataViewsPath.format(
-                tenant_id=self.__baseClient.tenant, namespace_id=namespace_id
+                tenant_id=self.__base_client.tenant, namespace_id=namespace_id
             ),
             params={'skip': skip, 'count': count}
         )
-        self.__baseClient.checkResponse(response, 'Failed to get Data Views.')
+        self.__base_client.checkResponse(response, 'Failed to get Data Views.')
 
         dataViews = json.loads(response.content)
         results = []
@@ -168,16 +168,16 @@ class DataViews(Securable, object):
         if namespace_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
+        response = self.__base_client.request(
             'get',
             self.__dataViewResolvedDataItems.format(
-                tenant_id=self.__baseClient.tenant,
+                tenant_id=self.__base_client.tenant,
                 namespace_id=namespace_id,
                 dataView_id=self.__base_client.encode(data_view_id),
                 query_id=query_id,
             )
         )
-        self.__baseClient.checkResponse(
+        self.__base_client.checkResponse(
             response, f'Failed to get ResolvedDataitems for Data View, {data_view_id}.'
         )
 
@@ -197,16 +197,16 @@ class DataViews(Securable, object):
         if namespace_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
+        response = self.__base_client.request(
             'get',
             self.__dataViewResolvedIneligibleDataItems.format(
-                tenant_id=self.__baseClient.tenant,
+                tenant_id=self.__base_client.tenant,
                 namespace_id=namespace_id,
                 dataView_id=self.__base_client.encode(data_view_id),
                 query_id=query_id,
             )
         )
-        self.__baseClient.checkResponse(
+        self.__base_client.checkResponse(
             response, f'Failed to get ResolvedIneligibleDataitems for Data View, {data_view_id}.'
         )
 
@@ -224,15 +224,15 @@ class DataViews(Securable, object):
         if namespace_id is None:
             raise TypeError
 
-        response = self.__baseClient.request(
+        response = self.__base_client.request(
             'get',
             self.__dataViewResolvedAvailableFieldSets.format(
-                tenant_id=self.__baseClient.tenant,
+                tenant_id=self.__base_client.tenant,
                 namespace_id=namespace_id,
                 dataView_id=self.__base_client.encode(data_view_id)
             )
         )
-        self.__baseClient.checkResponse(
+        self.__base_client.checkResponse(
             response, f'Failed to get ResolvedAvailableFieldSetsfor Data View, {data_view_id}.'
         )
 
@@ -274,19 +274,19 @@ class DataViews(Securable, object):
         }
         response = {}
         if url:
-            response = self.__baseClient.request('get', url)
+            response = self.__base_client.request('get', url)
         else:
-            response = self.__baseClient.request(
+            response = self.__base_client.request(
                 'get',
                 self.__dataViewDataInterpolated.format(
-                    tenant_id=self.__baseClient.tenant,
+                    tenant_id=self.__base_client.tenant,
                     namespace_id=namespace_id,
                     dataView_id=self.__base_client.encode(data_view_id),
                 ),
                 params=params
             )
 
-        self.__baseClient.checkResponse(
+        self.__base_client.checkResponse(
             response,
             f'Failed to get Data View data interpolated for Data View, {data_view_id}.',
         )
@@ -341,19 +341,19 @@ class DataViews(Securable, object):
         }
         response = {}
         if url:
-            response = self.__baseClient.request('get', url)
+            response = self.__base_client.request('get', url)
         else:
-            response = self.__baseClient.request(
+            response = self.__base_client.request(
                 'get',
                 self.__dataViewDataStored.format(
-                    tenant_id=self.__baseClient.tenant,
+                    tenant_id=self.__base_client.tenant,
                     namespace_id=namespace_id,
                     dataView_id=self.__base_client.encode(data_view_id),
                 ),
                 params=params
             )
 
-        self.__baseClient.checkResponse(
+        self.__base_client.checkResponse(
             response,
             f'Failed to get Data View data stored for Data View, {data_view_id}.',
         )
@@ -380,7 +380,7 @@ class DataViews(Securable, object):
         Internal  Sets the needed URLs
         :return:
         """
-        self.__basePath = self.__baseClient.uri_API + \
+        self.__basePath = self.__base_client.uri_API + \
             '/Tenants/{tenant_id}/Namespaces/{namespace_id}'
 
         self.__dataViewsPath = self.__basePath + '/dataviews'

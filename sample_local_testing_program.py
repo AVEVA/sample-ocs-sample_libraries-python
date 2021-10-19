@@ -210,7 +210,7 @@ def main(test=False):
         print()
         print("Step 5: Add a query for data items")
         query = Query(id=queryID, value=queryString)
-        dv.Queries.append(query)
+        dv.Queries = [query]
         # No Data View returned, success is 204
         ocsClient.DataViews.putDataView(namespaceId, dv)
 
@@ -258,7 +258,7 @@ def main(test=False):
         print("Step 9: Group the data view")
         grouping = Field(source=fieldSourceForGrouping,
                          label="{DistinguisherValue} {FirstKey}")
-        dv.GroupingFields.append(grouping)
+        dv.GroupingFields = [grouping]
         # No DataView returned, success is 204
         ocsClient.DataViews.putDataView(namespaceId, dv)
 

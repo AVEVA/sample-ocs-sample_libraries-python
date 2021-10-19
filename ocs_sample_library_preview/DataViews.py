@@ -247,16 +247,17 @@ class DataViews(Securable, object):
         Retrieves the interpolated data of the 'dataView_id' from Sds Service
         :param namespace_id: namespace to work against
         :param data_view_id: Data View to work against
-        :param skip: number of values to skip
         :param count: number of values to return
-        :param form: form definition
+        :param form: form definition of the response (such as table or csv. leave empty for the json default)
         :param start_index: start index
         :param end_index: end index
-        :param interval: space between values
+        :param interval: interval between values (for datetime indexes, the syntax is d.hh:mm:ss)
         :param value_class: Use this to auto format the data into the defined
             type.  The type is expected to have a fromJson method that takes a
             dynamicObject and converts it into the defined type.
             Otherwise you get a dynamic object
+        :param url: a complete url to be called as is; this is intended for a page of results
+            using the next or first link headers from a previous call
         :return:
         """
         if url is None:
@@ -299,7 +300,7 @@ class DataViews(Securable, object):
         nextPage = links.get('next', None)
         firstPage = links.get('first', None)
 
-        if form is not None:
+        if form is not None and form.casefold() != "default":
             return response.text, nextPage, firstPage
 
         content = response.json()
@@ -316,15 +317,16 @@ class DataViews(Securable, object):
         Retrieves the stored data of the 'dataView_id' from Sds Service
         :param namespace_id: namespace to work against
         :param data_view_id: Data View to work against
-        :param skip: number of values to skip
         :param count: number of values to return
-        :param form: form definition
+        :param form: form definition of the response (such as table or csv. leave empty for the json default)
         :param start_index: start index
         :param end_index: end index
         :param value_class: Use this to auto format the data into the defined
             type.  The type is expected to have a fromJson method that takes a
             dynamicObject and converts it into the defined type.
             Otherwise you get a dynamic object
+        :param url: a complete url to be called as is; this is intended for a page of results
+            using the next or first link headers from a previous call
         :return:
         """
         if url is None:
@@ -366,7 +368,7 @@ class DataViews(Securable, object):
         nextPage = links.get('next', None)
         firstPage = links.get('first', None)
 
-        if form is not None:
+        if form is not None and form.casefold() != "default":
             return response.text, nextPage, firstPage
 
         content = response.json()

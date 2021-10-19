@@ -1,5 +1,11 @@
 # Version History
 
+## 0.4.5_preview / 2021-10-21
+
+- Enhanced data view data form parameter support to allow for form=default
+- Updated data view function documentation
+- Updated sample test script to match data view sample syntax
+
 ## 0.4.4_preview / 2021-10-14
 
 - Update base client references in DataViews class

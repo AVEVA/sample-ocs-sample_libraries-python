@@ -1,6 +1,6 @@
 # OSIsoft Cloud Services Python Library Sample
 
-**Version:** 0.4.4_preview
+**Version:** 0.4.5_preview
 
 [![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/OCS/osisoft.sample-ocs-sample_libraries-python?branchName=main)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=2622&branchName=main)
 
@@ -24,6 +24,6 @@ Developed using Python 3.9.1.
 
 [OSI Samples](https://github.com/osisoft/OSI-samples) are licensed under the Apache 2 license.
 
-For the main OCS sample libraries page [ReadMe](https://github.com/osisoft/OSI-Samples-OCS/blob/main/docs/SAMPLE_LIBRARIES_README.md)  
+For the main OCS sample libraries page [ReadMe](https://github.com/osisoft/OSI-Samples-OCS/blob/main/docs/SAMPLE_LIBRARIES.md)  
 For the main OCS samples page [ReadMe](https://github.com/osisoft/OSI-Samples-OCS)  
 For the main OSIsoft samples page [ReadMe](https://github.com/osisoft/OSI-Samples)

@@ -61,7 +61,7 @@ class Securable(object):
             'get', self.__item_acl_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                item_id=item_id))
+                item_id=self.__base_client.encode(item_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get access control, {item_id} in collection {self.__collection}.')
 
@@ -83,7 +83,7 @@ class Securable(object):
             'put', self.__item_acl_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                item_id=item_id),
+                item_id=self.__base_client.encode(item_id)),
             data=access_control.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to update access control, {item_id} in collection {self.__collection}.')
@@ -100,7 +100,7 @@ class Securable(object):
             'get', self.__item_owner_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                item_id=item_id))
+                item_id=self.__base_client.encode(item_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get owner, {item_id} in collection {self.__collection}.')
 
@@ -122,7 +122,7 @@ class Securable(object):
             'put', self.__item_owner_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                item_id=item_id),
+                item_id=self.__base_client.encode(item_id)),
             data=owner.toJson())
         self.__base_client.checkResponse(
             response, f'Failed to update access control, {item_id} in collection {self.__collection}.')
@@ -139,7 +139,7 @@ class Securable(object):
             'get', self.__item_access_rights_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                item_id=item_id))
+                item_id=self.__base_client.encode(item_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get access rights, {item_id} in collection {self.__collection}.')
         

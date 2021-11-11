@@ -141,4 +141,5 @@ class BaseClient(object):
     def request(self, method: str, url: str, params=None, data=None, headers=None, **kwargs):
         if not headers:
             headers = self.sdsHeaders()
+
         return requests.request(method, url, params=params, data=data, headers=headers, **kwargs)

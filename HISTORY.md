@@ -1,5 +1,9 @@
 # Version History
 
+## 0.4.6_preview / 2021-11-12
+
+- Added support for community header when calling communities APIs
+
 ## 0.4.5_preview / 2021-10-21
 
 - Enhanced data view data form parameter support to allow for form=default

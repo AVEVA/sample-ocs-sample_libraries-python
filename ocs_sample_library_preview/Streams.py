@@ -1,6 +1,5 @@
 import json
 
-from requests.api import head
 from jsonpatch import JsonPatch
 from typing import Any
 
@@ -1114,9 +1113,7 @@ class Streams(PatchableSecurable, object):
         if count is None:
             raise TypeError
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         return self.getSummariesUrl(self.__stream_path.format(
             tenant_id=self.__tenant,

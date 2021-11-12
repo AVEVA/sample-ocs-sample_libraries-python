@@ -1,8 +1,13 @@
 # Version History
 
-## 0.4.6_preview / 2021-11-12
+## 0.4.7_preview / 2021-11-12
 
 - Added support for community header when calling communities APIs
+
+## 0.4.6_preview / 2021-11-11
+
+- Modified BaseClient to use a single requests session
+- Added URL encoding to Securable and Patchable Securable classes
 
 ## 0.4.5_preview / 2021-10-21
 

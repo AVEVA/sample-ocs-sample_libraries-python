@@ -23,6 +23,7 @@ class BaseClient(object):
             self.__auth_object = None
 
         self.__uri_api = url + '/api/' + api_version
+        self.__session = requests.Session()
 
     @property
     def uri(self) -> str:
@@ -141,5 +142,4 @@ class BaseClient(object):
     def request(self, method: str, url: str, params=None, data=None, headers=None, **kwargs):
         if not headers:
             headers = self.sdsHeaders()
-
-        return requests.request(method, url, params=params, data=data, headers=headers, **kwargs)
+        return self.__session.request(method, url, params=params, data=data, headers=headers, **kwargs)

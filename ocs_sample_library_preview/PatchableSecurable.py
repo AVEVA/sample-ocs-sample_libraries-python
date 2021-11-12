@@ -53,7 +53,7 @@ class PatchableSecurable(Securable, object):
             'patch', self.__item_acl_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                item_id=item_id),
+                item_id=self.__base_client.encode(item_id)),
             data=patch.to_string())
         self.__base_client.checkResponse(
             response, f'Failed to patch access control, {item_id} in collection {self.__collection}.')

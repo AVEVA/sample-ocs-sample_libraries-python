@@ -42,9 +42,7 @@ class Streams(PatchableSecurable, object):
         if stream_id is None:
             raise TypeError
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         response = self.__base_client.request(
             'get',
@@ -99,9 +97,7 @@ class Streams(PatchableSecurable, object):
         if query is None:
             raise TypeError
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         response = self.__base_client.request(
             'get',
@@ -286,9 +282,7 @@ class Streams(PatchableSecurable, object):
         if namespace_id is None:
             raise TypeError
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         response = self.__base_client.request(
             'get',
@@ -315,9 +309,7 @@ class Streams(PatchableSecurable, object):
         if namespace_id is None:
             raise TypeError
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         response = self.__base_client.request(
             'get',
@@ -379,9 +371,7 @@ class Streams(PatchableSecurable, object):
         if index is None:
             raise TypeError
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         response = self.__base_client.request(
             'get', self.__data_path.format(stream=url), params={'index': index}, headers=headers)
@@ -431,9 +421,7 @@ class Streams(PatchableSecurable, object):
         if url is None:
             raise TypeError
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         response = self.__base_client.request(
             'get', self.__first_path.format(stream=url), headers=headers)
@@ -483,9 +471,7 @@ class Streams(PatchableSecurable, object):
         if url is None:
             raise TypeError
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         response = self.__base_client.request(
             'get', self.__last_path.format(stream=url), headers=headers)
@@ -552,9 +538,7 @@ class Streams(PatchableSecurable, object):
         if end is None:
             raise TypeError
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         response = self.__base_client.request(
             'get', self.__data_path.format(stream=url),
@@ -640,9 +624,7 @@ class Streams(PatchableSecurable, object):
         if continuation_token is None:
             raise TypeError
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         response = self.__base_client.request(
             'get', self.__data_path.format(stream=url),
@@ -718,9 +700,7 @@ class Streams(PatchableSecurable, object):
         if end is None:
             raise TypeError
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         response = self.__base_client.request(
             'get', self.__data_path.format(stream=url), params={'startIndex': start, 'endIndex': end, 'form': form}, headers=headers)
@@ -822,9 +802,7 @@ class Streams(PatchableSecurable, object):
         if isinstance(boundary_type, SdsBoundaryType):
             boundary = boundary_type.value
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         response = self.__base_client.request(
             'get', self.__transform_path.format(stream=url),
@@ -905,9 +883,7 @@ class Streams(PatchableSecurable, object):
         if count is None:
             raise TypeError
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         response = self.__base_client.request(
             'get', self.__transform_interpolated_path.format(stream=url),
@@ -979,9 +955,7 @@ class Streams(PatchableSecurable, object):
         for i in index:
             params.append(('index', i))
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         response = self.__base_client.request(
             'get', self.__transform_interpolated_path.format(stream=url),
@@ -1086,9 +1060,7 @@ class Streams(PatchableSecurable, object):
         else:
             _path = self.__transform_sampled_path.format(stream=url)
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         response = self.__base_client.request(
             'get',
@@ -1179,9 +1151,7 @@ class Streams(PatchableSecurable, object):
         if count is None:
             raise TypeError
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
 
         # if stream_view_id is not set, do not specify /transform/ route
         # and stream_view_id parameter
@@ -1409,9 +1379,7 @@ class Streams(PatchableSecurable, object):
         if join_mode is None:
             raise TypeError
 
-        headers = self.__base_client.sdsHeaders()
-        if community_id != '':
-            headers['community-id'] = community_id
+        headers = self.__getRequestHeaders(community_id=community_id)
             
         response = self.__base_client.request(
             'get',
@@ -1439,6 +1407,17 @@ class Streams(PatchableSecurable, object):
         return values
 
     # private methods
+
+    def __getRequestHeaders(self, community_id: str = ''):
+        """
+        returns headers to use for a request given a community id
+        :return: a collection of headers.
+        """
+        headers = self.__base_client.sdsHeaders()
+        if community_id != '':
+            headers['community-id'] = community_id
+
+        return headers
 
     def __setPathAndQueryTemplates(self):
         """

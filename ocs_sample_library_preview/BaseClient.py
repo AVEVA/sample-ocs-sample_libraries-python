@@ -143,3 +143,6 @@ class BaseClient(object):
         if not headers:
             headers = self.sdsHeaders()
         return self.__session.request(method, url, params=params, data=data, headers=headers, **kwargs)
+
+    def __del__(self):
+        self.__session.close()

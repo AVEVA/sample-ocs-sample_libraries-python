@@ -1,5 +1,9 @@
 # Version History
 
+## 0.4.7_preview / 2021-11-20
+
+- Delete requests session when the BaseClient is disposed of
+
 ## 0.4.6_preview / 2021-11-11
 
 - Modified BaseClient to use a single requests session

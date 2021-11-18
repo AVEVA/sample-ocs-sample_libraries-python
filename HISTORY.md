@@ -1,5 +1,9 @@
 # Version History
 
+## 0.4.8_preview / 2021-11-20
+
+- Delete sample_local_testing_program and add appsettings.json to gitignore
+
 ## 0.4.7_preview / 2021-11-20
 
 - Delete requests session when the BaseClient is disposed of

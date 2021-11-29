@@ -1,5 +1,14 @@
 # Version History
 
+## 0.4.9_preview / 2021-11-30
+
+- Set default value of ValueClass to None for Streams.getWindowValues(Url) and reordered this argument to after all required arguments
+- Add query parameter to StreamViews.getStreamViews
+
+## 0.4.8_preview / 2021-11-20
+
+- Delete sample_local_testing_program and add appsettings.json to gitignore
+
 ## 0.4.7_preview / 2021-11-20
 
 - Delete requests session when the BaseClient is disposed of

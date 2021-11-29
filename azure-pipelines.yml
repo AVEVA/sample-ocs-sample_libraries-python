@@ -33,6 +33,7 @@ variables:
   - name: analysisProject
     value: Lib_Python
 
+jobs:
   - template: '/miscellaneous/build_templates/code-analysis.yml@templates'
     parameters:
       buildSteps:

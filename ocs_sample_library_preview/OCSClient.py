@@ -12,7 +12,7 @@ from .Subscriptions import Subscriptions
 from .Topics import Topics
 from .Types import Types
 from .Users import Users
-
+from .SharedStreams import SharedStreams
 
 class OCSClient:
     """
@@ -46,6 +46,7 @@ class OCSClient:
         self.__subscriptions = Subscriptions(self.__base_client)
         self.__topics = Topics(self.__base_client)
         self.__users = Users(self.__base_client)
+        self.__sharedStreams = SharedStreams(self.__base_client)
 
     @property
     def uri(self) -> str:
@@ -103,6 +104,13 @@ class OCSClient:
         :return: A client for interacting with Asset Types
         """
         return self.__asset_types
+
+    @property
+    def SharedStreams(self) -> SharedStreams:
+        """
+        :return: A client for interacting with Streams shared in a Community
+        """
+        return self.__sharedStreams
 
     @property
     def DataViews(self) -> DataViews:

@@ -5,12 +5,17 @@ class StreamSearchResult(object):
     """OCS stream search result definition"""
 
     def __init__(self, id: str = None, name: str = None, type_id: str = None,
-                 description: str = None, self_link: str = None):
+                 description: str = None, self_link: str = None, tenant_id: str = None,
+                 tenant_name: str = None, namespace_id: str = None, community_id: str = None):
         self.Id = id
         self.Name = name
         self.TypeId = type_id
         self.Description = description
         self.Self = self_link
+        self.TenantId = tenant_id,
+        self.TenantName = tenant_name,
+        self.NamespaceId = namespace_id,
+        self.CommunityId = community_id
 
     @property
     def Id(self) -> str:
@@ -52,6 +57,38 @@ class StreamSearchResult(object):
     def Self(self, value: str):
         self.__self = value
 
+    @property
+    def TenantId(self) -> str:
+        return self.__tenant_id 
+
+    @TenantId.setter
+    def TenantId(self, value: str):
+        self.__tenant_id = value
+
+    @property
+    def TenantName(self) -> str:
+        return self.__tenant_name
+
+    @TenantName.setter
+    def TenantName(self, value: str):
+        self.__tenant_name = value
+
+    @property
+    def NamespaceId(self) -> str:
+        return self.__namespace_id
+
+    @NamespaceId.setter
+    def NamespaceId(self, value: str):
+        self.__namespace_id = value
+
+    @property
+    def CommunityId(self) -> str:
+        return self.__community_id
+
+    @CommunityId.setter
+    def CommunityId(self, value: str):
+        self.__community_id = value
+
     def toJson(self):
         return json.dumps(self.toDictionary())
 
@@ -80,5 +117,17 @@ class StreamSearchResult(object):
 
         if 'Self' in content:
             result.Self = content['Self']
+
+        if 'TenantId' in content:
+            result.TenantId = content['TenantId']
+
+        if 'TenantName' in content:
+            result.TenantName = content['TenantName']
+
+        if 'NamespaceId' in content:
+            result.NamespaceId = content['NamespaceId']
+
+        if 'CommunityId' in content:
+            result.CommunityId = content['CommunityId']
 
         return result

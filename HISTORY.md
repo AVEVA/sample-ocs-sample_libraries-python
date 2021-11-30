@@ -1,8 +1,12 @@
 # Version History
 
-## 0.4.8_preview / 2021-12-07
+## 0.4.9_preview / 2021-11-30
 
 - Update pipelines to reference internal analysis templates
+
+## 0.4.8_preview / 2021-11-20
+
+- Delete sample_local_testing_program and add appsettings.json to gitignore
 
 ## 0.4.7_preview / 2021-11-20
 

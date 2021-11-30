@@ -482,7 +482,7 @@ class Streams(PatchableSecurable, object):
         return self.getWindowValuesUrl(self.__stream_path.format(
             tenant_id=self.__tenant,
             namespace_id=namespace_id,
-            stream_id=self.__base_client.encode(stream_id)), value_class, start, end, filter)
+            stream_id=self.__base_client.encode(stream_id)), start, end, value_class, filter)
 
     def getWindowValuesUrl(self, url: str, start: str, end: str, value_class: type = None, filter: str = '') -> list[Any]:
         """

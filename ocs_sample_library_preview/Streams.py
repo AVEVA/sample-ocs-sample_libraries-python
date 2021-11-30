@@ -1,5 +1,4 @@
 import json
-
 from jsonpatch import JsonPatch
 from typing import Any
 
@@ -267,7 +266,6 @@ class Streams(PatchableSecurable, object):
         Tells Sds Service to get tags associated with the given stream_id
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to get the tags of
-        
         :return: stream's tags
         """
         if namespace_id is None:
@@ -291,7 +289,6 @@ class Streams(PatchableSecurable, object):
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to get the metadata value of
         :param key: specific metadata field to retrieve
-        
         :return: value at the key
         """
         if namespace_id is None:
@@ -544,7 +541,6 @@ class Streams(PatchableSecurable, object):
         :param count: maximum number of events to return.
         :param continuationToken: token used to retrieve the next page of data.
         :param filter: An optional filter.  By Default it is ''.
-        
         :return: an SdsResultPage containing the results and the next continuation token.
             If value_class is defined it is in this type.
             Otherwise it is a dynamic Python object
@@ -565,7 +561,7 @@ class Streams(PatchableSecurable, object):
         return self.getWindowValuesPagedUrl(self.__stream_path.format(
             tenant_id=self.__tenant,
             namespace_id=namespace_id,
-            stream_id=self.__base_client.encode(stream_id)), value_class, start, end, count, continuation_token, filter, headers=headers)
+            stream_id=self.__base_client.encode(stream_id)), value_class, start, end, count, continuation_token, filter)
 
     def getWindowValuesPagedUrl(self, url: str, value_class: type, start: str,
                                 end: str, count: int, continuation_token: str = '', filter: str = '', headers = None) -> SdsResultPage:
@@ -629,7 +625,6 @@ class Streams(PatchableSecurable, object):
         :param start: Starting index
         :param end: Ending index
         :param form: form of the data
-        
         :return: An array of the data in type specified if value_class
             defined.  Otherwise it is a dynamic Python object
         """
@@ -705,7 +700,6 @@ class Streams(PatchableSecurable, object):
             Can be an SdsBoundaryType or the integer value
         :param filter: An optional filter.  By Default it is ''.
         :param stream_view_id: streamview to map the results to
-        
         :return: An array of the data in type specified if value_class
             is defined.  Otherwise it is a dynamic Python object
         """
@@ -789,7 +783,7 @@ class Streams(PatchableSecurable, object):
         return results
 
     def getRangeValuesInterpolated(self, namespace_id: str, stream_id: str, value_class: type,
-                                   start: str, end: str, count: int, filter: str = '', tenant_id:str = '') -> list[Any]:
+                                   start: str, end: str, count: int, filter: str = '') -> list[Any]:
         """
         Retrieves JSON object representing a range of values from the stream
             specified by 'stream_id'
@@ -818,7 +812,7 @@ class Streams(PatchableSecurable, object):
 
         return self.getRangeValuesInterpolatedUrl(
             self.__stream_path.format(
-                tenant_id=tenant_id if tenant_id != '' else self.__tenant,
+                tenant_id=self.__tenant,
                 namespace_id=namespace_id,
                 stream_id=self.__base_client.encode(stream_id)),
             value_class, start, end, count, filter)
@@ -876,7 +870,6 @@ class Streams(PatchableSecurable, object):
             object from the data.
         :param start: starting index
         :param index: One or more indexes to retrieve events at
-        
         :return: An array of the data in type specified if value_class is
         defined.  Otherwise it is a dynamic Python object
         """
@@ -956,7 +949,6 @@ class Streams(PatchableSecurable, object):
             of events at or near the endIndex
         :param filter: optional filter to apply
         :param stream_view_id: optional streamview identifier
-        
         :return: An array of the data in type specified if value_class is
             defined.  Otherwise it is a dynamic Python object
         """
@@ -1059,7 +1051,6 @@ class Streams(PatchableSecurable, object):
         :param count: number of datapoints in summary
         :param stream_view_id: streamview to tranform the data into
         :param filter: filter to apply
-        
         :return: An array of the data summary in type specified if value_class
             is defined.  Otherwise it is a dynamic Python object
         """
@@ -1077,7 +1068,7 @@ class Streams(PatchableSecurable, object):
         return self.getSummariesUrl(self.__stream_path.format(
             tenant_id=self.__tenant,
             namespace_id=namespace_id,
-            stream_id=self.__base_client.encode(stream_id)), value_class, start, end, count, stream_view_id)
+            stream_id=self.__base_client.encode(stream_id)), value_class, start, end, count, stream_view_id, filter)
 
     def getSummariesUrl(self, url: str, value_class: type, start: str,
                         end: str, count: int, stream_view_id: str = '', filter: str = '', headers = None) -> list[Any]:
@@ -1331,7 +1322,7 @@ class Streams(PatchableSecurable, object):
             raise TypeError
         if join_mode is None:
             raise TypeError
-            
+
         response = self.__base_client.request(
             'get',
             self.__bulk_join_path.format(

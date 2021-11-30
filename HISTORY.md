@@ -1,8 +1,8 @@
 # Version History
 
-## 0.4.7_preview / 2021-11-12
+## 0.5_preview / 2021-11-12
 
-- Added support for community header when calling communities APIs
+- Added support for reading shared streams
 
 ## 0.4.6_preview / 2021-11-11
 

@@ -54,7 +54,7 @@ class SharedStreams(PatchableSecurable, object):
 
     def getStreamType(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str) -> SdsType:
         """
-        Retrieves a stream specified by 'stream_id' in a community specified by 'community_id' from the Sds Service
+        Retrieves a stream type specified by 'stream_id' in a community specified by 'community_id' from the Sds Service
         :param tenant_id: tenant to work against
         :param namespace_id: namespace to work against
         :param community_id: community to work against

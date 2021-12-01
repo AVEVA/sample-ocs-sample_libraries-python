@@ -1,5 +1,10 @@
 # Version History
 
+## 0.4.10_preview / 2021-12-01
+
+- Set default value of ValueClass to None for Streams.getWindowValues(Url) and reordered this argument to after all required arguments
+- Add query parameter to StreamViews.getStreamViews
+
 ## 0.4.9_preview / 2021-11-30
 
 - Update pipelines to reference internal analysis templates

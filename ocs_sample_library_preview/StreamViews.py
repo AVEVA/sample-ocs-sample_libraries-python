@@ -70,14 +70,15 @@ class StreamViews(PatchableSecurable, object):
         result = SdsStreamViewMap.fromJson(response.json())
         return result
 
-    def getStreamViews(self, namespace_id: str, skip: int = 0,
-                       count: int = 100) -> list[SdsStreamView]:
+    def getStreamViews(self, namespace_id: str, skip: int = 0, count: int = 100,
+                        query: str = '') -> list[SdsStreamView]:
         """
         Retrieves a list of streamViews associated with the specified
             'namespace_id' under the current tenant
         :param namespace_id: namespace to work against
         :param skip: number of streamviews to skip for paging
         :param count: number streamviews in a page
+        :param query: optional query.  Default is ''
         :return: array of SdsStreamviews
         """
         if namespace_id is None:
@@ -88,7 +89,7 @@ class StreamViews(PatchableSecurable, object):
             self.__stream_views_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id),
-            params={'skip': skip, 'count': count})
+            params={'skip': skip, 'count': count, 'query': query})
         self.__base_client.checkResponse(
             response, 'Failed to get all SdsStreamViews.')
 

@@ -144,8 +144,13 @@ class BaseClient(object):
             headers = self.sdsHeaders()
         return self.__session.request(method, url, params=params, data=data, headers=headers, **kwargs)
 
+
     def getCommunityRequestHeaders(self, community_id: str):
         headers = self.sdsHeaders()
         headers['community-id'] = community_id
 
         return headers
+
+    def __del__(self):
+        self.__session.close()
+

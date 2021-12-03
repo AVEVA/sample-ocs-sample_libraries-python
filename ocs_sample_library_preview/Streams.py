@@ -456,18 +456,18 @@ class Streams(PatchableSecurable, object):
             return result
         return value_class.fromJson(result)
 
-    def getWindowValues(self, namespace_id: str, stream_id: str, value_class: type, start: str,
-                        end: str, filter: str = '') -> list[Any]:
+    def getWindowValues(self, namespace_id: str, stream_id: str, start: str, end: str, 
+                        value_class: type = None, filter: str = '') -> list[Any]:
         """
         Retrieves JSON object representing a window of values from the stream
             specified by 'stream_id'
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to get the data of
-        :param value_class: use this to cast the value into a given type.
-            Type must support .fromJson().
-            If None returns a dynamic Python object from the data.
         :param start: Starting index
         :param end: Ending index
+        :param value_class: Optionally use this to cast the value into a given type.
+            Type must support .fromJson().
+            If None returns a dynamic Python object from the data.
         :param filter: An optional filter.  By Default it is ''.
         :return: an array of values.
             If value_class is defined it is in this type.
@@ -485,18 +485,18 @@ class Streams(PatchableSecurable, object):
         return self.getWindowValuesUrl(self.__stream_path.format(
             tenant_id=self.__tenant,
             namespace_id=namespace_id,
-            stream_id=self.__base_client.encode(stream_id)), value_class, start, end, filter)
+            stream_id=self.__base_client.encode(stream_id)), start, end, value_class, filter)
 
-    def getWindowValuesUrl(self, url: str, value_class: type, start: str, end: str, filter: str = '', headers = None) -> list[Any]:
+    def getWindowValuesUrl(self, url: str, start: str, end: str, value_class: type = None, filter: str = '', headers = None) -> list[Any]:
         """
         Retrieves JSON object representing a window of values from the stream
             specified by 'url'
         :param url: The URL path to the stream
-        :param value_class: use this to cast the value into a given type.
-            Type must support .fromJson().
-            If None returns a dynamic Python object from the data.
         :param start: Starting index
         :param end: Ending index
+        :param value_class: Optionally use this to cast the value into a given type.
+            Type must support .fromJson().
+            If None returns a dynamic Python object from the data.
         :param filter: An optional filter.  By Default it is ''.
         :param headers: optional http headers to be used when making request
         :return: an array of values.

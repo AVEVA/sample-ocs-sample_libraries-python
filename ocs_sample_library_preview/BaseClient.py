@@ -103,6 +103,17 @@ class BaseClient(object):
 
         return headers
 
+    def communityHeaders(self, community_id: str):
+        """
+        Gets the base headers needed for a Communities call
+        :param community_id: id of the community
+        :return:
+        """
+        headers = self.sdsHeaders()
+        headers['community-id'] = community_id
+
+        return headers
+
     def checkResponse(self, response, main_message: str):
         if response.status_code < 200 or response.status_code >= 300:
             status = response.status_code
@@ -143,13 +154,6 @@ class BaseClient(object):
         if not headers:
             headers = self.sdsHeaders()
         return self.__session.request(method, url, params=params, data=data, headers=headers, **kwargs)
-
-
-    def getCommunityRequestHeaders(self, community_id: str):
-        headers = self.sdsHeaders()
-        headers['community-id'] = community_id
-
-        return headers
 
     def __del__(self):
         self.__session.close()

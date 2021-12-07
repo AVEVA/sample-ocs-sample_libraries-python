@@ -66,10 +66,10 @@ class SharedStreams(PatchableSecurable, object):
 
         response = self.__base_client.request(
             'get',
-            self.__stream_path.format(
+            self.__stream_type_path.format(
                 tenant_id=tenant_id,
                 namespace_id=namespace_id,
-                stream_id=self.__base_client.encode(stream_id)) + '/Type',
+                stream_id=self.__base_client.encode(stream_id)),
             headers=headers)
         self.__base_client.checkResponse(
             response, f'Failed to get SdsStream type, {stream_id}.')
@@ -133,7 +133,7 @@ class SharedStreams(PatchableSecurable, object):
                 tenant_id=tenant_id,
                 stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getValueUrl(url, index, value_class, headers)
+        return self.__streams.getValueUrl(url=url, index=index, value_class=value_class, headers=headers)
 
     def getFirstValue(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type = None) -> Any:
         """
@@ -157,7 +157,7 @@ class SharedStreams(PatchableSecurable, object):
                 community_id=community_id,
                 stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getFirstValueUrl(url, value_class, headers)
+        return self.__streams.getFirstValueUrl(url=url, value_class=value_class, headers=headers)
 
     def getLastValue(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type = None) -> Any:
         """
@@ -180,7 +180,7 @@ class SharedStreams(PatchableSecurable, object):
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getLastValueUrl(url, value_class, headers=headers)
+        return self.__streams.getLastValueUrl(url=url, value_class=value_class, headers=headers)
 
     def getWindowValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, start: str, end: str, value_class: type, filter: str = '') -> list[Any]:
         """
@@ -207,7 +207,7 @@ class SharedStreams(PatchableSecurable, object):
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getWindowValuesUrl(url, value_class, start, end, filter, headers)
+        return self.__streams.getWindowValuesUrl(url=url, value_class=value_class, start=start, end=end, filter=filter, headers=headers)
 
     def getWindowValuesPaged(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type, start: str,
                                 end: str, count: int, continuation_token: str = '', filter: str = '') -> SdsResultPage:
@@ -237,7 +237,7 @@ class SharedStreams(PatchableSecurable, object):
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getWindowValuesPagedUrl(url, value_class, start, end, count, continuation_token, filter, headers)
+        return self.__streams.getWindowValuesPagedUrl(url=url, value_class=value_class, start=start, end=end, count=count, continuation_token=continuation_token, filter=filter, headers=headers)
 
     def getWindowValuesForm(self, tenant_id:str, namespace_id: str, community_id: str, stream_id: str, value_class: type, start: str,
                                end: str, form: str = '') -> list[Any]:
@@ -265,7 +265,7 @@ class SharedStreams(PatchableSecurable, object):
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getWindowValuesFormUrl(url, value_class, start, end, form, headers)
+        return self.__streams.getWindowValuesFormUrl(url=url, value_class=value_class, start=start, end=end, form=form, headers=headers)
 
     def getRangeValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type, start: str,
                           skip: int, count: int, reversed: bool, boundary_type: str,
@@ -299,7 +299,8 @@ class SharedStreams(PatchableSecurable, object):
                         namespace_id=namespace_id,
                         stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getRangeValuesUrl(url, value_class, start, skip, count, reversed, boundary_type, filter, stream_view_id, headers)
+        return self.__streams.getRangeValuesUrl(url=url, value_class=value_class, start=start, skip=skip, count=count, 
+            reversed=reversed, boundary_type=boundary_type, filter=filter, stream_view_id=stream_view_id, headers=headers)
 
     def getRangeValuesInterpolated(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type,
                                       start: str, end: str, count: int, filter: str = '') -> list[Any]:
@@ -327,7 +328,7 @@ class SharedStreams(PatchableSecurable, object):
                 namespace_id=namespace_id,
                 stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getRangeValuesInterpolatedUrl(url, value_class, start, end, count, filter, headers)
+        return self.__streams.getRangeValuesInterpolatedUrl(url=url, value_class=value_class, start=start, end=end, count=count, filter=filter, headers=headers)
 
     def getIndexCollectionValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type,
                                       index: list[str]) -> list[Any]:
@@ -352,7 +353,7 @@ class SharedStreams(PatchableSecurable, object):
                 namespace_id=namespace_id,
                 stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getIndexCollectionValuesUrl(url, value_class, index, headers)
+        return self.__streams.getIndexCollectionValuesUrl(url=url, value_class=value_class, index=index, headers=headers)
 
     def getSampledValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type, start: str,
                             end: str, sample_by: str, intervals: str, filter: str = '', stream_view_id: str = '') -> list[Any]:
@@ -381,7 +382,8 @@ class SharedStreams(PatchableSecurable, object):
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getSampledValuesUrl(url, value_class, start, end, sample_by, intervals, filter, stream_view_id, headers)
+        return self.__streams.getSampledValuesUrl(url=url, value_class=value_class, start=start, end=end, sample_by=sample_by, 
+            intervals=intervals, filter=filter, stream_view_id=stream_view_id, headers=headers)
 
     def getSummaries(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type, start: str,
                         end: str, count: int, stream_view_id: str = '', filter: str = '') -> list[Any]:
@@ -411,7 +413,8 @@ class SharedStreams(PatchableSecurable, object):
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getSummariesUrl(url, value_class, start, end, count, stream_view_id, filter, headers)
+        return self.__streams.getSummariesUrl(url=url, value_class=value_class, start=start, end=end, 
+            count=count, stream_view_id=stream_view_id, filter=filter, headers=headers)
 
     def getStreamsWindow(self, tenant_id: str, namespace_id: str, community_id: str, stream_ids: list[str], value_class: type,
                          start: str, end: str, join_mode: int = 1) -> list[Any]:
@@ -479,4 +482,5 @@ class SharedStreams(PatchableSecurable, object):
             '/Tenants/{tenant_id}/Namespaces/{namespace_id}'
         self.__streams_path = self.__base_path + '/Streams'
         self.__stream_path = self.__streams_path + '/{stream_id}'
+        self.__stream_type_path = self.__stream_path + '/Type'
         self.__bulk_join_path = self.__base_path + '/Bulk/Streams/Data/Joins'

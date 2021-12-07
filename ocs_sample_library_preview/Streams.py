@@ -65,10 +65,10 @@ class Streams(PatchableSecurable, object):
 
         response = self.__base_client.request(
             'get',
-            self.__stream_path.format(
+            self.__stream_type_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_id=self.__base_client.encode(stream_id)) + '/Type')
+                stream_id=self.__base_client.encode(stream_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get SdsStream type, {stream_id}.')
 
@@ -211,10 +211,10 @@ class Streams(PatchableSecurable, object):
 
         response = self.__base_client.request(
             'put',
-            self.__stream_path.format(
+            self.__stream_tags_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_id=self.__base_client.encode(stream_id)) + '/Tags',
+                stream_id=self.__base_client.encode(stream_id)),
             data=json.dumps(tags))
         self.__base_client.checkResponse(
             response, f'Failed to create tags for Stream: {stream_id}.')
@@ -232,10 +232,10 @@ class Streams(PatchableSecurable, object):
 
         response = self.__base_client.request(
             'put',
-            self.__stream_path.format(
+            self.__stream_metadata_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_id=self.__base_client.encode(stream_id)) + '/Metadata',
+                stream_id=self.__base_client.encode(stream_id)),
             data=json.dumps(metadata))
         self.__base_client.checkResponse(
             response, f'Failed to create metadata for Stream: {stream_id}.')
@@ -253,10 +253,10 @@ class Streams(PatchableSecurable, object):
 
         response = self.__base_client.request(
             'patch',
-            self.__stream_path.format(
+            self.__stream_metadata_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_id=self.__base_client.encode(stream_id)) + '/Metadata',
+                stream_id=self.__base_client.encode(stream_id)),
             data=json.dumps(patch))
         self.__base_client.checkResponse(
             response, f'Failed to update metadata for Stream: {stream_id}.')
@@ -273,10 +273,10 @@ class Streams(PatchableSecurable, object):
 
         response = self.__base_client.request(
             'get',
-            self.__stream_path.format(
+            self.__stream_tags_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_id=self.__base_client.encode(stream_id)) + '/Tags')
+                stream_id=self.__base_client.encode(stream_id)))
         self.__base_client.checkResponse(
             response, f'Failed to get tags for Stream: {stream_id}.')
 
@@ -296,10 +296,11 @@ class Streams(PatchableSecurable, object):
 
         response = self.__base_client.request(
             'get',
-            self.__stream_path.format(
+            self.__stream_metadatum_path.format(
                 tenant_id=self.__tenant,
                 namespace_id=namespace_id,
-                stream_id=self.__base_client.encode(stream_id)) + '/Metadata/' + key)
+                stream_id=self.__base_client.encode(stream_id),
+                key=key))
         self.__base_client.checkResponse(
             response, f'Failed to get metadata for Stream: {stream_id}.')
 
@@ -1359,6 +1360,9 @@ class Streams(PatchableSecurable, object):
         self.__streams_path = self.__base_path + '/Streams'
         self.__stream_path = self.__streams_path + '/{stream_id}'
         self.__stream_type_path = self.__stream_path + '/Type'
+        self.__stream_tags_path = self.__stream_path + '/Tags'
+        self.__stream_metadata_path = self.__stream_path + '/Metadata'
+        self.__stream_metadatum_path = self.__stream_metadata_path + '/{key}'
 
         self.__data_path = '{stream}/Data'
         self.__first_path = self.__data_path + '/First'

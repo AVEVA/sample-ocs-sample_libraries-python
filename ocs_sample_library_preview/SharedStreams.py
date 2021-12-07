@@ -182,7 +182,7 @@ class SharedStreams(PatchableSecurable, object):
 
         return self.__streams.getLastValueUrl(url=url, value_class=value_class, headers=headers)
 
-    def getWindowValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, start: str, end: str, value_class: type, filter: str = '') -> list[Any]:
+    def getWindowValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, start: str, end: str, value_class: type = None, filter: str = '') -> list[Any]:
         """
         Retrieves JSON object representing a window of values from the stream
             specified by 'stream_id'
@@ -209,8 +209,8 @@ class SharedStreams(PatchableSecurable, object):
 
         return self.__streams.getWindowValuesUrl(url=url, value_class=value_class, start=start, end=end, filter=filter, headers=headers)
 
-    def getWindowValuesPaged(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type, start: str,
-                                end: str, count: int, continuation_token: str = '', filter: str = '') -> SdsResultPage:
+    def getWindowValuesPaged(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, start: str,
+                                end: str, count: int, continuation_token: str = '', value_class: type = None, filter: str = '') -> SdsResultPage:
         """
         Retrieves JSON object representing a window of values from the stream
             specified by 'stream_id' using paging
@@ -218,13 +218,13 @@ class SharedStreams(PatchableSecurable, object):
         :param namespace_id: namespace to work against
         :param community_id: community to work against
         :param stream_id: id of the stream
-        :param value_class: use this to cast the value into a given type.
-            Type must support .fromJson().
-            If None returns a dynamic Python object from the data.
         :param start: Starting index
         :param end: Ending index
         :param count: maximum number of events to return.
         :param continuationToken: token used to retrieve the next page of data.
+        :param value_class: use this to cast the value into a given type.
+            Type must support .fromJson().
+            If None returns a dynamic Python object from the data.
         :param filter: An optional filter.  By Default it is ''.
         :return: an SdsResultPage containing the results and the next continuation token.
             If value_class is defined it is in this type.
@@ -239,8 +239,8 @@ class SharedStreams(PatchableSecurable, object):
 
         return self.__streams.getWindowValuesPagedUrl(url=url, value_class=value_class, start=start, end=end, count=count, continuation_token=continuation_token, filter=filter, headers=headers)
 
-    def getWindowValuesForm(self, tenant_id:str, namespace_id: str, community_id: str, stream_id: str, value_class: type, start: str,
-                               end: str, form: str = '') -> list[Any]:
+    def getWindowValuesForm(self, tenant_id:str, namespace_id: str, community_id: str, stream_id: str, start: str,
+                               end: str, form: str = '', value_class: type = None) -> list[Any]:
         """
         Retrieves JSON object representing a window of values from the stream
             specified by 'stream_id'.  Use this to get the data in a different
@@ -249,12 +249,12 @@ class SharedStreams(PatchableSecurable, object):
         :param namespace_id: namespace to work against
         :param community_id: community to work against
         :param stream_id: id of the stream
-        :param value_class: use this to cast the value into a given type.
-        Type must support .fromJson().
-        If None returns a dynamic Python object from the data.
         :param start: Starting index
         :param end: Ending index
         :param form: form of the data
+        :param value_class: use this to cast the value into a given type.
+        Type must support .fromJson().
+        If None returns a dynamic Python object from the data.
         :return: An array of the data in type specified if value_class
             defined.  Otherwise it is a dynamic Python object
         """
@@ -267,9 +267,9 @@ class SharedStreams(PatchableSecurable, object):
 
         return self.__streams.getWindowValuesFormUrl(url=url, value_class=value_class, start=start, end=end, form=form, headers=headers)
 
-    def getRangeValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type, start: str,
+    def getRangeValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, start: str,
                           skip: int, count: int, reversed: bool, boundary_type: str,
-                          filter: str = '', stream_view_id: str = '') -> list[Any]:
+                          value_class: type = None, filter: str = '', stream_view_id: str = '') -> list[Any]:
         """
         Retrieves JSON object representing a range of values from the stream
             specified by 'stream_id'
@@ -277,9 +277,6 @@ class SharedStreams(PatchableSecurable, object):
         :param namespace_id: namespace to work against
         :param community_id: community to work against
         :param stream_id: id of the stream
-        :param value_class: use this to cast the value into a given type.
-            Type must support .fromJson(). If None returns a dynamic Python
-            object from the data.
         :param start: Starting index
         :param skip: number of values to skip after start index.
             Important in paging
@@ -287,6 +284,9 @@ class SharedStreams(PatchableSecurable, object):
         :param reversed: which direction to go when getting values
         :param boundary_type: the boundary condition to use.
             Can be an SdsBoundaryType or the integer value
+        :param value_class: use this to cast the value into a given type.
+            Type must support .fromJson(). If None returns a dynamic Python
+            object from the data.
         :param filter: An optional filter.  By Default it is ''.
         :param stream_view_id: streamview to map the results to
         :return: An array of the data in type specified if value_class
@@ -302,8 +302,8 @@ class SharedStreams(PatchableSecurable, object):
         return self.__streams.getRangeValuesUrl(url=url, value_class=value_class, start=start, skip=skip, count=count, 
             reversed=reversed, boundary_type=boundary_type, filter=filter, stream_view_id=stream_view_id, headers=headers)
 
-    def getRangeValuesInterpolated(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type,
-                                      start: str, end: str, count: int, filter: str = '') -> list[Any]:
+    def getRangeValuesInterpolated(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str,
+                                      start: str, end: str, count: int, value_class: type = None, filter: str = '') -> list[Any]:
         """
         Retrieves JSON object representing a range of values from the stream
             specified by 'stream_id'
@@ -311,13 +311,13 @@ class SharedStreams(PatchableSecurable, object):
         :param namespace_id: namespace to work against
         :param community_id: community to work against
         :param stream_id: id of the stream
-        :param value_class: use this to cast the value into a given type.
-            Type must support .fromJson(). If None returns a dynamic Python
-            object from the data.
         :param start: starting index
         :param end:  ending index
         :param count: number of datapoints to retrieve
         :param filter: An optional filter.  By Default it is ''.
+        :param value_class: use this to cast the value into a given type.
+            Type must support .fromJson(). If None returns a dynamic Python
+            object from the data.
         :return: An array of the data in type specified if value_class is
         defined.  Otherwise it is a dynamic Python object
         """
@@ -330,8 +330,8 @@ class SharedStreams(PatchableSecurable, object):
 
         return self.__streams.getRangeValuesInterpolatedUrl(url=url, value_class=value_class, start=start, end=end, count=count, filter=filter, headers=headers)
 
-    def getIndexCollectionValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type,
-                                      index: list[str]) -> list[Any]:
+    def getIndexCollectionValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str,
+                                      index: list[str], value_class: type = None) -> list[Any]:
         """
         Retrieves JSON object representing values at specific indexes from the stream
             specified by 'stream_id'
@@ -339,10 +339,10 @@ class SharedStreams(PatchableSecurable, object):
         :param namespace_id: namespace to work against
         :param community_id: community to work against
         :param stream_id: id of the stream
+        :param index: One or more indexes to retrieve events at
         :param value_class: use this to cast the value into a given type.
             Type must support .fromJson(). If None returns a dynamic Python
             object from the data.
-        :param index: One or more indexes to retrieve events at
         :return: An array of the data in type specified if value_class is
         defined.  Otherwise it is a dynamic Python object
         """
@@ -355,21 +355,21 @@ class SharedStreams(PatchableSecurable, object):
 
         return self.__streams.getIndexCollectionValuesUrl(url=url, value_class=value_class, index=index, headers=headers)
 
-    def getSampledValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type, start: str,
-                            end: str, sample_by: str, intervals: str, filter: str = '', stream_view_id: str = '') -> list[Any]:
+    def getSampledValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, start: str,
+                            end: str, sample_by: str, intervals: str, value_class: type = None, filter: str = '', stream_view_id: str = '') -> list[Any]:
         """
         Returns data sampled by intervals between a specified start and end index.
         :param tenant_id: tenant to work against
         :param namespace_id: namespace to work against
         :param community_id: community to work against
         :param stream_id: id of the stream
-        :param value_class: use this to cast the value into a given type.
-            Type must support .fromJson().
-            If None returns a dynamic Python object from the data.
         :param start: starting index for intervals
         :param end:  ending index for intervals
         :param sample_by: property or properties to use when sampling
         :param intervals: number of intervals requested
+        :param value_class: use this to cast the value into a given type.
+            Type must support .fromJson().
+            If None returns a dynamic Python object from the data.
         :param filter: optional filter to apply
         :param stream_view_id: optional streamview identifier
         :return: An array of the data in type specified if value_class is
@@ -385,23 +385,23 @@ class SharedStreams(PatchableSecurable, object):
         return self.__streams.getSampledValuesUrl(url=url, value_class=value_class, start=start, end=end, sample_by=sample_by, 
             intervals=intervals, filter=filter, stream_view_id=stream_view_id, headers=headers)
 
-    def getSummaries(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type, start: str,
-                        end: str, count: int, stream_view_id: str = '', filter: str = '') -> list[Any]:
+    def getSummaries(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, start: str,
+                        end: str, count: int, stream_view_id: str = '', value_class: type = None, filter: str = '') -> list[Any]:
         """
         Retrieves JSON object representing a summary for the stream specified by 'stream_id'
         :param tenant_id: tenant to work against
         :param namespace_id: namespace to work against
         :param community_id: community to work against
         :param stream_id: id of the stream
+        :param start: starting index
+        :param end:  ending index
+        :param count: number of datapoints in summary
+        :param stream_view_id: streamview to tranform the data into
         :param value_class: use this to cast the value into a given type.
             Type must support .fromJson().
             If None returns a dynamic Python object from the data.
         Note- for this function the default return json string is not a
             JSON array of the value, so the same type definition won't work.
-        :param start: starting index
-        :param end:  ending index
-        :param count: number of datapoints in summary
-        :param stream_view_id: streamview to tranform the data into
         :param filter: filter to apply
         :return: An array of the data summary in type specified if value_class
             is defined.  Otherwise it is a dynamic Python object
@@ -416,8 +416,8 @@ class SharedStreams(PatchableSecurable, object):
         return self.__streams.getSummariesUrl(url=url, value_class=value_class, start=start, end=end, 
             count=count, stream_view_id=stream_view_id, filter=filter, headers=headers)
 
-    def getStreamsWindow(self, tenant_id: str, namespace_id: str, community_id: str, stream_ids: list[str], value_class: type,
-                         start: str, end: str, join_mode: int = 1) -> list[Any]:
+    def getStreamsWindow(self, tenant_id: str, namespace_id: str, community_id: str, stream_ids: list[str],
+                         start: str, end: str, join_mode: int = 1, value_class: type = None) -> list[Any]:
         """
         Retrieves JSON object representing a window of values from the stream
              specified by 'stream_id'
@@ -425,13 +425,13 @@ class SharedStreams(PatchableSecurable, object):
         :param namespace_id: namespace to work against
         :param community_id: community to work against
         :param stream_id: id of the stream
-        :param value_class: use this to cast the value into a given type.
-            Type must support .fromJson(). If None returns a dynamic Python
-            object from the data.
         :param start: Starting index
         :param end: Ending index
         :param joinMode: Join mode, supports numbers or strings.
             Defaults to outer
+        :param value_class: use this to cast the value into a given type.
+            Type must support .fromJson(). If None returns a dynamic Python
+            object from the data.
         :return: an array of values.
             If value_class is defined it is in this type.
             Otherwise it is a dynamic Python object

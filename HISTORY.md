@@ -1,5 +1,9 @@
 # Version History
 
+## 0.4.11_preview / 2021-12-18
+
+- Remove reliance on Asset v1-preview routes
+
 ## 0.4.10_preview / 2021-12-01
 
 - Set default value of ValueClass to None for Streams.getWindowValues(Url) and reordered this argument to after all required arguments

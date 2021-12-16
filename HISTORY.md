@@ -1,5 +1,9 @@
 # Version History
 
+## 0.5.0_preview / 2021-12-06
+
+- Added support for reading shared streams
+
 ## 0.4.10_preview / 2021-12-01
 
 - Set default value of ValueClass to None for Streams.getWindowValues(Url) and reordered this argument to after all required arguments

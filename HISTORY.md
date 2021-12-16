@@ -1,8 +1,12 @@
 # Version History
 
-## 0.4.11_preview / 2021-12-18
+## 0.5.1_preview / 2021-12-18
 
 - Remove reliance on Asset v1-preview routes
+
+## 0.5.0_preview / 2021-12-06
+
+- Added support for reading shared streams
 
 ## 0.4.10_preview / 2021-12-01
 

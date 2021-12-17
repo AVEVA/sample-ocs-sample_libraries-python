@@ -1,6 +1,6 @@
 # OSIsoft Cloud Services Python Library Sample
 
-**Version:** 0.5.0_preview
+**Version:** 0.5.1_preview
 
 [![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/OCS/osisoft.sample-ocs-sample_libraries-python?branchName=main)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=2622&branchName=main)
 

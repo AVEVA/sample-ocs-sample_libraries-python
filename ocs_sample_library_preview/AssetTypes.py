@@ -15,7 +15,7 @@ class AssetTypes(Securable, object):
         Initializes the Asset Types client
         :param client: This is the base client that is used to make REST calls
         """
-        super().__init__(client=client, collection='AssetTypes', api_suffix='-preview')
+        super().__init__(client=client, collection='AssetTypes')
         
         self.__base_client = client
         self.__setPathAndQueryTemplates()
@@ -147,7 +147,7 @@ class AssetTypes(Securable, object):
         Creates URLs that are used by the client
         :return:
         """
-        self.__base_path = self.__base_client.uri_API + '-preview/Tenants/' + \
+        self.__base_path = self.__base_client.uri_API + '/Tenants/' + \
             self.__base_client.tenant + '/Namespaces/{namespace_id}'
         self.__asset_types_path = self.__base_path + '/AssetTypes'
         self.__asset_type_path = self.__asset_types_path + '/{asset_type_id}'

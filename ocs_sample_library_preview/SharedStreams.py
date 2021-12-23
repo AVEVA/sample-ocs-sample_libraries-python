@@ -52,31 +52,6 @@ class SharedStreams(PatchableSecurable, object):
         result = SdsStream.fromJson(response.json())
         return result
 
-    def getStreamType(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str) -> SdsType:
-        """
-        Retrieves a stream type specified by 'stream_id' in a community specified by 'community_id' from the Sds Service
-        :param tenant_id: tenant to work against
-        :param namespace_id: namespace to work against
-        :param community_id: community to work against
-        :param stream_id: id of the stream
-        :return: the stream type as an SdsType
-        """
-        self.__validateParameters(tenant_id, namespace_id, community_id, stream_id)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
-
-        response = self.__base_client.request(
-            'get',
-            self.__stream_type_path.format(
-                tenant_id=tenant_id,
-                namespace_id=namespace_id,
-                stream_id=self.__base_client.encode(stream_id)),
-            headers=headers)
-        self.__base_client.checkResponse(
-            response, f'Failed to get SdsStream type, {stream_id}.')
-
-        result = SdsType.fromJson(response.json())
-        return result
-
     def getStreams(self, tenant_id: str, namespace_id: str, community_id: str, query: str = '', skip: int = 0,
                    count: int = 100) -> list[SdsStream]:
         """
@@ -482,5 +457,4 @@ class SharedStreams(PatchableSecurable, object):
             '/Tenants/{tenant_id}/Namespaces/{namespace_id}'
         self.__streams_path = self.__base_path + '/Streams'
         self.__stream_path = self.__streams_path + '/{stream_id}'
-        self.__stream_type_path = self.__stream_path + '/Type'
         self.__bulk_join_path = self.__base_path + '/Bulk/Streams/Data/Joins'

@@ -114,6 +114,16 @@ class BaseClient(object):
 
         return headers
 
+    def dataViewNonVerboseHeader(self):
+        """
+        Gets the base headers needed for a data views call and adds accept-verbosity: non-verbose
+        :return:
+        """
+        headers = self.sdsHeaders()
+        headers['accept-verbosity'] = 'non-verbose'
+
+        return headers
+
     def checkResponse(self, response, main_message: str):
         if response.status_code < 200 or response.status_code >= 300:
             status = response.status_code

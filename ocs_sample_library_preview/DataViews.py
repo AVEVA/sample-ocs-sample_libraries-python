@@ -242,7 +242,7 @@ class DataViews(Securable, object):
     def getDataInterpolated(self, namespace_id: str = None, data_view_id: str = None,
                             count: int = None, form: str = None, start_index: str = None,
                             end_index: str = None, interval: str = None, value_class=None,
-                            url: str = None) -> tuple[Any, str, str]:
+                            url: str = None, verbose: bool = None) -> tuple[Any, str, str]:
         """
         Retrieves the interpolated data of the 'dataView_id' from Sds Service
         :param namespace_id: namespace to work against
@@ -258,6 +258,9 @@ class DataViews(Securable, object):
             Otherwise you get a dynamic object
         :param url: a complete url to be called as is; this is intended for a page of results
             using the next or first link headers from a previous call
+        :param verbose: an optional parameter that lets the user specify verbose or non-verbose results at the query level.
+            By default, it will match the base client's accept_verbosity setting, but can be overridden to True or False
+            without affecting the client itself.
         :return:
         """
         if url is None:
@@ -265,6 +268,12 @@ class DataViews(Securable, object):
                 raise TypeError
             if data_view_id is None:
                 raise TypeError
+        
+        if verbose is None:
+            # if this parameter was not specified, use the base client's setting
+            verbose = self.__base_client.AcceptVerbosity 
+
+        headers = self.__base_client.dataViewNonVerboseHeader() if not verbose else None
 
         params = {
             'count': count,
@@ -284,7 +293,8 @@ class DataViews(Securable, object):
                     namespace_id=namespace_id,
                     dataView_id=self.__base_client.encode(data_view_id),
                 ),
-                params=params
+                params=params,
+                headers=headers
             )
 
         self.__base_client.checkResponse(
@@ -311,8 +321,8 @@ class DataViews(Securable, object):
 
     def getDataStored(self, namespace_id: str = None, data_view_id: str = None,
                             count: int = None, form: str = None, start_index: str = None,
-                            end_index: str = None, value_class=None, url: str = None
-                            ) -> tuple[Any, str, str]:
+                            end_index: str = None, value_class=None, url: str = None,
+                            verbose: bool = None) -> tuple[Any, str, str]:
         """
         Retrieves the stored data of the 'dataView_id' from Sds Service
         :param namespace_id: namespace to work against
@@ -327,6 +337,9 @@ class DataViews(Securable, object):
             Otherwise you get a dynamic object
         :param url: a complete url to be called as is; this is intended for a page of results
             using the next or first link headers from a previous call
+        :param verbose: an optional parameter that lets the user specify verbose or non-verbose results at the query level.
+            By default, it will match the base client's accept_verbosity setting, but can be overridden to True or False
+            without affecting the client itself.
         :return:
         """
         if url is None:
@@ -334,6 +347,12 @@ class DataViews(Securable, object):
                 raise TypeError
             if data_view_id is None:
                 raise TypeError
+
+        if verbose is None:
+            # if this parameter was not specified, use the base client's setting
+            verbose = self.__base_client.AcceptVerbosity 
+
+        headers = self.__base_client.dataViewNonVerboseHeader() if not verbose else None
 
         params = {
             'count': count,
@@ -352,7 +371,8 @@ class DataViews(Securable, object):
                     namespace_id=namespace_id,
                     dataView_id=self.__base_client.encode(data_view_id),
                 ),
-                params=params
+                params=params,
+                headers=headers
             )
 
         self.__base_client.checkResponse(

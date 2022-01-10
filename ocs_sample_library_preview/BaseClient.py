@@ -116,7 +116,7 @@ class BaseClient(object):
 
     def sdsNonVerboseHeader(self):
         """
-        Gets the base headers needed for a data views call and adds accept-verbosity: non-verbose
+        Gets the base headers needed for an SDS call and adds accept-verbosity: non-verbose
         :return:
         """
         headers = self.sdsHeaders()

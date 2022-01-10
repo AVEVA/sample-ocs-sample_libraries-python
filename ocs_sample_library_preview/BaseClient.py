@@ -114,7 +114,7 @@ class BaseClient(object):
 
         return headers
 
-    def dataViewNonVerboseHeader(self):
+    def sdsNonVerboseHeader(self):
         """
         Gets the base headers needed for a data views call and adds accept-verbosity: non-verbose
         :return:

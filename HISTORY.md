@@ -1,5 +1,9 @@
 # Version History
 
+## 0.5.2_preview / 2022-01-12
+
+- Remove support for shared types
+
 ## 0.5.1_preview / 2021-12-18
 
 - Remove reliance on Asset v1-preview routes

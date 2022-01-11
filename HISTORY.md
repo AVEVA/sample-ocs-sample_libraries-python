@@ -1,6 +1,6 @@
 # Version History
 
-## 0.5.2_preview / 2022-01-12
+## 0.5.3_preview / 2022-01-12
 
 - Remove support for shared types
 

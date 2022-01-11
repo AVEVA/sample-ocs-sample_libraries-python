@@ -103,27 +103,6 @@ class BaseClient(object):
 
         return headers
 
-    def communityHeaders(self, community_id: str):
-        """
-        Gets the base headers needed for a Communities call
-        :param community_id: id of the community
-        :return:
-        """
-        headers = self.sdsHeaders()
-        headers['community-id'] = community_id
-
-        return headers
-
-    def sdsNonVerboseHeader(self):
-        """
-        Gets the base headers needed for an SDS call and adds accept-verbosity: non-verbose
-        :return:
-        """
-        headers = self.sdsHeaders()
-        headers['accept-verbosity'] = 'non-verbose'
-
-        return headers
-
     def checkResponse(self, response, main_message: str):
         if response.status_code < 200 or response.status_code >= 300:
             status = response.status_code
@@ -160,9 +139,17 @@ class BaseClient(object):
             message = main_message + errorToWrite
             raise SdsError(message)
 
-    def request(self, method: str, url: str, params=None, data=None, headers=None, **kwargs):
+    def request(self, method: str, url: str, params=None, data=None, headers=None, additional_headers=None, **kwargs):
+        
+        # Start with the necessary headers for SDS calls, such as authorization and content-type
         if not headers:
             headers = self.sdsHeaders()
+        
+        # Extend this with the additional headers provided that either suppliment or override the default values
+        # This allows additional headers to be added to the HTTP call without blocking the base header call
+        if additional_headers:
+            headers.update(additional_headers)
+
         return self.__session.request(method, url, params=params, data=data, headers=headers, **kwargs)
 
     def __del__(self):

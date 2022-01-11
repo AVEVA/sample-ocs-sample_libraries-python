@@ -37,7 +37,7 @@ class SharedStreams(PatchableSecurable, object):
         :return:the Stream as SdsStream
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
 
         response = self.__base_client.request(
             'get',
@@ -45,7 +45,7 @@ class SharedStreams(PatchableSecurable, object):
                 tenant_id=tenant_id,
                 namespace_id=namespace_id,
                 stream_id=self.__base_client.encode(stream_id)),
-            headers=headers)
+            additional_headers=additional_headers)
         self.__base_client.checkResponse(
             response, f'Failed to get SdsStream, {stream_id}.')
 
@@ -62,7 +62,7 @@ class SharedStreams(PatchableSecurable, object):
         :return: the stream type as an SdsType
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
 
         response = self.__base_client.request(
             'get',
@@ -70,7 +70,7 @@ class SharedStreams(PatchableSecurable, object):
                 tenant_id=tenant_id,
                 namespace_id=namespace_id,
                 stream_id=self.__base_client.encode(stream_id)),
-            headers=headers)
+            additional_headers=additional_headers)
         self.__base_client.checkResponse(
             response, f'Failed to get SdsStream type, {stream_id}.')
 
@@ -90,7 +90,7 @@ class SharedStreams(PatchableSecurable, object):
         :return: array of SdsStreams
         """
         self.__validateParameters(tenant_id, namespace_id, community_id)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
 
         response = self.__base_client.request(
             'get',
@@ -98,7 +98,7 @@ class SharedStreams(PatchableSecurable, object):
                 tenant_id=tenant_id,
                 namespace_id=namespace_id),
             params={'query': query, 'skip': skip, 'count': count},
-            headers=headers)
+            additional_headers=additional_headers)
         self.__base_client.checkResponse(
             response, 'Failed to get all SdsStreams.')
         
@@ -127,13 +127,13 @@ class SharedStreams(PatchableSecurable, object):
             Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id, index)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
         url=self.__stream_path.format(
                 namespace_id=namespace_id,
                 tenant_id=tenant_id,
                 stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getValueUrl(url=url, index=index, value_class=value_class, headers=headers)
+        return self.__streams.getValueUrl(url=url, index=index, value_class=value_class, additional_headers=additional_headers)
 
     def getFirstValue(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type = None) -> Any:
         """
@@ -150,14 +150,14 @@ class SharedStreams(PatchableSecurable, object):
             Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
         url=self.__stream_path.format(
                 tenant_id=tenant_id,
                 namespace_id=namespace_id,
                 community_id=community_id,
                 stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getFirstValueUrl(url=url, value_class=value_class, headers=headers)
+        return self.__streams.getFirstValueUrl(url=url, value_class=value_class, additional_headers=additional_headers)
 
     def getLastValue(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, value_class: type = None) -> Any:
         """
@@ -174,13 +174,13 @@ class SharedStreams(PatchableSecurable, object):
             Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
         url = self.__stream_path.format(
             tenant_id=tenant_id,
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getLastValueUrl(url=url, value_class=value_class, headers=headers)
+        return self.__streams.getLastValueUrl(url=url, value_class=value_class, additional_headers=additional_headers)
 
     def getWindowValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, start: str, end: str, value_class: type = None, filter: str = '') -> list[Any]:
         """
@@ -201,13 +201,13 @@ class SharedStreams(PatchableSecurable, object):
             Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
         url = self.__stream_path.format(
             tenant_id=tenant_id,
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getWindowValuesUrl(url=url, value_class=value_class, start=start, end=end, filter=filter, headers=headers)
+        return self.__streams.getWindowValuesUrl(url=url, value_class=value_class, start=start, end=end, filter=filter, additional_headers=additional_headers)
 
     def getWindowValuesPaged(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, start: str,
                                 end: str, count: int, continuation_token: str = '', value_class: type = None, filter: str = '') -> SdsResultPage:
@@ -231,13 +231,13 @@ class SharedStreams(PatchableSecurable, object):
             Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id, start, end, count)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
         url = self.__stream_path.format(
             tenant_id=tenant_id,
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getWindowValuesPagedUrl(url=url, value_class=value_class, start=start, end=end, count=count, continuation_token=continuation_token, filter=filter, headers=headers)
+        return self.__streams.getWindowValuesPagedUrl(url=url, value_class=value_class, start=start, end=end, count=count, continuation_token=continuation_token, filter=filter, additional_headers=additional_headers)
 
     def getWindowValuesForm(self, tenant_id:str, namespace_id: str, community_id: str, stream_id: str, start: str,
                                end: str, form: str = '', value_class: type = None) -> list[Any]:
@@ -259,13 +259,13 @@ class SharedStreams(PatchableSecurable, object):
             defined.  Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id, start, end)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
         url = self.__stream_path.format(
             tenant_id=tenant_id,
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getWindowValuesFormUrl(url=url, value_class=value_class, start=start, end=end, form=form, headers=headers)
+        return self.__streams.getWindowValuesFormUrl(url=url, value_class=value_class, start=start, end=end, form=form, additional_headers=additional_headers)
 
     def getRangeValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, start: str,
                           skip: int, count: int, reversed: bool, boundary_type: str,
@@ -293,14 +293,14 @@ class SharedStreams(PatchableSecurable, object):
             is defined.  Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, start, skip, count, reversed, boundary_type)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
         url = self.__stream_path.format(
                         tenant_id=tenant_id,
                         namespace_id=namespace_id,
                         stream_id=self.__base_client.encode(stream_id))
 
         return self.__streams.getRangeValuesUrl(url=url, value_class=value_class, start=start, skip=skip, count=count, 
-            reversed=reversed, boundary_type=boundary_type, filter=filter, stream_view_id=stream_view_id, headers=headers)
+            reversed=reversed, boundary_type=boundary_type, filter=filter, stream_view_id=stream_view_id, additional_headers=additional_headers)
 
     def getRangeValuesInterpolated(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str,
                                       start: str, end: str, count: int, value_class: type = None, filter: str = '') -> list[Any]:
@@ -322,13 +322,13 @@ class SharedStreams(PatchableSecurable, object):
         defined.  Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id, start, end, count)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
         url = self.__stream_path.format(
                 tenant_id=tenant_id if tenant_id != '' else tenant_id,
                 namespace_id=namespace_id,
                 stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getRangeValuesInterpolatedUrl(url=url, value_class=value_class, start=start, end=end, count=count, filter=filter, headers=headers)
+        return self.__streams.getRangeValuesInterpolatedUrl(url=url, value_class=value_class, start=start, end=end, count=count, filter=filter, additional_headers=additional_headers)
 
     def getIndexCollectionValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str,
                                       index: list[str], value_class: type = None) -> list[Any]:
@@ -347,13 +347,13 @@ class SharedStreams(PatchableSecurable, object):
         defined.  Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id, index)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
         url = self.__stream_path.format(
                 tenant_id=tenant_id,
                 namespace_id=namespace_id,
                 stream_id=self.__base_client.encode(stream_id))
 
-        return self.__streams.getIndexCollectionValuesUrl(url=url, value_class=value_class, index=index, headers=headers)
+        return self.__streams.getIndexCollectionValuesUrl(url=url, value_class=value_class, index=index, additional_headers=additional_headers)
 
     def getSampledValues(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, start: str,
                             end: str, sample_by: str, intervals: str, value_class: type = None, filter: str = '', stream_view_id: str = '') -> list[Any]:
@@ -376,14 +376,14 @@ class SharedStreams(PatchableSecurable, object):
             defined.  Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
         url = self.__stream_path.format(
             tenant_id=tenant_id,
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id))
 
         return self.__streams.getSampledValuesUrl(url=url, value_class=value_class, start=start, end=end, sample_by=sample_by, 
-            intervals=intervals, filter=filter, stream_view_id=stream_view_id, headers=headers)
+            intervals=intervals, filter=filter, stream_view_id=stream_view_id, additional_headers=additional_headers)
 
     def getSummaries(self, tenant_id: str, namespace_id: str, community_id: str, stream_id: str, start: str,
                         end: str, count: int, stream_view_id: str = '', value_class: type = None, filter: str = '') -> list[Any]:
@@ -407,14 +407,14 @@ class SharedStreams(PatchableSecurable, object):
             is defined.  Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
         url = self.__stream_path.format(
             tenant_id=tenant_id,
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id))
 
         return self.__streams.getSummariesUrl(url=url, value_class=value_class, start=start, end=end, 
-            count=count, stream_view_id=stream_view_id, filter=filter, headers=headers)
+            count=count, stream_view_id=stream_view_id, filter=filter, additional_headers=additional_headers)
 
     def getStreamsWindow(self, tenant_id: str, namespace_id: str, community_id: str, stream_ids: list[str],
                          start: str, end: str, join_mode: int = 1, value_class: type = None) -> list[Any]:
@@ -437,7 +437,7 @@ class SharedStreams(PatchableSecurable, object):
             Otherwise it is a dynamic Python object
         """
         self.__validateParameters(namespace_id, stream_ids, start, end)
-        headers = self.__base_client.communityHeaders(community_id=community_id)
+        additional_headers = {'community-id': community_id}
             
         response = self.__base_client.request(
             'get',
@@ -448,7 +448,7 @@ class SharedStreams(PatchableSecurable, object):
                     'startIndex': start,
                     'endIndex': end,
                     'joinMode': join_mode},
-            headers=headers)
+            additional_headers=additional_headers)
         self.__base_client.checkResponse(
             response, f'Failed to get bulk values for SdsStream: {stream_ids}.')
 

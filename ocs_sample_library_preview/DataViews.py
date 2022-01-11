@@ -273,7 +273,7 @@ class DataViews(Securable, object):
             # if this parameter was not specified, use the base client's setting
             verbose = self.__base_client.AcceptVerbosity 
 
-        headers = self.__base_client.sdsNonVerboseHeader() if not verbose else None
+        additional_headers = {'accept-verbosity': 'non-verbose'} if not verbose else None
 
         params = {
             'count': count,
@@ -294,7 +294,7 @@ class DataViews(Securable, object):
                     dataView_id=self.__base_client.encode(data_view_id),
                 ),
                 params=params,
-                headers=headers
+                additional_headers=additional_headers
             )
 
         self.__base_client.checkResponse(
@@ -352,7 +352,7 @@ class DataViews(Securable, object):
             # if this parameter was not specified, use the base client's setting
             verbose = self.__base_client.AcceptVerbosity 
 
-        headers = self.__base_client.sdsNonVerboseHeader() if not verbose else None
+        additional_headers = {'accept-verbosity': 'non-verbose'} if not verbose else None
 
         params = {
             'count': count,
@@ -372,7 +372,7 @@ class DataViews(Securable, object):
                     dataView_id=self.__base_client.encode(data_view_id),
                 ),
                 params=params,
-                headers=headers
+                additional_headers=additional_headers
             )
 
         self.__base_client.checkResponse(

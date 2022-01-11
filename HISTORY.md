@@ -1,5 +1,9 @@
 # Version History
 
+## 0.5.3_preview / 2022-01-12
+
+- Remove support for shared types
+
 ## 0.5.2_preview / 2022-01-10
 
 - Add verbose parameter to data view data calls to override base client's AcceptVerbosity setting

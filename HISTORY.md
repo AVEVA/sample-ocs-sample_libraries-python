@@ -4,6 +4,10 @@
 
 - Remove support for shared types
 
+## 0.5.2_preview / 2022-01-10
+
+- Add verbose parameter to data view data calls to override base client's AcceptVerbosity setting
+
 ## 0.5.1_preview / 2021-12-18
 
 - Remove reliance on Asset v1-preview routes

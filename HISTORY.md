@@ -1,5 +1,9 @@
 # Version History
 
+## 0.5.4_preview / 2022-01-13
+
+- Resolved Polaris scan finding
+
 ## 0.5.3_preview / 2022-01-12
 
 - Remove support for shared types

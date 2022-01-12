@@ -273,7 +273,9 @@ class DataViews(Securable, object):
             # if this parameter was not specified, use the base client's setting
             verbose = self.__base_client.AcceptVerbosity 
 
-        additional_headers = {'accept-verbosity': 'non-verbose'} if not verbose else None
+        # The base client does not add a verbosity header if the client is non-verbose, so for Data Views,
+        # this is the only condition that we need to handle here since 'non-verbose' is different from no header at all
+        additional_headers = BaseClient.getVerbosityHeader(False) if not verbose else None
 
         params = {
             'count': count,
@@ -352,7 +354,9 @@ class DataViews(Securable, object):
             # if this parameter was not specified, use the base client's setting
             verbose = self.__base_client.AcceptVerbosity 
 
-        additional_headers = {'accept-verbosity': 'non-verbose'} if not verbose else None
+        # The base client does not add a verbosity header if the client is non-verbose, so for Data Views,
+        # this is the only condition that we need to handle here since 'non-verbose' is different from no header at all
+        additional_headers = BaseClient.getVerbosityHeader(False) if not verbose else None
 
         params = {
             'count': count,

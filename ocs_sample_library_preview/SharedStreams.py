@@ -37,7 +37,7 @@ class SharedStreams(PatchableSecurable, object):
         :return:the Stream as SdsStream
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id)
-        additional_headers = {'community-id': community_id}
+        additional_headers = BaseClient.getCommunityIdHeader(community_id)
 
         response = self.__base_client.request(
             'get',
@@ -65,7 +65,7 @@ class SharedStreams(PatchableSecurable, object):
         :return: array of SdsStreams
         """
         self.__validateParameters(tenant_id, namespace_id, community_id)
-        additional_headers = {'community-id': community_id}
+        additional_headers = BaseClient.getCommunityIdHeader(community_id)
 
         response = self.__base_client.request(
             'get',
@@ -102,7 +102,7 @@ class SharedStreams(PatchableSecurable, object):
             Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id, index)
-        additional_headers = {'community-id': community_id}
+        additional_headers = BaseClient.getCommunityIdHeader(community_id)
         url=self.__stream_path.format(
                 namespace_id=namespace_id,
                 tenant_id=tenant_id,
@@ -125,7 +125,7 @@ class SharedStreams(PatchableSecurable, object):
             Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id)
-        additional_headers = {'community-id': community_id}
+        additional_headers = BaseClient.getCommunityIdHeader(community_id)
         url=self.__stream_path.format(
                 tenant_id=tenant_id,
                 namespace_id=namespace_id,
@@ -149,7 +149,7 @@ class SharedStreams(PatchableSecurable, object):
             Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id)
-        additional_headers = {'community-id': community_id}
+        additional_headers = BaseClient.getCommunityIdHeader(community_id)
         url = self.__stream_path.format(
             tenant_id=tenant_id,
             namespace_id=namespace_id,
@@ -176,7 +176,7 @@ class SharedStreams(PatchableSecurable, object):
             Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id)
-        additional_headers = {'community-id': community_id}
+        additional_headers = BaseClient.getCommunityIdHeader(community_id)
         url = self.__stream_path.format(
             tenant_id=tenant_id,
             namespace_id=namespace_id,
@@ -206,7 +206,7 @@ class SharedStreams(PatchableSecurable, object):
             Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id, start, end, count)
-        additional_headers = {'community-id': community_id}
+        additional_headers = BaseClient.getCommunityIdHeader(community_id)
         url = self.__stream_path.format(
             tenant_id=tenant_id,
             namespace_id=namespace_id,
@@ -234,7 +234,7 @@ class SharedStreams(PatchableSecurable, object):
             defined.  Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id, start, end)
-        additional_headers = {'community-id': community_id}
+        additional_headers = BaseClient.getCommunityIdHeader(community_id)
         url = self.__stream_path.format(
             tenant_id=tenant_id,
             namespace_id=namespace_id,
@@ -268,7 +268,7 @@ class SharedStreams(PatchableSecurable, object):
             is defined.  Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, start, skip, count, reversed, boundary_type)
-        additional_headers = {'community-id': community_id}
+        additional_headers = BaseClient.getCommunityIdHeader(community_id)
         url = self.__stream_path.format(
                         tenant_id=tenant_id,
                         namespace_id=namespace_id,
@@ -297,7 +297,7 @@ class SharedStreams(PatchableSecurable, object):
         defined.  Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id, start, end, count)
-        additional_headers = {'community-id': community_id}
+        additional_headers = BaseClient.getCommunityIdHeader(community_id)
         url = self.__stream_path.format(
                 tenant_id=tenant_id if tenant_id != '' else tenant_id,
                 namespace_id=namespace_id,
@@ -322,7 +322,7 @@ class SharedStreams(PatchableSecurable, object):
         defined.  Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id, index)
-        additional_headers = {'community-id': community_id}
+        additional_headers = BaseClient.getCommunityIdHeader(community_id)
         url = self.__stream_path.format(
                 tenant_id=tenant_id,
                 namespace_id=namespace_id,
@@ -351,7 +351,7 @@ class SharedStreams(PatchableSecurable, object):
             defined.  Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id)
-        additional_headers = {'community-id': community_id}
+        additional_headers = BaseClient.getCommunityIdHeader(community_id)
         url = self.__stream_path.format(
             tenant_id=tenant_id,
             namespace_id=namespace_id,
@@ -382,7 +382,7 @@ class SharedStreams(PatchableSecurable, object):
             is defined.  Otherwise it is a dynamic Python object
         """
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id)
-        additional_headers = {'community-id': community_id}
+        additional_headers = BaseClient.getCommunityIdHeader(community_id)
         url = self.__stream_path.format(
             tenant_id=tenant_id,
             namespace_id=namespace_id,
@@ -412,7 +412,7 @@ class SharedStreams(PatchableSecurable, object):
             Otherwise it is a dynamic Python object
         """
         self.__validateParameters(namespace_id, stream_ids, start, end)
-        additional_headers = {'community-id': community_id}
+        additional_headers = BaseClient.getCommunityIdHeader(community_id)
             
         response = self.__base_client.request(
             'get',

@@ -97,11 +97,22 @@ class BaseClient(object):
         if (self.__auth_object is not None):
             headers['Authorization'] = 'Bearer %s' % self._getToken()
         if (self.__accept_verbosity):
-            headers['Accept-Verbosity'] = 'verbose'
+            # All possible routes should call the same verbosity header function to ensure case sensitivity
+            # accept-verbosity and Accept-Verbosity would not overwrite each other, leading to unpredicable response from OCS
+            headers.update(BaseClient.getVerbosityHeader(True))
         if self.__request_timeout is not None:
             headers['Request-Timeout'] = str(self.__request_timeout)
 
         return headers
+
+    @staticmethod
+    def getCommunityIdHeader(community_id: str) -> dict[str, str]:
+        return { 'Community-id': community_id }
+
+    @staticmethod
+    def getVerbosityHeader(verbose: bool) -> dict[str, str]:
+        verbosity_string = 'verbose' if verbose else 'non-verbose'
+        return { 'Accept-Verbosity': verbosity_string } 
 
     def checkResponse(self, response, main_message: str):
         if response.status_code < 200 or response.status_code >= 300:

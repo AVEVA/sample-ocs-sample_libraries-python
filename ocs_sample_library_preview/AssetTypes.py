@@ -90,7 +90,7 @@ class AssetTypes(Securable, object):
         """
         if namespace_id is None:
             raise TypeError
-        if asset_types is None: # or not isinstance(asset_types, list[AssetType]): #TODO: This is producing an error when downgrading to 3.7 Python despite importing from annotations __future__
+        if asset_types is None:
             raise TypeError
 
         dictionary = []

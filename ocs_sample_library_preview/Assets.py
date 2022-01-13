@@ -94,7 +94,7 @@ class Assets(Securable, object):
         """
         if namespace_id is None:
             raise TypeError
-        if assets is None:
+        if assets is None or not isinstance(assets, list):
             raise TypeError
 
         dictionary = []

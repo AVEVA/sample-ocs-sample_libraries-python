@@ -1,5 +1,9 @@
 # Version History
 
+## 0.6.0_preview / 2022-01-13
+
+- Reinstated support for Python 3.7
+
 ## 0.5.3_preview / 2022-01-12
 
 - Remove support for shared types

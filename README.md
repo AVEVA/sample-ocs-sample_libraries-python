@@ -1,10 +1,11 @@
 # OSIsoft Cloud Services Python Library Sample
 
-**Version:** 0.5.3_preview
+**Version:** 0.6.0_preview
 
 [![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/OCS/osisoft.sample-ocs-sample_libraries-python?branchName=main)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=2622&branchName=main)
 
-This sample library requires Python 3.9+. You can download Python [here](https://www.python.org/downloads/).
+This sample library requires Python 3.7+. You can download Python [here](https://www.python.org/downloads/).
+- __NOTE__: The library previously required Python 3.9+ to take advantage of type annotations. This proved problematic, so `from __future__ import annotations` was added to each file for backwards compatibility with Python 3.7.
 
 ## About the library
 
@@ -20,7 +21,7 @@ Tests are done by testing the sample apps that use this.
 
 ---
 
-Developed using Python 3.9.1.
+Developed using Python 3.7.9.
 
 [OSI Samples](https://github.com/osisoft/OSI-samples) are licensed under the Apache 2 license.
 

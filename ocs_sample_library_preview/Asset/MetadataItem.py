@@ -1,3 +1,4 @@
+from __future__ import annotations
 import json
 
 from ..SDS.SdsTypeCode import SdsTypeCode as SdsTypeCodeType

@@ -1,3 +1,4 @@
+from __future__ import annotations
 from .BaseClient import BaseClient
 from .Security.AccessControlList import AccessControlList
 from .Security.CommonAccessRightsEnum import CommonAccessRightsEnum

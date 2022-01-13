@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .BaseClient import BaseClient
 from .Security.Role import Role
 

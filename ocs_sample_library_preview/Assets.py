@@ -1,3 +1,4 @@
+from __future__ import annotations
 import json
 
 from .BaseClient import BaseClient
@@ -93,7 +94,7 @@ class Assets(Securable, object):
         """
         if namespace_id is None:
             raise TypeError
-        if assets is None or not isinstance(assets, list[Asset]):
+        if assets is None: #or not isinstance(assets, list[Asset]): #TODO: This is producing an error when downgrading to 3.7 Python despite importing from annotations __future__
             raise TypeError
 
         dictionary = []

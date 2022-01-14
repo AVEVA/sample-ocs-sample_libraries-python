@@ -1,6 +1,6 @@
 # Version History
 
-## 0.6.0_preview / 2022-01-13
+## 0.5.4_preview / 2022-01-13
 
 - Reinstated support for Python 3.7
 

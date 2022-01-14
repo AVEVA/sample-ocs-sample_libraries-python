@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='ocs_sample_library_preview',
-    version='0.5.4_preview',
+    version='0.5.6_preview',
     author='OSIsoft',
     license='Apache 2.0',
     author_email='dendres@osisoft.com',
@@ -19,7 +19,7 @@ setuptools.setup(
         'python-dateutil>=2.8.2',
         'jsonpatch>=1.32'
     ],
-    python_requires='>=3.9',
+    python_requires='>=3.7',
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: Apache Software License',

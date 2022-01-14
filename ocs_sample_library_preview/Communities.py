@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .BaseClient import BaseClient
 from .Community.Community import Community
 from .Community.CommunityInput import CommunityInput

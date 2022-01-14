@@ -105,6 +105,31 @@ class BaseClient(object):
 
         return headers
 
+    def communityHeaders(self, community_id: str):
+        """
+        DEPRECATED - Use the additional_headers parameter on the BaseClient.request method 
+        and the getCommunityIdHeader function to add a community id header to a REST call\n\n
+        Gets the base headers needed for a Communities call
+        :param community_id: id of the community
+        :return:
+        """
+        headers = self.sdsHeaders()
+        headers['community-id'] = community_id
+
+        return headers
+
+    def sdsNonVerboseHeader(self):
+        """
+        DEPRECATED - Use the additional_headers parameter on the BaseClient.request method 
+        and the getVerbosityHeader function to add or override an accept-verbosity header to a REST call\n\n
+        Gets the base headers needed for an SDS call and adds accept-verbosity: non-verbose
+        :return:
+        """
+        headers = self.sdsHeaders()
+        headers['accept-verbosity'] = 'non-verbose'
+
+        return headers
+
     @staticmethod
     def getCommunityIdHeader(community_id: str) -> dict[str, str]:
         return { 'Community-id': community_id }
@@ -165,4 +190,3 @@ class BaseClient(object):
 
     def __del__(self):
         self.__session.close()
-

@@ -300,7 +300,7 @@ class SharedStreams(PatchableSecurable, object):
         self.__validateParameters(tenant_id, namespace_id, community_id, stream_id, start, end, count)
         headers = self.__base_client.communityHeaders(community_id=community_id)
         url = self.__stream_path.format(
-                tenant_id=tenant_id if tenant_id != '' else tenant_id,
+                tenant_id=tenant_id,
                 namespace_id=namespace_id,
                 stream_id=self.__base_client.encode(stream_id))
 

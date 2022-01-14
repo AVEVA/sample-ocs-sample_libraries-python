@@ -1,3 +1,4 @@
+from __future__ import annotations
 import json
 
 from .BaseClient import BaseClient
@@ -89,7 +90,7 @@ class AssetTypes(Securable, object):
         """
         if namespace_id is None:
             raise TypeError
-        if asset_types is None or not isinstance(asset_types, list[AssetType]):
+        if asset_types is None or not isinstance(asset_types, list):
             raise TypeError
 
         dictionary = []

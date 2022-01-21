@@ -7,7 +7,7 @@ from .StreamReference import StreamReference
 
 
 class Asset(object):
-    """OCS Asset definition"""
+    """ADH Asset definition"""
 
     def __init__(self, id: str = None, name: str = None, description: str = None,
                  asset_type_id: str = None, metadata: list[MetadataItem] = None,

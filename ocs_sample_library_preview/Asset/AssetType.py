@@ -7,7 +7,7 @@ from .TypeReference import TypeReference
 
 
 class AssetType(object):
-    """OCS Asset Type definition"""
+    """ADH Asset Type definition"""
 
     def __init__(self, id: str = None, name: str = None, description: str = None,
                  metadata: MetadataItem = None,

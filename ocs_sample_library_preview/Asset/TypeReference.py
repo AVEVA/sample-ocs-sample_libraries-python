@@ -3,7 +3,7 @@ import json
 
 
 class TypeReference(object):
-    """OCS Asset Type Type Reference definition"""
+    """ADH Asset Type Type Reference definition"""
 
     def __init__(self, stream_reference_id: str = None, stream_reference_name: str = None,
                  type_id: str = None, description: str = None):

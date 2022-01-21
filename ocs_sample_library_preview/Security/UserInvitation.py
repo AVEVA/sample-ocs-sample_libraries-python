@@ -5,7 +5,7 @@ from .UserInvitationState import UserInvitationState
 
 
 class UserInvitation(object):
-    """OCS trustee definition"""
+    """ADH trustee definition"""
 
     def __init__(self, id: str = None, expires_date_time: str = None, issued: str = None, expires: str = None, accepted: str = None,
                  state: UserInvitationState = None, send_invitation: bool = None, identity_provider_id: str = None, tenant_id: str = None, user_id: str = None):

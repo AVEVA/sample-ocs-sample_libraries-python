@@ -5,7 +5,7 @@ from .TrusteeType import TrusteeType
 
 
 class Trustee(object):
-    """OCS trustee definition"""
+    """ADH trustee definition"""
 
     def __init__(self, type: TrusteeType = None, tenant_id: str = None, object_id: str = None):
         self.Type = type

@@ -5,7 +5,7 @@ from .Field import Field
 
 
 class FieldSet(object):
-    """OCS Field Set definition"""
+    """ADH Field Set definition"""
 
     def __init__(self, query_id: str = None, data_fields: list[Field] = None,
                  identifying_field: Field = None):

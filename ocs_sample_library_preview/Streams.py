@@ -1136,7 +1136,7 @@ class Streams(PatchableSecurable, object):
         into the stream specified by 'stream_id'
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to get data into
-        :param values: values to sends into OCS.
+        :param values: values to sends into ADH.
             Can be string of json array of values.
             Can be an array of values of a type that has toJson defined.
         :return:
@@ -1172,7 +1172,7 @@ class Streams(PatchableSecurable, object):
         Tells Sds Service to update values defined by the SdsValue list, 'values'
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to get data updated
-        :param values: values to update in OCS.
+        :param values: values to update in ADH.
         Can be string of json array of values.
         Can be an array of values of a type that has toJson defined.
         :return:
@@ -1208,7 +1208,7 @@ class Streams(PatchableSecurable, object):
         Tells Sds Service to replace the values defined by the list 'values'
         :param namespace_id: id of namespace to work against
         :param stream_id: id of the stream to get data replaced
-        :param values: values to replace in OCS.
+        :param values: values to replace in ADH.
             Can be string of json array of values.
             Can be an array of values of a type that has toJson defined.
         :return:

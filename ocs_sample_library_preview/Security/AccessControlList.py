@@ -5,7 +5,7 @@ from .AccessControlEntry import AccessControlEntry
 
 
 class AccessControlList(object):
-    """OCS access control list definition"""
+    """ADH access control list definition"""
 
     def __init__(self, role_trustee_access_control_entries: list[AccessControlEntry] = None):
         self.RoleTrusteeAccessControlEntries = role_trustee_access_control_entries

@@ -9,7 +9,7 @@ from .SummaryDirection import SummaryDirection as SummaryDirectionType
 
 
 class FieldMapping(object):
-    """OCS Field Mapping definition"""
+    """ADH Field Mapping definition"""
 
     def __init__(self, id: str = None, label: str = None, field_kind: FieldKindType = None,
                  data_mappings: list[DataMapping] = None, type_code: SdsTypeCode = None,

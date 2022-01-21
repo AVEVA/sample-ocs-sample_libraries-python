@@ -5,7 +5,7 @@ from ..SDS.SdsTypeCode import SdsTypeCode
 
 
 class DataItemField(object):
-    """OCS Data Item Field definition"""
+    """ADH Data Item Field definition"""
 
     def __init__(self, id: str = None, name: str = None, type_code: SdsTypeCode = None,
                  uom: str = None, is_key: bool = None, stream_reference_name: str = None):

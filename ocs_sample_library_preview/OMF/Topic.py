@@ -3,7 +3,7 @@ import json
 
 
 class Topic(object):
-    """OCS Topic definition"""
+    """ADH Topic definition"""
 
     def __init__(self, id: str = None, name: str = None, description: str = None):
         """

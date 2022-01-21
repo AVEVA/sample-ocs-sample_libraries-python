@@ -5,7 +5,7 @@ from ..SDS.SdsTypeCode import SdsTypeCode as SdsTypeCodeType
 
 
 class MetadataItem(object):
-    """OCS Asset Metadata Item definition"""
+    """ADH Asset Metadata Item definition"""
 
     def __init__(self, id: str = None, name: str = None, description: str = None,
                  sds_type_code: SdsTypeCodeType = None, uom: str = None, value: str = None):

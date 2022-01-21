@@ -3,7 +3,7 @@ import json
 
 
 class CommunitySummaryInformation(object):
-    """OCS community summary information definition"""
+    """ADH community summary information definition"""
 
     def __init__(self, total_streams: int = None, streams_contributed: int = None):
         self.TotalStreams = total_streams

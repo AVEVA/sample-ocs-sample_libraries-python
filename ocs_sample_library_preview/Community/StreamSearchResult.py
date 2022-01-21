@@ -3,7 +3,7 @@ import json
 
 
 class StreamSearchResult(object):
-    """OCS stream search result definition"""
+    """ADH stream search result definition"""
 
     def __init__(self, id: str = None, name: str = None, type_id: str = None,
                  description: str = None, self_link: str = None, tenant_id: str = None,

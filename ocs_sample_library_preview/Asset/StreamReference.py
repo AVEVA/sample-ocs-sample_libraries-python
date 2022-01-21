@@ -3,7 +3,7 @@ import json
 
 
 class StreamReference(object):
-    """OCS Asset Stream Reference definition"""
+    """ADH Asset Stream Reference definition"""
 
     def __init__(self, id: str = None, name: str = None, stream_id: str = None,
                  description: str = None):

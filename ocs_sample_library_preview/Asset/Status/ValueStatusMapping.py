@@ -6,7 +6,7 @@ from .StatusEnum import StatusEnum
 
 
 class ValueStatusMapping(object):
-    """OCS Asset Value Status Mapping definition"""
+    """ADH Asset Value Status Mapping definition"""
 
     def __init__(self, value: Any = None, status: StatusEnum = None, display_name: str = None):
         """

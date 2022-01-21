@@ -1,5 +1,5 @@
 from .BaseClient import BaseClient
-from .OCSClient import OCSClient
+from .ADHClient import ADHClient
 from .EDSClient import EDSClient
 from .AssetRules import AssetRules
 from .Assets import Assets

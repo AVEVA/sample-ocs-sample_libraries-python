@@ -6,7 +6,7 @@ from .Security.Role import Role
 
 class Roles(object):
     """
-    Client for interacting with OCS Roles
+    Client for interacting with ADH Roles
     """
 
     TenantAdministratorRoleTypeId = '2dc742ab-39ea-4fc0-a39e-2bcb71c26a5f'

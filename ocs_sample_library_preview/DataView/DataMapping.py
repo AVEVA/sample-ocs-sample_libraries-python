@@ -7,7 +7,7 @@ from .SummaryDirection import SummaryDirection as SummaryDirectionType
 
 
 class DataMapping(object):
-    """OCS Data Mapping definition"""
+    """ADH Data Mapping definition"""
 
     def __init__(self, target_id: str = None, target_stream_reference_name: str = None,
                  target_field_key: str = None, type_code: SdsTypeCode = None, uom: str = None,

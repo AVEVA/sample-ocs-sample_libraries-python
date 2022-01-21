@@ -3,7 +3,7 @@ import json
 
 
 class User(object):
-    """OCS trustee definition"""
+    """ADH trustee definition"""
 
     def __init__(self, id: str = None, given_name: str = None, surname: str = None, name: str = None, email: str = None, contact_email: str = None, contact_given_name: str = None,
                  contact_surname: str = None, external_user_id: str = None, identity_provider_id: str = None,

@@ -7,7 +7,7 @@ from .SummaryDirection import SummaryDirection as SummaryDirectionType
 
 
 class Field(object):
-    """OCS Field definition"""
+    """ADH Field definition"""
 
     def __init__(self, source: FieldSource = None, keys: list[str] = None,
                  stream_reference_names: list[str] = None, label: str = None,

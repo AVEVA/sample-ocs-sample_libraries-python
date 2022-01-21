@@ -3,7 +3,7 @@ import json
 
 
 class AssetRule(object):
-    """OCS Asset Rule definition"""
+    """ADH Asset Rule definition"""
 
     def __init__(self, id: str = None, name: str = None, description: str = None):
         """

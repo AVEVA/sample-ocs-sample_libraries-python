@@ -6,7 +6,7 @@ from .StatusMapping import StatusMapping
 
 
 class StatusConfiguration(object):
-    """OCS Asset Status Configuration definition"""
+    """ADH Asset Status Configuration definition"""
 
     def __init__(self, definition_type: StatusDefinitionType = None, definition: StatusMapping = None):
         """

@@ -5,7 +5,7 @@ from .RoleScope import RoleScope
 
 
 class Role(object):
-    """OCS role definition"""
+    """ADH role definition"""
 
     def __init__(self, id: str = None, name: str = None, description: str = None,
                  role_scope: 'RoleScope' = None, tenant_id: str = None, community_id: str = None,

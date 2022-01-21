@@ -5,7 +5,7 @@ from .CommunityTenant import CommunityTenant
 
 
 class Community(object):
-    """OCS community definition"""
+    """ADH community definition"""
 
     def __init__(self, id: str = None, name: str = None, alias: str = None, description: str = None,
                  tenants: list[CommunityTenant] = None, date_created: str = None,

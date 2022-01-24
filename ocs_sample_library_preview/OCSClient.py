@@ -14,23 +14,30 @@ from .Topics import Topics
 from .Types import Types
 from .Users import Users
 
-class ADHClient:
+import warnings
+
+class OCSClient:
     """
-    A client that handles communication with AVEVA Data Hub
+    A client that handles communication with OCS
     """
 
     def __init__(self, api_version: str, tenant: str, url: str, client_id: str,
                  client_secret: str = None, accept_verbosity: bool = False):
         """
-        Use this to help in communinication with ADH
+        Use this to help in communinication with OCS
         :param api_version: Version of the api you are communicating with
         :param tenant: Your tenant ID
-        :param url: The base URL for your ADH instance
+        :param url: The base URL for your OCS instance
         :param client_id: Your client ID
         :param client_secret: Your client Secret or Key
         :param accept_verbosity: Sets whether in value calls you get all values or just
             non-default values
         """
+        warnings.warn(
+            "OCSClient is deprecated as OSIsoft Cloud Services has now been migrated to AVEVA Data Hub, use ADHClient instead",
+            DeprecationWarning
+        )
+
         self.__base_client = BaseClient(api_version, tenant, url, client_id,
                                         client_secret, accept_verbosity)
         self.__asset_rules = AssetRules(self.__base_client)
@@ -51,14 +58,14 @@ class ADHClient:
     @property
     def uri(self) -> str:
         """
-        :return: The uri of this ADH client as a string
+        :return: The uri of this OCS client as a string
         """
         return self.__base_client.uri
 
     @property
     def tenant(self) -> str:
         """
-        :return: The tenant of this ADH client as a string
+        :return: The tenant of this OCS client as a string
         """
         return self.__base_client.tenant
 

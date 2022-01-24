@@ -1,5 +1,8 @@
 # Aveva Data Hub Python Library Sample
 
+| :loudspeaker: **Notice**: Samples have been updated to reflect that they work on AVEVA Data Hub.  The samples also work on OSIsoft Cloud Services unless otherwise noted. |
+| -----------------------------------------------------------------------------------------------|  
+
 **Version:** 0.5.5_preview
 
 [![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/OCS/osisoft.sample-ocs-sample_libraries-python?branchName=main)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=2622&branchName=main)
@@ -9,9 +12,9 @@ This sample library requires Python 3.7+. You can download Python [here](https:/
 
 ## About the library
 
-The python ADH library is an introductory language-specific example of programming against Aveva Data Hub. It is intended as instructional samples only and are not for production use.
+The python ADH library is an introductory language-specific example of programming against Aveva Data Hub ([ADH](https://www.osisoft.com/Solutions/OSIsoft-Cloud-Services/)). It is intended as instructional samples only and are not for production use.
 
-They can be obtained by running: `pip install adh_sample_library_preview`
+They can be obtained by running: `pip install ocs_sample_library_preview`
 
 The library is not intended to show every endpoint and every option/parameter for endpoints it has. The library is known to be incomplete.
 

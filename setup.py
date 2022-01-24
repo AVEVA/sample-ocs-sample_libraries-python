@@ -4,7 +4,7 @@ with open('README.md', 'r') as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name='adh_sample_library_preview',
+    name='ocs_sample_library_preview',
     version='0.5.5_preview',
     author='AVEVA',
     license='Apache 2.0',

@@ -28,6 +28,6 @@ Developed using Python 3.9.5.
 
 [AVEVA Samples](https://github.com/osisoft/OSI-samples) are licensed under the Apache 2 license.
 
-For the main ADH sample libraries page [ReadMe](https://github.com/osisoft/OSI-Samples-ADH/blob/main/docs/SAMPLE_LIBRARIES.md)  
-For the main ADH samples page [ReadMe](https://github.com/osisoft/OSI-Samples-ADH)  
+For the main ADH sample libraries page [ReadMe](https://github.com/osisoft/OSI-Samples-OCS/blob/main/docs/SAMPLE_LIBRARIES.md)  
+For the main ADH samples page [ReadMe](https://github.com/osisoft/OSI-Samples-OCS)  
 For the main AVEVA samples page [ReadMe](https://github.com/osisoft/OSI-Samples)

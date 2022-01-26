@@ -98,7 +98,9 @@ class BaseClient(object):
         if (self.__auth_object is not None):
             headers['Authorization'] = 'Bearer %s' % self._getToken()
         if (self.__accept_verbosity):
-            headers['Accept-Verbosity'] = 'verbose'
+            # All possible routes should call the same verbosity header function to ensure case sensitivity
+            # accept-verbosity and Accept-Verbosity would not overwrite each other, leading to unpredicable response from OCS
+            headers.update(BaseClient.getVerbosityHeader(True))
         if self.__request_timeout is not None:
             headers['Request-Timeout'] = str(self.__request_timeout)
 
@@ -106,6 +108,8 @@ class BaseClient(object):
 
     def communityHeaders(self, community_id: str):
         """
+        DEPRECATED - Use the additional_headers parameter on the BaseClient.request method 
+        and the getCommunityIdHeader function to add a community id header to a REST call\n\n
         Gets the base headers needed for a Communities call
         :param community_id: id of the community
         :return:
@@ -117,6 +121,8 @@ class BaseClient(object):
 
     def sdsNonVerboseHeader(self):
         """
+        DEPRECATED - Use the additional_headers parameter on the BaseClient.request method 
+        and the getVerbosityHeader function to add or override an accept-verbosity header to a REST call\n\n
         Gets the base headers needed for an SDS call and adds accept-verbosity: non-verbose
         :return:
         """
@@ -124,6 +130,15 @@ class BaseClient(object):
         headers['accept-verbosity'] = 'non-verbose'
 
         return headers
+
+    @staticmethod
+    def getCommunityIdHeader(community_id: str) -> dict[str, str]:
+        return { 'Community-id': community_id }
+
+    @staticmethod
+    def getVerbosityHeader(verbose: bool) -> dict[str, str]:
+        verbosity_string = 'verbose' if verbose else 'non-verbose'
+        return { 'Accept-Verbosity': verbosity_string } 
 
     def checkResponse(self, response, main_message: str):
         if response.status_code < 200 or response.status_code >= 300:
@@ -161,11 +176,18 @@ class BaseClient(object):
             message = main_message + errorToWrite
             raise SdsError(message)
 
-    def request(self, method: str, url: str, params=None, data=None, headers=None, **kwargs):
+    def request(self, method: str, url: str, params=None, data=None, headers=None, additional_headers=None, **kwargs):
+        
+        # Start with the necessary headers for SDS calls, such as authorization and content-type
         if not headers:
             headers = self.sdsHeaders()
+        
+        # Extend this with the additional headers provided that either suppliment or override the default values
+        # This allows additional headers to be added to the HTTP call without blocking the base header call
+        if additional_headers:
+            headers.update(additional_headers)
+
         return self.__session.request(method, url, params=params, data=data, headers=headers, **kwargs)
 
     def __del__(self):
         self.__session.close()
-

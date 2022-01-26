@@ -15,10 +15,15 @@ from .Types import Types
 from .Users import Users
 
 import warnings
+warnings.filterwarnings("default", category=DeprecationWarning, module=__name__)
 
 class OCSClient:
+    warnings.warn(
+        "OCSClient is deprecated as OSIsoft Cloud Services has now been migrated to AVEVA Data Hub, use ADHClient instead",
+        DeprecationWarning
+    )
     """
-    A client that handles communication with OCS
+    A client that handles communication with OCS. NOTE: OCSClient is deprecated as OSIsoft Cloud Services has now been migrated to AVEVA Data Hub, use ADHClient instead.
     """
 
     def __init__(self, api_version: str, tenant: str, url: str, client_id: str,
@@ -33,10 +38,6 @@ class OCSClient:
         :param accept_verbosity: Sets whether in value calls you get all values or just
             non-default values
         """
-        warnings.warn(
-            "OCSClient is deprecated as OSIsoft Cloud Services has now been migrated to AVEVA Data Hub, use ADHClient instead",
-            DeprecationWarning
-        )
 
         self.__base_client = BaseClient(api_version, tenant, url, client_id,
                                         client_secret, accept_verbosity)

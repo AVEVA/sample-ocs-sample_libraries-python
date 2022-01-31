@@ -6,7 +6,7 @@ with open('README.md', 'r') as fh:
 setuptools.setup(
     name='ocs_sample_library_preview',
     version='0.6.0_preview',
-    author='AVEVA',
+    author='OSIsoft',
     license='Apache 2.0',
     author_email='dendres@osisoft.com',
     description='A preview of an ADH (Aveva Data Hub) client library',

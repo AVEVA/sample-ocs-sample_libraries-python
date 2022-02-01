@@ -15,7 +15,7 @@ setuptools.setup(
     url='https://github.com/osisoft/sample-ocs-sample_libraries-python',
     packages=setuptools.find_packages(),
     install_requires=[
-        'requests>=2.26.0',
+        'requests>=2.27.1',
         'python-dateutil>=2.8.2',
         'jsonpatch>=1.32'
     ],

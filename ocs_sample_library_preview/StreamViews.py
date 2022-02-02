@@ -106,7 +106,7 @@ class StreamViews(PatchableSecurable, object):
         Tells Sds Service to create a streamView based on a local
             SdsStreamView object
         :param namespace_id: namespace to work against
-        :param stream_view: Streamview object to create in OCS
+        :param stream_view: Streamview object to create in ADH
         :return: created Streamview as SdsStreamview
         """
         if namespace_id is None:
@@ -131,7 +131,7 @@ class StreamViews(PatchableSecurable, object):
         """
         Tells Sds Service to create a streamView based on a local SdsStreamView object
         :param namespace_id: namespace to work against
-        :param stream_view: Streamview object to create or update in OCS
+        :param stream_view: Streamview object to create or update in ADH
         :return: created Streamview as SdsStream
         """
         if namespace_id is None:

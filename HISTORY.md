@@ -1,5 +1,9 @@
 # Version History
 
+## 0.6.0_preview / 2022-01-27
+
+- Updated for AVEVA Data Hub and deprecated OCSClient in favor of new ADHClient
+
 ## 0.5.6_preview / 2022-01-13
 
 - Implemented additional_headers parameter to base client's request function

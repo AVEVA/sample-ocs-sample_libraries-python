@@ -7,7 +7,7 @@ from .NamespaceProvisioningState import NamespaceProvisioningState
 
 
 class Namespace(object):
-    """OCS namespace definition"""
+    """ADH namespace definition"""
 
     def __init__(self, id: str = None, region: str = None, namespace_self: str = None, description: str = None, state: NamespaceProvisioningState = None,
                  owner: Trustee = None, access_control: AccessControlList = None, region_id: str = None, instance_id: str = None):

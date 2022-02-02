@@ -11,7 +11,7 @@ from .Securable import Securable
 
 class Assets(Securable, object):
     """
-    Client for interacting with OCS Assets
+    Client for interacting with ADH Assets
     """
 
     def __init__(self, client: BaseClient):

@@ -8,7 +8,7 @@ from .Securable import Securable
 
 class AssetTypes(Securable, object):
     """
-    Client for interacting with OCS Asset Types
+    Client for interacting with ADH Asset Types
     """
 
     def __init__(self, client: BaseClient):

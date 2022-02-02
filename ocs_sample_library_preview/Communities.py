@@ -9,7 +9,7 @@ from .Community.StreamSearchResult import StreamSearchResult
 
 class Communities(object):
     """
-    Client for interacting with OCS communities
+    Client for interacting with ADH communities
     """
 
     def __init__(self, client: BaseClient):

@@ -3,7 +3,7 @@ import json
 
 
 class Subscription(object):
-    """OCS Subscription definition"""
+    """ADH Subscription definition"""
 
     def __init__(self, id: str = None, name: str = None, description: str = None):
         """

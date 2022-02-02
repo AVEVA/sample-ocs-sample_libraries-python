@@ -7,7 +7,7 @@ from .MetadataValue import MetadataValue
 
 
 class DataItem(object):
-    """OCS Data Item definition"""
+    """ADH Data Item definition"""
 
     def __init__(self, id: str = None, name: str = None, description: str = None,
                  type_id: str = None, resource_type: DataItemResourceType = None,

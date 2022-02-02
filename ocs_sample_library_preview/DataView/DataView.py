@@ -9,7 +9,7 @@ from .Query import Query
 
 
 class DataView(object):
-    """OCS Data View definition"""
+    """ADH Data View definition"""
 
     def __init__(self, id: str = None, name: str = None, description: str = None,
                  queries: list[Query] = None, index_field: Field = None,

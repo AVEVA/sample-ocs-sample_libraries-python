@@ -8,7 +8,7 @@ from .Securable import Securable
 
 class Namespaces(Securable, object):
     """
-    Client for interacting with OCS Namespace
+    Client for interacting with ADH Namespace
     """
 
     def __init__(self, client: BaseClient):

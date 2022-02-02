@@ -8,7 +8,7 @@ from .Trustee import Trustee
 
 
 class AccessControlEntry(object):
-    """OCS access control entry definition"""
+    """ADH access control entry definition"""
 
     def __init__(self, trustee: 'Trustee' = None, access_type: 'AccessType' = None,
                  access_rights: CommonAccessRightsEnum = None):

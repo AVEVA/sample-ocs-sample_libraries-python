@@ -5,7 +5,7 @@ from .DataItem import DataItem
 
 
 class ResolvedDataItems(object):
-    """OCS Resolved Items definition"""
+    """ADH Resolved Items definition"""
 
     def __init__(self, time_of_resolution: str = None, items: list[DataItem] = None):
         self.TimeOfResolution = time_of_resolution

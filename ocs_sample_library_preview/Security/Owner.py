@@ -4,7 +4,7 @@ import json
 from .TrusteeType import TrusteeType
 
 class Owner(object):
-  """OCS owner definition"""
+  """ADH owner definition"""
 
   def __init__(self, type: TrusteeType = None, tenant_id: str = None, object_id: str = None):
       self.Type = type

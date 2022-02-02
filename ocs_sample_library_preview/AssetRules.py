@@ -8,7 +8,7 @@ from .Securable import Securable
 
 class AssetRules(Securable, object):
     """
-    Client for interacting with OCS Asset Rules
+    Client for interacting with ADH Asset Rules
     This class does not represent the full functionality of the Asset Rules route and is included to allow management of security on the route
     """
 

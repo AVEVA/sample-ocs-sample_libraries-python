@@ -4,7 +4,7 @@ from .DataItemResourceType import DataItemResourceType
 
 
 class Query(object):
-    """OCS Query definition"""
+    """ADH Query definition"""
 
     def __init__(self, id: str = None, kind: DataItemResourceType = None, value: str = None):
         """

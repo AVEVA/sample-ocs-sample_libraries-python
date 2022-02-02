@@ -3,7 +3,7 @@ import json
 
 
 class CommunityInput(object):
-    """OCS community input definition"""
+    """ADH community input definition"""
 
     def __init__(self, name: str = None, description: str = None):
         self.Name = name

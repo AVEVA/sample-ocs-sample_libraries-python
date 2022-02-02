@@ -8,7 +8,7 @@ from .Securable import Securable
 
 class Subscriptions(Securable, object):
     """
-    Client for interacting with OCS Subscriptions
+    Client for interacting with ADH Subscriptions
     This class does not represent the full functionality of the Subscriptions route and is included to allow management of security on the route
     """
 

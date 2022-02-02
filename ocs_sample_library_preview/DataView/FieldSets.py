@@ -5,7 +5,7 @@ from .FieldSet import FieldSet
 
 
 class ResolvedFieldSets(object):
-    """OCS Resolved Field Sets definition"""
+    """ADH Resolved Field Sets definition"""
 
     def __init__(self, time_of_resolution: str = None, items: list[FieldSet] = None):
         self.TimeOfResolution = time_of_resolution

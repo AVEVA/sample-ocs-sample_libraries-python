@@ -5,7 +5,7 @@ from .ValueStatusMapping import ValueStatusMapping
 
 
 class StatusMapping(object):
-    """OCS Asset Status Mapping definition"""
+    """ADH Asset Status Mapping definition"""
 
     def __init__(self, stream_reference_id: str = None, stream_property_id: str = None,
                  value_status_mappings: list[ValueStatusMapping] = None):

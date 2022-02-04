@@ -1,7 +1,9 @@
 from .ADHClient import ADHClient
 
-class OCSClient:
+import warnings
+warnings.filterwarnings("default", category=DeprecationWarning, module=__name__)
 
+class OCSClient:
     """
     A client that handles communication with OCS. NOTE: OCSClient is deprecated as OSIsoft Cloud Services has now been migrated to AVEVA Data Hub, use ADHClient instead.
     """

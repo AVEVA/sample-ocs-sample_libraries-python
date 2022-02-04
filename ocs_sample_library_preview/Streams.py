@@ -337,7 +337,7 @@ class Streams(PatchableSecurable, object):
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id)), index, value_class)
 
-    def getValueUrl(self, url: str, index: int, value_class: type = None, headers = None) -> Any:
+    def getValueUrl(self, url: str, index: int, value_class: type = None, additional_headers = None) -> Any:
         """
         Retrieves JSON object from Sds Service for value specified by 'index' from Sds Service
         :param url: The URL path to the stream
@@ -345,7 +345,7 @@ class Streams(PatchableSecurable, object):
         :param value_class: use this to cast the value into a given type.
             Type must support .fromJson()  Default is None.
             If None returns a dynamic Python object from the data.
-        :param headers: optional http headers to be used when making request
+        :param additional_headers: optional http additional_headers to be used when making request
         :return: the value.  If value_class is defined it is in this type.
             Otherwise it is a dynamic Python object
         """
@@ -355,7 +355,7 @@ class Streams(PatchableSecurable, object):
             raise TypeError
 
         response = self.__base_client.request(
-            'get', self.__data_path.format(stream=url), params={'index': index}, headers=headers)
+            'get', self.__data_path.format(stream=url), params={'index': index}, additional_headers=additional_headers)
         self.__base_client.checkResponse(
             response, f'Failed to get value for SdsStream: {url}.')
 
@@ -386,7 +386,7 @@ class Streams(PatchableSecurable, object):
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id)), value_class)
 
-    def getFirstValueUrl(self, url: str, value_class: type = None, headers = None) -> Any:
+    def getFirstValueUrl(self, url: str, value_class: type = None, additional_headers = None) -> Any:
         """
         Retrieves JSON object from Sds Service the first value to be added to
             the stream specified by 'url'
@@ -394,7 +394,7 @@ class Streams(PatchableSecurable, object):
         :param value_class: use this to cast the value into a given type.
             Type must support .fromJson()  Default is None.
             If None returns a dynamic Python object from the data.
-        :param headers: optional http headers to be used when making request
+        :param additional_headers: optional http additional_headers to be used when making request
         :return: the value.  If value_class is defined it is in this type.
             Otherwise it is a dynamic Python object
         """
@@ -402,7 +402,7 @@ class Streams(PatchableSecurable, object):
             raise TypeError
 
         response = self.__base_client.request(
-            'get', self.__first_path.format(stream=url), headers=headers)
+            'get', self.__first_path.format(stream=url), additional_headers=additional_headers)
         self.__base_client.checkResponse(
             response, f'Failed to get first value for SdsStream: {url}.')
 
@@ -433,7 +433,7 @@ class Streams(PatchableSecurable, object):
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id)), value_class)
 
-    def getLastValueUrl(self, url: str, value_class: type = None, headers = None) -> Any:
+    def getLastValueUrl(self, url: str, value_class: type = None, additional_headers = None) -> Any:
         """
         Retrieves JSON object from Sds Service the last value to be added to
             the stream specified by 'url'
@@ -441,7 +441,7 @@ class Streams(PatchableSecurable, object):
         :param value_class: use this to cast the value into a given type.
             Type must support .fromJson()  Default is None.
             If None returns a dynamic Python object from the data.
-        :param headers: optional http headers to be used when making request
+        :param additional_headers: optional http additional_headers to be used when making request
         :return: the value.  If value_class is defined it is in this type.
             Otherwise it is a dynamic Python object
         """
@@ -449,7 +449,7 @@ class Streams(PatchableSecurable, object):
             raise TypeError
 
         response = self.__base_client.request(
-            'get', self.__last_path.format(stream=url), headers=headers)
+            'get', self.__last_path.format(stream=url), additional_headers=additional_headers)
         self.__base_client.checkResponse(
             response, f'Failed to get last value for SdsStream: {url}.')
 
@@ -489,7 +489,7 @@ class Streams(PatchableSecurable, object):
             namespace_id=namespace_id,
             stream_id=self.__base_client.encode(stream_id)), start, end, value_class, filter)
 
-    def getWindowValuesUrl(self, url: str, start: str, end: str, value_class: type = None, filter: str = '', headers = None) -> list[Any]:
+    def getWindowValuesUrl(self, url: str, start: str, end: str, value_class: type = None, filter: str = '', additional_headers = None) -> list[Any]:
         """
         Retrieves JSON object representing a window of values from the stream
             specified by 'url'
@@ -500,7 +500,7 @@ class Streams(PatchableSecurable, object):
             Type must support .fromJson().
             If None returns a dynamic Python object from the data.
         :param filter: An optional filter.  By Default it is ''.
-        :param headers: optional http headers to be used when making request
+        :param additional_headers: optional http additional_headers to be used when making request
         :return: an array of values.
             If value_class is defined it is in this type.
             Otherwise it is a dynamic Python object
@@ -515,7 +515,7 @@ class Streams(PatchableSecurable, object):
         response = self.__base_client.request(
             'get', self.__data_path.format(stream=url),
             params={'startIndex': start, 'endIndex': end, 'filter': filter},
-            headers=headers)
+            additional_headers=additional_headers)
         self.__base_client.checkResponse(
             response, f'Failed to get window values for SdsStream: {url}.')
 
@@ -566,7 +566,7 @@ class Streams(PatchableSecurable, object):
             stream_id=self.__base_client.encode(stream_id)), value_class, start, end, count, continuation_token, filter)
 
     def getWindowValuesPagedUrl(self, url: str, value_class: type, start: str,
-                                end: str, count: int, continuation_token: str = '', filter: str = '', headers = None) -> SdsResultPage:
+                                end: str, count: int, continuation_token: str = '', filter: str = '', additional_headers = None) -> SdsResultPage:
         """
         Retrieves JSON object representing a window of values from the stream
             specified by 'url' using paging
@@ -579,7 +579,7 @@ class Streams(PatchableSecurable, object):
         :param count: maximum number of events to return.
         :param continuationToken: token used to retrieve the next page of data.
         :param filter: An optional filter.  By Default it is ''.
-        :param headers: optional http headers to be used when making request
+        :param additional_headers: optional http additional_headers to be used when making request
         :return: an SdsResultPage containing the results and the next continuation token.
             If value_class is defined it is in this type.
             Otherwise it is a dynamic Python object
@@ -599,7 +599,7 @@ class Streams(PatchableSecurable, object):
             'get', self.__data_path.format(stream=url),
             params={'startIndex': start, 'endIndex': end, 'filter': filter,
                     'count': count, 'continuationToken': continuation_token},
-            headers=headers)
+            additional_headers=additional_headers)
         self.__base_client.checkResponse(
             response, f'Failed to get window values for SdsStream: {url}.')
 
@@ -645,7 +645,7 @@ class Streams(PatchableSecurable, object):
             stream_id=self.__base_client.encode(stream_id)), value_class, start, end, form)
 
     def getWindowValuesFormUrl(self, url: str, value_class: type, start: str,
-                               end: str, form: str = '', headers = None) -> list[Any]:
+                               end: str, form: str = '', additional_headers = None) -> list[Any]:
         """
         Retrieves JSON object representing a window of values from the stream
             specified by 'url'.  Use this to get the data in a different
@@ -657,7 +657,7 @@ class Streams(PatchableSecurable, object):
         :param start: Starting index
         :param end: Ending index
         :param form: form of the data
-        :param headers: optional http headers to be used when making request
+        :param additional_headers: optional http additional_headers to be used when making request
         :return: An array of the data in type specified if value_class
             defined.  Otherwise it is a dynamic Python object
         """
@@ -669,7 +669,7 @@ class Streams(PatchableSecurable, object):
             raise TypeError
 
         response = self.__base_client.request(
-            'get', self.__data_path.format(stream=url), params={'startIndex': start, 'endIndex': end, 'form': form}, headers=headers)
+            'get', self.__data_path.format(stream=url), params={'startIndex': start, 'endIndex': end, 'form': form}, additional_headers=additional_headers)
         self.__base_client.checkResponse(
             response, f'Failed to get window values for SdsStream: {url}.')
 
@@ -729,7 +729,7 @@ class Streams(PatchableSecurable, object):
 
     def getRangeValuesUrl(self, url: str, value_class: type, start: str,
                           skip: int, count: int, reversed: bool, boundary_type: str,
-                          filter: str = '', stream_view_id: str = '', headers = None) -> list[Any]:
+                          filter: str = '', stream_view_id: str = '', additional_headers = None) -> list[Any]:
         """
         Retrieves JSON object representing a range of values from the stream
             specified by 'url'
@@ -746,7 +746,7 @@ class Streams(PatchableSecurable, object):
             Can be an SdsBoundaryType or the integer value
         :param filter: An optional filter.  By Default it is ''.
         :param stream_view_id: streamview to map the results to
-        :param headers: optional http headers to be used when making request
+        :param additional_headers: optional http additional_headers to be used when making request
         :return: An array of the data in type specified if value_class
             is defined.  Otherwise it is a dynamic Python object
         """
@@ -772,7 +772,7 @@ class Streams(PatchableSecurable, object):
             params={'startIndex': start, 'skip': skip, 'count': count,
                     'reversed': reversed, 'boundary_type': boundary,
                     'filter': filter, 'stream_view_id': stream_view_id},
-            headers=headers)
+            additional_headers=additional_headers)
         self.__base_client.checkResponse(
             response, f'Failed to get range values for SdsStream: {url}.')
 
@@ -820,7 +820,7 @@ class Streams(PatchableSecurable, object):
             value_class, start, end, count, filter)
 
     def getRangeValuesInterpolatedUrl(self, url: str, value_class: type,
-                                      start: str, end: str, count: int, filter: str = '', headers = None) -> list[Any]:
+                                      start: str, end: str, count: int, filter: str = '', additional_headers = None) -> list[Any]:
         """
         Retrieves JSON object representing a range of values from the stream
             specified by 'url'
@@ -832,7 +832,7 @@ class Streams(PatchableSecurable, object):
         :param end:  ending index
         :param count: number of datapoints to retrieve
         :param filter: An optional filter.  By Default it is ''.
-        :param headers: optional http headers to be used when making request
+        :param additional_headers: optional http additional_headers to be used when making request
         :return: An array of the data in type specified if value_class is
         defined.  Otherwise it is a dynamic Python object
         """
@@ -847,7 +847,7 @@ class Streams(PatchableSecurable, object):
 
         response = self.__base_client.request(
             'get', self.__transform_interpolated_path.format(stream=url),
-            params={'startIndex': start, 'endIndex': end, 'count': count, 'filter': filter}, headers=headers)
+            params={'startIndex': start, 'endIndex': end, 'count': count, 'filter': filter}, additional_headers=additional_headers)
 
         self.__base_client.checkResponse(
             response, f'Failed to get range values for SdsStream: {url}.')
@@ -890,7 +890,7 @@ class Streams(PatchableSecurable, object):
             value_class, index)
 
     def getIndexCollectionValuesUrl(self, url: str, value_class: type,
-                                      index: list[str], headers = None) -> list[Any]:
+                                      index: list[str], additional_headers = None) -> list[Any]:
         """
         Retrieves JSON object representing values at specific indexes from the stream
             specified by 'stream_id'
@@ -901,7 +901,7 @@ class Streams(PatchableSecurable, object):
             object from the data.
         :param start: starting index
         :param index: One or more indexes to retrieve events at
-        :param headers: optional http headers to be used when making request
+        :param additional_headers: optional http additional_headers to be used when making request
         :return: An array of the data in type specified if value_class is
         defined.  Otherwise it is a dynamic Python object
         """
@@ -916,7 +916,7 @@ class Streams(PatchableSecurable, object):
 
         response = self.__base_client.request(
             'get', self.__transform_interpolated_path.format(stream=url),
-            params=params, headers=headers)
+            params=params, additional_headers=additional_headers)
 
         self.__base_client.checkResponse(
             response, f'Failed to get range values for SdsStream: {url}.')
@@ -975,7 +975,7 @@ class Streams(PatchableSecurable, object):
 
     def getSampledValuesUrl(self, url: str, value_class: type, start: str,
                             end: str, sample_by: str, intervals: str, filter: str = '',
-                            stream_view_id: str = '', headers = None) -> list[Any]:
+                            stream_view_id: str = '', additional_headers = None) -> list[Any]:
         """
         Returns data sampled by intervals between a specified start and end index.
         :param url: The URL path to the stream
@@ -994,7 +994,7 @@ class Streams(PatchableSecurable, object):
             of events at or near the endIndex
         :param filter: optional filter to apply
         :param stream_view_id: optional streamview identifier
-        :param headers: optional http headers to be used when making request
+        :param additional_headers: optional http additional_headers to be used when making request
         :return: An array of the data in type specified if value_class is
             defined.  Otherwise it is a dynamic Python object
         """
@@ -1025,7 +1025,7 @@ class Streams(PatchableSecurable, object):
                     'intervals': intervals,
                     'filter': filter,
                     'stream_view_id': stream_view_id},
-            headers=headers)
+            additional_headers=additional_headers)
         self.__base_client.checkResponse(
             response, f'Failed to get sampled values for SdsStream: {_path}.')
 
@@ -1073,7 +1073,7 @@ class Streams(PatchableSecurable, object):
             stream_id=self.__base_client.encode(stream_id)), value_class, start, end, count, stream_view_id, filter)
 
     def getSummariesUrl(self, url: str, value_class: type, start: str,
-                        end: str, count: int, stream_view_id: str = '', filter: str = '', headers = None) -> list[Any]:
+                        end: str, count: int, stream_view_id: str = '', filter: str = '', additional_headers = None) -> list[Any]:
         """
         Retrieves JSON object representing a summary for the stream specified by 'url'
         :param url: The URL path to the stream
@@ -1087,7 +1087,7 @@ class Streams(PatchableSecurable, object):
         :param count: number of datapoints in summary
         :param stream_view_id: streamview to tranform the data into
         :param filter: filter to apply
-        :param headers: optional http headers to be used when making request
+        :param additional_headers: optional http additional_headers to be used when making request
         :return: An array of the data summary in type specified if value_class
             is defined.  Otherwise it is a dynamic Python object
         """
@@ -1117,7 +1117,7 @@ class Streams(PatchableSecurable, object):
                            'filter': filter,
                            'streamViewId': stream_view_id}
 
-        response = self.__base_client.request('get', _path, paramsToUse, headers=headers)
+        response = self.__base_client.request('get', _path, paramsToUse, additional_headers=additional_headers)
         self.__base_client.checkResponse(
             response, f'Failed to get summaries for SdsStream: {_path}.')
 

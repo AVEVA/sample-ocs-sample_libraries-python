@@ -1,5 +1,10 @@
 # Version History
 
+## 0.6.1_preview / 2022-02-7
+
+- Fix bug causing SharedStreams to throw argument error
+- Refactor OCSClient
+
 ## 0.6.0_preview / 2022-01-27
 
 - Updated for AVEVA Data Hub and deprecated OCSClient in favor of new ADHClient

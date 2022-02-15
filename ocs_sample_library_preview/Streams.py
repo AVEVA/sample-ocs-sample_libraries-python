@@ -345,7 +345,7 @@ class Streams(PatchableSecurable, object):
         :param value_class: use this to cast the value into a given type.
             Type must support .fromJson()  Default is None.
             If None returns a dynamic Python object from the data.
-        :param additional_headers: optional http additional_headers to be used when making request
+        :param additional_headers: headers to add, or override if key is already present
         :return: the value.  If value_class is defined it is in this type.
             Otherwise it is a dynamic Python object
         """
@@ -394,7 +394,7 @@ class Streams(PatchableSecurable, object):
         :param value_class: use this to cast the value into a given type.
             Type must support .fromJson()  Default is None.
             If None returns a dynamic Python object from the data.
-        :param additional_headers: optional http additional_headers to be used when making request
+        :param additional_headers: headers to add, or override if key is already present
         :return: the value.  If value_class is defined it is in this type.
             Otherwise it is a dynamic Python object
         """
@@ -441,7 +441,7 @@ class Streams(PatchableSecurable, object):
         :param value_class: use this to cast the value into a given type.
             Type must support .fromJson()  Default is None.
             If None returns a dynamic Python object from the data.
-        :param additional_headers: optional http additional_headers to be used when making request
+        :param additional_headers: headers to add, or override if key is already present
         :return: the value.  If value_class is defined it is in this type.
             Otherwise it is a dynamic Python object
         """
@@ -500,7 +500,7 @@ class Streams(PatchableSecurable, object):
             Type must support .fromJson().
             If None returns a dynamic Python object from the data.
         :param filter: An optional filter.  By Default it is ''.
-        :param additional_headers: optional http additional_headers to be used when making request
+        :param additional_headers: headers to add, or override if key is already present
         :return: an array of values.
             If value_class is defined it is in this type.
             Otherwise it is a dynamic Python object
@@ -579,7 +579,7 @@ class Streams(PatchableSecurable, object):
         :param count: maximum number of events to return.
         :param continuationToken: token used to retrieve the next page of data.
         :param filter: An optional filter.  By Default it is ''.
-        :param additional_headers: optional http additional_headers to be used when making request
+        :param additional_headers: headers to add, or override if key is already present
         :return: an SdsResultPage containing the results and the next continuation token.
             If value_class is defined it is in this type.
             Otherwise it is a dynamic Python object
@@ -657,7 +657,7 @@ class Streams(PatchableSecurable, object):
         :param start: Starting index
         :param end: Ending index
         :param form: form of the data
-        :param additional_headers: optional http additional_headers to be used when making request
+        :param additional_headers: headers to add, or override if key is already present
         :return: An array of the data in type specified if value_class
             defined.  Otherwise it is a dynamic Python object
         """
@@ -746,7 +746,7 @@ class Streams(PatchableSecurable, object):
             Can be an SdsBoundaryType or the integer value
         :param filter: An optional filter.  By Default it is ''.
         :param stream_view_id: streamview to map the results to
-        :param additional_headers: optional http additional_headers to be used when making request
+        :param additional_headers: headers to add, or override if key is already present
         :return: An array of the data in type specified if value_class
             is defined.  Otherwise it is a dynamic Python object
         """
@@ -832,7 +832,7 @@ class Streams(PatchableSecurable, object):
         :param end:  ending index
         :param count: number of datapoints to retrieve
         :param filter: An optional filter.  By Default it is ''.
-        :param additional_headers: optional http additional_headers to be used when making request
+        :param additional_headers: headers to add, or override if key is already present
         :return: An array of the data in type specified if value_class is
         defined.  Otherwise it is a dynamic Python object
         """
@@ -901,7 +901,7 @@ class Streams(PatchableSecurable, object):
             object from the data.
         :param start: starting index
         :param index: One or more indexes to retrieve events at
-        :param additional_headers: optional http additional_headers to be used when making request
+        :param additional_headers: headers to add, or override if key is already present
         :return: An array of the data in type specified if value_class is
         defined.  Otherwise it is a dynamic Python object
         """
@@ -994,7 +994,7 @@ class Streams(PatchableSecurable, object):
             of events at or near the endIndex
         :param filter: optional filter to apply
         :param stream_view_id: optional streamview identifier
-        :param additional_headers: optional http additional_headers to be used when making request
+        :param additional_headers: headers to add, or override if key is already present
         :return: An array of the data in type specified if value_class is
             defined.  Otherwise it is a dynamic Python object
         """
@@ -1087,7 +1087,7 @@ class Streams(PatchableSecurable, object):
         :param count: number of datapoints in summary
         :param stream_view_id: streamview to tranform the data into
         :param filter: filter to apply
-        :param additional_headers: optional http additional_headers to be used when making request
+        :param additional_headers: headers to add, or override if key is already present
         :return: An array of the data summary in type specified if value_class
             is defined.  Otherwise it is a dynamic Python object
         """

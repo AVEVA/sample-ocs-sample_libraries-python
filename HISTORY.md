@@ -1,5 +1,13 @@
 # Version History
 
+## 0.7.0_preview / 2022-02-17
+
+- Renamed 'headers' parameter in Streams.py to 'additional_headers'. This is to instead behave as a way of  
+  providing additional headers to add to the default colletion, or override the default value for headers that 
+  already exist. You could for example add a community-id header by providing it in the additional_headers 
+  collection, or provide an authorization header if you would like override the default bearer token.
+- Refactor OCSClient
+
 ## 0.6.0_preview / 2022-01-27
 
 - Updated for AVEVA Data Hub and deprecated OCSClient in favor of new ADHClient

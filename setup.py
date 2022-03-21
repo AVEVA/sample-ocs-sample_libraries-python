@@ -8,7 +8,7 @@ setuptools.setup(
     version='0.7.1_preview',
     author='OSIsoft',
     license='Apache 2.0',
-    author_email='samples@osisoft.com',
+    author_email='dendres@osisoft.com',
     description='A preview of an OCS (OSIsoft Cloud Services) client library. Note: This library has been deprecated in favor of the AVEVA Data Hub library at https://pypi.org/project/adh-sample-library-preview/',
     long_description=long_description,
     long_description_content_type='text/markdown',

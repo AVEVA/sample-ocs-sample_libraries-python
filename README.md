@@ -1,6 +1,6 @@
-# Aveva Data Hub Python Library Sample
+# AVEVA Data Hub Python Library Sample
 
-| :loudspeaker: **Notice**: Samples have been updated to reflect that they work on AVEVA Data Hub. The samples also work on OSIsoft Cloud Services unless otherwise noted. |
+| :loudspeaker: **Notice**: This library is being deprecated to be replaced by the AVEVA Data Hub branded [*adh_sample_library_preview*](https://github.com/osisoft/sample-adh-sample_libraries-python) library. Version 0.7.1_preview of this library installs [*adh_sample_library_preview*](https://github.com/osisoft/sample-adh-sample_libraries-python) as a dependency. |
 | -----------------------------------------------------------------------------------------------|  
 
 **Version:** 0.7.1_preview

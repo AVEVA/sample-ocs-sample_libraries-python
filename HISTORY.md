@@ -1,5 +1,9 @@
 # Version History
 
+## 0.7.1_preview / 2022-03-25
+
+- This library is deprecated in favor of the AVEVA Data Hub version found at https://pypi.org/project/adh-sample-library-preview/. The development status is inactive and will be archived moving forward.
+
 ## 0.7.0_preview / 2022-02-17
 
 - Renamed 'headers' parameter in Streams.py to 'additional_headers'. This is to instead behave as a way of  

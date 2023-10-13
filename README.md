@@ -3,7 +3,7 @@
 | :loudspeaker: **Notice**: This library is being deprecated to be replaced by the AVEVA Data Hub branded [*adh_sample_library_preview*](https://github.com/osisoft/sample-adh-sample_libraries-python) library. Version 0.7.1_preview of this library installs [*adh_sample_library_preview*](https://github.com/osisoft/sample-adh-sample_libraries-python) as a dependency. |
 | -----------------------------------------------------------------------------------------------|  
 
-**Version:** 0.7.1_preview
+**Version:** 0.7.2_preview
 
 [![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/ADH/aveva.sample-ocs-sample_libraries-python?branchName=main)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=2622&branchName=main)
 

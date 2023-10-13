@@ -1,5 +1,9 @@
 # Version History
 
+## 0.7.2_preview / 2023-10-13
+
+- Migrate Pipelines
+
 ## 0.7.1_preview / 2022-03-25
 
 - This library is deprecated in favor of the AVEVA Data Hub version found at https://pypi.org/project/adh-sample-library-preview/. The development status is inactive and will be archived moving forward.

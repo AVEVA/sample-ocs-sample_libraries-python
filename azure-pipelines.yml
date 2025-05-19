@@ -19,7 +19,7 @@ schedules:
 
 resources:
   repositories:
-    - repository: OpsGuildAutomationRepo
+    - repository: ArchitectureRepo
       type: git
       name: Engineering/OpsGuild.Automation
       ref: refs/heads/main
